@@ -1,0 +1,34 @@
+﻿@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = @SystemResource.Men_AccDefExpenses;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="row gy-3" id="div_ContentData">
+    <!-- Table  -->
+    <div class="col-12 display_none" id="divShow">
+        <div class="inside-table my-4">
+            <div class="table-responsive">
+                <table class="table table-borderless ">
+                    <thead>
+                        <tr>
+                            <th style="width: 3%"></th>
+                            <th > @SystemResource.App_Code </th>
+                            <th >@SystemResource.App_DescA</th>
+                            <th >@SystemResource.App_DescE </th>
+                            <th > @SystemResource.p_account_number</th>
+                        </tr>
+                    </thead>
+                    <tbody id="div_Data"></tbody>
+
+                </table>
+                <div class="d-flex justify-content-start mr-1">
+                    <span id="btnAddDetails" class="mb-3 display_none"><i class="fas fa-plus-circle fs-2 btn-plus"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Script{
+    <script src="~/ClientApp/AccDefinition/AccDefExpenses.js"></script>
+}

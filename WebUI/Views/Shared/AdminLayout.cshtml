@@ -1,0 +1,210 @@
+﻿@using Inv.WebUI.Resources
+<!DOCTYPE html>
+
+<html style="background-image:url(../../images/Background/imgadmin.jpeg)">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="John Doe">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@SystemResource.App_Home</title>
+    @Styles.Render("~/Bundles/AppStyle2")
+    <link id="bootstrap_rtl" href="~/Style_design/bootstrap-rtl.css" rel="stylesheet" />
+    <link id="Style_Arabic" href="~/Style_design/Style_Arabic.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Style_design/js/jquery-3.4.1.js"></script>
+    @Scripts.Render("~/Bundles/AppScript2")
+    <script src="~/Style_design/jquery.cookie.min.js"></script>
+    @Scripts.Render("~/Bundles/AppScript3Admin")
+    <link href="~/Style_design/Stylelayout.css" rel="stylesheet" />
+    <link href="~/Newtemplate/template/assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Newtemplate/template/assets/images/logo.ico" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 13px;
+            line-height: 1.42857143;
+            color: #333;
+            background-color: unset;
+        }
+
+        .stfooter {
+            margin: -15px -12px;
+        }
+
+        #btnclosefooter {
+            margin: 16px -41px;
+        }
+
+        #btnclosefooter {
+            position: absolute;
+            z-index: 25;
+            cursor: pointer;
+            border-radius: 30px;
+            border: solid 2px;
+            background-color: #0b6ba2;
+            color: #fff;
+            left: 3%;
+        }
+
+        .stfooter {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            height: 44px;
+            /* width: 50%; */
+            display: block;
+            margin: 10px 0px 0px 16px;
+            border-radius: 20px;
+            z-index: 999;
+            color: white;
+            left: 5%;
+        }
+
+        .alert-message {
+            position: fixed;
+            z-index: 10;
+            width: 78%;
+            background-color: var(--main-orange);
+            left: 10%;
+        }
+
+        .toast-body {
+            padding: 0.75rem;
+            word-wrap: break-word;
+            font-size: .9rem;
+            width: 90%;
+        }
+
+
+
+        .justify-content-center {
+            justify-content: center !important;
+        }
+
+        .bg-success {
+            background-color: #185100 !important;
+        }
+
+        .toast {
+            box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+        }
+
+        .d-flex {
+            display: flex !important !important;
+        }
+
+        .toast-body {
+            padding: 1.75rem !important;
+            word-wrap: break-word !important;
+            font-size: 2.9rem !important;
+            width: 142% !important;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
+
+    <div id="footer" class="stfooter">
+        <div id="displaydiv" class="col-lg-12 display_none" style="top: 3px">
+            <a href="/Home/AdminBarIndex">
+                <span class="glyphicon glyphicon-floppy-saved">
+                    <button id="" type="button" class="btn btn-success   ">
+                        اعدادات الفرع   <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+                </span>
+            </a>
+            <a href="/Home/AdminCompIndex">
+                <span class="glyphicon glyphicon-floppy-saved">
+                    <button id="" type="button" class="btn btn-success   ">
+                        اعدادات الشركة   <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+                </span>
+            </a>
+            <a href="/Home/AdminCompDataIndex">
+                <span class="glyphicon glyphicon-floppy-saved">
+                    <button id="" type="button" class="btn btn-success   ">
+                        تهيئة شركة جديدة   <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+                </span>
+            </a>
+
+
+
+
+            <i id="chevron2" style="font-size: 30px;float:right" class="glyphicon glyphicon-hand-left display_none"></i>
+
+        </div>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+    
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="glyphicon glyphicon-arrow-up	"></i></a>
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    <input type="hidden" id="ModelPreview" name="name" value="" />
+    <input type="hidden" id="SearchControlName" name="name" value="" />
+
+    <div id="caret_script" style="display:none!important">
+    </div>
+    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    @Scripts.Render("~/Bundles/AppScript4")
+    <link href="~/Style_design/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-arabic.min.css" rel="stylesheet" />
+    <link href="~/Style_design/style.css" rel="stylesheet" />
+    <script>
+
+        $('#lepcompinformtion').on('click', function () {
+            $('#divcompinformtion').toggleClass('showdiv');
+            $('#spanlepcompinformtion').toggleClass('fa-caret-left');
+            $('#spanlepcompinformtion').toggleClass('fa-caret-down');
+        });
+        $('#lepnotifications').on('click', function () {
+            $('#divnotifications').toggleClass('showdiv');
+            $('#spanlepnotifications').toggleClass('fa-caret-left');
+            $('#spanlepnotifications').toggleClass('fa-caret-down');
+        });
+        $('#lepsystem').on('click', function () {
+            $('#divsystem').toggleClass('showdiv');
+            $('#spanlepsystem').toggleClass('fa-caret-left');
+            $('#spanlepsystem').toggleClass('fa-caret-down');
+        });
+        $(document).ready(function () {
+
+            $("#btnclosefooter").click(function () {
+                $("#displaydiv").removeClass("display_none");
+                $("#btnclosefooter").addClass("display_none");
+                $("#chevron2").removeClass("display_none");
+                $("#footer").animate({ width: '500px', opacity: '0.8' }, "slow");
+
+                $("#chevron").toggleClass("glyphicon-hand-right");
+                $("#chevron").toggleClass("glyphicon-chevron-left");
+
+
+            });
+
+            $("#chevron2").click(function () {
+                $("#displaydiv").addClass("display_none");
+                $("#btnclosefooter").removeClass("display_none");
+                $("#footer").animate({ width: '0px', opacity: '0' }, "slow");
+
+                $("#chevron").toggleClass("glyphicon-hand-right");
+                $("#chevron").toggleClass("glyphicon-chevron-left");
+
+
+            });
+
+        });
+    </script>
+</body>
+</html>

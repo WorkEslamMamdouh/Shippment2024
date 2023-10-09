@@ -1,0 +1,155 @@
+﻿@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = "ManagementVoucher";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="row gy-3 ">
+    <div class="col-12" id="divFilter">
+        <div class="card bg-light-blue">
+            <div class="card-body" >
+                <div class="row" id="divnotifications">
+                    <div class="col-12 col-md-4">
+                        <div class="form-group row">
+                            <label class="col-4 align-self-center p-md-0">@SystemResource.App_FromDate</label>
+                            <div class="col-8 ">
+                                <input id="txtFromDate" name="" type="date" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group row">
+                            <label class="col-4 align-self-center p-md-0">@SystemResource.App_ToDate</label>
+                            <div class="col-8 ">
+                                <input id="txtToDate" name="" type="date" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group row">
+                            <label class="col-4 align-self-center p-md-0">@SystemResource.App_Status</label>
+                            <div class="col-8 ">
+                                <select id="ddlStatusFilter" name="" type="text" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group row">
+                            <label class="col-4 align-self-center p-md-0">@SystemResource.source</label>
+                            <div class="col-8 ">
+                                <select id="ddlVoucherSourceFilter" name="" type="text" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group row">
+                            <label class="col-4 align-self-center p-md-0">@SystemResource.App_Type</label>
+                            <div class="col-8 ">
+                                <select id="ddlVoucherTypeFilter" name="" type="text" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group row">
+                            <label class="col-4 align-self-center p-md-0">@SystemResource.User</label>
+                            <div class="col-8 ">
+                                <select id="ddluserFilter" name="" type="text" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Details Container -->
+    <div class="col-12">
+        <!-- Search Table -->
+        <div class="display_none" id="divGridShow">
+            <div class="card bg-light-blue">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <div class="row">
+                                <label class="col-4 col-lg-2 col-md-2 align-self-center p-md-0">بحث</label>
+                                <div class="col-8 col-lg-8 col-md-10">
+                                    <input id="txtSearch" name="" type="text" class="form-control" placeholder="بحث ...">
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="row gx-3">
+                        @* Buttons Groups *@
+                        <div class="col-12 col-md-6 py-3 mb-3">
+                            <div class="row d-flex justify-content-start special-group py-3">
+                                <div class="col-4">
+                                    <button id="btnReverse_Selection" type="button" class="btn  btn-main h-100">
+                                        @SystemResource.Reverse_selection
+                                    </button>
+                                </div>
+                                <div class="col-4">
+                                    <button id="btnFalse_Everyone" type="button" class=" btn btn-main h-100">
+                                        @SystemResource.Not_choosing_everyone
+                                    </button>
+                                </div>
+                                <div class="col-4">
+                                    <button id="btnTrue_Everyone" type="button" class="btn btn-main h-100">
+                                        @SystemResource.choose_all
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        @* Buttons Groups *@
+                        <div class="col-12 col-md-6  py-3 mb-3">
+                            <div class="row special-group py-3">
+                                <div class="col-3">
+                                    <button id="btnPost" type="button" class="btn btn-main h-100">
+                                        تصديق
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button id="btnUnpost" type="button" class=" btn btn-main h-100">
+                                        @SystemResource.release_ratification
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button id="btnAuthorize" type="button" class="btn btn-main h-100">
+                                        @SystemResource.relay
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button id="btnUnauthorize" type="button" class="btn btn-main h-100">
+                                        @SystemResource.Decoder_relay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Table  -->
+                    <table id="divGridDetails"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Script{
+        <script>
+            $('#lepnotifications').on('click', function () {
+                $('#divnotifications').toggleClass('showdiv');
+                $('#spanlepnotifications').toggleClass('fa-caret-left');
+                $('#spanlepnotifications').toggleClass('fa-caret-down');
+            });
+        </script>
+        <script>
+            $('#btnReserveID').on('click', function () {
+                $('#drpsearchReserve').toggleClass('display_none');
+            });
+            $('#btnCloseNo').on('click', function () {
+                $('#drpCloseNo').toggleClass('display_none');
+
+            }); $('#btnContractRentID').on('click', function () {
+                $('#drpContractRent').toggleClass('display_none');
+            });
+        </script>
+        <script src="~/ClientApp/GeneralLedger/ManagementVoucher.js"></script>
+    }

@@ -1,0 +1,1536 @@
+﻿@using Inv.WebUI.Resources
+
+<!doctype html>
+@*<html id="body_img" class="no-js">*@
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>نظام اورانج</title>
+    <!-- plugins:css -->
+    <link href="~/Newtemplate/template/assets/css/Loder.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Newtemplate/template/assets/vendors/mdi/css/materialdesignicons.min.css">
+    @*<link rel="stylesheet" href="~/Newtemplate/template/assets/vendors/css/vendor.bundle.base.css">*@
+    <link rel="stylesheet" href="~/Newtemplate/template/assets/vendors/jvectormap/jquery-jvectormap.css">
+    @*<link rel="stylesheet" href="~/Newtemplate/template/assets/vendors/flag-icon-css/css/flag-icon.min.css">*@
+    <link rel="stylesheet" href="~/Newtemplate/template/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Newtemplate/template/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+    <!--=============== Font Awesome ===============-->
+    <link href="~/Newtemplate/template/assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <!--=============== Js Geid Style ===============-->
+    <link href="~/Scripts/IgGrid/infragistics.css" rel="stylesheet" />
+    <link href="~/Scripts/IgGrid/theme.css" rel="stylesheet" />
+    <link href="~/Scripts/jsgrid/jsgrid-theme.css" rel="stylesheet" />
+    <link href="~/Scripts/jsgrid/jsgrid-theme.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jsgrid/jsgrid.css" rel="stylesheet" />
+    <link href="~/Scripts/jsgrid/jsgrid.min.css" rel="stylesheet" />
+    <!--=============== Application styles ===============-->
+    <link href="~/Newtemplate/template/assets/vendors/select2/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Newtemplate/template/assets/css/style_arabic.css">
+    <!--=============== Favicons ===============-->
+    <link rel="shortcut icon" href="~/Newtemplate/template/assets/images/logo.ico" />
+    <link href="~/Newtemplate/template/animate.min.css" rel="stylesheet" />
+    <style>
+        .Btn_Loder {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div class="iconbar-container Btn_Loder _Loding " style="display:none;">
+        <!--   Icon Bar Definition -->
+        <div class="details-iconbar d-flex justify-content-start hidden_Control iconbars Btn_Loder _Loding" id="iconbar_Definition" style="display : none">
+            <button class="icon-bar d-flex justify-content-between  btnUpdate_Def position-fixed" id="btnUpdate_Def">
+                <i class="fas fa-edit fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">@SystemResource.App_Update</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between btnSave_Def display_none position-fixed" id="btnSave_Def">
+                <i class="fas fa-save fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">@SystemResource.App_save</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between  btnBack_Def display_none position-fixed" id="btnBack_Def">
+                <i class="fas fa-backspace fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">@SystemResource.App_back</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between view hidden_Control" id="btnShow_Def" style="top: 281px;">
+                <i class="fas fa-eye fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  @SystemResource.App_Show</span>
+            </button>
+        </div>
+        <!-- Side Icon Bar -->
+        <div class="main-iconbar hidden_Control iconbars Btn_Loder _Loding" id="divIconbar" style="display : none">
+            <div id="iconMainPages">
+                <button class="icon-bar d-flex justify-content-between view " id="btnShow">
+                    <i class="fas fa-eye fa-fw side-icon ms-1"></i>
+                    <span class="align-self-center mb-3">  @SystemResource.App_Show</span>
+                </button>
+
+                <button class="icon-bar d-flex justify-content-between add " id="btnAdd">
+                    <i class="fas fa-folder-plus fa-fw side-icon ms-1"></i>
+                    <span class="align-self-center mb-3">  @SystemResource.App_Add</span>
+                </button>
+            </div>
+            <div id="iconReportPages" class="d-none">
+                <button class="icon-bar d-flex justify-content-between reset " id="btnReset">
+                    <i class="fas fa-search-plus fa-fw side-icon ms-1"></i>
+                    <span class="align-self-center mb-3"> @SystemResource.new_search</span>
+                </button>
+                <button class="icon-bar d-flex justify-content-between viewresult display_none" id="btnviewresult">
+                    <i class="fas fa-eye fa-fw side-icon ms-1"></i>
+                    <span class="align-self-center mb-3">   @SystemResource.Preview_results </span>
+                </button>
+                <button class="icon-bar d-flex justify-content-between display_none" id="btnPrint">
+                    <i class="fas fa-eye fa-fw side-icon ms-1"></i>
+                    <span class="align-self-center mb-3">   @SystemResource.App_Print </span>
+                </button>
+            </div>
+
+
+            <button class="icon-bar d-flex justify-content-between print " id="btnPrintTrview">
+                <i class="fas fa-print fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">   @SystemResource.App_Print </span>
+            </button>
+
+            <button class="icon-bar d-flex justify-content-between pdf " id="btnPrintTrPDF">
+                <i class="fas fa-file-pdf fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  Pdf</span>
+            </button>
+
+            <button class="icon-bar d-flex justify-content-between excel " id="btnPrintTrEXEL">
+                <i class="fas fa-file-csv fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  Excel</span>
+            </button>
+
+            <div class="col-md-2 col-xs-2 StyleNew_Toolbar display_none">
+                <input id="NewAdd_Falg" />
+                <input id="Mod_Flag" />
+                <input id="NoDubleclick" value="0" />
+            </div>
+        </div>
+        <!-- Details Side Icon Bar -->
+        <div class="details-iconbar d-flex justify-content-start iconbars Btn_Loder _Loding" id="icon-bar" style="display : none">
+            <button class="icon-bar d-flex justify-content-between edit display_none " id="btnUpdate">
+                <i class="fas fa-edit fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  @SystemResource.App_Update</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between print-details display_none" id="btnPrintTransaction">
+                <i class="fas fa-print fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  @SystemResource.App_Print</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between Send  display_none hidden_Control" id="btnSend" style="position: fixed;top: auto;bottom: 4px;">
+                <i class="fas fa-file-pdf fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  ارسال PDF</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between save display_none" id="btnSave">
+                <i class="fas fa-save fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">  @SystemResource.App_save</span>
+            </button>
+            <button class="icon-bar d-flex justify-content-between back display_none" id="btnBack">
+                <i class="fas fa-backspace fa-fw side-icon ms-1"></i>
+                <span class="align-self-center mb-3">   @SystemResource.App_back</span>
+            </button>
+        </div>
+    </div>
+
+
+
+    <!-- Page Wrapper -->
+    <div class="container-scroller">
+        <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+        <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
+        <input type="hidden" id="GetIPAddress" name="name" value="" />
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas scroll" id="sidebar">
+            <div id="logOrg" class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top animate__animated animate__backInDown">
+
+                <a class="sidebar-brand brand-logo" href="~/Home/">
+
+                    <span class="logo-text">range</span>
+                    <span class="version-text">.V3</span>
+                    <img src="~/Newtemplate/template/assets/images/logo.png" alt="logo" />
+
+                </a>
+                <a class="sidebar-brand brand-logo-mini" href="#"> <img src="~/Newtemplate/template/assets/images/logo.png" alt="logo" /></a>
+            </div>
+            <ul class="nav position-fixed">
+                <li id="Uesr_out" class="nav-item profile">
+                    <div class="profile-desc">
+                        <div class="profile-pic">
+                            <div class="count-indicator">
+                                <span class="menu-icon">
+                                    <i class="fas fa-user text-white fs-6"></i>
+                                </span>
+
+                                <span class="count bg-success"></span>
+                            </div>
+                            <div class="profile-name">
+                                <h5 class="mb-0 font-weight-normal" id="Admin_name"></h5>
+                            </div>
+                        </div>
+                        <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                            <a href="#" class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="fas fa-globe-africa text-light-blue"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <p class="preview-subject ellipsis mb-1 text-small">Change Language</p>
+                                </div>
+                            </a>
+                            <a href="#" class="dropdown-item preview-item" onclick="changePassword()">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+
+                                        <i class="fas fa-lock text-light-blue"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content" id="btnUsers" data-target="#user_setting">
+                                    <p class="preview-subject ellipsis mb-1 text-small">تغيير كلمه السر</p>
+                                </div>
+                            </a>
+                            <a href="#" class="dropdown-item preview-item" id="loguotuser">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="fas fa-sign-out-alt text-light-blue"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content" id="btn_loguotuser">
+                                    <p class="preview-subject ellipsis mb-1 text-small"></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item menu-items MED display_none" id="btnSales">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MSales" aria-expanded="false" aria-controls="MSales">
+                        <span class="menu-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_RetailSales</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MSales">
+                        <ul class="nav flex-column sub-menu ">
+                            <li key="SlsTrShowPrice" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSlsTrShowPriceT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSlsTrShowPrice" class="nav-link" href="#">@SystemResource.showPrice</a>
+                            </li>
+
+                            <li key="SlsTrSalesManagerNew" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSlsTrSalesManagerNewT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSlsTrSalesManagerNew" class="nav-link" href="#">@SystemResource.Men_SlsTrSalesManager</a>
+                            </li>
+                            <li key="SlsTrReturnNew" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSlsTrReturnNewT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSlsTrReturnNew" class="nav-link" href="#">@SystemResource.Men_SlsTrReturn</a>
+                            </li>
+                           <li  id="btnSlsTrSales" key="SlsTrSales" class="nav-item d-flex justify-content-between mb-1 d-none">
+                                <a id="btnSlsTrSales" class="nav-link" href="#">@SystemResource.Men_SlsTrSales</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnPurchase">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MPurchase" aria-expanded="false" aria-controls="MPurchase">
+                        <span class="menu-icon">
+                            <i class="fas fa-cash-register"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_Purchase</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MPurchase">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="PurOrder" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnPurOrderT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnPurOrder" class="nav-link" href="#">@SystemResource.Men_PurOrder</a>
+                            </li>
+                            <li id="" key="PurTrReceive" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnPurTrReceiveT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnPurTrReceive" class="nav-link" href="#">@SystemResource.Purchase_Recieve</a>
+                            </li>
+                            <li id="" key="PurTrReturn" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnPurTrReturnT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnPurTrReturn" class="nav-link" href="#">@SystemResource.Purchase_Return</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnInventory">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MInventory" aria-expanded="false" aria-controls="MInventory">
+                        <span class="menu-icon">
+                            <i class="fas fa-store"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_StockControl</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MInventory">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="Directtransfer" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnDirecttransferT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnDirecttransfer" class="nav-link" href="#">@SystemResource.Directtransfer</a>
+                            </li>
+                            <li id="" key="STKAdjust" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSTKAdjustT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSTKAdjust" class="nav-link" href="#">@SystemResource.Stocksettlement</a>
+                            </li>
+                            <li id="" key="CollectUnit" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCollectUnitT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCollectUnit" class="nav-link" href="#">@SystemResource.Men_CollectUnit</a>
+                            </li>
+                            <li id="" key="StkDefItems" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnStkDefItemsT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnStkDefItems" class="nav-link" href="#">@SystemResource.Men_StkDefItems</a>
+                            </li>
+                            <li id="" key="StkDefItemType" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnStkDefItemTypeT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnStkDefItemType" class="nav-link" href="#">@SystemResource.Men_StkDefItemType</a>
+                            </li>
+                            <li id="" key="StkDefCategory" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnStkDefCategoryT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnStkDefCategory" class="nav-link" href="#">@SystemResource.Men_StkDefCategory</a>
+                            </li>
+                            <li id="" key="IssueType" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnIssueTypeT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnIssueType" class="nav-link" href="#">@SystemResource.Men_IssueType</a>
+                            </li>
+                            <li id="" key="IssueToCC" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnIssueToCCT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnIssueToCC" class="nav-link" href="#">@SystemResource.Men_IssueToCC</a>
+                            </li>
+                            <li id="" key="STKOpeningbalance" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSTKOpeningbalanceT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSTKOpeningbalance" class="nav-link" href="#">@SystemResource.Men_STKOpeningbalance</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnReportMenu">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnReportMenu" aria-expanded="false" aria-controls="MbtnReportMenu">
+                        <span class="menu-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Reports</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnReportMenu">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="Inventorymove" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnInventorymoveT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnInventorymove" class="nav-link" href="#">@SystemResource.Inventorymove</a>
+                            </li>
+                            <li id="" key="Inventoryvalue" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnInventoryvalueT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnInventoryvalue" class="nav-link" href="#">@SystemResource.Inventoryvalue</a>
+                            </li>
+                            <li id="" key="Incomeoperations" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnIncomeoperationsT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnIncomeoperations" class="nav-link" href="#">@SystemResource.Men_Incomeoperations</a>
+                            </li>
+                            <li id="" key="ItemsalesSum" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnItemsalesSumT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnItemsalesSum" class="nav-link" href="#">@SystemResource.ItemsalesSum</a>
+                            </li>
+                            <li id="" key="ItemPurchase" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnItemPurchaseT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnItemPurchase" class="nav-link" href="#">@SystemResource.ItemPurchase</a>
+                            </li> 
+                            <li id="" key="CustSalSum" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCustSalSumT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCustSalSum" class="nav-link" href="#">تقرير ايراد مبيعات العملاء </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnCashBoxDefinitions">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnCashBoxDefinitions" aria-expanded="false" aria-controls="MbtnCashBoxDefinitions">
+                        <span class="menu-icon">
+                            <i class="fas fa-suitcase"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_FundMovement</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnCashBoxDefinitions">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="AccTrReceiptNoteNew" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccTrReceiptNoteNewT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccTrReceiptNoteNew" class="nav-link" href="#">@SystemResource.Men_AccTrReceiptNote</a>
+                            </li>
+                            <li id="" key="AccTrPaymentNoteNew" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccTrPaymentNoteNewT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccTrPaymentNoteNew" class="nav-link" href="#">@SystemResource.Men_AccTrPaymentNote</a>
+                            </li>
+                            <li id="" key="AccTrCustomerAdjust" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccTrCustomerAdjustT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccTrCustomerAdjust" class="nav-link" href="#">@SystemResource.Men_AccTrCustomerAdjust</a>
+                            </li>
+                            <li id="" key="AccTrVendorAdjust" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccTrVendorAdjustT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccTrVendorAdjust" class="nav-link" href="#">@SystemResource.Men_AccTrVendorAdjust</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnCashBoxReports">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnCashBoxReports" aria-expanded="false" aria-controls="MbtnCashBoxReports">
+                        <span class="menu-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Box_Report</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnCashBoxReports">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="Clientaccstat" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnClientaccstatT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnClientaccstat" class="nav-link" href="#">@SystemResource.Clientstatment</a>
+                            </li>
+                            <li id="" key="CashBoxAccount" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCashBoxAccountT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCashBoxAccount" class="nav-link" href="#">@SystemResource.AccountCashBox</a>
+                            </li>
+                            <li id="" key="CashBankAccount" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCashBankAccountT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCashBankAccount" class="nav-link" href="#">@SystemResource.AccountCashbank</a>
+                            </li>
+                            <li id="" key="Supplieraccstat" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSupplieraccstatT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSupplieraccstat" class="nav-link" href="#">@SystemResource.Suppliertstatment</a>
+                            </li>
+                            <li id="" key="Collectedaccstat" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCollectedaccstatT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCollectedaccstat" class="nav-link" href="#">@SystemResource.Combined_account</a>
+                            </li>
+                            <li id="" key="AgingCust" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAgingCustT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAgingCust" class="nav-link" href="#">@SystemResource.AgingCust</a>
+                            </li>
+                            <li id="" key="AgingVend" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAgingVendT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAgingVend" class="nav-link" href="#">@SystemResource.AgingVend</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnProcessesMenu">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnProcessesMenu" aria-expanded="false" aria-controls="MbtnProcessesMenu">
+                        <span class="menu-icon">
+                            <i class="fas fa-random"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_Consignments</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnProcessesMenu">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="Processes" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnProcessesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnProcesses" class="nav-link" href="#">@SystemResource.Men_ConsignmentManagement</a>
+                            </li>
+                            <li key="SlsTrSalesOperation" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSlsTrSalesOperationT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSlsTrSalesOperation" class="nav-link" href="#">@SystemResource.Men_ConsignmentInvoice </a>
+                            </li>
+                            <li key="SlsTrReturnOperation" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSlsTrReturnOperationT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSlsTrReturnOperation" class="nav-link" href="#">  @SystemResource.Men_ConsignmentReturn </a>
+                            </li>
+                            <li id="" key="OperationScrap" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnOperationScrapT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnOperationScrap" class="nav-link" href="#">@SystemResource.Men_ResidualsList</a>
+                            </li>
+                            <li id="" key="OperationRepScrap" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnOperationRepScrapT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnOperationRepScrap" class="nav-link" href="#">@SystemResource.Men_ResidualsReport </a>
+                            </li>
+                            <li id="" key="OperationExport" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnOperationExportT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnOperationExport" class="nav-link" href="#">@SystemResource.Men_ImportsReport </a>
+                            </li>
+                            <li id="" key="CloseProcesses" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCloseProcessesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCloseProcesses" class="nav-link" href="#">@SystemResource.Men_ConsignmentClosing</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnservicesystem">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#Mbtnservicesystem" aria-expanded="false" aria-controls="Mbtnservicesystem">
+                        <span class="menu-icon">
+                            <i class="fas fa-coins"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.ServicesSystem</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="Mbtnservicesystem">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="ServiceCategories" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnServiceCategoriesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnServiceCategories" class="nav-link" href="#">@SystemResource.ServiceCategory</a>
+                            </li>
+                            <li id="" key="Services" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnServicesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnServices" class="nav-link" href="#">@SystemResource.Services</a>
+                            </li>
+                            <li id="" key="Sales_Services" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSales_ServicesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSales_Services" class="nav-link" href="#">@SystemResource.SalesInvoice</a>
+                            </li>
+                            <li id="" key="Ser_Return_Sales" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSer_Return_SalesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSer_Return_Sales" class="nav-link" href="#">@SystemResource.SalesReturn</a>
+                            </li>
+                            <li id="" key="Ser_Purchasing" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSer_PurchasingT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSer_Purchasing" class="nav-link" href="#">@SystemResource.Men_PurchaseInvoice</a>
+                            </li>
+                            <li id="" key="Ser_Return_Pur" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSer_Return_PurT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSer_Return_Pur" class="nav-link" href="#">@SystemResource.Purchase_Return</a>
+                            </li>
+                            <li id="" key="Ser_Sales_Report" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSer_Sales_ReportT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSer_Sales_Report" class="nav-link" href="#">@SystemResource.ServicesSlsReport</a>
+                            </li>
+                            <li id="" key="Ser_Pur_Report" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnSer_Pur_ReportT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnSer_Pur_Report" class="nav-link" href="#">@SystemResource.ServicespurReport</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnGeneralledgerMenu">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnGeneralledgerMenu" aria-expanded="true" aria-controls="Mbtnservicesystem">
+                        <span class="menu-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_GeneralLeadger</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnGeneralledgerMenu">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="VoucherType" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnVoucherTypeT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnVoucherType" class="nav-link" href="#">انواع السند</a>
+                            </li>
+                            <li id="" key="JournalVoucher" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnJournalVoucherT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnJournalVoucher" class="nav-link" href="#">@SystemResource.Men_JournalVoucher</a>
+                            </li>
+                            <li id="" key="ManagementVoucher" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnManagementVoucherT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnManagementVoucher" class="nav-link" href="#">@SystemResource.Men_VoucherManagement</a>
+                            </li>
+                            <li id="" key="LnkVoucher" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnLnkVoucherT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnLnkVoucher" class="nav-link" href="#">@SystemResource.Men_LinkVouchers   </a>
+                            </li>
+                            <li id="" key="GLDefAccount" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGLDefAccountT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGLDefAccount" class="nav-link" href="#">@SystemResource.Men_AccountsChart</a>
+                            </li>
+                            <li id="" key="CostCenter" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnCostCenterT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnCostCenter" class="nav-link" href="#">@SystemResource.Men_CostCenter</a>
+                            </li>
+                            <li id="" key="Accountstatement" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccountstatementT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccountstatement" class="nav-link" href="#">@SystemResource.mnue_Accountstatement</a>
+                            </li>
+                            <li id="" key="Accountbalances" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccountbalancesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccountbalances" class="nav-link" href="#">@SystemResource.Men_GeneralLeadger</a>
+                            </li>
+                            <li id="" key="financialreports" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnfinancialreportsT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnfinancialreports" class="nav-link" href="#">@SystemResource.mnue_financialreports</a>
+                            </li>
+                            <li id="" key="GLAging" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGLAgingT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGLAging" class="nav-link" href="#"> اعمار مديونية الحسابات </a>
+                            </li>
+
+                            <li id="" key="AccGroup" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccGroupT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccGroup" class="nav-link" href="#">مجموعة الحسابات</a>
+                            </li>
+                            <li id="" key="AccountGroup" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccountGroupT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccountGroup" class="nav-link" href="#">استاذ مجموعة الحسابات</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnCustomersVendors">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnCustomersVendors" aria-expanded="true" aria-controls="MbtnCustomersVendors">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_CustomersVendors  </span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnCustomersVendors">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="AccDefCustomer" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccDefCustomerT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccDefCustomer" class="nav-link" href="#">@SystemResource.Men_AccDefCustomer</a>
+                            </li>
+                            <li id="" key="AccDefVendor" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccDefVendorT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccDefVendor" class="nav-link" href="#">@SystemResource.Men_AccDefVendor</a>
+                            </li>
+                            <li id="" key="GenDefCustomerCat" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGenDefCustomerCatT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGenDefCustomerCat" class="nav-link" href="#">@SystemResource.Men_GenDefCustomerCat</a>
+                            </li>
+                            <li id="" key="GendefCustomerGroup" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGendefCustomerGroupT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGendefCustomerGroup" class="nav-link" href="#">@SystemResource.Men_GendefCustomerGroup</a>
+                            </li>
+                            <li id="" key="GenDefVendorCat" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGenDefVendorCatT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGenDefVendorCat" class="nav-link" href="#">@SystemResource.Men_GenDefVendorCat</a>
+                            </li>
+                            <li id="" key="GendefVendorGroup" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGendefVendorGroupT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGendefVendorGroup" class="nav-link" href="#">@SystemResource.Men_GendefVendorGroup</a>
+                            </li>
+                            <li id="" key="GenDefCustomerAdjust" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGenDefCustomerAdjustT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGenDefCustomerAdjust" class="nav-link" href="#">@SystemResource.Men_GenDefCustomerAdjust</a>
+                            </li>
+                            <li id="" key="GenDefVendorAdjust" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGenDefVendorAdjustT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGenDefVendorAdjust" class="nav-link" href="#">@SystemResource.Men_GenDefVendorAdjust</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnCashBoxSettings">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnCashBoxSettings" aria-expanded="true" aria-controls="MbtnCashBoxSettings">
+                        <span class="menu-icon">
+                            <i class="fas fa-cog"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_CashBoxSettings</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnCashBoxSettings">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="AccDefSalesmen" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccDefSalesmenT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccDefSalesmen" class="nav-link" href="#">@SystemResource.Men_AccDefSalesmen</a>
+                            </li>
+                            <li id="" key="AccDefExpenses" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccDefExpensesT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccDefExpenses" class="nav-link" href="#">@SystemResource.Men_AccDefExpenses</a>
+                            </li>
+                            <li id="" key="AccDefReceipts" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccDefReceiptsT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccDefReceipts" class="nav-link" href="#">@SystemResource.Men_AccDefReceipts</a>
+                            </li>
+
+                            <li id="" key="AccDefBox" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnAccDefBoxT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnAccDefBox" class="nav-link" href="#">@SystemResource.Men_AccDefBox</a>
+                            </li>
+                            <li id="" key="GenDefAdd" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnGenDefAddT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnGenDefAdd" class="nav-link" href="#">@SystemResource.Men_Addition</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items MED display_none" id="btnToolsMenu">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnToolsMenu" aria-expanded="true" aria-controls="MbtnToolsMenu">
+                        <span class="menu-icon">
+                            <i class="fas fa-toolbox"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.mnue_Tools</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnToolsMenu">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="" key="PeriodManagement" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnPeriodManagementT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnPeriodManagement" class="nav-link" href="#">@SystemResource.PeriodManagement</a>
+                            </li>
+                            <li id="" key="ItemPeriodSummary" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnItemPeriodSummaryT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnItemPeriodSummary" class="nav-link" href="#">@SystemResource.ItemPeriodSummary</a>
+                            </li>
+                            <li id="" key="DefStore" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnDefStoreT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnDefStore" class="nav-link" href="#">@SystemResource.Men_StkDefStore</a>
+                            </li>
+
+                            <li id="" key="TranPosting" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnTranPostingT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnTranPosting" class="nav-link" href="#">@SystemResource.Men_GenerateLinkVouchers</a>
+                            </li>
+                            <li id="" key="LnkvarBranch" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnLnkvarBranchT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnLnkvarBranch" class="nav-link" href="#">@SystemResource.Branch_accounts</a>
+                            </li>
+                            <li id="" key="LnkTransVoucher" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnLnkTransVoucherT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnLnkTransVoucher" class="nav-link" href="#">@SystemResource.Designconstraints</a>
+                            </li>
+                            <li id="" key="USERS" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnUSERST"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnUSERS" class="nav-link" href="#">@SystemResource.User</a>
+                            </li>
+							<li id="" key="UserActLog" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnUserActLogT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnUserActLog" class="nav-link" href="#">  @SystemResource.Men_UserLog</a>
+                            </li>
+							<li id="" key="UserActLogSum" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnUserActLogSumT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnUserActLogSum" class="nav-link" href="#">  @SystemResource.Men_UserLogSum</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li class="nav-item menu-items MED display_none" id="btnTaxSystem">
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" href="#MbtnTaxSystem" aria-expanded="true" aria-controls="MbtnTaxSystem">
+                        <span class="menu-icon">
+                            <i class="fas fa-book"></i>
+                        </span>
+                        <span class="menu-title">@SystemResource.Men_TaxSystem</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="MbtnTaxSystem">
+                        <ul class="nav flex-column sub-menu">
+                            <li id="btnVatReport" key="VatReport" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnVatReportT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnVatReport" class="nav-link" href="#">@SystemResource.Men_VatReport</a>
+                            </li>
+                            <li id="" key="VatLists" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnVatListsT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnVatLists" class="nav-link" href="#">@SystemResource.Men_VatList</a>
+                            </li>
+                            <li id="" key="VatSetting" class="nav-item d-flex  mb-1">
+                                <a class="new-tab-link" id="btnVatSettingT"><i class="fas fa-external-link-alt new-tab pe-3"></i> </a>
+                                <a id="btnVatSetting" class="nav-link" href="#">@SystemResource.Men_VatSettings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="container-fluid page-body-wrapper" style="background-color: #bed9f3 ">
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar p-0 fixed-top d-flex flex-row">
+                <div class="navbar-brand-wrapper d-none d-lg-none align-items-center justify-content-center">
+                    <a class="navbar-brand brand-logo-mini" href="#"><img src="~/Newtemplate/template/assets/images/logo.png" alt="logo" /></a>
+                    @* <a class="navbar-brand brand-logo-mini"  href="#">O</a>*@
+                </div>
+                <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav w-100">
+                        <li class="nav-item me-lg-5 me-md-3 me-sm-1 me-0">
+                            <div class="nav-link mt-2 mt-md-0  d-sm-flex">
+                                <label id="Screen_name"></label>
+                            </div>
+                        </li>
+                        <li class="nav-item me-lg-5 me-md-3 me-sm-1 me-0">
+                            <div class="nav-link mt-2 mt-md-0 d-none d-sm-flex">
+                                <label id="camp_name"></label>
+                            </div>
+                        </li>
+                        <li class="nav-item me-lg-5 me-md-3 me-sm-1 me-0">
+                            <div class="nav-link mt-2 mt-md-0 d-none d-sm-flex">
+                                <select id="ddbra"></select>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav navbar-nav-right animate__animated animate__fadeInTopRight">
+
+                        <li class="nav-item nav-settings  d-block display_none mes">
+                            @*------------------------------------------------------NewSession---------------------------------------*@
+                            <span id="timeLeft" class="admin-name   display_none" style="color: red;font-weight: bold;margin-right: -35%;font-size: 20px;"></span>
+                            @*<label id="timeLeft" style="color: red" class=" "></label>*@
+                            <input id="idSession" value="10" class="display_none" />
+                            <select id="SelectSession" class="display_none">
+                                <option value="0">off</option>
+                                <option value="1">on</option>
+                                <option value="2">out</option>
+                            </select>
+                            @*---------------------------------------------------------------------------------------------------------------*@
+                        </li>
+                        <li class="nav-item nav-settings  d-block">
+                            <a class="nav-link   mes" href="#" title="News">
+                                <i class="fa-solid fa-newspaper" id="btnNews"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-settings  d-block">
+                            <a class="nav-link display_none mes" href="#" title="Dashboard">
+                                <i class="fas fa-chart-bar" id="btnDashboard"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown border-left">
+                            <a class="nav-link count-indicator dropdown-toggle display_none mes" id="tol_messagestoppar" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                                <i class="fas fa-envelope"></i>
+                                <span class="count bg-success"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="tol_messagestoppar">
+                                <h6 class="p-3 mb-0">Messages</h6>
+                                @*<a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <img src="~/Newtemplate/template/assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic">
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject ellipsis mb-1">Mark send you a message</p>
+                        <p class="text-muted mb-0"> 1 Minutes ago </p>
+                    </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <img src="~/Newtemplate/template/assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic">
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject ellipsis mb-1">Cregh send you a message</p>
+                        <p class="text-muted mb-0"> 15 Minutes ago </p>
+                    </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <img src="~/Newtemplate/template/assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic">
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject ellipsis mb-1">Profile picture updated</p>
+                        <p class="text-muted mb-0"> 18 Minutes ago </p>
+                    </div>
+                </a>*@
+                                <p class="p-3 mb-0 text-center">4 new messages</p>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown border-left">
+                            <a class="nav-link count-indicator dropdown-toggle display_none" id="tol_allnotification" href="#" data-bs-toggle="dropdown">
+                                <i class="far fa-bell"></i>
+                                <span class="count bg-danger"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="tol_allnotification">
+                                <h6 class="p-3 mb-0">Notifications</h6>
+                                @*<a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-dark-blue rounded-circle">
+                            <i class="mdi mdi-calendar text-light-blue"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject mb-1">Event today</p>
+                        <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
+                    </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-dark-blue rounded-circle">
+                            <i class="mdi mdi-settings text-light-blue"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject mb-1" id=""></p>
+                        <p class="text-muted ellipsis mb-0"> Update dashboard </p>
+                    </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-dark-blue rounded-circle">
+                            <i class="mdi mdi-link-variant text-light-blue"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject mb-1">Launch Admin</p>
+                        <p class="text-muted ellipsis mb-0"> New admin wow! </p>
+                    </div>
+                </a>*@
+                                <p class="p-3 mb-0 text-center">See all notifications</p>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-settings d-block display_none mes">
+                            <a class="nav-link" alt="Help" id="btnHelpRep" title="Help" data-toggle="modal" data-target="#myModal">
+                                <i class="fas fa-info"></i>
+                            </a>
+                        </li>
+                        @*<li class="nav-item dropdown">
+            <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
+                <div class="navbar-profile">
+                    <i class="fas fa-caret-down fa-xs"></i>
+                    <p class="mb-0 d-none d-sm-block pe-2 navbar-profile-name" id="Admin_name"></p>
+                    <img class="img-xs rounded-circle" src="~/Newtemplate/template/assets/images/faces/face15.jpg" alt="">
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+                <h6 class="p-3 mb-0">Profile</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-dark rounded-circle">
+                            <i class="mdi mdi-settings text-success"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject mb-1">Settings</p>
+                    </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-dark rounded-circle">
+                            <i class="fas fa-sign-out-alt text-danger"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject mb-1" id="btn_loguotuser">Log out</p>
+                    </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <p class="p-3 mb-0 text-center">Advanced settings</p>
+            </div>
+        </li>*@
+                    </ul>
+
+                </div>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel Btn_Loder _Loding" id="PageLodes">
+                <div class="content-wrapper">
+                    @* Error Alert Message *@
+                    <div id="DivMassage" class="d-flex justify-content-center display_none">
+                        <div class="toast  align-items-center text-white border-0  alert-message show  " role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    <i id="icon_Massage" class="fas fa-exclamation-triangle"></i>
+                                    <span id="Text_Massage">خطا فى البيانات </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="animate__animated animate__bounceIn" >*@
+                    @RenderBody()
+                    @*</div>*@
+                    <!--Back To Top-->
+                    <div class="top-container">
+                        <a href="#" class="back-to-top">
+                            <i class="fas fa-arrow-circle-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- main-panel ends -->
+        </div>
+    </div>
+
+
+
+    <!-- User Setting Modal -->
+    <div class="modal fade details-model" id="user_setting" tabindex="-1" aria-labelledby="UserSettingModel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-blue">
+                    <h5 class="modal-title" id="UserSettingModel">@SystemResource.App_UserSetting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-3  align-self-center p-md-0">@SystemResource.App_OldPassword</label>
+                                <div class="col-9  ">
+                                    <input type="password" class="form-control" id="txtOldPassword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-3  align-self-center p-md-0">@SystemResource.App_NewPassword</label>
+                                <div class="col-9  ">
+                                    <input type="password" class="form-control" id="txtNewPassword">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="row flex-grow-1 flex-row-reverse">
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <button id="btnChangePassword" type="button" class="btn btn-green w-100"> @SystemResource.App_Confirm</button>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <button id="" type="button" class="btn btn-red w-100" data-bs-dismiss="modal">@SystemResource.App_Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--..............................user setting..................................................-->
+    @*<div class="modal fade" id="user_setting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@SystemResource.App_UserSetting </h4>
+                    </div>
+                    <div class="user_2">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label" style="color: #ffffff;">@SystemResource.App_OldPassword </label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" id="txtOldPassword">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label" style="color: #ffffff;"> @SystemResource.App_NewPassword</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" id="txtNewPassword">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-1">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" id="btnChangePassword" class="btn btn-danger">@SystemResource.App_Confirm </button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-primary btn_back">@SystemResource.App_Return</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">@SystemResource.App_Close </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    <input type="hidden" id="ModelPreview" name="name" value="" />
+    <input type="hidden" id="SearchControlName" name="name" value="" />
+
+    <!--Pop Up Delete Message-->
+    <div class="modal fade" id="MessageBoxDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MessageBoxTitle">حذف!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12"> <h6 id="MessageBoxMessage" class="">هل تريد حقا الحذف ؟</h6></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="MessageBoxOk" class="btn btn-danger">@SystemResource.App_Confirm</button>
+                    <button type="button" id="MessageBoxCancel" class="btn btn-warning" data-dismiss="modal">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Pop Up Help Window-->
+    <div class="help-pop modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>*@
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title" id="myModalLabel">@SystemResource.App_Help</h4>
+                </div>
+                <div class="modal-body content content-8" id="modalHelpRep"> </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">@SystemResource.App_Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Box Modal-->
+    <div id="SearchBox" class="modal fade search-box">
+        <div class="search-content">
+            <input type="button" onclick="$('#SearchBox').removeClass('show');" class="close close-search-box" data-dismiss="modal" aria-label="Close" id="btnCloseSearch" name="name" value="x" />
+            <h4 id="searchTitle" class="search-title"></h4>
+        </div>
+        <div class="table-serach-container">
+            <div id="tableDiv" class="table table-bordered table-hover w-100"></div>
+        </div>
+    </div>
+
+    <!-- Session Modal-->
+    <div class="modal fade messagealert " id="modalSession" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                    <h4 class="modal-title" id="MessageBoxTitle">الوقت!!</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body content content-8" id="MessageBoxMessage">لقد استنفذت وقت الجلسة هل تريد الاستمرار </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="SessionBoxOk" class="btn btn-red">نعم</button>
+                    <button type="button" id="SessionBoxCancel" class="btn btn-main" data-dismiss="modal">لا</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalRep" tabindex="-1" role="dialog" aria-labelledby="ModalRep" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-xs-11" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="col-xs-12">
+                        <h2 class="pageheader__title col-xs-4 ">فاتورة الطلب</h2>
+                        <button class="btn btn-success btn-sm col-xs-2" onclick="window.print();" style="float:left">
+                            طباعة
+                            <i class="fa fa-print"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="modal-body" id="datarepmodel">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <link href="~/Newtemplate/template/assets/css/style_News.css" rel="stylesheet" />
+    <!--   Setting News Modal -->
+    <div class="modal fade details-model" id="News_Model" tabindex="-1" aria-labelledby="News_ModelSet" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-News">
+                <h3 class="card-title animate__animated animate__flipInX">News</h3>
+                <div class="history-content mb-3">
+                    <span class="history-title animate__animated animate__fadeInLeft">History</span>
+                    <div class="d-inline-flex flex-column position-relative">
+                        <span id="success" class=" history-icon history-add animate__animated animate__fadeInDown">
+                            <i class="fa-solid fa-check-to-slot"></i>
+                        </span>
+                        <i class="success display_none fa-solid fa-caret-down down-arrow"></i>
+                    </div>
+                    <div class="d-inline-flex flex-column position-relative">
+                        <span id="info" class="history-icon history-info animate__animated animate__fadeInDown">
+                            <i class="  fa fa-info-circle"></i>
+                        </span>
+                        <i class="info  display_none fa-solid fa-caret-down down-arrow"></i>
+                    </div>
+                    <div class="d-inline-flex flex-column position-relative">
+                        <span id="warning" class="history-icon history-warning animate__animated animate__fadeInDown">
+                            <i class="fa fa-warning"></i>
+                        </span>
+                        <i class="warning display_none fa-solid fa-caret-down down-arrow"></i>
+                    </div>
+                    <div class="d-inline-flex flex-column position-relative">
+                        <span id="error" class="history-icon history-error animate__animated animate__fadeInDown">
+                            <i class="fa-sharp fa-solid fa-ban"></i>
+                        </span>
+                        <i class="error display_none fa-solid fa-caret-down down-arrow"></i>
+                    </div>
+
+
+                </div>
+
+                <style>
+                    .Not_Found {
+                        font-size: 33px;
+                        margin-right: 18%;
+                        font-weight: bold;
+                        margin-top: 15%;
+                        color: #00000057;
+                    }
+                </style>
+                <div class='news-content' id="Div_News">
+                    @************************************************News*********************************************@
+
+
+                    <label class="Not_Found"> ...There is no news at this time</label>
+
+
+                </div>
+
+
+
+            </div>
+
+            @************************************************History*********************************************@
+       
+
+                    <div class="modal-History display_none">
+                        <div class="d-flex align-items-center justify-content-center pt-3">
+                            <i id="Close_History" class="fa-solid fa-circle-xmark"></i>
+                            <h3 class="card-title animate__animated animate__flipInX">History</h3>
+                        </div>
+                        <div class='news-content' id="Div_History">
+
+
+                            @*<div class="alert alert-success alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa-solid fa-check-to-slot"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>اضافة:</strong>
+                                <span>لللللللللللللللللللل لللللللللللللللللللللعععععععععععع ععععععععععع ععععععععععععععععععععععععععععععع  ععللللللللللللللل للللللللللللللللللللللللللللللللللللعععععععععععععععععععلللل تم اضافه </span>
+                            </div>
+                            <div class="alert alert-info alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa fa-info-circle"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>Info!</strong>
+                                <span>  The server is not responding, try again later ggggggggggggggggggggggggg ggggggggggggggggggggggggggggggggg.</span>
+                            </div>
+                            <div class="alert alert-warning alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa fa-warning"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>Alert!</strong>
+                                <span>  The server is not responding, try again later ggggggggggggggggggggggggggggg ggggggggggggggggggggggggggggg.</span>
+                            </div>
+
+                            <div class="alert alert-danger alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa-sharp fa-solid fa-ban"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>Error!</strong>
+                                <span>  The server is not responding, try .</span>
+                            </div>
+                            <div class="alert alert-danger alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa-sharp fa-solid fa-ban"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>Error!</strong>
+                                <span>  The server is not responding, try .</span>
+                            </div>
+                            <div class="alert alert-danger alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa-sharp fa-solid fa-ban"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>Error!</strong>
+                                <span>  The server is not responding, try .</span>
+                            </div>
+                            <div class="alert alert-danger alert-white animate__animated animate__fadeInTopRight">
+                                <div class="icon"><i class="fa-sharp fa-solid fa-ban"></i></div>
+                                <h5 class="news-date">30/12/2023</h5>
+                                <strong>Error!</strong>
+                                <span>  The server is not responding, try .</span>
+                            </div>*@
+
+
+                        </div>
+                    </div> 
+
+
+        </div>
+    </div>
+
+
+
+    <div id="caret_script" style="display:none!important">
+    </div>
+
+
+
+    @* <div class="modal-dialog" role="document">*@
+
+    <div id="Loading_Div" style="position: fixed;top: 75%;left: 40%;">
+        <span class="loader" style="font-size: 465%;z-index: 99999;"></span>
+    </div>
+
+    @*</div>*@
+
+    <script src="~/Newtemplate/template/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="~/Newtemplate/template/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/Newtemplate/template/assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="~/Newtemplate/template/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="~/Newtemplate/template/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/Newtemplate/template/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+    <script src="~/Newtemplate/template/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/Newtemplate/template/assets/js/off-canvas.js"></script>
+    <script src="~/Newtemplate/template/assets/js/hoverable-collapse.js"></script>
+    <script src="~/Newtemplate/template/assets/js/misc.js"></script>
+    <script src="~/Newtemplate/template/assets/js/settings.js"></script>
+    <script src="~/Newtemplate/template/assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="~/Newtemplate/template/assets/js/dashboard.js"></script>
+    <script src="~/Newtemplate/template/assets/js/counter.js"></script>
+    <script src="~/Newtemplate/template/assets/js/sideIcons.js"></script>
+    <!-- End custom js for this page -->
+
+    @Scripts.Render("~/Bundles/AppScript2")
+    @Scripts.Render("~/Bundles/AppScript3")
+    @Scripts.Render("~/Bundles/AppScript4")
+
+    @RenderSection("Script", required: false)
+
+
+
+    @*<script src="~/Style_design/LodBut/Loder.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+
+    @*@Scripts.Render("~/Bundles/AppScript2")*@
+    @*//------------------------------------------------------ Side Icons Controllers---------------------------------------*@
+    <script>
+        $('#Close_History').click(function (e) {
+            $('.history-icon').attr('style', '');
+            $('.down-arrow').addClass('display_none');
+            $('.modal-History').addClass('display_none');
+        });
+
+        $("#NewAdd_Falg").val(0);
+        $("#Mod_Flag").val(0);
+
+        function changePassword() {
+
+            $('#txtOldPassword').val('');
+            $('#txtNewPassword').val('');
+            $("#user_setting").modal("show")
+
+        }
+
+        $("#btnAdd").click(function () {
+            debugger
+            $("#divIconbar").fadeIn(3000);
+
+            $('#divIconbar').addClass('display_none');
+            $("#NewAdd_Falg").val(1);
+            $("#Mod_Flag").val(1);
+
+            $('#btnPrintTransaction').addClass('display_none');
+
+            $('#icon-bar').removeClass('display_none');
+            $('#btnUpdate').addClass('display_none');
+            $('#btnBack').removeClass('display_none');
+            $('#btnSave').removeClass('display_none');
+
+
+            $('#btnPrintslip').addClass('display_none');
+            $('#btnPrintTransaction').addClass('display_none');
+
+            setTimeout(function () { document.body.scrollTop = 600; document.documentElement.scrollTop = 600; }, 300);
+
+        });
+
+        $("#btnBack").click(function () {
+            debugger
+            if ($("#NewAdd_Falg").val() == 1) {
+                $('#icon-bar').addClass('display_none');
+            }
+
+            $('#divIconbar').removeClass('display_none');
+
+
+            $('#btnPrintTransaction').removeClass('display_none');
+            $('#btnUpdate').removeClass('display_none');
+
+            $('#btnBack').addClass('display_none');
+            $('#btnSave').addClass('display_none');
+
+            $('#btnPrintslip').removeClass('display_none');
+            $('#btnPrintTransaction').removeClass('display_none');
+
+            $("#NewAdd_Falg").val('0');
+            $("#Mod_Flag").val('0');
+        });
+
+        $("#btnUpdate").click(function () {
+
+            $('#divIconbar').addClass('display_none');
+
+            $('#btnPrintTransaction').addClass('display_none');
+            $('#btnUpdate').addClass('display_none');
+
+
+            $('#btnBack').removeClass('display_none');
+            $('#btnSave').removeClass('display_none');
+
+            $('#btnPrintslip').addClass('display_none');
+            $('#btnPrintTransaction').addClass('display_none');
+
+            $("#Mod_Flag").val(1);
+        });
+
+        $("#btnShow").click(function () {
+
+            $('#icon-bar').addClass('display_none');
+
+        });
+
+        $("#btnSave").click(function () {
+
+        });
+
+        $("#btnReset").click(function () {
+            location.reload();
+        });
+
+
+
+        $("#btnUpdate_Def").click(function () {
+            $('#btnUpdate_Def').addClass('display_none');
+            $('#btnBack_Def').removeClass('display_none');
+            $('#btnSave_Def').removeClass('display_none');
+        });
+        $("#btnBack_Def").click(function () {
+            $('#btnUpdate_Def').removeClass('display_none');
+            $('#btnBack_Def').addClass('display_none');
+            $('#btnSave_Def').addClass('display_none');
+        });
+
+        $("#btnSave_Def").click(function () {
+            $("#Mod_Flag").val(0);
+        });
+
+
+
+
+    </script>
+
+    <script src="~/Style_design/LodBut/Loder.js"></script>
+    @*//------------------------------------------------------NewSession---------------------------------------*@
+    <script>
+
+        var timeInSecondsAfterSessionOut = 0;
+        $(function () {
+            $("body").on('mousemove', function () {
+                $("#timeLeft").addClass('display_none');
+                ResetThisSession();
+            });
+        });
+
+        $('#SelectSession').on('change', function () {
+
+
+            timeInSecondsAfterSessionOut = Number($('#idSession').val()) * 60; // change this to change session time out (in seconds).
+
+            $("#timeLeft").html(timeInSecondsAfterSessionOut);
+
+        });
+        timeInSecondsAfterSessionOut = Number($('#idSession').val()) * 60; // change this to change session time out (in seconds).
+
+        $("#timeLeft").html(timeInSecondsAfterSessionOut);
+        var secondTick = 0;
+
+        StartThisSessionTimer();
+
+        function ResetThisSession() {
+            secondTick = 0;
+        }
+
+        var SessionBoxOk = document.getElementById("SessionBoxOk");
+        var SessionBoxCancel = document.getElementById("SessionBoxCancel");
+
+        function StartThisSessionTimer() {
+
+            secondTick++;
+            var timeLeft = ((timeInSecondsAfterSessionOut - secondTick) / 60).RoundToSt(0); // in minutes
+            timeLeft = timeInSecondsAfterSessionOut - secondTick; // override, we have 30 secs only
+
+            if (timeLeft == 9) {
+                $("#timeLeft").removeClass('display_none')
+            }
+            $("#timeLeft").html(timeLeft);
+
+            if (secondTick > timeInSecondsAfterSessionOut) {
+                clearTimeout(tick);
+
+                var chak = false;
+
+                $("#modalSession").modal("show");
+                $("#timeLeft").addClass('display_none');
+                $("#" + SessionBoxOk.id).click(() => {
+
+                    $("#timeLeft").addClass('display_none')
+                    secondTick = 0;
+                    $("#modalSession").modal("hide");
+                    chak = true;
+
+                });
+                $("#" + SessionBoxCancel.id).click(() => {
+
+                    $('#SelectSession option[value=2]').prop('selected', 'selected').change();
+                    $("#modalSession").modal("hide");
+                    chak = false;
+
+                });
+
+                setTimeout(function () {
+
+                    if (chak == false) {
+                        $('#SelectSession option[value=2]').prop('selected', 'selected').change();
+                    }
+
+                }, 10000);
+
+            }
+            tick = setTimeout("StartThisSessionTimer()", 1000);
+        }
+
+        $(document).ready(function () {
+            //$('select').val('null').select2().css("width", "100%");
+
+            $(window).load(function () {
+                $('#MainLoading').fadeOut(1000, function () { $('#MainLoading').remove(); });
+            });
+
+           // ChangeColorOfLabel();
+        });
+
+        //function ChangeColorOfLabel() {
+        //    try {
+        //        let allInputCheckbox = $("input[type='checkbox");
+        //        let allInputRadio = $("input[type='radio");
+        //        for (var i = 0; i < allInputCheckbox.length; i++) {
+        //            $("label[for=" + allInputCheckbox[i].id + "]").css("color", "#e91a1a");
+        //        }
+        //        for (var i = 0; i < allInputRadio.length; i++) {
+        //            $("label[for=" + allInputRadio[i].id + "]").css("color", "#e91a1a");
+        //        }
+        //    } catch (e) {
+
+        //    }
+        //}
+
+
+        setTimeout(function () { document.title = $('#Screen_name').html();  }, 1500);
+
+        
+    </script>
+    @*----------------------------------------------------------------------*@
+
+
+
+</body>
+
+
+
+</html>

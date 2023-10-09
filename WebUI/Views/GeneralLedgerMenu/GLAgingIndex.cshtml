@@ -1,0 +1,243 @@
+﻿@using Inv.WebUI.Resources
+@{
+    /**/
+    ViewBag.Title = "Accountstatement";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="row gy-3" id="content_report">
+    <!-- Filter Container -->
+    <div id="div_dis" class="col-12">
+        <div class="card bg-light-blue" id="informtionReserved">
+            <div class="card-body" id="id_div_Add">
+                <div class="row">
+                    <!--Line Right Part-->
+                    <div class="col-12 col-md-7">
+                        <div class="row">
+                            <!--Line 1-->
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12  col-md-5">
+                                        <div class="form-group row">
+                                            <label for="txtFromDate" class="col-4 align-self-center p-md-0"> @SystemResource.App_ToDate </label>
+                                            <div class="col-8">
+                                                <input type="date" class="form-control" name="txtToDate" id="txtToDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Line 2-->
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12  col-md-5">
+                                        <div class="form-group row d-flex justify-content-center align-items-center">
+                                            <label class="col-4 align-self-center p-md-0">@SystemResource.Professor_account_No</label>
+                                            <div class="col-8">
+                                                <div class="search-content">
+                                                    <input disabled type="text" class="form-control search-control" id="txtFromAcc_ID">
+                                                    <button type="button" id="btnFromAccSearch" name="InvoiceSearch" class="btn btn-main btn-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <div class="form-group row">
+                                            <div class="col-9 offset-3 offset-md-0 col-md-12">
+                                                <input type="text" class="form-control" disabled id="txtFromAcc_DESC">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Line 3-->
+                            <div class="col-12">
+                                <div class="row">
+                                        <div class="col-12  col-md-5">
+                                            <div class="form-group row d-flex justify-content-center align-items-center">
+                                                <label class="col-4 align-self-center p-md-0">@SystemResource.menu_Costcenter</label>
+                                                <div class="col-8">
+                                                    <div class="search-content">
+                                                        <input disabled type="text" class="form-control search-control" id="txtCenter_Cost_ID">
+                                                        <button type="button" id="btnCCostSearch" name="InvoiceSearch" class="btn btn-main btn-search">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-7">
+                                            <div class="form-group row ">
+                                                <div class="col-8 offset-4 offset-md-0 col-md-12">
+                                                    <input type="text" class="form-control" disabled id="txtCenter_Cost_DESC">
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <!--Line 4-->
+                            <div class="col-12">
+                                    <div class="row ">
+                                        <label class="col-4 col-md-2 align-self-center p-md-0 text-blue fw-bold fs-7"> @SystemResource.insert_restrictions  </label>
+                                        <div class="form-group col-8 col-md-10">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-6 col-md-4 align-self-center p-md-0"> @SystemResource.Certification </label>
+                                                        <div class="col-6 col-md-8">
+                                                            <input id="chk_Certified" name="CUSTOM6" type="checkbox" class="form-check-input ms-1" checked>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-6 col-md-4 align-self-center p-md-0">  @SystemResource.newest </label>
+                                                        <div class="col-6 col-md-8">
+                                                            <input id="chk_New" name="CUSTOM6" type="checkbox" class="form-check-input ms-1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Line Left Part-->
+                    <div class="col-12 col-md-5">
+                        <div class="row">
+                            <!--Line 1-2-->
+                            <div class="col-12">
+                                <div class="row">
+                                    <label class="col-4 col-md-2 align-self-center p-md-0 text-blue fw-bold fs-7">@SystemResource.App_Balance </label>
+
+                                    <div class="form-group col-8 col-md-10">
+                                        <div class="row special-group">
+
+                                            <div class="col-3">
+                                                <div class="form-check d-inline-flex  my-0">
+                                                    <label class="form-check-label my-auto me-3" for="CheckZ" style="width: 100px;"> غير صفري</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex my-0">
+                                                    <label class="form-check-label my-auto me-3" for="CheckD"> @SystemResource.App_Debtor </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check  d-inline-flex  my-0">
+                                                    <label class="form-check-label my-auto me-3" for="CheckC">@SystemResource.App_Creditor</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex  my-0">
+                                                    <label class="form-check-label my-auto me-3" for="CheckZ"> @SystemResource.App_Zero</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex  my-0">
+                                                    <label class="form-check-label my-auto me-3" for="CheckA"> @SystemResource.App_All</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-check d-inline-flex w-100 justify-content-center  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="ChecknZ" name="IsF_termEnable" value="nZ">
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex w-100 justify-content-center  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="CheckD" name="IsF_termEnable" value="D">
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex w-100 justify-content-center  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="CheckC" name="IsF_termEnable" value="C">
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex w-100 justify-content-center  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="CheckZ" name="IsF_termEnable" value="Z">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-check d-inline-flex w-100 justify-content-center  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="CheckA" name="IsF_termEnable" value="A">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Line 3-->
+                            <div class="col-12 ">
+                                <div class="row display_none">
+                                    <label class="col-4 col-md-2 align-self-center p-md-0 text-blue fw-bold fs-7"></label>
+                                    <div class="form-group col-8 col-md-10">
+                                        <div class="row special-group">
+                                            <div class="col-12 col-md-6 px-0">
+                                                <div class="form-check d-inline-flex  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="oneyear" name="details" value="1" checked>
+                                                    <label class="form-check-label my-auto me-3" for="oneyear"> سنة واحدة </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4 px-0 display_none">
+                                                <div class="form-check  d-inline-flex  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="threeyear" name="details" value="3">
+                                                    <label class="form-check-label my-auto me-3" for="threeyear">ثلاث سنوات </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4 px-0 display_none">
+                                                <div class="form-check  d-inline-flex  my-0">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="fiveyear" name="details" value="5">
+                                                    <label class="form-check-label my-auto me-3" for="fiveyear">خمس سنوات</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Line 4-->
+
+
+                            <div class="col-12 col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-3 col-md-2 align-self-center p-md-0 fs-7">ترتيب بال</label>
+                                    <div class="col-9 col-md-8 ">
+                                        <select id="orderby" name="" class="form-control" fdprocessedid="7kvqol">
+                                            <option value="1">رصيد  </option>
+                                            <option value="2"> كود </option>
+                                            <option value="3"> الاسم </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-6 align-self-center p-md-0" for="chk_IncludeInvTR">  ادراج عمليات الفترة من المتاجرة </label>
+                                    <div class="col-6 ">
+                                        <input id="chk_IncludeInvTR" name="CUSTOM6" type="checkbox" class="form-check-input ms-1">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Script{
+    <script src="~/ClientApp/GeneralLedger/GLAging.js"></script>
+}
+
+

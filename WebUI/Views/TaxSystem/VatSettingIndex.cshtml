@@ -1,0 +1,204 @@
+﻿@using Inv.WebUI.Resources
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="row gy-3" id="Div_Control">
+    <!-- Filter Container -->
+    <div class="col-12">
+        <div class="card bg-light-blue" >
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div  class="col-12 col-md-4 offset-md-4 offset-0 mb-3">
+                                <div class="form-group row ">
+                                    <label class="col-4 align-self-center p-md-0">@SystemResource.Tax_enforcement</label>
+                                    <div class="col-8 ">
+                                        <input type="checkbox" class="checkbox" id="chkSetting" name="CUSTOM6" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-5">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_FromDate</label>
+                                    <div class="col-8 col-md-7 ">
+                                        <input type="date" class="form-control" disabled name="txtFromDate" id="txtFromDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_ToDate</label>
+                                    <div class="col-8 col-md-7 ">
+                                        <input type="date" class="form-control" disabled name="txtToDate" id="txtToDate">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.Vat_Period</label>
+                                    <div class="col-8 col-md-7">
+                                        <select id="drpVAT_PERIOD" name="VAT_PERIOD" class="form-control" disabled>
+                                            <option value="Null"> كل شهر  </option>
+                                            <option value="Null"> كل 3 شهر  </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 col-md-5  align-self-center p-md-0">@SystemResource.alert_ratification_period</label>
+                                    <div class="col-8 col-md-7">
+                                        <input id="txtVAT_WARNING_DAYS" type="number" autofocus="autofocus" disabled class="form-control" name="VAT_WARNING_DAYS">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 col-md-5  align-self-center p-md-0">@SystemResource.Authorization_Grace_period</label>
+                                    <div class="col-8 col-md-7">
+                                        <input id="txtVAT_ALLOWED_DAYS" type="text" autofocus="autofocus" class="form-control" disabled name="VAT_ALLOWED_DAYS">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.Value_added_Previous_period</label>
+                                    <div class="col-8 col-md-7">
+                                        <input id="txtVAT_PREVBAL" type="text" autofocus="autofocus" disabled class="form-control" name="VAT_PREVBAL">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7">
+                        <div class="row">
+                            <div class="col-12 col-md-7 p-0">
+                                <div class="form-group row  d-flex justify-content-center align-items-center">
+                                    <label class="col-6 col-md-7 align-self-center p-md-0">@SystemResource.VAT_debit_Account</label>
+                                    <div class="col-6 col-md-5">
+                                        <div class="search-content">
+                                            <input id="txtVAT_DB_ACC" type="text" autofocus="autofocus" disabled name="VAT_DB_ACC" class="form-control search-control">
+                                            <button type="button" id="btnAccountSearch_DB" name="ColSearch" class="btn btn-main btn-search" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 p-0">
+                                <div class="form-group row ">
+                                    <div class="col-6 offset-6 col-md-12 offset-md-0">
+                                        <input id="txtAccountdesc_Db" type="text" autofocus="autofocus" disabled class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-7 p-0">
+                                <div class="form-group row  d-flex justify-content-center align-items-center">
+                                    <label class="col-6 col-md-7 align-self-center p-md-0">@SystemResource.Calculation_value_added_tax_of_creditor</label>
+                                    <div class="col-6 col-md-5">
+                                        <div class="search-content">
+                                            <input id="txtVAT_CR_ACC" type="text" autofocus="autofocus" disabled name="VAT_CR_ACC" class="form-control search-control">
+                                            <button type="button" id="btnAccountSearch_CR" name="ColSearch" class="btn btn-main btn-search" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 p-0">
+                                <div class="form-group row ">
+                                    <div class="col-6 offset-6 col-md-12 offset-md-0">
+                                        <input id="txtAccountdesc_CR" type="text" autofocus="autofocus" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-7 p-0">
+                                <div class="form-group row  d-flex justify-content-center align-items-center">
+                                    <label class="col-6 col-md-7 align-self-center p-md-0">@SystemResource.Calculation_VAT_due</label>
+                                    <div class="col-6 col-md-5">
+                                        <div class="search-content">
+                                            <input id="txtVAT_ACCURUAL_ACC" type="text" autofocus="autofocus" name="VAT_ACCURUAL_ACC" disabled class="form-control search-control">
+                                            <button type="button" id="btnAccountSearch_Acc" name="ColSearch" class="btn btn-main btn-search" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 p-0">
+                                <div class="form-group row ">
+                                    <div class="col-6 offset-6 col-md-12 offset-md-0">
+                                        <input id="txtAccountdesc_Acc" type="text" autofocus="autofocus" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-7 p-0">
+                                <div class="form-group row  d-flex justify-content-center align-items-center">
+                                    <label class="col-6 col-md-7 align-self-center p-md-0">@SystemResource.Calculation_Sls_Desc_AccCode</label>
+                                    <div class="col-6 col-md-5">
+                                        <div class="search-content">
+                                            <input id="txtSls_DISC_ACC_CODE" type="text" autofocus="autofocus" disabled class="form-control search-control">
+                                            <button type="button" id="btnSls_DISC_ACC_CODE" name="ColSearch" class="btn btn-main btn-search" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 p-0">
+                                <div class="form-group row ">
+                                    <div class="col-6 offset-6 col-md-12 offset-md-0">
+                                        <input id="txtSls_DISC" type="text" autofocus="autofocus" disabled class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-7 p-0">
+                                <div class="form-group row  d-flex justify-content-center align-items-center">
+                                    <label class="col-6 col-md-7 align-self-center p-md-0">@SystemResource.Calculation_Pur_Desc_AccCode</label>
+                                    <div class="col-6 col-md-5">
+                                        <div class="search-content">
+                                            <input id="txtPur_DISC_ACC_CODE" type="text" autofocus="autofocus" disabled class="form-control search-control">
+                                            <button type="button" id="btnPur_DISC_ACC_CODE" name="ColSearch" class="btn btn-main btn-search" disabled>
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 p-0">
+                                <div class="form-group row ">
+                                    <div class="col-6 offset-6 col-md-12 offset-md-0">
+                                        <input id="txtPur_DISC" type="text" autofocus="autofocus" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 display_none" id="divMasterGridiv">
+                        <table id="divMasterGrid"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Script{
+    <script src="~/ClientApp/TaxSystem/AVATCONTROL.js"></script>
+}

@@ -1,0 +1,312 @@
+﻿@using Inv.WebUI.Resources
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+} 
+<div class="row gy-3" id="div_ALLData">
+    <!-- Filter Container -->
+	<div id="cotrolDiv">
+		<div class="col-12">
+			<div class="card bg-light-blue">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12 col-md-4">
+							<div class="form-group row">
+								<label class="col-4 align-self-center p-md-0">@SystemResource.user_type</label>
+								<div class="col-8">
+									<select id="drpuserType" class="form-control"></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="form-group row">
+								<label class="col-4 align-self-center p-md-0">@SystemResource.App_Status</label>
+								<div class="col-8">
+									<select id="drpStateType" name="" class="form-control input-sm" style='width: 100%;border-radius: 30px;'>
+										<option value="Null">الجميع</option>
+										<option value="0">غير فعال</option>
+										<option value="1">فعال</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Details Container -->
+		<!-- Search Table -->
+		<div id="id_UsersGrid">
+			<div class="card bg-light-blue">
+				<div class="card-body">
+					<div class="form-group row col-lg-6 col-md-8 col-12 mb-2">
+						<label class="col-4 col-lg-2 col-md-2 align-self-center p-md-0" placeholder="@SystemResource.App_Search ">@SystemResource.App_Search</label>
+						<div class="col-8 col-lg-8 col-md-10">
+							<input id="SearchGridUsers" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- Table  -->
+					<div id="divGridDetails"></div>
+					<div class="col-12 text-blue text-center fw-bold mt-3">
+						@SystemResource.App_DoubleDisplay
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+     <!-- Details  -->
+        <div id="DivInvoiceDetails" class="row display_none">
+            <div class="col-12 service-content">
+                <div class="serviceBox">
+					<div class="row">
+						<label id="lepfarest" class="text-blue text-right fs-6 fw-bold mb-3">
+							<i id="spanlepfarest" class="fas fa-angle-double-left" aria-hidden="true"></i>
+							@SystemResource.User_data
+						</label>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.Access_code </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtUser_Code" name="USER_CODEE" disabled type="text" class="form-control Edit">
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_Password </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtPassword" name="USER_CODEE" disabled type="password" class="form-control Edit">
+											<i class="fa-solid fa-eye-slash pass display_none" id="showpass"></i>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-3 col-lg-2 offset-md-1">
+									<div class="form-group row ">
+										<label class="col-3 col-md-5 align-self-center p-md-0">@SystemResource.App_Active</label>
+										<div class="col-9 col-md-7">
+											<input type="checkbox" class="form-check-input Edit" id="chkActive" disabled/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_UserName </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtUser_Name" name="USER_NAMEE" disabled type="text" class="form-control Edit">
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.department </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtDepartmentName" name="DepartmentName" disabled type="text" class="form-control Edit">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="row">
+								<div class="ccol-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.user_type </label>
+										<div class="col-8 col-md-7 ">
+											<select id="drpuserTypeDt" class="form-control Edit" disabled></select>
+										</div>
+									</div>
+								</div>
+								<div class="ccol-12 col-md-6 col-lg-3  display_none Sls">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_Salesman </label>
+										<div class="col-8 col-md-7 ">
+											<select id="drpSalesman" class="form-control Edit" disabled></select>
+										</div>
+									</div>
+								</div>
+								<div class="ccol-12 col-md-6 col-lg-3  display_none Box">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_Cashbox </label>
+										<div class="col-8 col-md-7 ">
+											<select id="drpCashBox" class="form-control Edit" disabled></select>
+										</div>
+									</div>
+								</div> 
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.Job </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtJobTitle" name="JobTitle" disabled type="text" class="form-control Edit">
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.App_Mobile </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtMobile" name="Mobile" disabled type="text" class="form-control Edit">
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-4">
+									<div class="form-group row ">
+										<label class="col-2 col-md-2 align-self-center p-md-0">@SystemResource.Email </label>
+										<div class="col-10 col-md-10 ">
+											<input id="txtEmail" name="Email" disabled type="text" class="form-control Edit">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.Date_First_login </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtFirstLogin" name="FirstLogin" disabled type="text" class="form-control dis">
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="form-group row ">
+										<label class="col-4 col-md-5 align-self-center p-md-0">@SystemResource.Date_Last_login </label>
+										<div class="col-8 col-md-7 ">
+											<input id="txtLastLogin" name="LastLogin" disabled type="text" class="form-control dis">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--Icons -->
+						<div class="col-12 mt-3">
+							<div class="d-flex justify-content-around">
+								<button id="btnGive_assignments" type="button" class="btn  btn-main h-100 btnRoles" disabled>
+									@SystemResource.Give_All_powers
+									<i class="fas fa-check-circle"></i>
+								</button>
+								<button id="btnLoadRoles" type="button" class=" btn btn-main h-100 btnRoles" disabled>
+									@SystemResource.Download_all_tasks
+									<i class="fas fa-plus-circle"></i>
+								</button>
+								<button id="btnBlock_permissions" type="button" class="btn btn-main h-100 btnRoles" disabled>
+									@SystemResource.Block_All_powers
+									<i class="fas fa-lock"></i>
+								</button>
+							</div>
+						</div>
+
+						<!-- Inside Table 1 -->
+						<div class="inside-table my-4">
+							<div class="table-responsive">
+								<table class="table table-borderless ">
+									<thead>
+										<tr>
+											<th style="width: 5%" class="btn_minus display_none"> </th>
+											<th style="width: 20%"> @SystemResource.task</th>
+											<th style="width: 20%"> @SystemResource.description</th>
+											<th style="width: 20%"> @SystemResource.give_power</th>
+										</tr>
+									</thead>
+									<tbody id="divGridRoles"></tbody>
+								</table>
+								<div class="d-flex justify-content-start mr-1">
+									<span id="btnAddRole" class="mb-3 display_none"><i class="fas fa-plus-circle fs-2 btn-plus"></i></span>
+								</div>
+							</div>
+						</div>
+						<!-- Inside Table 2 -->
+						<div class="col-12 mt-3">
+							<div class="d-flex justify-content-around">
+								<button id="btnGive_assignmentsBr" type="button" class="btn  btn-main h-100 btnRoles" disabled>
+									منح جميع صلاحيات الفروع
+									<i class="fas fa-check-circle"></i>
+								</button>
+								<button id="btnLoadBranchs" type="button" class=" btn btn-main h-100 btnRoles" disabled>
+									تحميل جميع الفروع
+									<i class="fas fa-plus-circle"></i>
+								</button>
+								<button id="btnBlock_permissionsBr" type="button" class="btn btn-main h-100 btnRoles" disabled>
+									منع جميع صلاحيات الفروع
+									<i class="fas fa-lock"></i>
+								</button>
+							</div>
+						</div>
+						<div class="inside-table my-4">
+							<div class="table-responsive">
+								<table class="table table-borderless ">
+									<thead>
+										<tr>
+											<th style="width: 5%" class="btn_minus display_none"></th>
+											<th style="width: 10%"> @SystemResource.Branch_NUM</thstyle="width:>
+											<th style="width: 30%"> @SystemResource.App_BranchName</th>
+											<th style="width: 10%"> @SystemResource.Arrive</th>
+											<th style="width: 10%"> @SystemResource.App_Create</th>
+											<th style="width: 10%"> @SystemResource.App_Update</th>
+											<th style="width: 10%"> @SystemResource.App_Delete</th>
+											<th style="width: 10%"> @SystemResource.App_Print</th>
+
+										</tr>
+									</thead>
+									<tbody id="divGridBranch"></tbody>
+
+								</table>
+								<div class="d-flex justify-content-start mr-1">
+									<span id="btnAddBranch" class="mb-3 display_none"><i class="fas fa-plus-circle fs-2 btn-plus"></i></span>
+								</div>
+							</div>
+						</div>
+						<!-- Editors Details -->
+						<div class="insettext row editor-details">
+							<div class="col-12 col-lg-6">
+
+								<div class="form-group row ">
+									<label class="col-4 col-xl-2 align-self-center"> @SystemResource.App_Create</label>
+									<div class="col-4 col-xl-4 editor-input">
+										<input id="txtCreatedBy" name="CreatedBy" type="text" disabled>
+									</div>
+									<div class="col-4 col-xl-6 editor-input">
+										<input id="txtCreatedAt" name="CreatedAt" type="text" disabled>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6">
+								<div class="form-group row ">
+									<label class="col-4 col-xl-2 align-self-center p-md-0"> @SystemResource.App_Update </label>
+									<div class="col-4 col-xl-4 editor-input">
+										<input id="txtUpdatedBy" name="UpdatedBy" type="text" disabled>
+									</div>
+									<div class="col-4 col-xl-6 editor-input">
+
+										<input id="txtUpdatedAt" name="UpdatedAt" type="text" disabled>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+                </div>
+            </div>
+        </div> 
+</div>
+
+
+
+    @section Script{
+        <script src="~/ClientApp/CustomEntities.js"></script>
+        <script src="~/ClientApp/Tools/USERS/USERS.js"></script>
+    }
+
+
+
+

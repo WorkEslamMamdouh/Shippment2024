@@ -1,0 +1,71 @@
+﻿@using Inv.WebUI.Resources
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="row gy-3" id="div_ContentData">
+    <div class="col-12">
+        <div class="card bg-light-blue">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group d-flex">
+                            <label class="col-4 col-lg-2 col-md-2 align-self-center p-md-0">@SystemResource.App_SubSystem</label>
+                            <div class="col-8 col-lg-8 col-md-10">
+                                <select id="drpuserType" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group d-flex">
+                            <label class="col-4 col-lg-2 col-md-2 align-self-center p-md-0">@SystemResource.App_MovementType</label>
+                            <div class="col-8 col-lg-8 col-md-10">
+                                <select id="drpStatus" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-light-blue" id="title_grid1">
+            <div class="card-body">
+                <!-- Table  -->
+                <div class="custom-table my-4">
+                    <div class="table-responsive">
+                        <table class="table table-borderless ">
+                            <thead>
+                                <tr>
+                                    <th style="width: 2%"></th>
+                                    <th style="width: 5%"> @SystemResource.serial </th>
+                                    <th style="width: 7%">@SystemResource.Name_Arabic</th>
+                                    <th style="width: 7%">@SystemResource.Name_English </th>
+                                    <th style="width: 7%" > @SystemResource.value</th>
+                                    <th style="width: 7%"> @SystemResource.cred_deb</th>
+                                    <th style="width: 7%"> @SystemResource.account_type</th>
+                                    <th style="width: 7%"> @SystemResource.Fixed_account</th>
+                                    <th style="width: 7%"> @SystemResource.Variable_account</th>
+                                    <th style="width: 7%"> @SystemResource.Acc_bra</th>
+                                    <th style="width: 7%"> @SystemResource.Center_type</th>
+                                    <th style="width: 7%"> @SystemResource.Fixed_center</th>
+                                    <th style="width: 7%"> @SystemResource.Variable_center</th>
+                                    <th style="width: 7%"> @SystemResource.center_bra</th>
+                                    <th style="width: 7%"> @SystemResource.Grouping</th>
+                                </tr>
+                            </thead>
+                            <tbody id="div_Data"></tbody>
+
+                        </table>
+                        <div class="d-flex justify-content-start mr-1">
+                            <span id="btnAddDetails" class="mb-3 display_none"><i class="fas fa-plus-circle fs-2 btn-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script{
+    <script src="~/ClientApp/Tools/LnkTransVoucher/LnkTransVoucher.js"></script>
+}

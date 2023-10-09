@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>  Orange</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    @* New Style *@
+    <!--=============== Favicons ===============-->
+    <link rel="shortcut icon" href="~/Newtemplate/template/assets/images/logo.ico" />
+    <!--=============== Bootstrap ===============-->
+    <link href="~/Newtemplate/template/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!--=============== font Awesome===============-->
+    <link href="~/Newtemplate/template/assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="~/Newtemplate/template/assets/css/style_home.css">
+</head>
+
+<body>
+    @* Hidden Input *@
+    <input type="hidden" id="OnLogged" name="name" value="@Url.Action("OnLogged","Login")" />
+    <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
+
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <div class="d-flex justify-content-between align-items-baseline  w-100">
+                <a href="#" class="nav__logo">
+                    <span class="logo-text">range</span>
+                    <img src="~/Newtemplate/template/assets/images/logo.png" alt="logo" class="logo" />
+                </a>
+                <div id="btn_login_1" hidden> </div>
+                <div class="me-5">
+                    <a id="login_" class="btn btn-main btn-login">دخول/Login</a>
+
+
+                </div>
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link ">الرئيسية</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#services" class="nav__link">النظام</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">جديد النظام</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#why-us" class="nav__link">نقاط التميز</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#footer" class="nav__link">اتصل بنا</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="fa-sharp fa-solid fa-circle-xmark"></i>
+                    </div>
+                </div>
+                <div class="nav__btns">
+
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home-section">
+
+            <div class="home" id="home">
+                <div class="home-slider">
+                    <!-- Slide item New -->
+                    <div class="col-slide home-slide active">
+                        <div class="home-img left-right">
+                            <div class="text-effect-container">
+                                <div class="text-effect">New</div>
+                            </div>
+                        </div>
+                        <div class="text-container">
+                            <h2 class="home-sub-title slide-animation">
+                                حاليا الاصدار الثالث من نظام اورانج
+                            </h2>
+
+                        </div>
+                    </div>
+                    <!-- Slide item NO.1 -->
+                    <div class="home-slide  ">
+                        <div class="text-container">
+                            <h2 class="home-sub-title slide-animation text-center">
+                                حالياً بالمملكة نظام أورانج
+                            </h2>
+                            <p class="home-details slide-animation text-center">
+                                أول نظام متخصص في أسواق الفاكهة والخضار
+                            </p>
+                        </div>
+                        <div class="home-img top-down">
+                            <img src="~/Newtemplate/template/assets/images/home/slider/1.png">
+                        </div>
+
+
+                    </div>
+                    <!-- Slide item NO.2 -->
+                    <div class="home-slide home-slide-reverse">
+                        <div class="text-container">
+                            <h2 class="home-sub-title slide-animation">
+                                نظام محاسبي متكامل لإدارة كافة أعمالك
+                            </h2>
+                            <p class="home-details slide-animation">
+                                تحكم فى الإدارة كافه اعمالك بكفاءة ومرونه بواجهة سهلة الاستخدام بميزات متعددة
+                                عن طريق نظام اورانج الذى يدعم جميع أجهزة الكمبيوتر والأجهزة اللوحية
+                            </p>
+                        </div>
+
+                        <div class="home-img right-left">
+                            <img src="~/Newtemplate/template/assets/images/home/slider/2.png">
+                        </div>
+
+
+                    </div>
+                    <!-- Slide item NO.3 -->
+                    <div class="home-slide">
+                        <div class="text-container">
+                            <h2 class="home-sub-title slide-animation">
+                                سهوله ادارة اعمالك فى اى وقت واى مكان
+                            </h2>
+                            <p class="home-details slide-animation">
+                                يمكنك ان تحصل على كل شيء بدون الحاجة الى خوادم وشبكات داخلية حيث ان نظام اورانج نظام سحابي لا يطلب وجود شبكة ولا سيرفرات بالاضافه الى حصولك على قاعدة معلومات كاملة ومؤمنة دون اعباء اضافية
+                            </p>
+
+                        </div>
+                        <div class="home-img left-right">
+                            <img src="~/Newtemplate/template/assets/images/home/slider/3.png">
+                        </div>
+                    </div>
+                    <!-- Slide item NO.4 -->
+                    <div class="home-slide home-slide-reverse">
+                        <div class="text-container">
+                            <h2 class="home-sub-title slide-animation">
+                                نهتم بامان وحمايه بياناتك
+                            </h2>
+                            <p class="home-details slide-animation">
+                                نهتم بسلامة بياناتك على خوادمنا، حيث نتبع إجراءات سلامة إضافية وقيود قوية على صلاحية الوصول إلى البيانات، بالإضافة إلى عمليات نسخ احتياطي دورية.
+                            </p>
+                        </div>
+                        <div class="home-img down-top">
+                            <img src="~/Newtemplate/template/assets/images/home/slider/4.png">
+                        </div>
+
+
+                    </div>
+                    <!-- Slide item NO.5 -->
+                    <div class="home-slide home-slide-reverse">
+                        <div class="text-container">
+                            <h2 class="home-sub-title slide-animation">
+                                يساعدك النظام على توفير وقتك ومجهودك
+                            </h2>
+                            <p class="home-details slide-animation">
+                                يمكنك متابعه أعمالك وادارتها بفعالية في خطوات بسيطة من دون استغراق الكثير من الوقت أو بذل مجهود كبير في تنفيذها
+                            </p>
+
+                        </div>
+                        <div class="home-img down-top">
+                            <img src="~/Newtemplate/template/assets/images/home/slider/5.png">
+                        </div>
+
+
+                    </div>
+                    <!-- Down Arrow -->
+                    <div class="arrow-container">
+                        <div class="arrow-down"></div>
+                        <div class="arrow-down"></div>
+                        <div class="arrow-down"></div>
+                    </div>
+
+
+                    <div class="slide-control slide-next">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </div>
+                    <div class="slide-control slide-prev">
+                        <i class="fas fa-chevron-circle-left"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="single-box"></div>
+            </div>
+        </section>
+        <!--==================== Services ====================-->
+        <section class="services-section" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <h1>نظام اورانج</h1>
+                </div>
+                <div class="row gy-3">
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="services-content">
+                            <div class="services-content-header">
+                                <div class="services-text">
+                                    <span class="text">المشتريات</span>
+                                </div>
+                            </div>
+                            <ul class="services-content-list text-right">
+                                <li><i class="far fa-check-circle ps-1"></i>استلام المشتريات بناء علي امر شراء أو استلام مباشرة بدون امر شراء   </li>
+                                <li><i class="far fa-check-circle ps-1"></i>الاستلام الجزئي لأمر الشراء</li>
+                                <li><i class="far fa-check-circle ps-1"></i>استلام بالعملة المحلية او العملة اجنبية وإدخال معامل التحويل</li>
+                                <li><i class="far fa-check-circle ps-1"></i>حساب التكاليف المضافة علي المشتريات و ادخال الصنف بالتكلفة شاملة المصاريف</li>
+                                <li><i class="far fa-check-circle ps-1"></i>توليد قيد محاسبي واحد يشمل المشتريات و المصاريف المرتبطة به </li>
+                                <li><i class="far fa-check-circle ps-1"></i>توزيع التكاليف الاضافة علي الاصناف و حساب متوسط تكلفة جديد بناء علي اسلوب التكلفة المتبع في النظام  </li>
+                                <li><i class="far fa-check-circle ps-1"></i>يتم تثبيت السعر في حالة ارجاع المشتريات بسعر الشراء، ولا يمكن ارجاع كمية اكبر من الكمية المستلمة</li>
+                            </ul>
+                            <div class="services-content-footer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="services-content orange">
+                            <div class="services-content-header">
+                                <div class="services-text">
+                                    <span class="text">المبيعات</span>
+                                </div>
+                            </div>
+                            <ul class="services-content-list">
+                                <li><i class="far fa-check-circle ps-1"></i>يوجد سعر بيع للتجزئة و أقل سعر بيع لكل صنف   </li>
+                                <li><i class="far fa-check-circle ps-1"></i>إمكانية تعديل أسعار البيع اليا بناء علي سعر الشراء</li>
+                                <li><i class="far fa-check-circle ps-1"></i>لا يمكن البيع باقل من سعر البيع (تعتمد بكلمة سر خاصة) </li>
+                                <li><i class="far fa-check-circle ps-1"></i>تصنف العملاء الي (نقدي - اجل ) </li>
+                                <li><i class="far fa-check-circle ps-1"></i>متابعة الحد الائتماني لعملاء الآجل. </li>
+                                <li><i class="far fa-check-circle ps-1"></i>يوجد اعدادات لإصدار الفواتير النقدية معتمدة حتي لا يمكن تعديلها  </li>
+                            </ul>
+                            <div class="services-content-footer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="services-content red">
+                            <div class="services-content-header">
+                                <div class="services-text">
+                                    <span class="text">المخزون</span>
+                                </div>
+                            </div>
+                            <ul class="services-content-list">
+                                <li><i class="far fa-check-circle ps-1"></i>تحديد العمليات المتاحة لكل فئة اصناف ( بيع - شراء - تخزين - منتج)     </li>
+                                <li><i class="far fa-check-circle ps-1"></i>تقسيم الفئات الي انواع الاصناف </li>
+                                <li><i class="far fa-check-circle ps-1"></i>اظهار الكميات المتاحة في الفرع في شاشة بيانات الاصناف  - اسعار البيع  </li>
+                                <li><i class="far fa-check-circle ps-1"></i>تحويل بين المستودعات  تحويل مباشر </li>
+                                <li><i class="far fa-check-circle ps-1"></i>تسوية الجردية مع أكثر من طريقة للطباعة والتقييم  </li>
+                                <li><i class="far fa-check-circle ps-1"></i>اكثر من طريقة لحساب التكلفة (متوسط عام - متوسط للمستودع)   </li>
+                                <li><i class="far fa-check-circle ps-1"></i>حركات لتجميع الاصناف لعمل العروض والاصناف المجمعة </li>
+                                <li><i class="far fa-check-circle ps-1"></i>تقارير متنوعة للمخزون و المبيعات والمشتريات </li>
+                            </ul>
+                            <div class="services-content-footer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="services-content cyan">
+                            <div class="services-content-header">
+                                <div class="services-text">
+                                    <span class="text">العمليات</span>
+                                </div>
+                            </div>
+                            <ul class="services-content-list">
+                                <li><i class="far fa-check-circle ps-1"></i>إدارة كاملة لاستلام ومبيعات التريلا.  </li>
+                                <li><i class="far fa-check-circle ps-1"></i>اغلاق حسابات التريلا وحساب ايراد العملية و مستحقات المورد </li>
+                                <li><i class="far fa-check-circle ps-1"></i>إمكانية اضافة دعم للمورد في حالة بيع الحمولة باقل من السعر المفترض  </li>
+                                <li><i class="far fa-check-circle ps-1"></i>فصل القيمة الأسمية للحمولة (بضاعة الاستيراد) عن القيمة الفعلية للبضاعة </li>
+                                <li><i class="far fa-check-circle ps-1"></i>توليد قيد محاسبي أليا شاملا القيمة الأسمية وقيمة المبيعات والضريبة والدعم وايراد الشركة من العملية </li>
+                                <li><i class="far fa-check-circle ps-1"></i>تحليل ايراد ومصاريف عمليات مورد</li>
+                                <li><i class="far fa-check-circle ps-1"></i>متابعة عهد وعمولة البائعين</li>
+                                <li><i class="far fa-check-circle ps-1"></i>إمكانية تقسيم حمولة عملية بين اكثر من  بائع، و فصل حسابات ومبيعات البائعين</li>
+                            </ul>
+                            <div class="services-content-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!--==================== ABOUT ====================-->
+        <section dir="ltr" class="about about-us-section mb-3" id="about">
+
+            <div class="container about-us-container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="about-us-title text-center">الجديد في نظام اورانج   الاصدار 2</h2>
+                    </div>
+                    <div class="about-us-details-box col-12 col-md-6 m-auto">
+                        <ul class="list">
+                            <li class="item">امكانية تنزيل ملف بطباعة الحركة المختارية  </li>
+                            <li class="item">امكانية سماحه البيع اكثر من عمليه في الفاتورة </li>
+                            <li class="item">اضافة زر في شاشة الفواتير لارسال الفاتوره للعملاء </li>
+                            <li class="item">اضافة زر في شاشة المشتريات لارسال الفاتوره للموردين </li>
+                            <li class="item"> نسخ الوصف في الملاحظات في سند القيد  </li>
+                            <li class="item"> اضافة عدد الايام انتهاء الاشتراك في شاشة الدخول </li>
+                            <li class="item">اضافة بحث في شاشة الحسابات لي سرعة الوصول الي الحساب </li>
+                            <li class="item">في تقرير حركة مخزن تم اضافة التسويه </li>
+                            <li class="item">ادراج عمليات المتاجرة الغير مرحلة للحسابات في كشف الحساب والاستاذ العام  </li>
+                            <li class="item">في تقرير مبيعات العملاء ،  فصل مبيعات العمليات عن  مبيعات التجزئة  </li>
+
+                        </ul>
+                    </div>
+                    <div class="about-us-details-box col-12 col-md-6 m-auto">
+                        <ul class="list">
+                            <li class="item">اضافة  شاشة الاحصائيات DASHBOARD  </li>
+                            <li class="item">امكانية فتح شاشة اخري في تاب جديده </li>
+                            <li class="item">اظهار اخر سعر للعميل في الفاتورة </li>
+                            <li class="item">اظهار اخر سعر شراء للموارد في استلام مشتريات </li>
+                            <li class="item">اضافة خصم علي الصنف في استلام مشتريات  </li>
+                            <li class="item">اضافة خصم علي الصنف في فاتورة المبيعات   </li>
+                            <li class="item">السماح بتكرار الصنف في فاتورة المبيعات </li>
+                            <li class="item">النظام يدعم جميع الاجهزه اللوحيه </li>
+                            <li class="item">اضافة البائع في فاتورة المبيعات الي جانب المندوب </li>
+                            <li class="item">في تقرير مبيعات العملاء ، نفسيم التقرير الي  تقرير المبيعات، تقرير المرتجعات ، تقرير بالصافي </li>
+                            <li class="item">في تقرير مشتريات الموردين تقسيم التقرير الى  تقرير المشتريات ، تقرير المرتجعات ، و تقرير بالصافي </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!--==================== Why Us ====================-->
+        <section id="why-us">
+            <div class="container mt-5">
+                <div class="section-header">
+                    <h1>مميزات نظام اورانج </h1>
+                </div>
+                <div class="row gy-3">
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/1.svg"></span>
+                            </div>
+                            <h3 class="title">دعم فنى</h3>
+                            <p class="description">
+                                توفير دعم فني من فريق مميز للرد على استفساراتكم ومساعدتكم في حال واجهتم أي مشكله، وذلك لضمان حصولكم على تجربة مثالية عند استخدام نظام اورانج
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/2.svg"></span>
+                            </div>
+                            <h3 class="title">الامان والحمايه</h3>
+                            <p class="description">
+                                يهتم نظام اورانج بسلامة بياناتكم على خوادمنا، لذا نستخدم خوادم مؤمنة بالكامل ومشفرة مع عدة طبقات من الحماية، إلى جانب وجود إجراءات سلامة إضافية وقيود قوية على صلاحية الوصول إلى البيانات، بالإضافة إلى عمليات نسخ احتياطي دورية.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/3.svg"></span>
+                            </div>
+                            <h3 class="title">نظام مخصص بالكامل </h3>
+                            <p class="description">
+                                نظام اورانج مخصص بما يتوافق مع مجال عملك من خلال تفعيل الخدمات المطلوبة فقط وامكانيه اضافه وحذف صلاحيات من مستخدمين النظام لديك، بالاضافه الى تخصيص قوالب فواتير وتقارير وعروض اسعار تلائم علامتك التجارية
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/4.svg"></span>
+                            </div>
+                            <h3 class="title"> واجهه سهل الاستخدام</h3>
+                            <p class="description">
+                                أدر أعمالك بسهولة مع العديد من الخصائص والأدوات في واجهة سهلة الاستخدام بخطوات بسيطة، فانت لا تحتاج إلى امتلاك معرفة عميقة بأنظمة تخطيط الموارد المؤسسية أو طرق المحاسبة المعقدة من أجل العمل على نظام اورانج
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/5.svg"></span>
+                            </div>
+                            <h3 class="title"> توفير وقت ومجهود</h3>
+                            <p class="description">
+                                تابع أعمالك بدقة وأدر عملياتك بفعالية في خطوات بسيطة من دون استغراق الكثير من الوقت أو بذل مجهود كبير في تنفيذها، وذلك بفضل واجهة المستخدم البسيطة التي يتميز بها نظام اورانج.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/6.svg"></span>
+                            </div>
+                            <h3 class="title">فى اى وقت واى مكان </h3>
+                            <p class="description">
+                                قم بمتابعة أعمالك وأدرها من أي مكان وفي أي وقت عبر أي جهاز متاح لديك. لكونه نظامًا سحابيًا على خوادم مؤمنة بالكامل، فستجد نظام اورانج في متناول يديك دائماً لمساعدتك في إدارة أعمالك بفعالية على مدار الساعة وطوال أيام الأسبوع
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/7.svg"></span>
+                            </div>
+                            <h3 class="title">تحدياث دوريه </h3>
+                            <p class="description">
+                                تسعى شركتنا باستمرار على تطوير النظام بأكمله وتحديثه واضافه مميزات جديده لمواكبة متطلبات الأعمال بما في ذلك إضافة الخصائص والأدوات الجديدة التي من شأنها تسهيل إدارة أعمالك على نحو فعال
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 d-flex">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <span><img src="~/Newtemplate/template/assets/images/home/why-us/8.svg"></span>
+                            </div>
+                            <h3 class="title">سعر اقتصادى </h3>
+                            <p class="description">
+                                احصل على نظام اورانج متكامل يتضمن كل ما تحتاجه من تطبيقات لتلبية كل احتياجات أعمالك باسعار مميزة من دون الحاجة إلى مدفوعات إضافية لكل تطبيق على حدة، إلى جانب دعم فني من متخصصين وتحديثات متواصلة .
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--==================== FOOTER ====================-->
+    <svg class="cloud" class="hidden-xs" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 85 100" preserveAspectRatio="none">
+        <path d="M-5 100 Q 0 20 5 100 Z
+            M0 100 Q 5 0 10 100
+            M5 100 Q 10 30 15 100
+            M10 100 Q 15 10 20 100
+            M15 100 Q 20 30 25 100
+            M20 100 Q 25 -10 30 100
+            M25 100 Q 30 10 35 100
+            M30 100 Q 35 30 40 100
+            M35 100 Q 40 10 45 100
+            M40 100 Q 45 50 50 100
+            M45 100 Q 50 20 55 100
+            M50 100 Q 55 40 60 100
+            M55 100 Q 60 60 65 100
+            M60 100 Q 65 50 70 100
+            M65 100 Q 70 20 75 100
+            M70 100 Q 75 45 80 100
+            M75 100 Q 80 30 85 100
+            M80 100 Q 85 20 90 100
+            M85 100 Q 90 50 95 100
+            M90 100 Q 95 25 100 100
+            M95 100 Q 100 15 105 100 Z">
+        </path>
+    </svg>
+    <footer id="footer" class="footer-section bg-blue text-center text-white">
+
+        <div class="container">
+            <!-- Contact Us -->
+            <div class="pt-5 pb-5">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3 mb-30 footer-content bg-footer">
+                        <div class="contact-us">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class=" contact-us-text">
+                                <span>المملكة العربية السعودية</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mb-30 footer-content">
+                        <div class="contact-us">
+                            <i class="fas fa-globe"></i>
+                            <div class="contact-us-text website-text">
+                                <a href="http://www.safeerp.com/">http://www.safeerp.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mb-30 footer-content bg-footer order-3 order-sm-4 order-md-3">
+                        <div class="contact-us">
+                            <i class="fas fa-phone"></i>
+                            <div class=" contact-us-text">
+                                <span>966582213120+ (KSA)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mb-30 footer-content order-4 order-sm-3 order-md-4">
+                        <div class="contact-us">
+                            <i class="far fa-envelope"></i>
+                            <div class=" contact-us-text">
+                                <span>sales@safeerp.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  Social media -->
+            <!-- <section class="mb-4">
+                <a class="btn btn-outline-light btn-floating btn-social m-1" target="_blank" href="https://www.facebook.com" role="button">
+                    <i class="fab fa-facebook-f fa-fw"></i>
+                </a>
+                <a class="btn btn-outline-light btn-floating btn-social m-1" target="_blank" href="https://twitter.com/" role="button">
+                    <i class="fab fa-twitter fa-fw"></i>
+                </a>
+                <a class="btn btn-outline-light btn-floating btn-social m-1" target="_blank" href="https://www.instagram.com/" role="button">
+                    <i class="fab fa-instagram fa-fw"></i>
+                </a>
+                <a class="btn btn-outline-light btn-floating btn-social m-1" target="_blank" href="https://eg.linkedin.com/" role="button">
+                    <i class="fab fa-linkedin-in fa-fw"></i>
+                </a>
+                <a class="btn btn-outline-light btn-floating btn-social m-1" target="_blank" href="https://www.skype.com/ar/" role="button">
+                    <i class="fab fa-skype fa-fw"></i>
+                </a>
+            </section> -->
+        </div>
+
+        <!-- Copyright -->
+        <div class="bg-footer text-center p-3">
+            <span>Copyright &copy; 2022 All Rights Reserved by </span>
+            <a class="text-white" href="http://www.safeerp.com/">BSE</a>
+        </div>
+    </footer>
+
+    <!--=============== SCROLL UP ===============-->
+    <div class="top-container">
+        <a href="#" class="back-to-top active">
+            <i class="fas fa-arrow-circle-up"></i>
+        </a>
+    </div>
+    <!--=============== pop Up Login===============-->
+    <section id="hero">
+        <section id="cta" class="login-section pop-up display_none">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-lg-5">
+                        <div class="login-wrap p-4 p-md-5 pb-1">
+                            <a id="close-login" class="d-flex justify-content-end " href="#">
+                                <i class="fas fa-times-circle fs-3 close"></i>
+                            </a>
+                            <div class="login-icon d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user text-white fs-1"></i>
+                            </div>
+                            <!-- Login Form -->
+                            <div class="login-form" id="div_pass">
+                                <div class="form-group d-flex justify-content-center mt-3">
+                                    <Label class="fs-3 align-self-center">Welcome</Label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="txtUserName" type="text" name="name" class="form-control rounded-left" placeholder="Username - اسم المستخدم">
+                                </div>
+                                <div class="form-group d-flex">
+                                    <input id="txtUserPassword" type="password" name="name" class="form-control rounded-left" placeholder="Password - كلمه السر">
+                                </div>
+                                <div id="btn_login_2" class="form-group">
+                                    <a id="btnLogin" class="form-control btn btn-main rounded submit px-3">Enter</a>
+                                </div>
+                                <div class="form-group d-flex justify-content-start">
+                                    <label class="d-inline-flex checkbox-wrap checkbox-primary">
+                                        <input id="chkRemember" type="checkbox">
+                                        <span class="checkmark"></span>
+                                        <span class="ms-2">Remember Me</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- Company Form -->
+                            <div class="login-form display_none" id="divCompanies">
+                                <div class="form-group d-flex justify-content-center mt-3">
+                                    <label class="fs-3 align-self-center" id="hLoggedName"></label>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <select class="form-select rounded-left" id="cmbCompany" name="CompCode"></select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-select rounded-left" id="cmbBranch" name="Language"></select>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <input type="number" id="txtYear" step="1" min="1" max="" name="quantity" value="2022" title="Qty" class="form-control rounded-left">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <select class="form-select rounded-left" id="cmbLanguage">
+                                            <option value="ar" selected>عربي</option>
+                                            <option value="en">English</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="btn_login_3" class="form-group display_none d-flex ">
+                                    <a id="btnBack" class="form-control btn btn-danger rounded submit px-3 me-3 w-25">Back</a>
+                                    <a id="btnOk" class="form-control btn btn-main rounded submit px-3">Enter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <h1 class="display_none" id="hLoggedName"></h1>
+        <span id="spnLoggedYear" class="date_login display_none"> </span>
+    </section>
+
+
+    <!-- تاكيد دخول -->
+    <div class="modal message_popup fade" id="MessageBoxDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="MessageBoxTitle">حذف!!</h4>
+                    @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                </div>
+                <div class="modal-body" style="">
+                    <div class="col-12"> <h4 id="MessageBoxMessage">هل تريد حقا الحذف ؟</h4></div>
+                </div>
+                <div class="modal-footer d-none">
+                    <button type="button" id="MessageBoxOk" class="btn btn-main" hidden>موافق</button>
+                    <button type="button" id="MessageBoxCancel" class="btn btn-warning" data-dismiss="modal" hidden>إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal message_popup fade" id="MessageBoxDialogwithoutclick" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="MessageBoxTitlewithoutclick">حذف</h4>
+                </div>
+                <div class="modal-body" style="max-height:200px; overflow:auto; text-align: center;">
+                    <div class="col-xs-12"> <h3 id="MessageBoxMessagewithoutclick"></h3></div>
+                    @*<div class="col-xs-5 text-center">
+                            <i class="glyphicon btn-danger"></i>
+                        </div>*@
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @* New JavaScript *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="~/Newtemplate/template/assets/js/scrollreveal.min.js"></script>
+    <script src="~/Newtemplate/template/assets/js/main.js"></script>
+    @* Old JavaScript *@
+    <script src="~/ClientApp/Entities.js"></script>
+    <script src="~/ClientApp/Shared.js"></script>
+    <script src="~/ClientApp/App.js"></script>
+    <script src="~/ClientApp/SystemTools.js"></script>
+    <script src="~/ClientApp/AjaxCaller.js"></script>
+    <script src="~/Website/assets/vendor/aos/aos.js"></script>
+    <script src="~/Website/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Website/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Website/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Website/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Website/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/css/UnderConstruction/js/jquery-1.11.3.min.js"></script>
+    <script src="~/Style_design/plassandminus.js"></script>
+    <script src="~/ClientApp/MessageBox.js"></script>
+    <script src="~/ClientApp/Pages/LoginComponent.js"></script>
+    <script src="~/Website/assets/js/main.js"></script>
+    @* Old JavaScript *@
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+
+
+
+</body>
+
+
+</html>

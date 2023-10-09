@@ -1,0 +1,127 @@
+﻿@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = @SystemResource.Men_AccDefReceipts;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="row gy-3" id="div_ContentData">
+    <!-- Table  -->
+    <div class="col-12 display_none" id="divShow">
+        <div class="inside-table my-4">
+            <div class="table-responsive">
+                <table class="table table-borderless ">
+                    <thead>
+                        <tr>
+                            <th style="width: 3%"></th>
+                            <th> @SystemResource.App_Code </th>
+                            <th>@SystemResource.App_DescA</th>
+                            <th>@SystemResource.App_DescE </th>
+                            <th> @SystemResource.p_account_number</th>
+                        </tr>
+                    </thead>
+                    <tbody id="div_Data"></tbody>
+
+                </table>
+                <div class="d-flex justify-content-start mr-1">
+                    <span id="btnAddDetails" class="mb-3 display_none"><i class="fas fa-plus-circle fs-2 btn-plus"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="panel panel-default">
+    <div class="panel-heading panel_me">
+        @*<i class="glyphicon glyphicon-pencil icon_panel"></i><label class="span_item">@SystemResource.Men_GenDefCustomerCat</label><label class="span_item"></label>
+    </div>
+
+    <div class="panel-body" id="div_ContentData">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="col-lg-9">
+                </div>
+                <div class="col-lg-3">
+
+                    <button type="button" class="btn btn-warning float_left_right display_none" id="btnback">
+                        <span class="glyphicon glyphicon-backward"></span> @SystemResource.App_back
+                    </button>
+                    <button type="button" class="btn btn-primary float_left_right" id="btnedite">
+                        <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
+                    </button>
+
+                    <button id="btnsave" type="button" class="btn btn-success float_left_right display_none">
+                        @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-12 font_codenumber">
+
+
+
+            <div class="col-lg-1">
+                <div class="col-lg-5">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <span style="    padding-right: 3px;" class="">@SystemResource.App_Code</span>
+
+                </div>
+            </div>
+            <div class="col-lg-3" @*style="right:12px">
+                <span class="">@SystemResource.App_DescA</span>
+
+            </div>
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-4" @*style="left:-14px">
+                <span class="">@SystemResource.App_DescE</span>
+
+
+            </div>
+            <div class="col-lg-2" @*style="left:-18px">
+                <span class="">@SystemResource.p_account_number</span>
+
+
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+
+
+                <div class="col-lg-12">
+                    <div class="row " id="div_Data">
+                    </div>
+                    <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign  display_none"></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div>*@
+
+@section Script{
+    <script src="~/ClientApp/AccDefinition/AccDefReceipts.js"></script>
+}

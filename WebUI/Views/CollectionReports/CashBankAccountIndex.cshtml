@@ -1,0 +1,121 @@
+﻿@using Inv.WebUI.Resources
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="row gy-3" id="content_report">
+    <!-- Filter Container -->
+    <div id="div_dis" class="col-12">
+        <div class="card bg-light-blue" id="informtionReserved">
+            <div class="card-body" id="id_div_Add">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="row">
+                            <div class="col-12  col-xl-6">
+                                <div class="form-group row">
+                                    <label for="txtFromDate" class="col-4 align-self-center p-md-0">@SystemResource.App_FromDate</label>
+                                    <div class="col-8">
+                                        <input type="date" class="form-control" name="txtFromDate" id="txtFromDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12  col-xl-6">
+                                <div class="form-group row">
+                                    <label for="txtToDate" class="col-4 align-self-center p-md-0"> @SystemResource.App_ToDate</label>
+                                    <div class="col-8">
+                                        <input type="date" class="form-control" name="txtToDate" id="txtToDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12  col-xl-6">
+                                <div class="form-group row">
+                                    <label class="col-4 align-self-center p-md-0">اسم البنك</label>
+                                    <div class="col-8 ">
+                                        <select id="ddlBox" name="" class="form-control">
+                                            <option value="Null"> @SystemResource.choose </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="row">
+                            <div class="col-12 col-xl-6">
+                                <div class="form-check row g-0 mt-0">
+                                    <label class="col-5 col-md-5 form-check-label align-self-center p-md-0" for="txtIsPurchase"> ادراج الحركات الجديدة</label>
+                                    <div class="col-7 col-md-7 ">
+                                        <input class="form-check-input" type="checkbox" id="chk_Certified" name="CUSTOM6">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-xl-6">
+                                <div class="row ">
+                                    <div class="form-group col-12">
+                                        <div class="row mt-n2">
+                                            <div class="col-12 col-xl-6">
+                                                <div class="form-check d-inline-flex">
+                                                    <input class="form-check-input form-radio special-radio " type="radio" id="Rd_detail" name="details" value="1" checked>
+                                                    <label class="form-check-label my-auto me-3 " for="Rd_detail"> @SystemResource.Detailed </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12  col-xl-6">
+                                                <div class="form-check  d-inline-flex">
+                                                    <input class="form-check-input form-radio special-radio" type="radio" id="Rd_sum" name="details" value="2">
+                                                    <label class="form-check-label my-auto me-3" for="Rd_sum"> @SystemResource.Summary</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script{
+    <script>
+        $(document).ready(function () {
+            // Initialize select2
+            // $("#ddlStateType").select2();
+            //$("#txt_ID_APP_Category").select2();
+            $("#txt_ID_APP_Group").select2();
+            $("#ddlSalesman").select2();
+            $("#ddlCustomer").select2();
+            // Read selected option
+            $('#but_read').click(function () {
+                var userid = $('#txt_ID_APP_Category').val(); var username = $('#txt_ID_APP_Category option:selected').text();
+                var userid = $('#txt_ID_APP_Group').val(); var username = $('#txt_ID_APP_Group option:selected').text();
+                var userid = $('#ddlSalesman').val(); var username = $('#ddlSalesman option:selected').text();
+                var userid = $('#ddlCustomer').val(); var username = $('#ddlCustomer option:selected').text();
+                $('#result').html("id : " + userid + ", name : " + username);
+            });
+        });
+    </script>
+    <script src="~/ClientApp/CollectionReports/CashBankAccount.js"></script>
+
+    <script>
+        function myclaer() {
+            $("#ShiftName option:selected").prop("selected", false);
+            $("#ShiftName option:first").prop("selected", "selected");
+
+            $("#PeriodName option:selected").prop("selected", false);
+            $("#PeriodName option:first").prop("selected", "selected");
+
+            $("#SrvTypeName").value = "";
+            $("#SrvTypeCode").value = "";
+            $("#ShiftCode").value = "";
+            $("#PeriodCode").value = "";
+        }
+    </script>
+}
