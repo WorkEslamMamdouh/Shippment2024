@@ -22,6 +22,8 @@ namespace HomeComponent {
     var systemEnv: SystemEnvironment = SysSession.CurrentEnvironment;
 
     var G_BRANCHService: Array<G_BRANCH> = new Array<G_BRANCH>();
+    var _AllPages: Array<AllPages> = new Array<AllPages>();
+     
     var selectedbar;
     var newtap = false;
 
@@ -36,67 +38,225 @@ namespace HomeComponent {
         $('.mes').removeClass('display_none');
 
     }, 1000);
+    function GetAllPages() {
+
+        debugger
+        $.ajax({
+            url: Url.Action("GetAllView", "Home"),
+            type: 'GET', 
+            success: function (htmlContent) {
+                debugger
+                  _AllPages = JSON.parse(htmlContent) as Array<AllPages>; 
+                // Display the HTML content in a container element
+                let Page = _AllPages.filter(x => x.ModuleCode == 'Home')
+                $('#htmlContainer').html(Page[0].Page_Html);
+             
+
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching HTML:', error);
+            }
+        });
+
+    }
 
     export function OpenPage(moduleCode: string) {
+    
+        let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
+        $('#htmlContainer').html(Page[0].Page_Html);
+    }
+
+    function GetAllPagesOld() {
+
+        debugger
+        $.ajax({
+            url: Url.Action("GetAllView", "Home"),
+            type: 'GET',
+            dataType: 'html',
+            success: function (htmlContent) {
+
+                debugger
+                $('#iconMainPages').removeClass('hidden_Control');
+                $('#btnPrintTrview').removeClass('display_none');
+                $('#btnPrintTrPDF').removeClass('display_none');
+                $('#btnPrintTrEXEL').removeClass('display_none');
+                $('#iconbar_Definition').addClass('hidden_Control');
+                $('#btnSave').addClass('display_none');
+                $('#btnUpdate').addClass('display_none');
+                $('#btnPrintTransaction').addClass('display_none');
+                $('#btnBack').addClass('display_none');
+                debugger
+                // Display the HTML content in a container element
+                $('#htmlContainer').html(htmlContent);
+                debugger
+                //var container = document.createElement('div');
+
+                //// Step 2: Set the HTML content of the element
+                //container.innerHTML = htmlContent;
+
+                //var bodyPage = document.getElementById('htmlContainer');
+                //bodyPage.appendChild(container);
+                $('#Loading_Div').html('');
+
+                var url = new URL(window.location.href);
+
+                // Create a new URLSearchParams object from the URL's search parameters
+                var searchParams = new URLSearchParams(url.search);
+
+                // Set a new value for an existing parameter or add a new parameter
+                //searchParams.set('Page', moduleCode);
+
+                // Update the URL's search property with the modified parameters
+                url.search = searchParams.toString();
+
+                // Replace the current URL with the updated one (changes the browser's address bar)
+                window.history.replaceState(null, null, url.href);
+
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching HTML:', error);
+            }
+        });
+
+    }
+    export function OpenPageOld(moduleCode: string) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
-				 
+
         let compCode = SysSession.CurrentEnvironment.CompCode;
         let branchCode = SysSession.CurrentEnvironment.BranchCode;
         let UserCode = SysSession.CurrentEnvironment.UserCode;
         let SystemCode = SysSession.CurrentEnvironment.SystemCode;
         let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         let Modulecode = SysSession.CurrentEnvironment.ModuleCode;
-        let CurrentYear = SysSession.CurrentEnvironment.CurrentYear; 
+        let CurrentYear = SysSession.CurrentEnvironment.CurrentYear;
+
+        //if (newtap == true) {
+        //    window.open(Url.Action(moduleCode + "Index", "Home"), "_blank");
+
+        //}
+        //else {
+        //    window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
+        //}
+
+
 
         if (newtap == true) {
-            window.open(Url.Action(moduleCode + "Index", "Home"), "_blank");
-
+            debugger
+            sessionStorage.setItem("NewTap", moduleCode)
+            window.open(Url.Action("System_Vr3", "Home"), "_blank");
         }
         else {
-            window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
+
+            $('#Loading_Div').html('<span class="loader" style="font-size: 465%;z-index: 99999;"></span>');
+
+            setTimeout(function () {
+
+
+                $.ajax({
+                    url: Url.Action("OpenView", "Home"),
+                    type: 'GET',
+                    dataType: 'html',
+                    data: { moduleCode: moduleCode},
+                    success: function (htmlContent) {
+                        debugger
+                        $('#iconMainPages').removeClass('hidden_Control');
+                        $('#btnPrintTrview').removeClass('display_none');
+                        $('#btnPrintTrPDF').removeClass('display_none');
+                        $('#btnPrintTrEXEL').removeClass('display_none');
+                        $('#iconbar_Definition').addClass('hidden_Control');
+                        $('#btnSave').addClass('display_none');
+                        $('#btnUpdate').addClass('display_none');
+                        $('#btnPrintTransaction').addClass('display_none');
+                        $('#btnBack').addClass('display_none');
+
+                        // Display the HTML content in a container element
+                        $('#htmlContainer').html(htmlContent);
+
+                        //var container = document.createElement('div');
+
+                        //// Step 2: Set the HTML content of the element
+                        //container.innerHTML = htmlContent;
+
+                        //var bodyPage = document.getElementById('htmlContainer');
+                        //bodyPage.appendChild(container);
+                        $('#Loading_Div').html('');
+
+                        var url = new URL(window.location.href);
+
+                        // Create a new URLSearchParams object from the URL's search parameters
+                        var searchParams = new URLSearchParams(url.search);
+
+                        // Set a new value for an existing parameter or add a new parameter
+                        searchParams.set('Page', moduleCode);
+
+                        // Update the URL's search property with the modified parameters
+                        url.search = searchParams.toString();
+
+                        // Replace the current URL with the updated one (changes the browser's address bar)
+                        window.history.replaceState(null, null, url.href);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching HTML:', error);
+                    }
+                });
+
+
+                //$.ajax({
+                //    url: Url.Action("OpenView", "Home"),
+                //    data: { moduleCode: moduleCode },
+                //    type: 'GET',
+                //    dataType: 'html',
+                //    success: function (htmlContent) {
+                //        debugger
+                //        $('#iconMainPages').removeClass('hidden_Control');
+                //        $('#btnPrintTrview').removeClass('display_none');
+                //        $('#btnPrintTrPDF').removeClass('display_none');
+                //        $('#btnPrintTrEXEL').removeClass('display_none');
+                //        $('#iconbar_Definition').addClass('hidden_Control'); 
+                //        $('#btnSave').addClass('display_none');
+                //        $('#btnUpdate').addClass('display_none');
+                //        $('#btnPrintTransaction').addClass('display_none');
+                //        $('#btnBack').addClass('display_none');
+
+                //        // Display the HTML content in a container element
+                //        $('#htmlContainer').html(htmlContent);
+
+                //        //var container = document.createElement('div');
+
+                //        //// Step 2: Set the HTML content of the element
+                //        //container.innerHTML = htmlContent;
+
+                //        //var bodyPage = document.getElementById('htmlContainer');
+                //        //bodyPage.appendChild(container);
+                //        $('#Loading_Div').html('');
+
+                //        var url = new URL(window.location.href);
+
+                //        // Create a new URLSearchParams object from the URL's search parameters
+                //        var searchParams = new URLSearchParams(url.search);
+
+                //        // Set a new value for an existing parameter or add a new parameter
+                //        searchParams.set('Page', moduleCode);
+
+                //        // Update the URL's search property with the modified parameters
+                //        url.search = searchParams.toString();
+
+                //        // Replace the current URL with the updated one (changes the browser's address bar)
+                //        window.history.replaceState(null, null, url.href);
+
+                //    },
+                //    error: function (xhr, status, error) {
+                //        console.error('Error fetching HTML:', error);
+                //    }
+                //});
+
+            }, 200);
+
         }
 
-        //window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
 
-        //Ajax.Callsync({
-        //    type: "GET",
-        //    url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
-        //    data: { year: Number(CurrentYear), compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, Modulecode: Modulecode },
-        //    success: (d) => {
-
-        //        if (d == undefined) {
-        //            window.open(Url.Action("HomePage", "Login"), "_self");
-        //            return;
-        //        }
-        //        else {
-        //            let result = JSON.parse(d) as UserPrivilege;
-
-        //            if (result == null) {
-        //                MessageBox.Show("Access denied", moduleCode);
-        //                return;
-        //            }
-        //            if (result.Access == true) {
-        //                SysSession.CurrentPrivileges = result;
-
-        //                if (newtap == true) {
-        //                    window.open(Url.Action(moduleCode + "Index", "Home"), "_blank");
-
-        //                }
-        //                else {
-        //                    window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
-        //                }
-
-        //                OpenScreen(SysSession.CurrentEnvironment.UserCode, SysSession.CurrentEnvironment.CompCode, SysSession.CurrentEnvironment.BranchCode, moduleCode, SysSession.CurrentEnvironment.CurrentYear);
-
-        //            }
-        //            else {
-        //                MessageBox.Show("No Inv1_Privilage", moduleCode);
-        //            }
-        //        }
-        //    }
-        //});
     }
-
     export function OpenReportsPopup(moduleCode: string) {
 
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -356,6 +516,7 @@ namespace HomeComponent {
         $('#error').click(function (e) { SetActiv_History('error', '#264051b3', 4) });
 
 
+        GetAllPages();
     }
 
 

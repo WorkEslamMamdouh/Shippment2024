@@ -1579,6 +1579,7 @@
     <Content Include="Views\GeneralLedgerMenu\AccGroupIndex.cshtml" />
     <Content Include="Views\GeneralLedgerMenu\VoucherTypeIndex.cshtml" />
     <Content Include="Views\CollectionReports\CustSalSumIndex.cshtml" />
+    <Content Include="Views\Home\htmlContainerIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

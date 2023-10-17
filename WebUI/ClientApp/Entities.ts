@@ -28,6 +28,11 @@ class SystemParameters {
 	public IsActive: boolean;
 }
 
+class AllPages {
+	public ModuleCode: string; 
+	public Page_Html: string;
+}
+
 class APISessionRecord {
 
 	public SetAPISessionAPI(key: string, value: string) {

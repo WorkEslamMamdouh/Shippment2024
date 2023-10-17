@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Web.Mvc;
 
@@ -23,6 +26,10 @@ namespace Inv.WebUI.Controllers
             return View("HomeIndex");
         }
 
+        public ActionResult System_Vr3()
+        {
+            return View("htmlContainerIndex");
+        }
         public ActionResult Admin()
         {
             return View();
@@ -75,32 +82,128 @@ namespace Inv.WebUI.Controllers
         }
 
 
-        public ActionResult OpenView(string ModuleCode)
+        //public ActionResult OpenView(string ModuleCode)
+        //{
+
+
+        //    if (ModuleCode == "ImagPopUp")
+        //    {
+        //        return PartialView("~/Views/Shared/ImagePopup.cshtml");
+
+        //    }
+        //    if (ModuleCode == "Messages_screen")
+        //    {
+        //        return PartialView("~/Views/Shared/Messages_screen.cshtml");
+        //    }
+        //    if (ModuleCode == "ImagePopupiupload")
+        //    {
+        //        return PartialView("~/Views/Shared/ImagePopupiupload.cshtml");
+        //    }
+
+        //    return PartialView("");
+
+        //}
+
+
+
+        [HttpGet]
+        public string GetAllView()
         {
 
+            string[] AllPath_Url = {
+         "~/Views/Home/HomeIndex.cshtml",
+         "~/Views/Sales/SlsTrSalesManagerNewIndex.cshtml",
+         "~/Views/AccDefinition/AccDefBoxIndex.cshtml",
+         "~/Views/StkDefinition/StkDefStoreIndex.cshtml",
+                      };
 
-            if (ModuleCode == "ImagPopUp")
+            List<AllPages> AllHtmlPages = new List<AllPages>();
+
+            for (int i = 0; i < AllPath_Url.Length; i++)
             {
-                return PartialView("~/Views/Shared/ImagePopup.cshtml");
+                ContentResult PageContent = new ContentResult();
+                AllPages OnePage = new AllPages();
+
+                // Render the view to HTML
+                string htmlContent = ViewToString(AllPath_Url[i]);
+                PageContent = Content(htmlContent, "text/html");
+
+                OnePage.Page_Html = PageContent.Content.ToString();
+
+                var parts = AllPath_Url[i].Split('/');
+
+                string ModuleCode = parts[parts.Length - 1].ToString();
+                ModuleCode = ModuleCode.Replace(".cshtml", "");
+                ModuleCode = ModuleCode.Replace(".csHtml", "");
+                ModuleCode = ModuleCode.Replace(".csHTML", "");
+                ModuleCode = ModuleCode.Replace(".CSHTML", "");
+                ModuleCode = ModuleCode.Replace("Index", "");
+                ModuleCode = ModuleCode.Replace("index", "");
+                ModuleCode = ModuleCode.Replace("INDEX", "");
+
+                OnePage.ModuleCode = ModuleCode;
+
+                AllHtmlPages.Add(OnePage);
 
             }
-            if (ModuleCode == "Messages_screen")
+
+            string jsonData = JsonConvert.SerializeObject(AllHtmlPages, Formatting.Indented);
+
+
+            return jsonData;
+        }
+
+
+        public ActionResult OpenView(string moduleCode)
+        {
+            string viewPath = "";
+
+            var method = this.GetType().GetMethod(moduleCode + "Index");
+            if (method != null)
             {
-                return PartialView("~/Views/Shared/Messages_screen.cshtml");
-            }
-            if (ModuleCode == "ImagePopupiupload")
-            {
-                return PartialView("~/Views/Shared/ImagePopupiupload.cshtml");
+                object result = method.Invoke(this, null);
+
+                if (result != null && result is string)
+                {
+                    // Check if the result is a string
+                    viewPath = (string)result;
+
+                    // Render the view to HTML
+                    string htmlContent = ViewToString(viewPath);
+
+                    return Content(htmlContent, "text/html");
+                }
+
             }
 
-            return PartialView("");
+            return Content("", "text/html");
+        }
 
+        private string ViewToString(string viewPath)
+        {
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewPath);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+
+                return sw.ToString();
+            }
         }
 
         public class MyModel
         {
             public string JavascriptToRun { get; set; }
         }
+
+        public class AllPages
+        {
+            public string ModuleCode { get; set; }
+            public string Page_Html { get; set; }
+        }
+
 
         #region Open Pages 
 
@@ -162,13 +265,13 @@ namespace Inv.WebUI.Controllers
         }
 
         public ActionResult OpenPdf(string path)
-        { 
+        {
             return File("" + path + "", "application/pdf");
         }
 
         public string GetSerialNumber()
         {
-              
+
             var processInfo = new ProcessStartInfo("cmd.exe", "/c " + "wmic os get serialnumber")
             {
                 CreateNoWindow = true,
@@ -186,6 +289,11 @@ namespace Inv.WebUI.Controllers
 
             return sb.ToString();
 
+        }
+
+        public string VchDriverChangeIndex()
+        {
+            return ("~/Views/VehicleManagment/VchDriverChangeIndex.cshtml");
         }
         public ActionResult AdminRoleBranch()
         {
@@ -331,17 +439,22 @@ namespace Inv.WebUI.Controllers
             return View("~/Views/Sales/SlsTrReturnOperationIndex.cshtml");
         }
 
+        //public string HomeIndex()
+        //{
+             
+        //    return ("~/Views/Home/HomeIndex");
+        //}
 
-        public ActionResult SlsTrSalesManagerNewIndex()
+        public string SlsTrSalesManagerNewIndex()
         {
-            return View("~/Views/Sales/SlsTrSalesManagerNewIndex.cshtml");
+            return ("~/Views/Sales/SlsTrSalesManagerNewIndex.cshtml");
         }
 
         public ActionResult SlsTrSalesOperationIndex()
         {
             return View("~/Views/Sales/SlsTrSalesOperationIndex.cshtml");
         }
-        
+
         public ActionResult SlsTrShowPriceIndex()
         {
             return View("~/Views/Sales/SlsTrShowPriceIndex.cshtml");
@@ -367,12 +480,12 @@ namespace Inv.WebUI.Controllers
         {
             return View("~/Views/Processes/CloseProcessesindex.cshtml");
         }
-       
+
         public ActionResult OperationScrapIndex()
         {
             return View("~/Views/Processes/OperationScrapIndex.cshtml");
         }
-        
+
         public ActionResult OperationRepScrapIndex()
         {
             return View("~/Views/Processes/OperationRepScrapIndex.cshtml");
@@ -382,7 +495,7 @@ namespace Inv.WebUI.Controllers
         {
             return View("~/Views/Processes/OperationExportIndex.cshtml");
         }
-        
+
 
         public ActionResult ClientaccstatIndex()
         {

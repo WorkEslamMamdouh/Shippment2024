@@ -18,6 +18,7 @@ var HomeComponent;
     var SysSession = GetSystemSession('Home');
     var systemEnv = SysSession.CurrentEnvironment;
     var G_BRANCHService = new Array();
+    var _AllPages = new Array();
     var selectedbar;
     var newtap = false;
     G_BRANCHService = GetSystemG_BRANCH();
@@ -29,7 +30,71 @@ var HomeComponent;
         $('#Uesr_out').removeClass('animate__animated');
         $('.mes').removeClass('display_none');
     }, 1000);
+    function GetAllPages() {
+        debugger;
+        $.ajax({
+            url: Url.Action("GetAllView", "Home"),
+            type: 'GET',
+            success: function (htmlContent) {
+                debugger;
+                _AllPages = JSON.parse(htmlContent);
+                // Display the HTML content in a container element
+                var Page = _AllPages.filter(function (x) { return x.ModuleCode == 'Home'; });
+                $('#htmlContainer').html(Page[0].Page_Html);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching HTML:', error);
+            }
+        });
+    }
     function OpenPage(moduleCode) {
+        var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
+        $('#htmlContainer').html(Page[0].Page_Html);
+    }
+    HomeComponent.OpenPage = OpenPage;
+    function GetAllPagesOld() {
+        debugger;
+        $.ajax({
+            url: Url.Action("GetAllView", "Home"),
+            type: 'GET',
+            dataType: 'html',
+            success: function (htmlContent) {
+                debugger;
+                $('#iconMainPages').removeClass('hidden_Control');
+                $('#btnPrintTrview').removeClass('display_none');
+                $('#btnPrintTrPDF').removeClass('display_none');
+                $('#btnPrintTrEXEL').removeClass('display_none');
+                $('#iconbar_Definition').addClass('hidden_Control');
+                $('#btnSave').addClass('display_none');
+                $('#btnUpdate').addClass('display_none');
+                $('#btnPrintTransaction').addClass('display_none');
+                $('#btnBack').addClass('display_none');
+                debugger;
+                // Display the HTML content in a container element
+                $('#htmlContainer').html(htmlContent);
+                debugger;
+                //var container = document.createElement('div');
+                //// Step 2: Set the HTML content of the element
+                //container.innerHTML = htmlContent;
+                //var bodyPage = document.getElementById('htmlContainer');
+                //bodyPage.appendChild(container);
+                $('#Loading_Div').html('');
+                var url = new URL(window.location.href);
+                // Create a new URLSearchParams object from the URL's search parameters
+                var searchParams = new URLSearchParams(url.search);
+                // Set a new value for an existing parameter or add a new parameter
+                //searchParams.set('Page', moduleCode);
+                // Update the URL's search property with the modified parameters
+                url.search = searchParams.toString();
+                // Replace the current URL with the updated one (changes the browser's address bar)
+                window.history.replaceState(null, null, url.href);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching HTML:', error);
+            }
+        });
+    }
+    function OpenPageOld(moduleCode) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         var compCode = SysSession.CurrentEnvironment.CompCode;
         var branchCode = SysSession.CurrentEnvironment.BranchCode;
@@ -38,46 +103,100 @@ var HomeComponent;
         var SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         var Modulecode = SysSession.CurrentEnvironment.ModuleCode;
         var CurrentYear = SysSession.CurrentEnvironment.CurrentYear;
+        //if (newtap == true) {
+        //    window.open(Url.Action(moduleCode + "Index", "Home"), "_blank");
+        //}
+        //else {
+        //    window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
+        //}
         if (newtap == true) {
-            window.open(Url.Action(moduleCode + "Index", "Home"), "_blank");
+            debugger;
+            sessionStorage.setItem("NewTap", moduleCode);
+            window.open(Url.Action("System_Vr3", "Home"), "_blank");
         }
         else {
-            window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
+            $('#Loading_Div').html('<span class="loader" style="font-size: 465%;z-index: 99999;"></span>');
+            setTimeout(function () {
+                $.ajax({
+                    url: Url.Action("OpenView", "Home"),
+                    type: 'GET',
+                    dataType: 'html',
+                    data: { moduleCode: moduleCode },
+                    success: function (htmlContent) {
+                        debugger;
+                        $('#iconMainPages').removeClass('hidden_Control');
+                        $('#btnPrintTrview').removeClass('display_none');
+                        $('#btnPrintTrPDF').removeClass('display_none');
+                        $('#btnPrintTrEXEL').removeClass('display_none');
+                        $('#iconbar_Definition').addClass('hidden_Control');
+                        $('#btnSave').addClass('display_none');
+                        $('#btnUpdate').addClass('display_none');
+                        $('#btnPrintTransaction').addClass('display_none');
+                        $('#btnBack').addClass('display_none');
+                        // Display the HTML content in a container element
+                        $('#htmlContainer').html(htmlContent);
+                        //var container = document.createElement('div');
+                        //// Step 2: Set the HTML content of the element
+                        //container.innerHTML = htmlContent;
+                        //var bodyPage = document.getElementById('htmlContainer');
+                        //bodyPage.appendChild(container);
+                        $('#Loading_Div').html('');
+                        var url = new URL(window.location.href);
+                        // Create a new URLSearchParams object from the URL's search parameters
+                        var searchParams = new URLSearchParams(url.search);
+                        // Set a new value for an existing parameter or add a new parameter
+                        searchParams.set('Page', moduleCode);
+                        // Update the URL's search property with the modified parameters
+                        url.search = searchParams.toString();
+                        // Replace the current URL with the updated one (changes the browser's address bar)
+                        window.history.replaceState(null, null, url.href);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching HTML:', error);
+                    }
+                });
+                //$.ajax({
+                //    url: Url.Action("OpenView", "Home"),
+                //    data: { moduleCode: moduleCode },
+                //    type: 'GET',
+                //    dataType: 'html',
+                //    success: function (htmlContent) {
+                //        debugger
+                //        $('#iconMainPages').removeClass('hidden_Control');
+                //        $('#btnPrintTrview').removeClass('display_none');
+                //        $('#btnPrintTrPDF').removeClass('display_none');
+                //        $('#btnPrintTrEXEL').removeClass('display_none');
+                //        $('#iconbar_Definition').addClass('hidden_Control'); 
+                //        $('#btnSave').addClass('display_none');
+                //        $('#btnUpdate').addClass('display_none');
+                //        $('#btnPrintTransaction').addClass('display_none');
+                //        $('#btnBack').addClass('display_none');
+                //        // Display the HTML content in a container element
+                //        $('#htmlContainer').html(htmlContent);
+                //        //var container = document.createElement('div');
+                //        //// Step 2: Set the HTML content of the element
+                //        //container.innerHTML = htmlContent;
+                //        //var bodyPage = document.getElementById('htmlContainer');
+                //        //bodyPage.appendChild(container);
+                //        $('#Loading_Div').html('');
+                //        var url = new URL(window.location.href);
+                //        // Create a new URLSearchParams object from the URL's search parameters
+                //        var searchParams = new URLSearchParams(url.search);
+                //        // Set a new value for an existing parameter or add a new parameter
+                //        searchParams.set('Page', moduleCode);
+                //        // Update the URL's search property with the modified parameters
+                //        url.search = searchParams.toString();
+                //        // Replace the current URL with the updated one (changes the browser's address bar)
+                //        window.history.replaceState(null, null, url.href);
+                //    },
+                //    error: function (xhr, status, error) {
+                //        console.error('Error fetching HTML:', error);
+                //    }
+                //});
+            }, 200);
         }
-        //window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
-        //Ajax.Callsync({
-        //    type: "GET",
-        //    url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
-        //    data: { year: Number(CurrentYear), compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, Modulecode: Modulecode },
-        //    success: (d) => {
-        //        if (d == undefined) {
-        //            window.open(Url.Action("HomePage", "Login"), "_self");
-        //            return;
-        //        }
-        //        else {
-        //            let result = JSON.parse(d) as UserPrivilege;
-        //            if (result == null) {
-        //                MessageBox.Show("Access denied", moduleCode);
-        //                return;
-        //            }
-        //            if (result.Access == true) {
-        //                SysSession.CurrentPrivileges = result;
-        //                if (newtap == true) {
-        //                    window.open(Url.Action(moduleCode + "Index", "Home"), "_blank");
-        //                }
-        //                else {
-        //                    window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
-        //                }
-        //                OpenScreen(SysSession.CurrentEnvironment.UserCode, SysSession.CurrentEnvironment.CompCode, SysSession.CurrentEnvironment.BranchCode, moduleCode, SysSession.CurrentEnvironment.CurrentYear);
-        //            }
-        //            else {
-        //                MessageBox.Show("No Inv1_Privilage", moduleCode);
-        //            }
-        //        }
-        //    }
-        //});
     }
-    HomeComponent.OpenPage = OpenPage;
+    HomeComponent.OpenPageOld = OpenPageOld;
     function OpenReportsPopup(moduleCode) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         var compCode = SysSession.CurrentEnvironment.CompCode;
@@ -281,6 +400,7 @@ var HomeComponent;
         $('#info').click(function (e) { SetActiv_History('info', '#264051b3', 2); });
         $('#warning').click(function (e) { SetActiv_History('warning', '#264051b3', 3); });
         $('#error').click(function (e) { SetActiv_History('error', '#264051b3', 4); });
+        GetAllPages();
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
     function Getbranch() {

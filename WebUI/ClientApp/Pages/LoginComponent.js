@@ -446,7 +446,7 @@ var LoginComponent;
             success: function (result) {
                 localStorage.setItem("Show_News", 'false');
                 var obj = result.result;
-                LoginOpen(SystemEnv.UserCode, SystemEnv.CompCode, SystemEnv.BranchCode, Modules.Home, SystemEnv.CurrentYear, 1);
+                //LoginOpen(SystemEnv.UserCode, SystemEnv.CompCode, SystemEnv.BranchCode, Modules.Home, SystemEnv.CurrentYear, 1);
                 window.location.href = obj.url;
             }
         });
