@@ -57,8 +57,8 @@ namespace Inv.WebUI.Controllers
 
             var obj = new
             {
-                //url = Url.Action("HomeIndex", "Home")
-                url = Url.Action("System_Vr3", "Home")
+                url = Url.Action("HomeIndex", "Home")
+                //url = Url.Action("System_Vr3", "Home")
 
             };
             var result = Shared.JsonObject(obj);

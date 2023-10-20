@@ -3407,3 +3407,32 @@ var getClass = function (className) {
     }
 };
 
+var _AllPages: Array<AllPages> = new Array<AllPages>();
+
+function GetAllPages() {
+
+    debugger
+    $.ajax({
+        url: Url.Action("GetAllView", "Home"),
+        type: 'GET',
+        success: function (htmlContent) {
+            debugger
+            _AllPages = new Array<AllPages>();
+            _AllPages = JSON.parse(htmlContent) as Array<AllPages>;
+            // Display the HTML content in a container element
+            let Page = _AllPages.filter(x => x.ModuleCode == 'Home')
+            $('#htmlContainer').html(Page[0].Page_Html);
+
+
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching HTML:', error);
+        }
+    });
+
+}
+  function OpenPage(moduleCode: string) {
+
+    let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
+    $('#htmlContainer').html(Page[0].Page_Html);
+}

@@ -2650,4 +2650,27 @@ var getClass = function (className) {
         throw new Error('Invalid class name: ' + className);
     }
 };
+var _AllPages = new Array();
+function GetAllPages() {
+    debugger;
+    $.ajax({
+        url: Url.Action("GetAllView", "Home"),
+        type: 'GET',
+        success: function (htmlContent) {
+            debugger;
+            _AllPages = new Array();
+            _AllPages = JSON.parse(htmlContent);
+            // Display the HTML content in a container element
+            var Page = _AllPages.filter(function (x) { return x.ModuleCode == 'Home'; });
+            $('#htmlContainer').html(Page[0].Page_Html);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching HTML:', error);
+        }
+    });
+}
+function OpenPage(moduleCode) {
+    var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
+    $('#htmlContainer').html(Page[0].Page_Html);
+}
 //# sourceMappingURL=App.js.map
