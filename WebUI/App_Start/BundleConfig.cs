@@ -29,7 +29,7 @@ namespace Inv.WebUI.App_Start
                 "~/ClientApp/SystemTools.js",
                 "~/ClientApp/CustomEntities.js",
                 "~/ClientApp/MessageBox.js",
-                "~/ClientApp/HomeComponent.js"));
+                "~/ClientApp/Layout.js"));
 
 
 
