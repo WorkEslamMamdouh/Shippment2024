@@ -2553,7 +2553,8 @@ function GetAllPages() {
             _AllPages = new Array();
             _AllPages = JSON.parse(htmlContent);
             // Display the HTML content in a container element
-            OpenPage(Modules.Home);
+            //$('.Layout_Home').addClass('display_none');
+            OpenPage("Login");
         },
         error: function (xhr, status, error) {
             console.error('Error fetching HTML:', error);
@@ -2565,5 +2566,7 @@ function OpenPage(moduleCode) {
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     $('#htmlContainer').html(Page[0].Page_Html);
     $('._Loding').removeClass('Btn_Loder');
+    $('#htmlContainer').addClass('animate__animated animate__zoomIn');
+    setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
 }
 //# sourceMappingURL=App.js.map

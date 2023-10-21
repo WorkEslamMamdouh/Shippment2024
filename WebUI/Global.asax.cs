@@ -33,7 +33,8 @@ namespace Inv.WebUI
         {
             Exception ex = Server.GetLastError();
             Server.ClearError();
-            string url = "/ErrorPage/ErrorIndex";  // HttpContext.Current.Session["ErrorUrl"].ToString();
+            //string url = "/ErrorPage/ErrorIndex";  // HttpContext.Current.Session["ErrorUrl"].ToString();
+            string url = "/Home/ContainerIndex"; 
                                                //url = url + "/?MassError={" + ex.Message + "" + ex.InnerException+"}";
             Session["MessageError"] = "Message:" + ex.Message.ToString() + ex.InnerException;
 

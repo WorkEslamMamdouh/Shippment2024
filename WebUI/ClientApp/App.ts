@@ -3311,7 +3311,8 @@ function GetAllPages() {
             _AllPages = new Array<AllPages>();
             _AllPages = JSON.parse(htmlContent) as Array<AllPages>;
             // Display the HTML content in a container element
-            OpenPage(Modules.Home);
+            //$('.Layout_Home').addClass('display_none');
+            OpenPage("Login");
             
 
         },
@@ -3326,4 +3327,6 @@ function OpenPage(moduleCode: string) {
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     $('#htmlContainer').html(Page[0].Page_Html);
     $('._Loding').removeClass('Btn_Loder');
+    $('#htmlContainer').addClass('animate__animated animate__zoomIn');
+    setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
 }

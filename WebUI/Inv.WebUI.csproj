@@ -270,9 +270,11 @@
     <Content Include="NewStyle\intlTelInput\intlTelInput.min.js" />
     <Content Include="NewStyle\intlTelInput\utils.js" />
     <Content Include="NewStyle\jquery.js" />
+    <Content Include="NewStyle\Login\Login_Style.css" />
     <Content Include="NewStyle\nicepage.css" />
     <Content Include="NewStyle\nicepage.js" />
     <Content Include="NewStyle\Post-Template.css" />
+    <Content Include="NewStyle\Style.css" />
     <Content Include="NewStyle\Thank-You-Page-Template.css" />
     <Content Include="NewStyle\thank-you-page.html" />
     <Content Include="Newtemplate\.gitignore" />

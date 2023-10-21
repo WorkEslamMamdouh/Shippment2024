@@ -28,6 +28,7 @@ namespace Inv.WebUI.Controllers
 
         string[] AllPath_Url = {
 
+         "~/Views/Login/LoginIndex.cshtml",
          "~/Views/Home/HomeIndex.cshtml",
          "~/Views/Sales/SlsTrSalesManagerNewIndex.cshtml",
          "~/Views/Sales/SlsTrShowPriceIndex.cshtml",
@@ -119,7 +120,7 @@ namespace Inv.WebUI.Controllers
 
 
         //    GET: Home
-        public ActionResult HomeIndex()
+        public ActionResult ContainerIndex()
         {
 
             //Session["ErrorUrl"] = "";//Url.Action("LoginIndex", "Login");

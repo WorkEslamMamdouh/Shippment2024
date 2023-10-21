@@ -1,0 +1,8 @@
+﻿.display_none {
+    display: none !important;
+}
+
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.4;
+}
