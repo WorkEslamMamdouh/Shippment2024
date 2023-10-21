@@ -25,7 +25,7 @@
         color: #fff;
     }
 
-    .veen button {
+    .veen .__button {
         background: transparent;
         //background-image: linear-gradient(90deg, #33aeb6, #3b674c);
         display: inline-block;
@@ -39,12 +39,12 @@
         transition: all .25s;
     }
 
-        .veen button.dark {
+        .veen .__button.dark {
             border-color: #3b674c;
             background: #3b674c;
         }
 
-    .veen .move button.dark {
+    .veen .move .__button.dark {
         border-color: #33aeb6;
         background: #33aeb6;
     }
@@ -53,19 +53,19 @@
         font-size: 18px;
     }
 
-    .veen button:active {
+    .veen .__button:active {
         box-shadow: none;
     }
 
-    .veen button:focus {
+    .veen .__button:focus {
         outline: none;
     }
 
     .veen > .wrapper {
         position: absolute;
         width: 40%;
-        height: 120%;
-        top: -10%;
+        height: 135%;
+        top: -18%;
         left: 5%;
         background: #fff;
         box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
@@ -180,7 +180,7 @@
         float: left;
     }
 
-        .splits button {
+        .splits .__button {
             width: 100%;
             border-radius: 0;
             background: #505050;
@@ -188,16 +188,16 @@
             opacity: .7;
         }
 
-            .splits button.active {
+            .splits .__button.active {
                 opacity: 1;
             }
 
-            .splits button.active {
+            .splits .__button.active {
                 opacity: 1;
                 background: #3b674c;
             }
 
-        .splits.rgstr-btn button.active {
+        .splits.rgstr-btn .__button.active {
             background: #33aeb6;
         }
 

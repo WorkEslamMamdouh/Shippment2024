@@ -25,12 +25,7 @@ namespace Layout {
 
        
 
-    } 
-    function InitializePages() {
-        $("#btnSlsTrSalesManagerNew").click(() => { OpenPage(Modules.SlsTrSalesManagerNew); })
-        $("#btnSlsTrShowPrice").click(() => { OpenPage(Modules.SlsTrShowPrice); })
-         
-    }
+    }  
 
     function ApplyModules() {
         var lis = document.getElementsByClassName("liItem");
@@ -111,6 +106,7 @@ namespace Layout {
         $('.MED').removeClass('display_none');
  
     }
+
     export function LogoutUserApi() {
         let userCode = ""/*SysSession.CurrentEnvironment.UserCode*/;
         //let userCode = SysSession.CurrentEnvironment.UserCode;

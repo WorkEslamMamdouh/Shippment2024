@@ -1075,7 +1075,7 @@
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
     <TypeScriptCompile Include="ClientApp\ErrorPage\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
-    <TypeScriptCompile Include="ClientApp\Login\LoginComponent.ts" />
+    <TypeScriptCompile Include="ClientApp\Login\Login.ts" />
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />
     <TypeScriptCompile Include="ClientApp\Entities.ts" />

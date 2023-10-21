@@ -18,10 +18,6 @@ var Layout;
         //InitializePages();
     }
     Layout.InitalizeComponent = InitalizeComponent;
-    function InitializePages() {
-        $("#btnSlsTrSalesManagerNew").click(function () { OpenPage(Modules.SlsTrSalesManagerNew); });
-        $("#btnSlsTrShowPrice").click(function () { OpenPage(Modules.SlsTrShowPrice); });
-    }
     function ApplyModules() {
         var lis = document.getElementsByClassName("liItem");
         var obj = [document.getElementById('liItem')];

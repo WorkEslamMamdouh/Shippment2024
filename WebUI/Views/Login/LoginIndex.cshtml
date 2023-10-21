@@ -6,11 +6,11 @@
     <div class="veen">
         <div class="login-btn splits">
             <p>Already an user?</p>
-            <button class="active">Login</button>
+            <input type="button" class=" __button active" id="login_button" value="Login" />
         </div>
         <div class="rgstr-btn splits">
             <p>Don't have an account?</p>
-            <button>Register</button>
+            <input type="button" class=" __button " id="rgstr_button" value="Register" />
         </div>
         <div class="wrapper">
             <form id="login" tabindex="500">
@@ -24,11 +24,24 @@
                     <label>Password</label>
                 </div>
                 <div class="submit">
-                    <button class="dark">Login</button>
+                    <input type="button" class=" __button dark" id="Submit_Login" value="Login" />
                 </div>
+
             </form>
-            <form id="register" tabindex="502">
+            <form id="register" tabindex="502" style="margin-top: 104px;">
                 <h3>Register</h3>
+                <div class="name">
+                    <input type="text" name="">
+                    <label>Full Name</label>
+                </div>
+                <div class="name">
+                    <input type="text" name="">
+                    <label>Full Name</label>
+                </div>
+                <div class="name">
+                    <input type="text" name="">
+                    <label>Full Name</label>
+                </div>
                 <div class="name">
                     <input type="text" name="">
                     <label>Full Name</label>
@@ -46,7 +59,7 @@
                     <label>Password</label>
                 </div>
                 <div class="submit">
-                    <button class="dark">Register</button>
+                    <input type="button" class=" __button dark" id="Submit_Register" value="Register" />
                 </div>
             </form>
         </div>
@@ -75,14 +88,14 @@
 
 
     $(document).ready(function () {
-        $(".veen .rgstr-btn button").click(function () {
+        $("#rgstr_button").click(function () {
             $('.veen .wrapper').addClass('move');
             //$('.body').css('background', '#e0b722');
             $('.body').css('background', '#33aeb6');
             $(".veen .login-btn button").removeClass('active');
-            $(this).addClass('active'); 
+            $(this).addClass('active');
         });
-        $(".veen .login-btn button").click(function () {
+        $("#login_button").click(function () {
             $('.veen .wrapper').removeClass('move');
             //$('.body').css('background', '#ff4931');
             $('.body').css('background', '#3b674c');
@@ -92,3 +105,4 @@
     });
 
 </script>
+<script src="~/ClientApp/Login/Login.js"></script>
