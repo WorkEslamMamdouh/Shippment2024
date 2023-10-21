@@ -2545,6 +2545,7 @@ var getClass = function (className) {
     }
 };
 var _AllPages = new Array();
+var CounterPage = 0;
 function GetAllPages() {
     debugger;
     $.ajax({
@@ -2565,10 +2566,43 @@ function GetAllPages() {
 }
 function OpenPage(moduleCode) {
     debugger;
+    $('#btn_Logout').removeClass("display_none");
+    $('#htmlContainer').removeClass("display_none");
+    $('#Back_Page').addClass("display_none");
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     $('#htmlContainer').html(Page[0].Page_Html);
     $('._Loding').removeClass('Btn_Loder');
     $('#htmlContainer').addClass('animate__animated animate__zoomIn');
     setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
+}
+function OpenPagePartial(moduleCode, NamePage) {
+    debugger;
+    var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
+    CounterPage++;
+    $('#btn_Logout').addClass("display_none");
+    $('#htmlContainer').addClass("display_none");
+    $('.Page_Partial').addClass("display_none");
+    $('#Partial_' + CounterPage).html(Page[0].Page_Html);
+    $('#Partial_' + CounterPage).removeClass("display_none");
+    $('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
+    setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
+    $('#Back_Page').removeClass("display_none");
+    $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
+}
+function Back_Page_Partial() {
+    debugger;
+    if (CounterPage == 0) {
+        return;
+    }
+    $('#Partial_' + CounterPage).html("");
+    $('.Page_Partial').addClass("display_none");
+    $('#htmlContainer').addClass("display_none");
+    $('#btn_Logout').addClass("display_none");
+    CounterPage--;
+    if (CounterPage == 0) {
+        $('#btn_Logout').removeClass("display_none");
+        $('#htmlContainer').removeClass("display_none");
+        $('#Back_Page').addClass("display_none");
+    }
 }
 //# sourceMappingURL=App.js.map

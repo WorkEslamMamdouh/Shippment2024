@@ -14,6 +14,7 @@ namespace Layout {
 
         
     var btn_Logout: HTMLButtonElement;
+    var Back_Page: HTMLButtonElement;
 
 
     export function InitalizeComponent() {
@@ -30,12 +31,16 @@ namespace Layout {
 
     function InitalizeControls() {
         btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement; 
+        Back_Page = document.getElementById("Back_Page") as HTMLButtonElement;
     }
     function InitializeEvents() {
 
         btn_Logout.onclick = btn_LogoutUesr;
+        Back_Page.onclick = Back_Page_Partial;
 
     }
+
+
 
     function btn_LogoutUesr() {
 

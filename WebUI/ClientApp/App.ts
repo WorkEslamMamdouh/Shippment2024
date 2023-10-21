@@ -3304,6 +3304,8 @@ var getClass = function (className) {
 
 var _AllPages: Array<AllPages> = new Array<AllPages>();
 
+var CounterPage = 0;
+
 function GetAllPages() {
 
     debugger
@@ -3328,9 +3330,57 @@ function GetAllPages() {
 }
 function OpenPage(moduleCode: string) {
     debugger
+
+    $('#btn_Logout').removeClass("display_none");
+    $('#htmlContainer').removeClass("display_none");
+    $('#Back_Page').addClass("display_none");
+
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     $('#htmlContainer').html(Page[0].Page_Html);
     $('._Loding').removeClass('Btn_Loder');
     $('#htmlContainer').addClass('animate__animated animate__zoomIn');
     setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
+}
+
+function OpenPagePartial(moduleCode: string, NamePage: string) {
+    debugger
+     
+    let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
+    CounterPage++;
+
+    $('#btn_Logout').addClass("display_none");
+    $('#htmlContainer').addClass("display_none");
+    $('.Page_Partial').addClass("display_none");
+    $('#Partial_' + CounterPage).html(Page[0].Page_Html);
+    $('#Partial_' + CounterPage).removeClass("display_none"); 
+    $('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
+    setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
+    $('#Back_Page').removeClass("display_none");
+
+    $('#Lab_NamePage').html(`` + NamePage+`<span style="font-weight: 700;">
+                    <span style="font-weight: 400;"></span>
+                </span>`);
+
+}
+ 
+function Back_Page_Partial() {
+    debugger
+
+
+    if (CounterPage == 0) {
+        return
+    }
+
+    $('#Partial_' + CounterPage).html("");
+    $('.Page_Partial').addClass("display_none");
+    $('#htmlContainer').addClass("display_none");
+    $('#btn_Logout').addClass("display_none");
+    CounterPage--;
+
+    if (CounterPage == 0) {
+        $('#btn_Logout').removeClass("display_none");
+        $('#htmlContainer').removeClass("display_none");
+        $('#Back_Page').addClass("display_none");
+    }
+     
 }

@@ -10,6 +10,7 @@ var Layout;
 (function (Layout) {
     var sys = new SystemTools();
     var btn_Logout;
+    var Back_Page;
     function InitalizeComponent() {
         debugger;
         GetAllPages();
@@ -21,9 +22,11 @@ var Layout;
     Layout.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         btn_Logout = document.getElementById("btn_Logout");
+        Back_Page = document.getElementById("Back_Page");
     }
     function InitializeEvents() {
         btn_Logout.onclick = btn_LogoutUesr;
+        Back_Page.onclick = Back_Page_Partial;
     }
     function btn_LogoutUesr() {
         $('.Layout_Home').addClass('display_none');

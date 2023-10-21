@@ -1038,9 +1038,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Shared\Layout.cshtml" />
-    <Content Include="Views\Sales\SlsTrShowPriceIndex.cshtml" />
     <Content Include="Views\Partial\ReportsPopup.cshtml" />
-    <Content Include="Views\Sales\SlsTrSalesManagerNewIndex.cshtml" />
+    <Content Include="Views\Saller\Order_SallerIndex.cshtml" />
     <Content Include="Views\Error\ErrorPDF_Fix.cshtml" />
     <Content Include="Views\Home\htmlContainerIndex.cshtml" />
     <None Include="Web.Debug.config">
