@@ -93,22 +93,5 @@ var Layout;
         }
         $('.MED').removeClass('display_none');
     }
-    function LogoutUserApi() {
-        var userCode = "" /*SysSession.CurrentEnvironment.UserCode*/;
-        //let userCode = SysSession.CurrentEnvironment.UserCode;
-        Ajax.Callsync({
-            type: "GET",
-            url: sys.apiUrl("G_USERS", "LogoutUser"),
-            data: { user: userCode },
-            success: function (d) {
-                if (d !== undefined) {
-                    window.open(Url.Action("HomePage", "Login"), "_self");
-                    return;
-                }
-            }
-        });
-    }
-    Layout.LogoutUserApi = LogoutUserApi;
-    ;
 })(Layout || (Layout = {}));
 //# sourceMappingURL=Layout.js.map

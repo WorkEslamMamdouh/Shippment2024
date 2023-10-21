@@ -123,24 +123,5 @@ namespace Layout {
         $('.MED').removeClass('display_none');
  
     }
-
-    export function LogoutUserApi() {
-        let userCode = ""/*SysSession.CurrentEnvironment.UserCode*/;
-        //let userCode = SysSession.CurrentEnvironment.UserCode;
-        Ajax.Callsync({
-            type: "GET",
-            url: sys.apiUrl("G_USERS", "LogoutUser"),
-            data: { user: userCode },
-            success: (d) => { 
-                if (d !== undefined) {
-                     
-                    window.open(Url.Action("HomePage", "Login"), "_self");
-
-                    return;
-                }
-            }
-        });
-    };
      
-       
 }
