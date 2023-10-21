@@ -12,20 +12,37 @@ $(document).ready(() => {
 namespace Layout {
     var sys: SystemTools = new SystemTools();   
 
-       
-    
-    $('Li').addClass('animate__animated animate__fadeInTopRight');
-    $('#logOrg').addClass('animate__animated animate__backInDown'); 
+        
+    var btn_Logout: HTMLButtonElement;
+
 
     export function InitalizeComponent() {
         debugger
         GetAllPages();
+        InitalizeControls();
+        InitializeEvents();
         //ApplyModules(); 
         //InitializePages();
 
        
 
     }  
+
+    function InitalizeControls() {
+        btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement; 
+    }
+    function InitializeEvents() {
+
+        btn_Logout.onclick = btn_LogoutUesr;
+
+    }
+
+    function btn_LogoutUesr() {
+
+        $('.Layout_Home').addClass('display_none');
+        OpenPage("Login");
+
+    }
 
     function ApplyModules() {
         var lis = document.getElementsByClassName("liItem");

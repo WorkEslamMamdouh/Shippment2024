@@ -1751,10 +1751,12 @@ function Errorinput(input: any) {
 
     var id = '';
     if (input.selector != null) {
-
+         
         $('' + input.selector + '').addClass('text_Mandatory');
+        $('' + input.selector + '').addClass('animate__animated animate__shakeX'); 
+
         $('' + input.selector + '').focus();
-        setTimeout(function () { $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('' + input.selector + '').removeClass('animate__animated animate__shakeX'); $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
     }
     else {
 
@@ -1768,13 +1770,15 @@ function Errorinput(input: any) {
 
 
         $('#' + id + '').addClass('text_Mandatory');
+        $('#' + id + '').addClass('animate__animated animate__shakeX');
         $('#' + id + '').focus();
         setTimeout(function () { $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
 
         $('#select2-' + id + '-container').addClass('text_Mandatory');
         $('#select2-' + id + '-container').focus();
-        setTimeout(function () { $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('#select2-' + id + '-container').removeClass('animate__animated animate__shakeX'); $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
 
+         
     }
 
 }
