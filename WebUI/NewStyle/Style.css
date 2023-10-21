@@ -58,3 +58,16 @@
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+
+@media (max-width: 600px) {
+    .dropdown-content {
+        display: block;
+    }
+}
+
+
+@media (max-width: 1px) {
+    .dropdown-content {
+        display: block;
+    }
+}
