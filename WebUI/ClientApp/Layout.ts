@@ -10,8 +10,7 @@ $(document).ready(() => {
 });
 
 namespace Layout {
-    var sys: SystemTools = new SystemTools();  
-    var SysSession: SystemSession = GetSystemSession('Home'); 
+    var sys: SystemTools = new SystemTools();   
 
        
     
@@ -19,7 +18,7 @@ namespace Layout {
     $('#logOrg').addClass('animate__animated animate__backInDown'); 
 
     export function InitalizeComponent() {
-
+        debugger
         GetAllPages();
         //ApplyModules(); 
         //InitializePages();
@@ -37,12 +36,12 @@ namespace Layout {
         var lis = document.getElementsByClassName("liItem");
         let obj = [document.getElementById('liItem')];
         let modules: Array<UserPrivilege> = new Array<UserPrivilege>();
-        let compCode = SysSession.CurrentEnvironment.CompCode;
-        let branchCode = SysSession.CurrentEnvironment.BranchCode;
-        let UserCode = SysSession.CurrentEnvironment.UserCode;
-        let SystemCode = SysSession.CurrentEnvironment.SystemCode;
-        let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
-        let CurrentYear = SysSession.CurrentEnvironment.CurrentYear;
+        let compCode = ""//SysSession.CurrentEnvironment.CompCode;
+        let branchCode = ""// SysSession.CurrentEnvironment.BranchCode;
+        let UserCode = ""// SysSession.CurrentEnvironment.UserCode;
+        let SystemCode = ""// SysSession.CurrentEnvironment.SystemCode;
+        let SubSystemCode = ""//SysSession.CurrentEnvironment.SubSystemCode;
+        let CurrentYear = ""//SysSession.CurrentEnvironment.CurrentYear;
 
          Ajax.Callsync({
             type: "GET",
@@ -110,16 +109,11 @@ namespace Layout {
             }
         }
         $('.MED').removeClass('display_none');
-
-        if (SysSession.CurrentEnvironment.I_Control[0].GL_VoucherCCDT_Type != 1) {
-            $('#btnDtcostcenter').addClass('display_none');
-            $('#btnDtcostcenterT').addClass('display_none');
-            $('#btnCcdtAccState').addClass('display_none');
-            $('#btnCcdtAccStateT').addClass('display_none');
-        }
+ 
     }
     export function LogoutUserApi() {
-        let userCode = SysSession.CurrentEnvironment.UserCode;
+        let userCode = ""/*SysSession.CurrentEnvironment.UserCode*/;
+        //let userCode = SysSession.CurrentEnvironment.UserCode;
         Ajax.Callsync({
             type: "GET",
             url: sys.apiUrl("G_USERS", "LogoutUser"),
