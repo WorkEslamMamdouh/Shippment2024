@@ -4,7 +4,7 @@ $(document).ready(function () {
 var SlsTrSalesManager;
 (function (SlsTrSalesManager) {
     //system varables
-    var SysSession = GetSystemSession(Modules.SlsTrSalesManager);
+    var SysSession = GetSystemSession(Modules.SlsTrSalesManagerNew);
     var compcode;
     var BranchCode;
     var sys = new SystemTools();
@@ -284,7 +284,7 @@ var SlsTrSalesManager;
         if (SysSession.CurrentEnvironment.I_Control[0].IsLocalBranchCustomer == true) {
             cond = " and BranchCode=" + BranchCode;
         }
-        sys.FindKey(Modules.AccDefVendor, "btncustSearch", "CompCode= " + compcode + " " + cond, function () {
+        sys.FindKey("AccDefVendor", "btncustSearch", "CompCode= " + compcode + " " + cond, function () {
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             getCustomerByIdFilter(id, false);
         });
@@ -310,7 +310,7 @@ var SlsTrSalesManager;
         if (SysSession.CurrentEnvironment.I_Control[0].IsLocalBranchCustomer == true) {
             cond = " and BranchCode=" + BranchCode;
         }
-        sys.FindKey(Modules.AccDefVendor, "btncustSearch", "CompCode= " + compcode + " " + cond, function () {
+        sys.FindKey("AccDefVendor", "btncustSearch", "CompCode= " + compcode + " " + cond, function () {
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             getCustomerById(id, false);
         });
@@ -1746,7 +1746,7 @@ var SlsTrSalesManager;
             var storeId = Number(ddlStore.value); //and OnhandQty > 0
             var FinYear = SysSession.CurrentEnvironment.CurrentYear; //and OnhandQty > 0
             var qury = "CompCode = " + compcode + " and  StoreId=" + storeId + " and ISSales =1 and IsActive = 1 and  FinYear = " + FinYear;
-            sys.FindKey(Modules.IssueToCC, "btnSearchItems", qury, function () {
+            sys.FindKey("IssueToCC", "btnSearchItems", qury, function () {
                 var id = SearchGrid.SearchDataGrid.SelectedKey;
                 ItemDetails = ItemFamilyDetails.filter(function (x) { return x.ItemID == id; });
                 //$('#ddlFamily' + cnt).val(ItemDetails[0].ItemFamilyID);

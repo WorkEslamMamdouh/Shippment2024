@@ -13,8 +13,8 @@ var Home;
     $('Li').addClass('animate__animated animate__fadeInTopRight');
     $('#logOrg').addClass('animate__animated animate__backInDown');
     function InitalizeComponent() {
-        ApplyModules();
-        InitializePages();
+        //ApplyModules();
+        //InitializePages();
     }
     Home.InitalizeComponent = InitalizeComponent;
     function InitializePages() {

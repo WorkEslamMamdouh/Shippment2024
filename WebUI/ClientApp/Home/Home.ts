@@ -20,8 +20,8 @@ namespace Home {
 
     export function InitalizeComponent() {
          
-        ApplyModules();
-        InitializePages();
+        //ApplyModules();
+        //InitializePages();
 
     }
     function InitializePages() {

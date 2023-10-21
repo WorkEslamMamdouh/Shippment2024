@@ -21,8 +21,10 @@ namespace Layout {
     export function InitalizeComponent() {
 
         GetAllPages();
-        ApplyModules(); 
-        InitializePages();
+        //ApplyModules(); 
+        //InitializePages();
+
+       
 
     } 
     function InitializePages() {

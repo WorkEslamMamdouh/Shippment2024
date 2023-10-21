@@ -29,10 +29,11 @@ namespace Inv.WebUI
         //}
 
         protected void Application_Error(object sender, EventArgs e)
+        
         {
             Exception ex = Server.GetLastError();
             Server.ClearError();
-            string url = "/Login/ErrorIndex";  // HttpContext.Current.Session["ErrorUrl"].ToString();
+            string url = "/ErrorPage/ErrorIndex";  // HttpContext.Current.Session["ErrorUrl"].ToString();
                                                //url = url + "/?MassError={" + ex.Message + "" + ex.InnerException+"}";
             Session["MessageError"] = "Message:" + ex.Message.ToString() + ex.InnerException;
 

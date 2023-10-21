@@ -993,7 +993,7 @@
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Shared\cc.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Sales\SlsTrShowPriceIndex.cshtml" />
     <Content Include="Views\Partial\ReportsPopup.cshtml" />
     <Content Include="Views\Sales\SlsTrSalesManagerNewIndex.cshtml" />
@@ -1008,6 +1008,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ClientApp\Sales\" />
+    <Folder Include="NewStyle\" />
     <Folder Include="Newtemplate\documentation\" />
     <Folder Include="Newtemplate\template\assets\images\auth\" />
     <Folder Include="Newtemplate\template\assets\images\carousel\" />
@@ -1028,9 +1030,8 @@
     <TypeScriptCompile Include="ClientApp\AjaxCaller.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
+    <TypeScriptCompile Include="ClientApp\ErrorPage\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
-    <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesManagerNew.ts" />
-    <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturnNew.ts" />
     <TypeScriptCompile Include="ClientApp\Login\LoginComponent.ts" />
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />
@@ -1040,10 +1041,6 @@
     <TypeScriptCompile Include="ClientApp\JsGrid.ts" />
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Report_Page\Report_Page.ts" />
-    <TypeScriptCompile Include="ClientApp\Sales\SlsTrShowPrice.ts" />
-    <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
-    <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesManager.ts" />
-    <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturn.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

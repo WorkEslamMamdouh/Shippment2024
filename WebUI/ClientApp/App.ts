@@ -3311,9 +3311,8 @@ function GetAllPages() {
             _AllPages = new Array<AllPages>();
             _AllPages = JSON.parse(htmlContent) as Array<AllPages>;
             // Display the HTML content in a container element
-            let Page = _AllPages.filter(x => x.ModuleCode == 'Home')
-            $('#htmlContainer').html(Page[0].Page_Html);
-
+            OpenPage(Modules.Home);
+            
 
         },
         error: function (xhr, status, error) {
@@ -3322,8 +3321,9 @@ function GetAllPages() {
     });
 
 }
-  function OpenPage(moduleCode: string) {
-
+function OpenPage(moduleCode: string) {
+    debugger
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     $('#htmlContainer').html(Page[0].Page_Html);
+    $('._Loding').removeClass('Btn_Loder');
 }

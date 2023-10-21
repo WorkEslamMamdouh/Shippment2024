@@ -14,8 +14,8 @@ var Layout;
     $('#logOrg').addClass('animate__animated animate__backInDown');
     function InitalizeComponent() {
         GetAllPages();
-        ApplyModules();
-        InitializePages();
+        //ApplyModules(); 
+        //InitializePages();
     }
     Layout.InitalizeComponent = InitalizeComponent;
     function InitializePages() {
