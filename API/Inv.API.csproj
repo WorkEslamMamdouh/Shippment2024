@@ -282,6 +282,7 @@
     <Compile Include="Controllers\DefStoreController.cs" />
     <Compile Include="Controllers\AVATSrvCategoryController.cs" />
     <Compile Include="Controllers\AVATCONTROLController.cs" />
+    <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Controllers\ServPurInvoiceController.cs" />
     <Compile Include="Controllers\ServTrSalesController.cs" />
     <Compile Include="Controllers\Shared\G_BranchController.cs" />

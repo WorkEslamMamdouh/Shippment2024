@@ -93,6 +93,8 @@ using Inv.BLL.Services.STKOpen;
 using Inv.BLL.Services.LnkVoucherDetail;
 using Inv.BLL.Services.ACCOUNT_GROUP;
 
+using Inv.BLL.Services.Seller;
+
 namespace Inv.API.Infrastructure
 {
     public static class IocConfigurator
@@ -195,6 +197,8 @@ namespace Inv.API.Infrastructure
             container.RegisterType<IStk_TR_IssueToCCService, Stk_TR_IssueToCCService>();
             container.RegisterType<ILnkVoucherDetailService, LnkVoucherDetailService>();
             container.RegisterType<IACCOUNT_GROUPService, ACCOUNT_GROUPService>();
+             
+            container.RegisterType<ISellerService, SellerService>();
         }
     }
 }

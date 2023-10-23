@@ -90,6 +90,8 @@
     <Compile Include="Services\LnkVoucherDetail\LnkVoucherDetailService.cs" />
     <Compile Include="Services\operationItemsSum\IOperationItemsSum.cs" />
     <Compile Include="Services\operationItemsSum\OperationItemsSum.cs" />
+    <Compile Include="Services\Seller\ISellerService.cs" />
+    <Compile Include="Services\Seller\SellerService.cs" />
     <Compile Include="Services\ServiceTRInvoice\IServiceTRInvoiceService.cs" />
     <Compile Include="Services\ServiceTRInvoice\ServiceTRInvoiceService.cs" />
     <Compile Include="Services\ITRCollect\II_TR_CollectService.cs" />
