@@ -233,6 +233,8 @@
     <Content Include="images\Background\imagescomp %281%29.jpg" />
     <Content Include="images\Background\imgadmin.jpeg" />
     <Content Include="js\select2.min.js" />
+    <Content Include="NewStyle\1241544_large.png.png" />
+    <Content Include="NewStyle\1241544_medium2000.png.png" />
     <Content Include="NewStyle\About.css" />
     <Content Include="NewStyle\About.html" />
     <Content Include="NewStyle\Blog-Template.css" />
@@ -251,6 +253,7 @@
     <Content Include="NewStyle\images\1.jpg" />
     <Content Include="NewStyle\images\2.jpg" />
     <Content Include="NewStyle\images\2023-nightster-special-016-motorcycle-08.jpg" />
+    <Content Include="NewStyle\images\222920321-0.png" />
     <Content Include="NewStyle\images\3546546.jpg" />
     <Content Include="NewStyle\images\4.jpg" />
     <Content Include="NewStyle\images\41.jpg" />

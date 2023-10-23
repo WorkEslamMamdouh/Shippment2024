@@ -13,7 +13,6 @@ namespace Layout {
     var sys: SystemTools = new SystemTools();   
 
         
-    var btn_Logout: HTMLButtonElement;
     var Back_Page: HTMLButtonElement;
 
 
@@ -29,25 +28,15 @@ namespace Layout {
 
     }  
 
-    function InitalizeControls() {
-        btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement; 
+    function InitalizeControls() { 
         Back_Page = document.getElementById("Back_Page") as HTMLButtonElement;
     }
     function InitializeEvents() {
-
-        btn_Logout.onclick = btn_LogoutUesr;
+         
         Back_Page.onclick = Back_Page_Partial;
 
     }
 
-
-
-    function btn_LogoutUesr() {
-
-        $('.Layout_Home').addClass('display_none');
-        OpenPage("Login");
-
-    }
 
     function ApplyModules() {
         var lis = document.getElementsByClassName("liItem");
