@@ -739,7 +739,7 @@ namespace Inv.API.Controllers
             //+year + ","
             string Modulecode = "";
             string query = "SELECT * FROM [dbo].[GFunc_GetPrivilage] (" + year + "," + compCode + "," + branchCode + ",'" + UserCode + "', '" + SystemCode + "','" + Modulecode + "')";
-            List<UserPrivilege> result = db.Database.SqlQuery<UserPrivilege>(query).Where(row => row.Access == false || row.AVAILABLE == false).ToList();
+            List<UserPrivilege> result = db.Database.SqlQuery<UserPrivilege>(query).Where(row => row.Access == true || row.AVAILABLE == true).ToList();
             return Ok(result);
         }
 

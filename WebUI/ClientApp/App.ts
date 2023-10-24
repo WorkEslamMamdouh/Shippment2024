@@ -578,14 +578,112 @@ var Ajax = {
             return null;
         }
     },
+    //CallAsync: <T>(settings: JQueryAjaxSettings) => {
+    //    CheckTime();
+
+    //    $.ajax({
+
+    //        type: settings.type,
+    //        url: settings.url,
+    //        data: settings.data,
+    //        headers: {
+    //            'Accept': 'application/json; charset=utf-8  ',
+    //            'Content-Type': 'application/json'
+    //        },
+    //        cache: false,
+    //        async: false,
+    //        success: (d) => {
+    //            settings.success(d, "", null);
+    //            $(".waitMe").removeAttr("style").fadeOut(2500);
+
+
+
+    //        },
+    //        error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+    //    })
+    //},
+    //Callsync: <T>(settings: JQueryAjaxSettings) => {
+    //    CheckTime();
+
+    //    $.ajax({
+
+    //        type: settings.type,
+    //        url: settings.url,
+    //        data: settings.data,
+    //        headers: {
+    //            'Accept': 'application/json; charset=utf-8  ',
+    //            'Content-Type': 'application/json'
+    //        },
+    //        cache: false,
+    //        async: false,
+    //        success: (d) => {
+    //            settings.success(d, "", null);
+    //            $(".waitMe").removeAttr("style").fadeOut(2500);
+
+
+
+    //        },
+    //        error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+    //    })
+    //},
     CallAsync: <T>(settings: JQueryAjaxSettings) => {
-        CheckTime();
+
+
+        if (cheakUrl(settings.url)) {
+
+            $.ajax({
+
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: (d) => {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+
+
+
+                },
+                error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            })
+
+            return
+        }
+
+        let AD: Ajax_Data = new Ajax_Data();
+
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+
+            settings.data = JSON.stringify(settings.data);
+
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+
+        }
+
+        AD.type = settings.type;
+        let URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
 
         $.ajax({
-
-            type: settings.type,
-            url: settings.url,
-            data: settings.data,
+            url: Url.Action("AccessApi", "GeneralAPI"),
+            data: { data: JSON.stringify(AD) },
             headers: {
                 'Accept': 'application/json; charset=utf-8  ',
                 'Content-Type': 'application/json'
@@ -593,7 +691,9 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                settings.success(d, "", null);
+                debugger
+                var result = JSON.parse(d);
+                settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
 
 
@@ -603,13 +703,63 @@ var Ajax = {
         })
     },
     Callsync: <T>(settings: JQueryAjaxSettings) => {
-        CheckTime();
+
+
+        if (cheakUrl(settings.url)) {
+
+            $.ajax({
+
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: (d) => {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+
+
+
+                },
+                error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            })
+
+            return
+        }
+
+        let AD: Ajax_Data = new Ajax_Data();
+
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+
+            settings.data = JSON.stringify(settings.data);
+
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+
+        }
+
+        AD.type = settings.type;
+        let URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
 
         $.ajax({
-
-            type: settings.type,
-            url: settings.url,
-            data: settings.data,
+            url: Url.Action("AccessApi", "GeneralAPI"),
+            data: { data: JSON.stringify(AD) },
             headers: {
                 'Accept': 'application/json; charset=utf-8  ',
                 'Content-Type': 'application/json'
@@ -617,7 +767,9 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                settings.success(d, "", null);
+                debugger
+                var result = JSON.parse(d);
+                settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
 
 
@@ -627,11 +779,7 @@ var Ajax = {
         })
     },
     CallsyncUi: <T>(settings: JQueryAjaxSettings) => {
-        CheckTime();
-
-        //
-        //
-        debugger
+        
 
         if (cheakUrl(settings.url)) {
 
@@ -3329,7 +3477,7 @@ function GetAllPages() {
 
 }
 function OpenPage(moduleCode: string) {
-    debugger
+   
 
     //$('#btn_Logout').removeClass("display_none");
     $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
@@ -3344,7 +3492,7 @@ function OpenPage(moduleCode: string) {
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string) {
-    debugger
+  
      
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     CounterPage++;
@@ -3365,6 +3513,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
 
     localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
+ 
 }
  
 function Back_Page_Partial() {

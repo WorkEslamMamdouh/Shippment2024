@@ -1,7 +1,7 @@
 var SystemTools = /** @class */ (function () {
     function SystemTools() {
         this.orgCondition = "";
-        this.SysSession = GetSystemSession('Home');
+        this.SysSession = GetSystemSession();
     }
     SystemTools.prototype.apiUrl = function (controller, action) {
         var apiUrl = $("#GetAPIUrl").val() + controller + "/" + action;

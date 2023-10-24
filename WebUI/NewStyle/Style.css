@@ -12,6 +12,9 @@
     border: solid 5px #ab0000 !important; 
 }
 
+.hidden_Control {
+    display: none !important;
+}
 
 
 

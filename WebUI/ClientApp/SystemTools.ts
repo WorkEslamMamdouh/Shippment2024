@@ -1,7 +1,7 @@
 ﻿class SystemTools {
     constructor() {
         this.orgCondition = "";
-        this.SysSession = GetSystemSession('Home');
+        this.SysSession = GetSystemSession();
     }
 
     public orgCondition: string;

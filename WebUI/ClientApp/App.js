@@ -409,12 +409,87 @@ var Ajax = {
             return null;
         }
     },
+    //CallAsync: <T>(settings: JQueryAjaxSettings) => {
+    //    CheckTime();
+    //    $.ajax({
+    //        type: settings.type,
+    //        url: settings.url,
+    //        data: settings.data,
+    //        headers: {
+    //            'Accept': 'application/json; charset=utf-8  ',
+    //            'Content-Type': 'application/json'
+    //        },
+    //        cache: false,
+    //        async: false,
+    //        success: (d) => {
+    //            settings.success(d, "", null);
+    //            $(".waitMe").removeAttr("style").fadeOut(2500);
+    //        },
+    //        error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+    //    })
+    //},
+    //Callsync: <T>(settings: JQueryAjaxSettings) => {
+    //    CheckTime();
+    //    $.ajax({
+    //        type: settings.type,
+    //        url: settings.url,
+    //        data: settings.data,
+    //        headers: {
+    //            'Accept': 'application/json; charset=utf-8  ',
+    //            'Content-Type': 'application/json'
+    //        },
+    //        cache: false,
+    //        async: false,
+    //        success: (d) => {
+    //            settings.success(d, "", null);
+    //            $(".waitMe").removeAttr("style").fadeOut(2500);
+    //        },
+    //        error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+    //    })
+    //},
     CallAsync: function (settings) {
-        CheckTime();
+        if (cheakUrl(settings.url)) {
+            $.ajax({
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: function (d) {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+                },
+                error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            });
+            return;
+        }
+        var AD = new Ajax_Data();
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+            settings.data = JSON.stringify(settings.data);
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+        }
+        AD.type = settings.type;
+        var URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
         $.ajax({
-            type: settings.type,
-            url: settings.url,
-            data: settings.data,
+            url: Url.Action("AccessApi", "GeneralAPI"),
+            data: { data: JSON.stringify(AD) },
             headers: {
                 'Accept': 'application/json; charset=utf-8  ',
                 'Content-Type': 'application/json'
@@ -422,18 +497,57 @@ var Ajax = {
             cache: false,
             async: false,
             success: function (d) {
-                settings.success(d, "", null);
+                debugger;
+                var result = JSON.parse(d);
+                settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
             },
             error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
         });
     },
     Callsync: function (settings) {
-        CheckTime();
+        if (cheakUrl(settings.url)) {
+            $.ajax({
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: function (d) {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+                },
+                error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            });
+            return;
+        }
+        var AD = new Ajax_Data();
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+            settings.data = JSON.stringify(settings.data);
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+        }
+        AD.type = settings.type;
+        var URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
         $.ajax({
-            type: settings.type,
-            url: settings.url,
-            data: settings.data,
+            url: Url.Action("AccessApi", "GeneralAPI"),
+            data: { data: JSON.stringify(AD) },
             headers: {
                 'Accept': 'application/json; charset=utf-8  ',
                 'Content-Type': 'application/json'
@@ -441,17 +555,15 @@ var Ajax = {
             cache: false,
             async: false,
             success: function (d) {
-                settings.success(d, "", null);
+                debugger;
+                var result = JSON.parse(d);
+                settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
             },
             error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
         });
     },
     CallsyncUi: function (settings) {
-        CheckTime();
-        //
-        //
-        debugger;
         if (cheakUrl(settings.url)) {
             $.ajax({
                 type: settings.type,
@@ -2565,7 +2677,6 @@ function GetAllPages() {
     });
 }
 function OpenPage(moduleCode) {
-    debugger;
     //$('#btn_Logout').removeClass("display_none");
     $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
     $('#htmlContainer').removeClass("display_none");
@@ -2577,7 +2688,6 @@ function OpenPage(moduleCode) {
     setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
 }
 function OpenPagePartial(moduleCode, NamePage) {
-    debugger;
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     CounterPage++;
     //$('#btn_Logout').addClass("display_none");

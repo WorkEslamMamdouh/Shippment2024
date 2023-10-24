@@ -188,6 +188,7 @@ class SystemEnvironment {
     public Language: string;
     public CurrentYear: string;
     public UserCode: string;
+    public JobTitle: string;
     public UserType: number;
     public SalesManID: number;
     public CashBoxID: number;
@@ -352,110 +353,12 @@ function GetSystemEnvironment(): SystemEnvironment {
 //}
 
 
-function GetSystemSession(Mod: string): SystemSession {
+function GetSystemSession(): SystemSession {
 
-    
-
-    if (Mod != "Home") {
-
-        $('#divIconbar').removeClass('hidden_Control');
-        localStorage.setItem("Model_Screen", Mod);
-    }
-    if (document.cookie.length > 0) {
-
-        var SysSession = new SystemSession;
-        SysSession.CurrentEnvironment = JSON.parse(readCookie("Inv1_systemProperties")) as SystemEnvironment;
-
-        if (SysSession.CurrentEnvironment == null) {
-            return 
-        }
-        let DbName = SysSession.CurrentEnvironment.DbName;
-        let compCode = SysSession.CurrentEnvironment.CompCode;
-        let UserCode = SysSession.CurrentEnvironment.UserCode;
-        let BranchCode = SysSession.CurrentEnvironment.BranchCode;
-        let CurrentYear = SysSession.CurrentEnvironment.CurrentYear;
-
-        $('#GetIPAddress').val(compCode + "_" + UserCode + "_" + DbName) 
-
-        localStorage.setItem("UserCode", UserCode);
-        localStorage.setItem("compCode", compCode);
-        localStorage.setItem("BranchCode", BranchCode);
-        localStorage.setItem("CurrentYear", CurrentYear);
-
- 
-
-        if (Mod == "Home")
-            return SysSession;
-
-        var sys: SystemTools = new SystemTools();
-
-  
-
-        if (!(compCode == "Undefied")) {
-
-
-            let branchCode = SysSession.CurrentEnvironment.BranchCode;
-            let UserCode = SysSession.CurrentEnvironment.UserCode;
-            let SystemCode = SysSession.CurrentEnvironment.SystemCode;
-            let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
-            let CurrentYear = SysSession.CurrentEnvironment.CurrentYear;
-            //var apiUrl = $("#GetAPIUrl").val() + "SystemTools" + "/" + "GetUserPrivilage";
-
-            Ajax.Callsync({
-                type: "GET",
-                url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
-                data: { year: Number(CurrentYear), compCode: Number(compCode), branchCode: Number(branchCode), UserCode: UserCode, SystemCode: SystemCode, Modulecode: Mod },
-				success: (d) => {
-					debugger
-                    let result = JSON.parse(d) as UserPrivilege;
-
-					if (result == null || result.Access != true) {
-						alert("Access denied  ( " + Mod+" )");
-                        return;
-                    }
-                    if (result.Access == true) {
-
-                        $("#btnHelpRep").click(() => { ScreenHelp(Mod); })
-
-                        SysSession.CurrentPrivileges = result;
-                        if (!result.VIEW) {
-                            $('#btnShow').addClass('hidden_Control');
-                            $('#btnPrint').addClass('hidden_Control');
-                            $('#btnPrintTrview').addClass('hidden_Control');
-                            $('#btnPrintTrPDF').addClass('hidden_Control');
-                            $('#btnPrintTrEXEL').addClass('hidden_Control');
-                        }
-                        if (!result.AddNew) {
-                            $('#btnAdd').addClass('hidden_Control');
-                        }
-                        if (!result.PrintOut) {
-                            $('#btnPrintTransaction').addClass('hidden_Control');
-                        }
-                        if (!result.EDIT) {
-                            $('#btnUpdate').addClass('hidden_Control');
-                        }
-                        setTimeout(function () { $('._Loding').removeClass('Btn_Loder'); }, 1000);
-
-                        setTimeout(function () {
-                            OpenScreen(SysSession.CurrentEnvironment.UserCode, SysSession.CurrentEnvironment.CompCode, SysSession.CurrentEnvironment.BranchCode, Mod, SysSession.CurrentEnvironment.CurrentYear);
-                        }, 3000);
-
-
-
-                    }
-                    else {
- 
-						alert("No Inv1_Privilage  ( " + Mod + " )");
-                    }
-                    
-                    
-                }
-            });
-        }
-        return SysSession;
-    }
-
-    document.body.style.zoom = "90%";
+    var SysSession = new SystemSession;
+    SysSession.CurrentEnvironment = JSON.parse(readCookie("Harley_systemProperties")) as SystemEnvironment;
+      
+    return SysSession; 
 }
 //function GetMemberComm(): Kids_Comm {
 //    if (document.cookie.length > 0) {
