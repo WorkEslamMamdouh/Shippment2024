@@ -3487,7 +3487,7 @@ function OpenPage(moduleCode: string) {
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     $('#htmlContainer').html(Page[0].Page_Html);
     $('._Loding').removeClass('Btn_Loder');
-    $('#htmlContainer').addClass('animate__animated animate__zoomIn');
+    //$('#htmlContainer').addClass('animate__animated animate__zoomIn');
     setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
 }
 
@@ -3503,7 +3503,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
     $('.Page_Partial').addClass("display_none");
     $('#Partial_' + CounterPage).html(Page[0].Page_Html);
     $('#Partial_' + CounterPage).removeClass("display_none"); 
-    $('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
+    //$('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
     setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
     $('#Back_Page').removeClass("display_none");
 

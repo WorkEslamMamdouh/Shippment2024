@@ -11,6 +11,7 @@ var Login;
     var txtUsername;
     var txtPassword;
     function InitalizeComponent() {
+        $('#bodyLogin').addClass('hidden_Control');
         var today = new Date();
         var yyyy = today.getFullYear();
         SystemEnv.ScreenLanguage = "en";
@@ -23,6 +24,7 @@ var Login;
         Event_key('Enter', 'txtUsername', 'Submit_Login');
         Event_key('Enter', 'txtPassword', 'Submit_Login');
         GetData_Header();
+        $('#bodyLogin').removeClass('hidden_Control');
     }
     Login.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

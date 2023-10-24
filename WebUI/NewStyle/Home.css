@@ -1018,7 +1018,7 @@
 @media (max-width: 575px) {
   .u-section-2 .u-repeater-1 {
     grid-template-columns: 100%;
-    min-height: 6073px;
+    /*min-height: 6073px;*/
   }
 
   .u-section-2 .u-image-1 {

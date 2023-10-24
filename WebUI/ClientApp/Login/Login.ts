@@ -17,7 +17,7 @@ namespace Login {
     var txtPassword: HTMLInputElement;
 
     export function InitalizeComponent() {
-
+        $('#bodyLogin').addClass('hidden_Control');
         var today: Date = new Date(); 
         var yyyy = today.getFullYear();
         SystemEnv.ScreenLanguage = "en";
@@ -36,6 +36,8 @@ namespace Login {
         Event_key('Enter', 'txtPassword', 'Submit_Login');
 
         GetData_Header();
+
+        $('#bodyLogin').removeClass('hidden_Control');
     }
     function InitalizeControls() {
         Submit_Login = document.getElementById("Submit_Login") as HTMLButtonElement;

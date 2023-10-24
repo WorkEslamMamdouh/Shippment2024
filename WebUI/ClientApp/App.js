@@ -2684,7 +2684,7 @@ function OpenPage(moduleCode) {
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     $('#htmlContainer').html(Page[0].Page_Html);
     $('._Loding').removeClass('Btn_Loder');
-    $('#htmlContainer').addClass('animate__animated animate__zoomIn');
+    //$('#htmlContainer').addClass('animate__animated animate__zoomIn');
     setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
 }
 function OpenPagePartial(moduleCode, NamePage) {
@@ -2696,7 +2696,7 @@ function OpenPagePartial(moduleCode, NamePage) {
     $('.Page_Partial').addClass("display_none");
     $('#Partial_' + CounterPage).html(Page[0].Page_Html);
     $('#Partial_' + CounterPage).removeClass("display_none");
-    $('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
+    //$('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
     setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
     $('#Back_Page').removeClass("display_none");
     $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
