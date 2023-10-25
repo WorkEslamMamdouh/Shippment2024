@@ -1483,7 +1483,10 @@ function DisplayMassage_Processes(msg_Ar, msg_En, msg_type, OnOk) {
     //    setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 7000);
     //}
 }
-function Errorinput(input) {
+function Errorinput(input, TxtMessage) {
+    if (TxtMessage.trim() != '') {
+        ShowMessage(TxtMessage.trim());
+    }
     var id = '';
     if (input.selector != null) {
         $('' + input.selector + '').addClass('text_Mandatory');
@@ -2591,6 +2594,32 @@ function BuildAllFild(dataSource, cnt, NameRow) {
         }
     }
     $("#" + NameRow + cnt).append(html);
+}
+function ShowMessage(Message) {
+    var toastContainer = document.getElementById('toastContainer');
+    // Create a new toast element
+    var toastElement = document.createElement('div');
+    toastElement.classList.add('toast');
+    toastElement.textContent = Message + ' !';
+    // Append the toast element to the container
+    toastContainer.appendChild(toastElement);
+    // Display the toast using CSS animations
+    setTimeout(function () {
+        toastElement.style.opacity = '1';
+        toastElement.style.transform = 'translateY(0)';
+    }, 100);
+    // Hide the toast after a delay (adjust as needed)
+    setTimeout(function () {
+        hideToast(toastElement);
+    }, 5000);
+}
+function hideToast(toastElement) {
+    toastElement.style.opacity = '0';
+    toastElement.style.transform = 'translateY(100%)';
+    // Remove the toast element from the container after the animation ends
+    toastElement.addEventListener('transitionend', function () {
+        toastElement.remove();
+    });
 }
 function CheckDuplicateGrid(Cnt, CountGrid, inputName, StatusInput) {
     debugger;

@@ -30,18 +30,18 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult SignUp(int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token)
+        public IHttpActionResult SignUp(int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password)
         {
-            if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
-            {
+           
                 using (var dbTransaction = db.Database.BeginTransaction())
                 {
                     try
                     {
-                        A_Pay_D_Vendor Vendor = db.Database.SqlQuery<A_Pay_D_Vendor>(@"INSERT INTO [dbo].[A_Pay_D_Vendor]
-                    ([CompCode],[VendorCode],[NAMEA],[NAMEL],[IDNo],[MOBILE],
-                    [EMAIL],[Isactive],[CREATED_BY],[CREATED_AT],[WebUserName],[WebPassword]
-                    ,[Address_Street])VALUES(" + CompCode + "," + IDNO + "," + Name + "," + Name + "," + IDNO + "," + Mobile + "," + Email + "," + UserCode + "," + DateTime.Now + "," + UserName + "," + Password + ")").FirstOrDefault();
+
+                    string Qury = @"INSERT INTO [dbo].[A_Pay_D_Vendor]
+                    ([CompCode],[VendorCode],[NAMEA],[NAMEL],[IDNo],[MOBILE],[EMAIL],[Isactive],[CREATED_AT],[WebUserName],[WebPassword]
+                    ,[Address_Street])VALUES(N'" + CompCode + "',N'" + IDNO.Substring(IDNO.Length / 2) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'"+ address + "')"; 
+                        A_Pay_D_Vendor Vendor = db.Database.SqlQuery<A_Pay_D_Vendor>(Qury).FirstOrDefault();
 
                         ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode),BranchCode,Vendor.VendorID, "Seller", "Add", db);
                         if (res.ResponseState == true)
@@ -70,10 +70,7 @@ namespace Inv.API.Controllers
                 }
                
                  
-
-
-            }
-            return BadRequest(ModelState);
+                 
         }
 
         [HttpPost, AllowAnonymous]

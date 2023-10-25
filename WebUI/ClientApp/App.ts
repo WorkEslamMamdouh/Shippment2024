@@ -1894,8 +1894,11 @@ function DisplayMassage_Processes(msg_Ar: string, msg_En: string, msg_type: stri
     //}
 }
 
-function Errorinput(input: any) {
+function Errorinput(input: any, TxtMessage?: string) {
 
+    if (TxtMessage.trim() != '') {
+        ShowMessage(TxtMessage.trim());
+    }
 
     var id = '';
     if (input.selector != null) {
@@ -3378,6 +3381,41 @@ function BuildAllFild(dataSource: any, cnt: number, NameRow: string) {
         }
     }
     $("#" + NameRow + cnt).append(html);
+}
+
+
+function ShowMessage(Message: string) {
+    const toastContainer = document.getElementById('toastContainer');
+
+    // Create a new toast element
+    const toastElement = document.createElement('div');
+    toastElement.classList.add('toast');
+    toastElement.textContent = Message + ' !';
+
+    // Append the toast element to the container
+    toastContainer.appendChild(toastElement);
+
+    // Display the toast using CSS animations
+    setTimeout(function () {
+        toastElement.style.opacity = '1';
+        toastElement.style.transform = 'translateY(0)';
+    }, 100);
+
+    // Hide the toast after a delay (adjust as needed)
+    setTimeout(function () {
+        hideToast(toastElement);
+    }, 5000);
+}
+
+
+function hideToast(toastElement) {
+    toastElement.style.opacity = '0';
+    toastElement.style.transform = 'translateY(100%)';
+
+    // Remove the toast element from the container after the animation ends
+    toastElement.addEventListener('transitionend', function () {
+        toastElement.remove();
+    });
 }
 
 

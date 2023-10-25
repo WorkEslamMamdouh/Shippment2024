@@ -12,6 +12,8 @@ namespace Login {
     var Control: Array<I_Control> = new Array<I_Control>();
 
 
+    var rgstr_button: HTMLButtonElement;
+    var Submit_Register: HTMLButtonElement;
     var Submit_Login: HTMLButtonElement;
     var txtUsername: HTMLInputElement;
     var txtPassword: HTMLInputElement;
@@ -38,15 +40,20 @@ namespace Login {
         GetData_Header();
 
         $('#bodyLogin').removeClass('hidden_Control');
+         
     }
     function InitalizeControls() {
+        rgstr_button = document.getElementById("rgstr_button") as HTMLButtonElement;
         Submit_Login = document.getElementById("Submit_Login") as HTMLButtonElement;
+        Submit_Register = document.getElementById("Submit_Register") as HTMLButtonElement;
         txtUsername = document.getElementById("txtUsername") as HTMLInputElement;
         txtPassword = document.getElementById("txtPassword") as HTMLInputElement;
     }
     function InitializeEvents() {
          
         Submit_Login.onclick = SubmitLogin;
+        Submit_Register.onclick = SubmitRegister;
+        rgstr_button.onclick = () => { $('._Clear_Reg').val('') };
         
     }
 
@@ -103,6 +110,68 @@ namespace Login {
         
     }
 
-    
+
+    function SubmitRegister() {
+         
+        if ($('#Reg_Full_Name').val().trim() == "") {
+            Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name" );
+            return
+        } 
+        else if ($('#Reg_Address').val().trim() == "") {
+            Errorinput($('#Reg_Address'), "Please a Enter Address" );
+            return
+        } 
+        else if ($('#Reg_Mobile').val().trim() == "") {
+            Errorinput($('#Reg_Mobile'), "Please a Enter Mobile" );
+            return
+        } 
+        else if ($('#Reg_ID_Num').val().trim() == "") {
+            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number" );
+            return
+        }
+        else if ($('#Reg_Mail').val().trim() == "") {
+            Errorinput($('#Reg_Mail'), "Please a Enter Mail" );
+            return
+        }
+        else if ($('#Reg_UserName').val().trim() == "") {
+            Errorinput($('#Reg_UserName'), "Please a Enter User Name" );
+            return
+        }
+        let USER = USERS.filter(x => x.USER_CODE == $('#Reg_UserName').val().trim().toLowerCase()) 
+        if (USER.length > 0) {
+            Errorinput($('#Reg_UserName'), "This User is already used" );
+            return
+        }
+         if ($('#Reg_Password').val().trim() == "") {
+             Errorinput($('#Reg_Password'), "Please a Enter Password" );
+            return
+        }
+
+        let Name = $('#Reg_Full_Name').val().trim();
+        let address = $('#Reg_Address').val().trim();
+        let Mobile = $('#Reg_Mobile').val().trim();
+        let IDNO = $('#Reg_ID_Num').val().trim();
+        let Email = $('#Reg_Mail').val().trim();
+        let UserName = $('#Reg_UserName').val().trim();
+        let Password = $('#Reg_Password').val().trim();
+
+
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("Seller", "SignUp"),
+            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name , address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
+            success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) { 
+                    let res = result.Response as IQ_GetSlsInvoiceStatisticVer2;
+                  
+                } else {
+                   
+                }
+            }
+        });
+
+    }
+
      
 }
