@@ -131,7 +131,8 @@ var Login;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
-                    var res = result.Response;
+                    ShowMessage("Success");
+                    $('#login_button').click();
                 }
                 else {
                 }

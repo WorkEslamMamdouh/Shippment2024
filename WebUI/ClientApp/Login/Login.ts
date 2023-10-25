@@ -153,7 +153,7 @@ namespace Login {
         let IDNO = $('#Reg_ID_Num').val().trim();
         let Email = $('#Reg_Mail').val().trim();
         let UserName = $('#Reg_UserName').val().trim();
-        let Password = $('#Reg_Password').val().trim();
+        let Password = $('#Reg_Password').val().trim(); 
 
 
         Ajax.Callsync({
@@ -162,9 +162,9 @@ namespace Login {
             data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name , address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
-                if (result.IsSuccess == true) { 
-                    let res = result.Response as IQ_GetSlsInvoiceStatisticVer2;
-                  
+                if (result.IsSuccess == true) {
+                    ShowMessage("Success")
+                    $('#login_button').click();
                 } else {
                    
                 }
