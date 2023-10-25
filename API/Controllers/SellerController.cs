@@ -13,6 +13,7 @@ using System.Web.ModelBinding;
 using System.Data.Common;
 using Inv.BLL.Services.SlsInvoiceItems;
 using Inv.BLL.Services.AccDefVendor;
+using System.Security.Principal;
 
 namespace Inv.API.Controllers
 {
@@ -38,20 +39,19 @@ namespace Inv.API.Controllers
                     try
                     {
 
-                    string Qury = @"INSERT INTO [dbo].[A_Pay_D_Vendor]
+                    string Qury = @"declare @LASTID int 
+                        INSERT INTO [dbo].[A_Pay_D_Vendor]
                     ([CompCode],[VendorCode],[NAMEA],[NAMEL],[IDNo],[MOBILE],[EMAIL],[Isactive],[CREATED_AT],[WebUserName],[WebPassword]
-                    ,[Address_Street])VALUES(N'" + CompCode + "',N'" + IDNO.Substring(IDNO.Length / 2) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'"+ address + "')"; 
-                        A_Pay_D_Vendor Vendor = db.Database.SqlQuery<A_Pay_D_Vendor>(Qury).FirstOrDefault();
+                    ,[Address_Street])VALUES(N'" + CompCode + "',N'" + IDNO.Substring(IDNO.Length / 2) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'"+ address + "')  SET @LASTID = @@IDENTITY select @LASTID"; 
 
-                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode),BranchCode,Vendor.VendorID, "Seller", "Add", db);
+                        int Vendorid = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
+
+                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode),BranchCode,Vendorid, "SignUp", "Add", db);
                         if (res.ResponseState == true)
-                        {
-
-                            Vendor.VendorID= int.Parse(res.ResponseData.ToString());
-                              
+                        { 
                             dbTransaction.Commit();
-                            //LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.I_Sls_TR_Invoice.InvoiceID, obj.I_Sls_TR_Invoice.TrNo.ToString(), LogUser.UserLog.Insert, obj.MODULE_CODE, true, null, null, null);
-                            return Ok(new BaseResponse(Vendor));
+                            LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", Vendorid,"", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
+                            return Ok(new BaseResponse(true));
                         }
                         else
                         {
