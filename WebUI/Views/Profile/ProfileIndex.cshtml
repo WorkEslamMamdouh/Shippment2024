@@ -1,0 +1,129 @@
+﻿
+<link href="~/NewStyle/Login/Login_Style.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<div class="u-align-center u-clearfix u-white u-section-5" id="carousel_fd81">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h1 id="Profile_UserName" class="u-text u-text-1">Profile</h1>
+        <p id="Profile_JobTitle" class="u-large-text u-text u-text-variant u-text-2">I'm a creative graphic designer</p>
+        <div class="data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-1">
+            <div class="u-gutter-0 u-layout">
+                <div class="u-layout-col">
+                    <div class="u-align-center u-container-style u-layout-cell u-size-20 u-layout-cell-1">
+                        <div class="u-container-layout u-valign-middle u-container-layout-1">
+                            <div alt="" class="u-image u-image-circle u-image-1" data-image-width="626" data-image-height="417"></div>
+                        </div>
+                    </div>
+                    <div class="u-align-center u-container-style u-layout-cell u-palette-4-base u-size-20 u-layout-cell-2">
+                       
+
+                        <div class="veen">
+                            <div class="login-btn splits">
+                                <p>Already an user?</p>
+                                <input type="button" class=" __button active" id="login_button" value="Login" />
+                            </div>
+                            <div class="rgstr-btn splits">
+                                <p>Don't have an account?</p>
+                                <input type="button" class=" __button " id="rgstr_button" value="Register" />
+                            </div>
+                            <div class="wrapper">
+                                <form id="login" tabindex="500">
+                                    <h3>Login</h3>
+                                    <div class="mail">
+                                        <input id="txtUsername" type="email" name="">
+                                        <label>Username</label>
+                                    </div>
+                                    <div class="passwd">
+                                        <input id="txtPassword" type="password" name="">
+                                        <label>Password</label>
+                                    </div>
+                                    <div class="submit">
+                                        <input type="button" class=" __button dark" id="Submit_Login" value="Login" />
+                                    </div>
+
+                                </form>
+                                <form id="register" tabindex="502" style="margin-top: 104px;">
+                                    <h3>Register</h3>
+                                    <div class="name">
+                                        <input id="Reg_Full_Name" class="_Clear_Reg" type="text" name="">
+                                        <label>Full Name</label>
+                                    </div>
+                                    <div class="name">
+                                        <input id="Reg_Address" class="_Clear_Reg" type="text" name="">
+                                        <label>Address</label>
+                                    </div>
+                                    <div class="name">
+                                        <input id="Reg_Mobile" class="_Clear_Reg" type="text" name="">
+                                        <label>Mobile Number</label>
+                                    </div>
+                                    <div class="name">
+                                        <input id="Reg_ID_Num" class="_Clear_Reg" type="text" name="">
+                                        <label>ID Number</label>
+                                    </div>
+                                    <div class="mail">
+                                        <input id="Reg_Mail" class="_Clear_Reg" type="email" name="">
+                                        <label>Mail</label>
+                                    </div>
+                                    <div class="uid">
+                                        <input id="Reg_UserName" class="_Clear_Reg" type="text" name="">
+                                        <label>User Name</label>
+                                    </div>
+                                    <div class="passwd">
+                                        <input id="Reg_Password" class="_Clear_Reg" type="password" name="">
+                                        <label>Password</label>
+                                    </div>
+                                    <div class="submit">
+                                        <input type="button" class=" __button dark" id="Submit_Register" value="Register" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    .site-link {
+        padding: 5px 15px;
+        position: fixed;
+        z-index: 99999;
+        background: #fff;
+        box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+        right: 30px;
+        bottom: 30px;
+        border-radius: 10px;
+    }
+
+        .site-link img {
+            width: 30px;
+            height: 30px;
+        }
+</style>
+<script>
+
+
+    $(document).ready(function () {
+        $("#rgstr_button").click(function () {
+            $('.veen .wrapper').addClass('move');
+            //$('.body').css('background', '#e0b722');
+            $('.body').css('background', '#33aeb6');
+            $(".veen .login-btn button").removeClass('active');
+            $(this).addClass('active');
+        });
+        $("#login_button").click(function () {
+            $('.veen .wrapper').removeClass('move');
+            //$('.body').css('background', '#ff4931');
+            $('.body').css('background', '#3b674c');
+            $(".veen .rgstr-btn button").removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+
+</script>
+<script src="~/ClientApp/Profile/Profile.js"></script>

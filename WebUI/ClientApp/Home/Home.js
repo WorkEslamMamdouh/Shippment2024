@@ -54,7 +54,9 @@ var Home;
         var MODULE_CODE;
         for (var i = 0; i < modules.length; i++) {
             var singleUserModule = modules[i];
+            debugger;
             MODULE_CODE = document.getElementById(singleUserModule.MODULE_CODE);
+            debugger;
             if (MODULE_CODE != null) {
                 try {
                     if (singleUserModule != null) {
@@ -62,12 +64,13 @@ var Home;
                             $('#' + singleUserModule.MODULE_CODE + '').removeClass('hidden_Control');
                         }
                     }
+                    debugger;
                 }
                 catch (e) {
                 }
             }
             else {
-                alert("wrong code  " + singleUserModule.MODULE_CODE);
+                ShowMessage("wrong code  " + singleUserModule.MODULE_CODE);
             }
         }
     }

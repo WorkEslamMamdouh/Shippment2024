@@ -28,9 +28,10 @@ namespace Inv.WebUI.Controllers
 
         string[] AllPath_Url = {
 
+         "~/Views/Profile/ProfileIndex.cshtml", 
          "~/Views/Login/LoginIndex.cshtml",
          "~/Views/Home/HomeIndex.cshtml",
-         "~/Views/Saller/Order_SallerIndex.cshtml", 
+         "~/Views/Saller/Order_SallerIndex.cshtml",
 
                       };
 

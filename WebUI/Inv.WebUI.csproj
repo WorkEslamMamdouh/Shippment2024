@@ -273,6 +273,8 @@
     <Content Include="NewStyle\intlTelInput\intlTelInput.min.js" />
     <Content Include="NewStyle\intlTelInput\utils.js" />
     <Content Include="NewStyle\jquery.js" />
+    <Content Include="NewStyle\Loder\Loder.css" />
+    <Content Include="NewStyle\Loder\LoderPage.js" />
     <Content Include="NewStyle\Login\Login_Style.css" />
     <Content Include="NewStyle\nicepage.css" />
     <Content Include="NewStyle\nicepage.js" />
@@ -283,6 +285,8 @@
     <Content Include="Newtemplate\.gitignore" />
     <Content Include="Newtemplate\LodBut\font-awesome.min.css" />
     <Content Include="Newtemplate\LodBut\Loder.js" />
+    <Content Include="Newtemplate\Loder.css" />
+    <Content Include="Newtemplate\LoderPage.js" />
     <Content Include="Newtemplate\template\animate.min.css" />
     <Content Include="Newtemplate\template\assets\bootstrap\css\bootstrap.min.css" />
     <Content Include="Newtemplate\template\assets\bootstrap\js\bootstrap.bundle.js" />
@@ -1045,6 +1049,7 @@
     <Content Include="Views\Saller\Order_SallerIndex.cshtml" />
     <Content Include="Views\Error\ErrorPDF_Fix.cshtml" />
     <Content Include="Views\Home\htmlContainerIndex.cshtml" />
+    <Content Include="Views\Profile\ProfileIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1077,6 +1082,7 @@
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
     <TypeScriptCompile Include="ClientApp\ErrorPage\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
+    <TypeScriptCompile Include="ClientApp\Profile\Profile.ts" />
     <TypeScriptCompile Include="ClientApp\Login\Login.ts" />
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />

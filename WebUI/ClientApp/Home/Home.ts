@@ -8,13 +8,13 @@ namespace Home {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
-    var btn_Logout: HTMLButtonElement; 
+    var btn_Logout: HTMLButtonElement;  
      
 
     export function InitalizeComponent() {
         debugger
         $('#UserName').html(SysSession.CurrentEnvironment.UserCode);
-        $('#JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
+        $('#JobTitle').html(SysSession.CurrentEnvironment.JobTitle); 
 
         InitalizeControls();
         InitializeEvents();
@@ -22,11 +22,11 @@ namespace Home {
 
     }
     function InitalizeControls() {
-        btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement; 
+        btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement;  
     }
     function InitializeEvents() {
 
-        btn_Logout.onclick = btn_LogoutUesr; 
+        btn_Logout.onclick = btn_LogoutUesr;  
 
         $('._MODULE_CODE').click(function (e) {
             debugger
@@ -45,7 +45,6 @@ namespace Home {
 
     } 
    
-
     function ApplyModules() {
     
         let modules: Array<UserPrivilege> = new Array<UserPrivilege>();
@@ -73,10 +72,10 @@ namespace Home {
         for (var i = 0; i < modules.length; i++) {
              
             let singleUserModule: UserPrivilege = modules[i];
-           
+            debugger
 
             MODULE_CODE = document.getElementById(singleUserModule.MODULE_CODE)  
-
+            debugger
             if (MODULE_CODE != null) {
                 try {
                     if (singleUserModule != null) {
@@ -85,7 +84,7 @@ namespace Home {
                             $('#' + singleUserModule.MODULE_CODE + '').removeClass('hidden_Control');
                         } 
                     }
-                     
+                    debugger
 
                 }
                 catch (e) {
@@ -95,7 +94,7 @@ namespace Home {
 
 
             } else {
-                alert("wrong code  " + singleUserModule.MODULE_CODE)
+                ShowMessage("wrong code  " + singleUserModule.MODULE_CODE)
             }
         }
           

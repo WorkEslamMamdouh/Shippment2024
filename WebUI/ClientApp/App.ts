@@ -3518,40 +3518,53 @@ function OpenPage(moduleCode: string) {
    
 
     //$('#btn_Logout').removeClass("display_none");
-    $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
-    $('#htmlContainer').removeClass("display_none");
-    $('#Back_Page').addClass("display_none");
+
 
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
-    $('#htmlContainer').html(Page[0].Page_Html);
-    $('._Loding').removeClass('Btn_Loder');
-    //$('#htmlContainer').addClass('animate__animated animate__zoomIn');
-    setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
+    if (Page.length > 0) {
+        $('#htmlContainer').html(Page[0].Page_Html);
+        $('._Loding').removeClass('Btn_Loder');
+
+        $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
+        $('#htmlContainer').removeClass("display_none");
+        $('#Back_Page').addClass("display_none");
+
+        //$('#htmlContainer').addClass('animate__animated animate__zoomIn');
+        setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
+    }
+    else {
+        ShowMessage("No Privilage")
+    }
+   
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string) {
-  
+    debugger
      
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
-    CounterPage++;
+    if (Page.length > 0) {
+        CounterPage++;
 
-    //$('#btn_Logout').addClass("display_none");
-    $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
-    $('#htmlContainer').addClass("display_none");
-    $('.Page_Partial').addClass("display_none");
-    $('#Partial_' + CounterPage).html(Page[0].Page_Html);
-    $('#Partial_' + CounterPage).removeClass("display_none"); 
-    //$('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
-    setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
-    $('#Back_Page').removeClass("display_none");
+        //$('#btn_Logout').addClass("display_none");
+        $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
+        $('#htmlContainer').addClass("display_none");
+        $('.Page_Partial').addClass("display_none");
+        $('#Partial_' + CounterPage).html(Page[0].Page_Html);
+        $('#Partial_' + CounterPage).removeClass("display_none");
+        //$('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
+        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
+        $('#Back_Page').removeClass("display_none");
 
-    $('#Lab_NamePage').html(`` + NamePage+`<span style="font-weight: 700;">
+        $('#Lab_NamePage').html(`` + NamePage + `<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
 
-    localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
+        localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
- 
+    }
+    else {
+        ShowMessage("No Privilage")
+    }
 }
  
 function Back_Page_Partial() {
