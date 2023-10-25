@@ -2083,12 +2083,8 @@
   padding: 29px 60px;
 }
 
-.u-section-4 .u-social-icons-1 {
-  height: 48px;
-  min-height: 16px;
-  width: 280px;
-  min-width: 120px;
-  margin: 0 auto;
+.u-section-4 .u-social-icons-1 { 
+  width: 280px; 
 }
 
 .u-section-4 .u-icon-1 {
