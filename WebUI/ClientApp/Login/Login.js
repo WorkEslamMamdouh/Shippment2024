@@ -68,7 +68,7 @@ var Login;
             Errorinput(txtPassword);
             return;
         }
-        var USER = USERS.filter(function (x) { return x.USER_CODE == txtUsername.value.trim().toLowerCase() && x.USER_PASSWORD == txtPassword.value.trim() && x.USER_ACTIVE == true; });
+        var USER = USERS.filter(function (x) { return x.USER_CODE == txtUsername.value.trim() && x.USER_PASSWORD == txtPassword.value.trim() && x.USER_ACTIVE == true; });
         if (USER.length > 0) {
             debugger;
             SystemEnv.UserCode = txtUsername.value.trim();
