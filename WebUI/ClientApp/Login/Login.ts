@@ -91,7 +91,7 @@ namespace Login {
             return
         }
 
-        let USER = USERS.filter(x => x.USER_CODE == txtUsername.value.trim() && x.USER_PASSWORD == txtPassword.value.trim() && x.USER_ACTIVE == true)
+        let USER = USERS.filter(x => x.USER_CODE.toLowerCase() == txtUsername.value.trim().toLowerCase() && x.USER_PASSWORD == txtPassword.value.trim() && x.USER_ACTIVE == true)
 
         if (USER.length > 0) {
             debugger
