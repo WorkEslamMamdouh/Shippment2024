@@ -131,6 +131,7 @@ var Login;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
+                    GetData_Header();
                     ShowMessage("Success");
                     $('#login_button').click();
                 }

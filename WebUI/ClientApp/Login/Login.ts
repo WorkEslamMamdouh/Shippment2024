@@ -163,6 +163,7 @@ namespace Login {
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
+                    GetData_Header();
                     ShowMessage("Success")
                     $('#login_button').click();
                 } else {
