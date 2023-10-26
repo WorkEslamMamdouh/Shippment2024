@@ -77,7 +77,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Update(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId)
+        public IHttpActionResult UpdateSeller(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -89,7 +89,7 @@ namespace Inv.API.Controllers
                     // Generate a random integer between 1 and 100
                     int randomNumber = random.Next(1, 10000);
                     string Qury = @"UPDATE[dbo].[A_Pay_D_Vendor] SET
-                    [CompCode] = " + CompCode + ", [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + "',[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
+                    [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + "',[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
                     db.Database.ExecuteSqlCommand(Qury);
                     ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, VendorId, "SignUp", "Update", db);
                     if (res.ResponseState == true)
@@ -117,7 +117,15 @@ namespace Inv.API.Controllers
 
 
         }
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult UpdateProfile(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId)
+        { 
+            string Qury = @"UPDATE[dbo].[G_USERS] SET
+            [USER_PASSWORD] = N'" + Password + "',[USER_NAME] = N'" + Name + "',[fax] = N'" + IDNO + "',[Address] = N'" + address + "',[Mobile] = N'" + Mobile + "',[Email] = N'" + Email + "' where USER_CODE = N'" + UserName + "' ";
+            db.Database.ExecuteSqlCommand(Qury);
 
+            return Ok(new BaseResponse(true));
+        }
 
 
     }
