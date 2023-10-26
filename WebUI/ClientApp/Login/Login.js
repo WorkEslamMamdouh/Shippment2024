@@ -88,41 +88,41 @@ var Login;
     }
     function SubmitRegister() {
         if ($('#Reg_Full_Name').val().trim() == "") {
-            Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name");
+            Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name 😡");
             return;
         }
         else if ($('#Reg_Address').val().trim() == "") {
-            Errorinput($('#Reg_Address'), "Please a Enter Address");
+            Errorinput($('#Reg_Address'), "Please a Enter Address 😡");
             return;
         }
         else if ($('#Reg_Mobile').val().trim() == "") {
-            Errorinput($('#Reg_Mobile'), "Please a Enter Mobile");
+            Errorinput($('#Reg_Mobile'), "Please a Enter Mobile 😡");
             return;
         }
         else if ($('#Reg_ID_Num').val().trim() == "") {
-            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number");
+            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
             return;
         }
         var USERID_Num = USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim().toLowerCase(); });
         if (USERID_Num.length > 0) {
-            Errorinput($('#Reg_ID_Num'), "This ID Number is already used");
+            Errorinput($('#Reg_ID_Num'), "This ID Number is already used ��");
             return;
         }
         else if ($('#Reg_Mail').val().trim() == "") {
-            Errorinput($('#Reg_Mail'), "Please a Enter Mail");
+            Errorinput($('#Reg_Mail'), "Please a Enter Mail 😡");
             return;
         }
         else if ($('#Reg_UserName').val().trim() == "") {
-            Errorinput($('#Reg_UserName'), "Please a Enter User Name");
+            Errorinput($('#Reg_UserName'), "Please a Enter User Name 😡");
             return;
         }
         var USER = USERS.filter(function (x) { return x.USER_CODE == $('#Reg_UserName').val().trim().toLowerCase(); });
         if (USER.length > 0) {
-            Errorinput($('#Reg_UserName'), "This User is already used");
+            Errorinput($('#Reg_UserName'), "This User is already used 🤣");
             return;
         }
         if ($('#Reg_Password').val().trim() == "") {
-            Errorinput($('#Reg_Password'), "Please a Enter Password");
+            Errorinput($('#Reg_Password'), "Please a Enter Password 😡");
             return;
         }
         var Name = $('#Reg_Full_Name').val().trim();
@@ -156,7 +156,7 @@ var Login;
         //**************************************************************************************************************
         var _USER = GetDataTable('G_USERS');
         USERS.push(_USER[0]);
-        ShowMessage("Success");
+        ShowMessage("Inserted ��");
         $('#login_button').click();
         $('#txtUsername').val($('#Reg_UserName').val().trim());
         $('#txtPassword').val("");

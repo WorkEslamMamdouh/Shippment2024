@@ -89,7 +89,7 @@ namespace Inv.API.Controllers
                     // Generate a random integer between 1 and 100
                     int randomNumber = random.Next(1, 10000);
                     string Qury = @"UPDATE[dbo].[A_Pay_D_Vendor] SET
-                    [CompCode] = " + CompCode + ", [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + ",[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
+                    [CompCode] = " + CompCode + ", [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + "',[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
                     db.Database.ExecuteSqlCommand(Qury);
                     ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, VendorId, "SignUp", "Update", db);
                     if (res.ResponseState == true)

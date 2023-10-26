@@ -77,20 +77,20 @@ namespace Profile {
              Errorinput($('#Reg_Password'), "Please a Enter Password" );
             return
         }
-
+        debugger
         let Name = $('#Reg_Full_Name').val().trim();
         let address = $('#Reg_Address').val().trim();
         let Mobile = $('#Reg_Mobile').val().trim();
         let IDNO = $('#Reg_ID_Num').val().trim();
         let Email = $('#Reg_Mail').val().trim();
-        let UserName = $('#Reg_UserName').val().trim();
+        let UserName = SysSession.CurrentEnvironment.UserCode;
         let Password = $('#Reg_Password').val().trim();
-
+        let Idven = _USER[0].SalesManID;
 
         Ajax.Callsync({
-            type: "POST",
+            type: "Get",
             url: sys.apiUrl("Seller", "Update"),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: _USER[0].SalesManID },
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) { 
@@ -120,6 +120,7 @@ namespace Profile {
         _USERS.push(_USER[0]);
          
         SetGlopelDataUser(_USERS);
+        ShowMessage("Updated 🤞😉")
     }
 
      

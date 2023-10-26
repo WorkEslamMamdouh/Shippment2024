@@ -63,17 +63,19 @@ var Profile;
             Errorinput($('#Reg_Password'), "Please a Enter Password");
             return;
         }
+        debugger;
         var Name = $('#Reg_Full_Name').val().trim();
         var address = $('#Reg_Address').val().trim();
         var Mobile = $('#Reg_Mobile').val().trim();
         var IDNO = $('#Reg_ID_Num').val().trim();
         var Email = $('#Reg_Mail').val().trim();
-        var UserName = $('#Reg_UserName').val().trim();
+        var UserName = SysSession.CurrentEnvironment.UserCode;
         var Password = $('#Reg_Password').val().trim();
+        var Idven = _USER[0].SalesManID;
         Ajax.Callsync({
-            type: "POST",
+            type: "Get",
             url: sys.apiUrl("Seller", "Update"),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: _USER[0].SalesManID },
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
@@ -96,6 +98,7 @@ var Profile;
         _USERS = _USERS.filter(function (x) { return x.USER_CODE != User_Code; });
         _USERS.push(_USER[0]);
         SetGlopelDataUser(_USERS);
+        ShowMessage("Updated 🤞��");
     }
 })(Profile || (Profile = {}));
 //# sourceMappingURL=Profile.js.map
