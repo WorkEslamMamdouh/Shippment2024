@@ -5,8 +5,8 @@ using System.Web;
 using Inv.API.Models;
 using Inv.API.Models.CustomModel;
 using Inv.API.Tools;
-using Inv.BLL.Services.Seller; 
-using Inv.DAL.Domain; 
+using Inv.BLL.Services.Seller;
+using Inv.DAL.Domain;
 using System.Net;
 using System.Web.Http;
 using System.Web.ModelBinding;
@@ -20,24 +20,24 @@ namespace Inv.API.Controllers
     public class SellerController : BaseController
     {
 
-        
+
         private readonly ISellerService SellerService;
         private readonly G_USERSController UserControl;
 
         public SellerController(ISellerService _ISellerService, G_USERSController _Control)
         {
-            this.SellerService = _ISellerService; 
+            this.SellerService = _ISellerService;
             this.UserControl = _Control;
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult SignUp(int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password)
+        public IHttpActionResult SignUp(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password)
         {
-           
-                using (var dbTransaction = db.Database.BeginTransaction())
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
                 {
-                    try
-                    {
                     Random random = new Random();
 
                     // Generate a random integer between 1 and 100
@@ -45,74 +45,80 @@ namespace Inv.API.Controllers
                     string Qury = @"declare @LASTID int 
                         INSERT INTO [dbo].[A_Pay_D_Vendor]
                     ([CompCode],[VendorCode],[NAMEA],[NAMEL],[IDNo],[MOBILE],[EMAIL],[Isactive],[CREATED_AT],[WebUserName],[WebPassword]
-                    ,[Address_Street])VALUES(N'" + CompCode + "',N'" + randomNumber+Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'"+ address + "')  SET @LASTID = @@IDENTITY select @LASTID"; 
+                    ,[Address_Street])VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "')  SET @LASTID = @@IDENTITY select @LASTID";
 
-                        int Vendorid = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
+                    int Vendorid = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
 
-                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode),BranchCode,Vendorid, "SignUp", "Add", db);
-                        if (res.ResponseState == true)
-                        { 
-                            dbTransaction.Commit();
-                            LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", Vendorid,"", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
-                            return Ok(new BaseResponse(true));
-                        }
-                        else
-                        {
-                            dbTransaction.Rollback();
-                            //LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.I_Sls_TR_Invoice.InvoiceID, obj.I_Sls_TR_Invoice.TrNo.ToString(), LogUser.UserLog.Insert, obj.MODULE_CODE, false, res.ResponseMessage.ToString(), null, null);
-
-                            return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
-                        }
-                    }
-                    catch (Exception ex)
+                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, Vendorid, "SignUp", "Add", db);
+                    if (res.ResponseState == true)
                     {
-
+                        dbTransaction.Commit();
+                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", Vendorid, "", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
+                        return Ok(new BaseResponse(true));
+                    }
+                    else
+                    {
                         dbTransaction.Rollback();
-                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                        //LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.I_Sls_TR_Invoice.InvoiceID, obj.I_Sls_TR_Invoice.TrNo.ToString(), LogUser.UserLog.Insert, obj.MODULE_CODE, false, res.ResponseMessage.ToString(), null, null);
+
+                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
                     }
-                }
-               
-                 
-                 
-        }
-
-        [HttpPost, AllowAnonymous]
-        public IHttpActionResult Update([FromBody] A_Pay_D_Vendor obj)
-        {
-            if (ModelState.IsValid && UserControl.CheckUser(obj.Token, obj.UserCode))
-            {
-                try
-                {
-                    using (System.Data.Entity.DbContextTransaction dbTransaction = db.Database.BeginTransaction())
-                    {
-
-                        A_Pay_D_Vendor AccDefVen = SellerService.Update(obj);
-                         
-                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(AccDefVen.CompCode), 0, AccDefVen.VendorID, "Seller", "Update", db);
-                        if (res.ResponseState == true)
-                        {
-                            dbTransaction.Commit();
-                            LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.VendorID, obj.VendorCode, LogUser.UserLog.Update, obj.MODULE_CODE, true, null, null, null);
-                            return Ok(new BaseResponse(obj));
-                        }
-                        else
-                        {
-                            dbTransaction.Rollback();
-                            LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.VendorID, obj.VendorCode, LogUser.UserLog.Update, obj.MODULE_CODE, false, res.ResponseMessage.ToString(), null, null);
-                            return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
-                        }
-                    }
-
-
                 }
                 catch (Exception ex)
                 {
-                    LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.VendorID, obj.VendorCode, LogUser.UserLog.Update, obj.MODULE_CODE, true, null, null, "VendorDocID");
+
+                    dbTransaction.Rollback();
                     return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
                 }
             }
-            return BadRequest(ModelState);
+
+
+
         }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Update(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Random random = new Random();
+
+                    // Generate a random integer between 1 and 100
+                    int randomNumber = random.Next(1, 10000);
+                    string Qury = @"UPDATE[dbo].[A_Pay_D_Vendor] SET
+                    [CompCode] = " + CompCode + ", [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + ",[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
+                    db.Database.ExecuteSqlCommand(Qury);
+                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, VendorId, "SignUp", "Update", db);
+                    if (res.ResponseState == true)
+                    {
+                        dbTransaction.Commit();
+                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", VendorId, "", LogUser.UserLog.Insert, "Update", true, null, null, null);
+                        return Ok(new BaseResponse(true));
+                    }
+                    else
+                    {
+                        dbTransaction.Rollback();
+                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", VendorId, "", LogUser.UserLog.Insert, "Update", false, res.ResponseMessage.ToString(), null, null);
+
+                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
+
+
 
     }
 }
