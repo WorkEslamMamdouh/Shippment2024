@@ -8,8 +8,10 @@ namespace Profile {
     var sys: SystemTools = new SystemTools(); 
     var SysSession: SystemSession = GetSystemSession();
 
-     
-    var Submit_Register: HTMLButtonElement; 
+    var _USERS: Array<G_USERS> = new Array<G_USERS>();
+    var _USER: Array<G_USERS> = new Array<G_USERS>();
+
+    var Submit_Update_Profile: HTMLButtonElement;
 
     export function InitalizeComponent() {
    
@@ -20,34 +22,28 @@ namespace Profile {
         InitializeEvents();
 
          
-         
-         
+        _USERS = GetGlopelDataUser()
+          _USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
+        Display_Data();
     }
     function InitalizeControls() { 
-      //Submit_Register = document.getElementById("Submit_Register") as HTMLButtonElement; 
+        Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
     }
     function InitializeEvents() {
           
-        //Submit_Register.onclick = SubmitRegister; 
+        Submit_Update_Profile.onclick = SubmitUpdate;
         
     }
 
-    function GetData_Header() {
-        var Table: Array<Table>;
-        Table =
-            [
-            { NameTable: 'G_USERS', Condition: "" }, 
-            { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val()+"" },
-            ]
-
-        DataResult(Table);
-        //**************************************************************************************************************
- 
+    function Display_Data() {
+        debugger
+        
+        $('#Reg_Full_Name').val(_USER[0].USER_NAME)
+        $('#Reg_Address').val(_USER[0].Address)
+        $('#Reg_Mobile').val(_USER[0].Mobile)
+        $('#Reg_Mail').val(_USER[0].Email)
+        $('#Reg_Password').val(_USER[0].USER_PASSWORD)
     }
-
-   
-
-
     function SubmitUpdate() {
          
         if ($('#Reg_Full_Name').val().trim() == "") {
@@ -66,15 +62,17 @@ namespace Profile {
             Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number" );
             return
         }
+        let USERID_Num = _USERS.filter(x => x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE)
+        if (USERID_Num.length > 0) {
+            Errorinput($('#Reg_ID_Num'), "This ID Number is already used");
+            return
+        }
         else if ($('#Reg_Mail').val().trim() == "") {
             Errorinput($('#Reg_Mail'), "Please a Enter Mail" );
             return
         }
-        else if ($('#Reg_UserName').val().trim() == "") {
-            Errorinput($('#Reg_UserName'), "Please a Enter User Name" );
-            return
-        } 
-        if ($('#Reg_Password').val().trim() == "") {
+       
+        else if ($('#Reg_Password').val().trim() == "") {
              Errorinput($('#Reg_Password'), "Please a Enter Password" );
             return
         }
@@ -90,19 +88,37 @@ namespace Profile {
 
         Ajax.Callsync({
             type: "POST",
-            url: sys.apiUrl("Seller", "SignUp"),
-            //data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name , address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
+            url: sys.apiUrl("Seller", "Update"),
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: _USER[0].SalesManID },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) { 
-                    let res = result.Response as IQ_GetSlsInvoiceStatisticVer2;
-                  
+                    GetUSERSByCodeUser(UserName);
+
                 } else {
                    
                 }
             }
         });
 
+    }
+
+
+    function GetUSERSByCodeUser(User_Code: string) {
+        var Table: Array<Table>;
+        Table =
+            [
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+
+        let _USER = GetDataTable('G_USERS');
+        _USERS = _USERS.filter(x => x.USER_CODE != User_Code)
+        _USERS.push(_USER[0]);
+         
+        SetGlopelDataUser(_USERS);
     }
 
      
