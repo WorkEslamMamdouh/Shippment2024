@@ -155,7 +155,8 @@ namespace Login {
         let UserName = $('#Reg_UserName').val().trim();
         let Password = $('#Reg_Password').val().trim(); 
 
-
+        
+        
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("Seller", "SignUp"),
@@ -164,8 +165,7 @@ namespace Login {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
-                    ShowMessage("Success")
-                    $('#login_button').click();
+                   
                 } else {
                    
                 }
@@ -185,8 +185,12 @@ namespace Login {
 
         DataResult(Table);
         //**************************************************************************************************************
-        debugger
-        let _USER = GetDataTable('G_USERS');
-        console.log(_USER)
+        
+        let _USER = GetDataTable('G_USERS'); 
+        USERS.push(_USER[0]);
+        ShowMessage("Success")
+        $('#login_button').click();
+        $('#txtUsername').val($('#Reg_UserName').val().trim())
+        $('#txtPassword').focus();
     }
 }

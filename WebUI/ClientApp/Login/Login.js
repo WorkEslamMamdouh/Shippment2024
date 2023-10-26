@@ -132,8 +132,6 @@ var Login;
                 var result = d;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
-                    ShowMessage("Success");
-                    $('#login_button').click();
                 }
                 else {
                 }
@@ -148,9 +146,12 @@ var Login;
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        debugger;
         var _USER = GetDataTable('G_USERS');
-        console.log(_USER);
+        USERS.push(_USER[0]);
+        ShowMessage("Success");
+        $('#login_button').click();
+        $('#txtUsername').val($('#Reg_UserName').val().trim());
+        $('#txtPassword').focus();
     }
 })(Login || (Login = {}));
 //# sourceMappingURL=Login.js.map
