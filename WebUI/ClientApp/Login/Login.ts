@@ -1,14 +1,14 @@
 ﻿
-$(document).ready(() => { 
+$(document).ready(() => {
     Login.InitalizeComponent();
-    
+
 });
 
 namespace Login {
     var sys: SystemTools = new SystemTools();
     var SystemEnv: SystemEnvironment = new SystemEnvironment();
 
-    var USERS: Array<G_USERS> = new Array <G_USERS>();
+    var USERS: Array<G_USERS> = new Array<G_USERS>();
     var Control: Array<I_Control> = new Array<I_Control>();
 
 
@@ -20,14 +20,14 @@ namespace Login {
 
     export function InitalizeComponent() {
         $('#bodyLogin').addClass('hidden_Control');
-        var today: Date = new Date(); 
+        var today: Date = new Date();
         var yyyy = today.getFullYear();
         SystemEnv.ScreenLanguage = "en";
         SystemEnv.CurrentYear = yyyy.toString();
         SystemEnv.CompCode = $('#CompCode').val();
         SystemEnv.BranchCode = $('#BranchCode').val();
         SystemEnv.CompanyName = $('#CompanyName').val();
-        
+
 
         InitalizeControls();
         InitializeEvents();
@@ -39,10 +39,11 @@ namespace Login {
 
         Event_key('Enter', 'Reg_Password', 'Submit_Register');
 
-        GetData_Header();
+        USERS = GetGlopelDataUser();
+        USERS.length == 0 ? GetData_Header() : null
 
         $('#bodyLogin').removeClass('hidden_Control');
-         
+
     }
     function InitalizeControls() {
         rgstr_button = document.getElementById("rgstr_button") as HTMLButtonElement;
@@ -52,26 +53,27 @@ namespace Login {
         txtPassword = document.getElementById("txtPassword") as HTMLInputElement;
     }
     function InitializeEvents() {
-         
+
         Submit_Login.onclick = SubmitLogin;
         Submit_Register.onclick = SubmitRegister;
         rgstr_button.onclick = () => { $('._Clear_Reg').val('') };
-        
+
     }
 
     function GetData_Header() {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'G_USERS', Condition: "" }, 
-            { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val()+"" },
+                { NameTable: 'G_USERS', Condition: "" },
+                { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val() + "" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
-        
-          USERS = GetDataTable('G_USERS');
-          Control = GetDataTable('I_Control'); 
+
+        USERS = GetDataTable('G_USERS');
+        Control = GetDataTable('I_Control');
+        SetGlopelDataUser(USERS);
     }
 
     function SubmitLogin() {
@@ -82,7 +84,7 @@ namespace Login {
             Errorinput(txtPassword);
             return
         }
-         
+
         if (txtUsername.value.trim() == "") {
             Errorinput(txtUsername);
             return
@@ -109,43 +111,48 @@ namespace Login {
             Errorinput(txtUsername);
             Errorinput(txtPassword);
         }
-        
+
     }
 
 
     function SubmitRegister() {
-         
+
         if ($('#Reg_Full_Name').val().trim() == "") {
-            Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name" );
+            Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name");
             return
-        } 
+        }
         else if ($('#Reg_Address').val().trim() == "") {
-            Errorinput($('#Reg_Address'), "Please a Enter Address" );
+            Errorinput($('#Reg_Address'), "Please a Enter Address");
             return
-        } 
+        }
         else if ($('#Reg_Mobile').val().trim() == "") {
-            Errorinput($('#Reg_Mobile'), "Please a Enter Mobile" );
+            Errorinput($('#Reg_Mobile'), "Please a Enter Mobile");
             return
-        } 
+        }
         else if ($('#Reg_ID_Num').val().trim() == "") {
-            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number" );
+            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number");
+            return
+        }
+        let USERID_Num = USERS.filter(x => x.Fax == $('#Reg_ID_Num').val().trim().toLowerCase())
+        if (USERID_Num.length > 0) {
+            Errorinput($('#Reg_ID_Num'), "This ID Number is already used");
             return
         }
         else if ($('#Reg_Mail').val().trim() == "") {
-            Errorinput($('#Reg_Mail'), "Please a Enter Mail" );
+            Errorinput($('#Reg_Mail'), "Please a Enter Mail");
             return
         }
         else if ($('#Reg_UserName').val().trim() == "") {
-            Errorinput($('#Reg_UserName'), "Please a Enter User Name" );
+            Errorinput($('#Reg_UserName'), "Please a Enter User Name");
             return
         }
-        let USER = USERS.filter(x => x.USER_CODE == $('#Reg_UserName').val().trim().toLowerCase()) 
+        let USER = USERS.filter(x => x.USER_CODE == $('#Reg_UserName').val().trim().toLowerCase())
         if (USER.length > 0) {
-            Errorinput($('#Reg_UserName'), "This User is already used" );
+            Errorinput($('#Reg_UserName'), "This User is already used");
             return
         }
-         if ($('#Reg_Password').val().trim() == "") {
-             Errorinput($('#Reg_Password'), "Please a Enter Password" );
+        if ($('#Reg_Password').val().trim() == "") {
+            Errorinput($('#Reg_Password'), "Please a Enter Password");
             return
         }
 
@@ -155,21 +162,21 @@ namespace Login {
         let IDNO = $('#Reg_ID_Num').val().trim();
         let Email = $('#Reg_Mail').val().trim();
         let UserName = $('#Reg_UserName').val().trim();
-        let Password = $('#Reg_Password').val().trim(); 
+        let Password = $('#Reg_Password').val().trim();
 
-        
-        
+
+
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("Seller", "SignUp"),
-            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name , address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
+            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
-                   
+
                 } else {
-                   
+
                 }
             }
         });
@@ -178,23 +185,26 @@ namespace Login {
 
 
 
-    function GetUSERSByCodeUser(User_Code : string) {
+    function GetUSERSByCodeUser(User_Code: string) {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code+"'" }, 
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
-        
-        let _USER = GetDataTable('G_USERS'); 
+
+        let _USER = GetDataTable('G_USERS');
         USERS.push(_USER[0]);
         ShowMessage("Success")
         $('#login_button').click();
         $('#txtUsername').val($('#Reg_UserName').val().trim())
+        $('#txtPassword').val("")
         setTimeout(function () {
-        $('#txtPassword').focus();
+            $('#txtPassword').focus();
         }, 200);
+
+        SetGlopelDataUser(USERS);
     }
 }

@@ -3603,3 +3603,14 @@ function Back_Page_Partial() {
     }
      
 }
+
+
+var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
+
+function SetGlopelDataUser(Send_USERS: Array<G_USERS>) { 
+    GlopelUSERS = Send_USERS;
+}
+
+function GetGlopelDataUser(): Array<G_USERS> {
+    return GlopelUSERS;
+}

@@ -26,7 +26,8 @@ var Login;
         Event_key('Enter', 'txtUsername', 'Submit_Login');
         Event_key('Enter', 'txtPassword', 'Submit_Login');
         Event_key('Enter', 'Reg_Password', 'Submit_Register');
-        GetData_Header();
+        USERS = GetGlopelDataUser();
+        USERS.length == 0 ? GetData_Header() : null;
         $('#bodyLogin').removeClass('hidden_Control');
     }
     Login.InitalizeComponent = InitalizeComponent;
@@ -53,6 +54,7 @@ var Login;
         //**************************************************************************************************************
         USERS = GetDataTable('G_USERS');
         Control = GetDataTable('I_Control');
+        SetGlopelDataUser(USERS);
     }
     function SubmitLogin() {
         debugger;
@@ -99,6 +101,11 @@ var Login;
         }
         else if ($('#Reg_ID_Num').val().trim() == "") {
             Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number");
+            return;
+        }
+        var USERID_Num = USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim().toLowerCase(); });
+        if (USERID_Num.length > 0) {
+            Errorinput($('#Reg_ID_Num'), "This ID Number is already used");
             return;
         }
         else if ($('#Reg_Mail').val().trim() == "") {
@@ -152,9 +159,11 @@ var Login;
         ShowMessage("Success");
         $('#login_button').click();
         $('#txtUsername').val($('#Reg_UserName').val().trim());
+        $('#txtPassword').val("");
         setTimeout(function () {
             $('#txtPassword').focus();
         }, 200);
+        SetGlopelDataUser(USERS);
     }
 })(Login || (Login = {}));
 //# sourceMappingURL=Login.js.map

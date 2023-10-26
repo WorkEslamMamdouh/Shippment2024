@@ -5,29 +5,32 @@ var Profile;
 (function (Profile) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
-    var Submit_Register;
+    var _USERS = new Array();
+    var _USER = new Array();
+    var Submit_Update_Profile;
     function InitalizeComponent() {
         $('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
         $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
         InitalizeControls();
         InitializeEvents();
+        _USERS = GetGlopelDataUser();
+        _USER = _USERS.filter(function (x) { return x.USER_CODE == SysSession.CurrentEnvironment.UserCode; });
+        Display_Data();
     }
     Profile.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
-        //Submit_Register = document.getElementById("Submit_Register") as HTMLButtonElement; 
+        Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
     }
     function InitializeEvents() {
-        //Submit_Register.onclick = SubmitRegister; 
+        Submit_Update_Profile.onclick = SubmitUpdate;
     }
-    function GetData_Header() {
-        var Table;
-        Table =
-            [
-                { NameTable: 'G_USERS', Condition: "" },
-                { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val() + "" },
-            ];
-        DataResult(Table);
-        //**************************************************************************************************************
+    function Display_Data() {
+        debugger;
+        $('#Reg_Full_Name').val(_USER[0].USER_NAME);
+        $('#Reg_Address').val(_USER[0].Address);
+        $('#Reg_Mobile').val(_USER[0].Mobile);
+        $('#Reg_Mail').val(_USER[0].Email);
+        $('#Reg_Password').val(_USER[0].USER_PASSWORD);
     }
     function SubmitUpdate() {
         if ($('#Reg_Full_Name').val().trim() == "") {
@@ -46,15 +49,16 @@ var Profile;
             Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number");
             return;
         }
+        var USERID_Num = _USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE; });
+        if (USERID_Num.length > 0) {
+            Errorinput($('#Reg_ID_Num'), "This ID Number is already used");
+            return;
+        }
         else if ($('#Reg_Mail').val().trim() == "") {
             Errorinput($('#Reg_Mail'), "Please a Enter Mail");
             return;
         }
-        else if ($('#Reg_UserName').val().trim() == "") {
-            Errorinput($('#Reg_UserName'), "Please a Enter User Name");
-            return;
-        }
-        if ($('#Reg_Password').val().trim() == "") {
+        else if ($('#Reg_Password').val().trim() == "") {
             Errorinput($('#Reg_Password'), "Please a Enter Password");
             return;
         }
@@ -67,17 +71,30 @@ var Profile;
         var Password = $('#Reg_Password').val().trim();
         Ajax.Callsync({
             type: "POST",
-            url: sys.apiUrl("Seller", "SignUp"),
-            //data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name , address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
+            url: sys.apiUrl("Seller", "Update"),
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: _USER[0].SalesManID },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
-                    var res = result.Response;
+                    GetUSERSByCodeUser(UserName);
                 }
                 else {
                 }
             }
         });
+    }
+    function GetUSERSByCodeUser(User_Code) {
+        var Table;
+        Table =
+            [
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            ];
+        DataResult(Table);
+        //**************************************************************************************************************
+        var _USER = GetDataTable('G_USERS');
+        _USERS = _USERS.filter(function (x) { return x.USER_CODE != User_Code; });
+        _USERS.push(_USER[0]);
+        SetGlopelDataUser(_USERS);
     }
 })(Profile || (Profile = {}));
 //# sourceMappingURL=Profile.js.map
