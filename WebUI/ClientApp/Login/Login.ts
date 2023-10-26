@@ -149,7 +149,7 @@ namespace Login {
             Errorinput($('#Reg_UserName'), "Please a Enter User Name");
             return
         }
-        let USER = USERS.filter(x => x.USER_CODE == $('#Reg_UserName').val().trim().toLowerCase())
+        let USER = USERS.filter(x => x.USER_CODE.toLowerCase() == $('#Reg_UserName').val().trim().toLowerCase())
         if (USER.length > 0) {
             Errorinput($('#Reg_UserName'), "This User is already used");
             return
