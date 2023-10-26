@@ -15,7 +15,7 @@ var Layout;
         GetAllPages();
         InitalizeControls();
         InitializeEvents();
-        setInterval(RunHarley, 8000);
+        setInterval(RunHarley, 9000);
     }
     Layout.InitalizeComponent = InitalizeComponent;
     function RunHarley() {
