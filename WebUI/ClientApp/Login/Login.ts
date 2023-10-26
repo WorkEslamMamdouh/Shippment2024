@@ -39,8 +39,11 @@ namespace Login {
 
         Event_key('Enter', 'Reg_Password', 'Submit_Register');
 
-        USERS = GetGlopelDataUser();
-        USERS.length == 0 ? GetData_Header() : null
+        setTimeout(function () {
+            USERS = GetGlopelDataUser();
+            USERS.length == 0 ? GetData_Header() : null
+        }, 300);
+      
 
         $('#bodyLogin').removeClass('hidden_Control');
 
