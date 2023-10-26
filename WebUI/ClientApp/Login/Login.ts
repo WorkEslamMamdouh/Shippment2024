@@ -163,7 +163,7 @@ namespace Login {
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
-                    GetData_Header();
+                    GetUSERSByCodeUser(UserName);
                     ShowMessage("Success")
                     $('#login_button').click();
                 } else {
@@ -174,5 +174,19 @@ namespace Login {
 
     }
 
-     
+
+
+    function GetUSERSByCodeUser(User_Code : string) {
+        var Table: Array<Table>;
+        Table =
+            [
+            { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code+"'" }, 
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+        debugger
+        let _USER = GetDataTable('G_USERS');
+        console.log(_USER)
+    }
 }

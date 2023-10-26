@@ -29,7 +29,7 @@ var Profile;
         DataResult(Table);
         //**************************************************************************************************************
     }
-    function SubmitRegister() {
+    function SubmitUpdate() {
         if ($('#Reg_Full_Name').val().trim() == "") {
             Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name");
             return;

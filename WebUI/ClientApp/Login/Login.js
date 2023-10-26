@@ -131,7 +131,7 @@ var Login;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
-                    GetData_Header();
+                    GetUSERSByCodeUser(UserName);
                     ShowMessage("Success");
                     $('#login_button').click();
                 }
@@ -139,6 +139,18 @@ var Login;
                 }
             }
         });
+    }
+    function GetUSERSByCodeUser(User_Code) {
+        var Table;
+        Table =
+            [
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            ];
+        DataResult(Table);
+        //**************************************************************************************************************
+        debugger;
+        var _USER = GetDataTable('G_USERS');
+        console.log(_USER);
     }
 })(Login || (Login = {}));
 //# sourceMappingURL=Login.js.map
