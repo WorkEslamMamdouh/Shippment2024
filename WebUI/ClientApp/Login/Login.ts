@@ -37,6 +37,8 @@ namespace Login {
 
         Event_key('Enter', 'txtPassword', 'Submit_Login');
 
+        Event_key('Enter', 'Reg_Password', 'Submit_Register');
+
         GetData_Header();
 
         $('#bodyLogin').removeClass('hidden_Control');
@@ -191,6 +193,8 @@ namespace Login {
         ShowMessage("Success")
         $('#login_button').click();
         $('#txtUsername').val($('#Reg_UserName').val().trim())
+        setTimeout(function () {
         $('#txtPassword').focus();
+        }, 200);
     }
 }

@@ -25,6 +25,7 @@ var Login;
         InitializeEvents();
         Event_key('Enter', 'txtUsername', 'Submit_Login');
         Event_key('Enter', 'txtPassword', 'Submit_Login');
+        Event_key('Enter', 'Reg_Password', 'Submit_Register');
         GetData_Header();
         $('#bodyLogin').removeClass('hidden_Control');
     }
@@ -151,7 +152,9 @@ var Login;
         ShowMessage("Success");
         $('#login_button').click();
         $('#txtUsername').val($('#Reg_UserName').val().trim());
-        $('#txtPassword').focus();
+        setTimeout(function () {
+            $('#txtPassword').focus();
+        }, 200);
     }
 })(Login || (Login = {}));
 //# sourceMappingURL=Login.js.map
