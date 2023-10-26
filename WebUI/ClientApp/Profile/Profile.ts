@@ -87,9 +87,11 @@ namespace Profile {
         let Password = $('#Reg_Password').val().trim();
         let Idven = _USER[0].SalesManID;
 
+      let NameFun =  _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
+       
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Seller", "Update"),
+            url: sys.apiUrl("Seller", NameFun ),
             data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;

@@ -158,7 +158,7 @@ function getCookie(cookieName) {
     var cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i].trim();
-        if (cookie.indexOf("".concat(cookieName, "=")) === 0) {
+        if (cookie.indexOf(cookieName + "=") === 0) {
             var encodedValue = cookie.substring(cookieName.length + 1);
             var decodedValue = decodeURIComponent(encodedValue);
             return decodedValue;
@@ -170,7 +170,7 @@ function readCookie(cookieName) {
     var cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i].trim();
-        if (cookie.indexOf("".concat(cookieName, "=")) === 0) {
+        if (cookie.indexOf(cookieName + "=") === 0) {
             var encodedValue = cookie.substring(cookieName.length + 1);
             var decodedValue = decodeURIComponent(encodedValue);
             return decodedValue;
