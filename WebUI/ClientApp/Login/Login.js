@@ -107,7 +107,7 @@ var Login;
         }
         var USERID_Num = USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim().toLowerCase(); });
         if (USERID_Num.length > 0) {
-            Errorinput($('#Reg_ID_Num'), "This ID Number is already used ��");
+            Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
             return;
         }
         else if ($('#Reg_Mail').val().trim() == "") {
@@ -158,7 +158,7 @@ var Login;
         //**************************************************************************************************************
         var _USER = GetDataTable('G_USERS');
         USERS.push(_USER[0]);
-        ShowMessage("Inserted ��");
+        ShowMessage("Inserted 😍");
         $('#login_button').click();
         $('#txtUsername').val($('#Reg_UserName').val().trim());
         $('#txtPassword').val("");

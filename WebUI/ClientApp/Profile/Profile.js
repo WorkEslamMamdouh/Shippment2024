@@ -72,9 +72,10 @@ var Profile;
         var UserName = SysSession.CurrentEnvironment.UserCode;
         var Password = $('#Reg_Password').val().trim();
         var Idven = _USER[0].SalesManID;
+        var NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Seller", "Update"),
+            url: sys.apiUrl("Seller", NameFun),
             data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
             success: function (d) {
                 var result = d;
@@ -98,7 +99,7 @@ var Profile;
         _USERS = _USERS.filter(function (x) { return x.USER_CODE != User_Code; });
         _USERS.push(_USER[0]);
         SetGlopelDataUser(_USERS);
-        ShowMessage("Updated 🤞��");
+        ShowMessage("Updated 🤞😉");
     }
 })(Profile || (Profile = {}));
 //# sourceMappingURL=Profile.js.map
