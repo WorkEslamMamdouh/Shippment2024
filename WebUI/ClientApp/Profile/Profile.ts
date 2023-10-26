@@ -42,6 +42,7 @@ namespace Profile {
         $('#Reg_Address').val(_USER[0].Address)
         $('#Reg_Mobile').val(_USER[0].Mobile)
         $('#Reg_Mail').val(_USER[0].Email)
+        $('#Reg_ID_Num').val(_USER[0].Fax)
         $('#Reg_Password').val(_USER[0].USER_PASSWORD)
     }
     function SubmitUpdate() {
