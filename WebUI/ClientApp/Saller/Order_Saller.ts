@@ -28,8 +28,8 @@ namespace Order_Saller {
         InitalizeControls();
         InitializeEvents();
 
-
         Close_Loder();
+        Clear();
     }
     function InitalizeControls() {
         Id_Back = document.getElementById("Id_Back") as HTMLButtonElement;
@@ -41,9 +41,7 @@ namespace Order_Saller {
         Txt_Quantity = document.getElementById("Txt_Quantity") as HTMLInputElement;
         Txt_UnitPrice = document.getElementById("Txt_UnitPrice") as HTMLInputElement;
         Txt_NetTotal = document.getElementById("Txt_NetTotal") as HTMLInputElement;
-
-        $('#Txt_Receive_TrData').val(GetDate())
-        $('#Div_ItemsAll').html('')
+         
     }
     function InitializeEvents() {
 
@@ -96,6 +94,7 @@ namespace Order_Saller {
             return
         }
 
+        Create_Invoice_Print();
         $('#Id_Div_Next_Step2').addClass('display_none')
         $('#Id_Div_Back').addClass('display_none')
         $('#Id_Div_Back_Step2').removeClass('display_none')
@@ -104,10 +103,12 @@ namespace Order_Saller {
         $('#Div_Header').addClass('display_none')
         $('#Div_Item').addClass('display_none')
         $('#Div_Review_invoice').removeClass('display_none')
+
     }
     function _Finish() {
         alert("Finish")
         _Back();
+        Clear();
     } 
     //****************************************************** Validtion *****************************************
     function Valid_Header(): boolean {
@@ -157,7 +158,7 @@ namespace Order_Saller {
     }
 
     //****************************************************** BuildBox and Add Items *****************************************
-    function BuildBox(cnt: number, Name_Item: string, NetPrice: number, Quantity: number) {
+    function BuildBox(cnt: number, Name_Item: string, UnitPrice: number, Quantity: number) {
         let html = ` <div id="Box_No${cnt}" class="u-container-align-center u-container-style u-list-item u-repeater-item">
                                         <div class="u-container-layout u-similar-container u-container-layout-1">
                                             <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
@@ -171,7 +172,7 @@ namespace Order_Saller {
                                                         <div class="u-price-wrapper u-spacing-10">
                                                             <!--product_old_price-->
                                                             <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
-                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">Price : ${NetPrice}</div><!--/product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">Price : ${(UnitPrice * Quantity).toFixed(2)}</div><!--/product_regular_price-->
                                                         </div>
                                                     </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
                                                     <a id="DeleteBox${cnt}" class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
@@ -184,6 +185,12 @@ namespace Order_Saller {
 
         debugger
         BuildAllFild(I_Sls_TR_InvoiceItems, cnt, "Box_No");
+        $("#SoldQty" + cnt).val(Quantity)
+        $("#Unitprice" + cnt).val(UnitPrice)
+        $("#ItemTotal" + cnt).val((UnitPrice * Quantity).toFixed(2))
+        $("#NameItem" + cnt).val(Name_Item)
+         
+
 
         $("#DeleteBox" + cnt).on('click', function () {
             DeleteBox(cnt);
@@ -194,13 +201,14 @@ namespace Order_Saller {
             return
         }
 
-        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_NetTotal').val(), $('#Txt_Quantity').val());
+        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val());
         $('#StatusFlag' + CountGrid).val("i");
         CountGrid++;
         NumItems++;
         
         $("#Tap_Reviews_Items").html("Reviews Items ( " + NumItems + " )")
-        $(".Clear_Item ").val("")
+        $(".Clear_Item").val("")
+        $("#Txt_Name_Item").focus()
 
         ShowMessage("Add Item ✅")
     }
@@ -230,9 +238,46 @@ namespace Order_Saller {
         Txt_NetTotal.value = (Number(Txt_Quantity.value) * Number(Txt_UnitPrice.value)).toFixed(2);
     }
 
-    function CompletTotal() {
-      
+    function Clear() {
+        $(".Clear_Header").val("")
+        $(".Clear_Item").val("")
+        $('#Div_ItemsAll').html('')
+        $('#Txt_Receive_TrData').val(GetDate())
+        NumItems = 0;
+        CountGrid = 0;
+        $("#Tap_Reviews_Items").html("Reviews Items")
+        $('#Txt_Ref_No').focus()
     }
+    function Create_Invoice_Print() {
+        $('#Print_Name_Cust').html("<strong>Name:</strong> "+$('#Txt_Name_Cust').val());
+        $('#Print_Name_Phone').html("<strong>Phone:</strong> "+$('#Txt_Phone_Num1').val());
+        $('#Print_Name_Address').html("<strong>Address:</strong> " + $('#Txt_Address1').val());
 
+        $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + $('#Txt_Ref_No').val());
+        $('#Tran_Date_Print').html("<strong>Date:</strong> " + $('#Txt_Receive_TrData').val());
+
+        $('#Body_Inv_Print').html('');
+
+        let ItemTotal = 0;
+        for (var i = 0; i < CountGrid; i++) {
+            if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
+                let Row = `    <tr>
+                            <td>${ $("#NameItem" + i).val()}</td>
+                            <td>${ $("#SoldQty" + i).val()}</td>
+                            <td>${ $("#Unitprice" + i).val()}</td>
+                            <td>${ $("#ItemTotal" + i).val()}</td>
+                        </tr>`
+
+                ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());
+
+                $('#Body_Inv_Print').append(Row);
+            }
+        }
+
+        $('#Total_inv_Print').html(ItemTotal.toFixed(2));
+
+
+
+    }
 
 }
