@@ -85,7 +85,7 @@ namespace Profile {
         let Email = $('#Reg_Mail').val().trim();
         let UserName = SysSession.CurrentEnvironment.UserCode;
         let Password = $('#Reg_Password').val().trim();
-        let Idven = _USER[0].SalesManID;
+        let Idven = Number(_USER[0].SalesManID);
 
       let NameFun =  _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
        

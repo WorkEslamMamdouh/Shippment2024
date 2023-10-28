@@ -1059,7 +1059,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ClientApp\Sales\" />
     <Folder Include="Newtemplate\documentation\" />
     <Folder Include="Newtemplate\template\assets\images\auth\" />
     <Folder Include="Newtemplate\template\assets\images\carousel\" />
@@ -1092,6 +1091,7 @@
     <TypeScriptCompile Include="ClientApp\JsGrid.ts" />
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Report_Page\Report_Page.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\Order_Saller.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

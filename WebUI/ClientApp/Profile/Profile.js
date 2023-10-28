@@ -71,7 +71,7 @@ var Profile;
         var Email = $('#Reg_Mail').val().trim();
         var UserName = SysSession.CurrentEnvironment.UserCode;
         var Password = $('#Reg_Password').val().trim();
-        var Idven = _USER[0].SalesManID;
+        var Idven = Number(_USER[0].SalesManID);
         var NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
         Ajax.Callsync({
             type: "Get",

@@ -23,7 +23,7 @@ namespace Layout {
         InitializeEvents();
 
 
-        setInterval(RunHarley, 9000)
+        setInterval(RunHarley, 11000)
 
 
     }

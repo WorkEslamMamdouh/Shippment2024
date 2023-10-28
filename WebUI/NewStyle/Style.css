@@ -40,11 +40,19 @@
 
 .u-section-4 .u-social-icons-1 { 
     min-height: 0px !important;
-    width: 185px !important;
+    width: 190px !important;
     min-width: 0px !important;
     margin: 0px !important;
 }
 
 
 
- 
+.u-spacing-10.u-countdown-counter > div + div, .u-spacing-10.u-price-wrapper > div + div, .u-spacing-10.u-language-layout-icons .u-language-url + .u-language-url, .u-spacing-10 .u-social-url + .u-social-url {
+    margin-left: 0px !important;
+}
+
+
+.Style_Back {
+    color: #ffffff !important;
+    background-color: #edc51b !important;
+}
