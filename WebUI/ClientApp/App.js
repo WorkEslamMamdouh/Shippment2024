@@ -563,6 +563,75 @@ var Ajax = {
             error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
         });
     },
+    CallsyncSave: function (settings) {
+        if (cheakUrl(settings.url)) {
+            $.ajax({
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: function (d) {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+                },
+                error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            });
+            return;
+        }
+        var AD = new Ajax_Data();
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+            settings.data = JSON.stringify(settings.data);
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+        }
+        AD.type = settings.type;
+        var URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
+        Show_Loder();
+        setTimeout(function () {
+            try {
+                $.ajax({
+                    url: Url.Action("AccessApi", "GeneralAPI"),
+                    data: { data: JSON.stringify(AD) },
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8  ',
+                        'Content-Type': 'application/json'
+                    },
+                    cache: false,
+                    async: false,
+                    success: function (d) {
+                        debugger;
+                        var result = JSON.parse(d);
+                        settings.success(result, "", null);
+                        $(".waitMe").removeAttr("style").fadeOut(2500);
+                    },
+                    error: function () {
+                        Close_Loder();
+                        $(".waitMe").removeAttr("style").fadeOut(2500);
+                    }
+                });
+            }
+            catch (e) {
+                Close_Loder();
+            }
+        }, 150);
+    },
     CallsyncUi: function (settings) {
         if (cheakUrl(settings.url)) {
             $.ajax({

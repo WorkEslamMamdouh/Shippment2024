@@ -170,8 +170,8 @@ namespace Login {
 
 
 
-        Ajax.Callsync({
-            type: "POST",
+        Ajax.CallsyncSave({
+            type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
             data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
@@ -179,6 +179,7 @@ namespace Login {
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
 
+                    Close_Loder();
                 } else {
 
                 }

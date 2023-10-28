@@ -91,7 +91,7 @@ namespace Profile {
 
       let NameFun =  _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
        
-        Ajax.Callsync({
+        Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun ),
             data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
@@ -100,6 +100,7 @@ namespace Profile {
                 if (result.IsSuccess == true) { 
                     GetUSERSByCodeUser(UserName);
 
+                    Close_Loder();
                 } else {
                    
                 }
