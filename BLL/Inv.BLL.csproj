@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SellerOrder\SellerOrderService.cs" />
+    <Compile Include="Services\SellerOrder\ISellerOrderService.cs" />
     <Compile Include="Services\AccDefAccounts\AccDefAccountsService.cs" />
     <Compile Include="Services\AccDefAccounts\IAccDefAccountsService.cs" />
     <Compile Include="Services\AccDefBox\AccDefBoxService.cs" />
