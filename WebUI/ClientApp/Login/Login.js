@@ -29,6 +29,7 @@ var Login;
         setTimeout(function () {
             USERS = GetGlopelDataUser();
             USERS.length == 0 ? GetData_Header() : null;
+            Close_Loder();
         }, 300);
         $('#bodyLogin').removeClass('hidden_Control');
     }

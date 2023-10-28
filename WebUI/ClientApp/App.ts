@@ -3518,7 +3518,8 @@ function OpenPage(moduleCode: string) {
    
 
     //$('#btn_Logout').removeClass("display_none");
-
+   
+    Show_Loder();
 
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     if (Page.length > 0) {
@@ -3533,6 +3534,7 @@ function OpenPage(moduleCode: string) {
         setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
     }
     else {
+        Close_Loder();
         ShowMessage("No Privilage")
     }
    
@@ -3540,7 +3542,8 @@ function OpenPage(moduleCode: string) {
 
 function OpenPagePartial(moduleCode: string, NamePage: string) {
     debugger
-     
+    Show_Loder();
+
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     if (Page.length > 0) {
         CounterPage++;
@@ -3563,7 +3566,8 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
 
     }
     else {
-        ShowMessage("No Privilage")
+        Close_Loder();
+        ShowMessage("No Privilage");
     }
 }
  
@@ -3613,4 +3617,14 @@ function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
 
 function GetGlopelDataUser(): Array<G_USERS> {
     return GlopelUSERS;
+}
+
+function Close_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "none";
+}
+
+function Show_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "block";
 }

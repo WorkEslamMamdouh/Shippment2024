@@ -25,6 +25,8 @@ namespace Profile {
         _USERS = GetGlopelDataUser()
           _USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
         Display_Data();
+
+        Close_Loder();
     }
     function InitalizeControls() { 
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;

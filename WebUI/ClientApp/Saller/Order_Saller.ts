@@ -20,7 +20,7 @@ namespace Order_Saller {
 
         InitalizeControls();
         InitializeEvents();
-          
+        Close_Loder();
     }
     function InitalizeControls() { 
         Id_Back = document.getElementById("Id_Back") as HTMLButtonElement;

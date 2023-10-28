@@ -13,6 +13,7 @@ var Order_Saller;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
+        Close_Loder();
     }
     Order_Saller.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

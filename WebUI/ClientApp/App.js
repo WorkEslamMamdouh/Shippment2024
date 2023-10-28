@@ -2707,6 +2707,7 @@ function GetAllPages() {
 }
 function OpenPage(moduleCode) {
     //$('#btn_Logout').removeClass("display_none");
+    Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     if (Page.length > 0) {
         $('#htmlContainer').html(Page[0].Page_Html);
@@ -2718,11 +2719,13 @@ function OpenPage(moduleCode) {
         setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
     }
     else {
+        Close_Loder();
         ShowMessage("No Privilage");
     }
 }
 function OpenPagePartial(moduleCode, NamePage) {
     debugger;
+    Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     if (Page.length > 0) {
         CounterPage++;
@@ -2739,6 +2742,7 @@ function OpenPagePartial(moduleCode, NamePage) {
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
     }
     else {
+        Close_Loder();
         ShowMessage("No Privilage");
     }
 }
@@ -2771,5 +2775,13 @@ function SetGlopelDataUser(Send_USERS) {
 }
 function GetGlopelDataUser() {
     return GlopelUSERS;
+}
+function Close_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "none";
+}
+function Show_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "block";
 }
 //# sourceMappingURL=App.js.map

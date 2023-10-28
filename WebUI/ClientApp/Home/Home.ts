@@ -19,7 +19,7 @@ namespace Home {
         InitalizeControls();
         InitializeEvents();
         ApplyModules();
-
+        Close_Loder();
     }
     function InitalizeControls() {
         btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement;  

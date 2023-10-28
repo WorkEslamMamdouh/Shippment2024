@@ -16,6 +16,7 @@ var Profile;
         _USERS = GetGlopelDataUser();
         _USER = _USERS.filter(function (x) { return x.USER_CODE == SysSession.CurrentEnvironment.UserCode; });
         Display_Data();
+        Close_Loder();
     }
     Profile.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
