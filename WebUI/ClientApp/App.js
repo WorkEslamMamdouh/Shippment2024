@@ -1553,8 +1553,12 @@ function DisplayMassage_Processes(msg_Ar, msg_En, msg_type, OnOk) {
     //}
 }
 function Errorinput(input, TxtMessage) {
-    if (TxtMessage.trim() != '') {
-        ShowMessage(TxtMessage.trim());
+    try {
+        if (TxtMessage.trim() != '') {
+            ShowMessage(TxtMessage.trim());
+        }
+    }
+    catch (e) {
     }
     var id = '';
     if (input.selector != null) {
