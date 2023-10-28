@@ -2079,7 +2079,7 @@
 
 .u-section-4 .u-social-icons-1 {
   height: 48px;
-  min-height: 16px;
+  min-height: 0px;
   width: 280px;
   min-width: 120px;
   margin: 0 auto;
