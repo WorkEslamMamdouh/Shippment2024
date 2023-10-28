@@ -1565,7 +1565,7 @@ function Errorinput(input, TxtMessage) {
         $('' + input.selector + '').addClass('text_Mandatory');
         $('' + input.selector + '').addClass('animate__animated animate__shakeX');
         $('' + input.selector + '').focus();
-        setTimeout(function () { $('' + input.selector + '').removeClass('animate__animated animate__shakeX'); $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('' + input.selector + '').removeClass('animate__shakeX'); $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
     }
     else {
         try {
@@ -1577,10 +1577,10 @@ function Errorinput(input, TxtMessage) {
         $('#' + id + '').addClass('text_Mandatory');
         $('#' + id + '').addClass('animate__animated animate__shakeX');
         $('#' + id + '').focus();
-        setTimeout(function () { $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('#' + id + '').removeClass('animate__shakeX'); $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
         $('#select2-' + id + '-container').addClass('text_Mandatory');
         $('#select2-' + id + '-container').focus();
-        setTimeout(function () { $('#select2-' + id + '-container').removeClass('animate__animated animate__shakeX'); $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('#select2-' + id + '-container').removeClass('animate__shakeX'); $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
     }
 }
 function fractionInput(input) {
@@ -2749,15 +2749,41 @@ function AssignBuildControls(dataSource, CountGrid) {
     }
     return DetailsModel;
 }
-var getClass = function (className) {
+function Valid_Input(NameId, Message, Type) {
+    if (Number(Type) == 1) { //number
+        if (Number($("#" + NameId + "").val()) <= 0) {
+            Errorinput($("#" + NameId + ""), Message);
+            return false;
+        }
+    }
+    else {
+        if ($("#" + NameId + "").val().trim() == "") {
+            Errorinput($("#" + NameId + ""), Message);
+            return false;
+        }
+    }
+    return true;
+}
+function getClass(className) {
+    if (typeof className !== 'string') {
+        throw new Error('Class name must be a string');
+    }
     var constructorFunc = window[className];
     if (typeof constructorFunc === 'function') {
-        //return new constructorFunc();
+        return new constructorFunc();
     }
     else {
         throw new Error('Invalid class name: ' + className);
     }
-};
+}
+//var getClass = function (className) {
+//    var constructorFunc = window[className]
+//    if (typeof constructorFunc === 'function') {
+//        return new constructorFunc();
+//    } else {
+//        throw new Error('Invalid class name: ' + className);
+//    }
+//};
 var _AllPages = new Array();
 var CounterPage = 0;
 function GetAllPages() {

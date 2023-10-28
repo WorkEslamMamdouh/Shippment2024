@@ -1997,7 +1997,7 @@ function Errorinput(input: any, TxtMessage?: string) {
         $('' + input.selector + '').addClass('animate__animated animate__shakeX');
 
         $('' + input.selector + '').focus();
-        setTimeout(function () { $('' + input.selector + '').removeClass('animate__animated animate__shakeX'); $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('' + input.selector + '').removeClass('animate__shakeX'); $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
     }
     else {
 
@@ -2013,11 +2013,11 @@ function Errorinput(input: any, TxtMessage?: string) {
         $('#' + id + '').addClass('text_Mandatory');
         $('#' + id + '').addClass('animate__animated animate__shakeX');
         $('#' + id + '').focus();
-        setTimeout(function () { $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('#' + id + '').removeClass('animate__shakeX');  $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
 
         $('#select2-' + id + '-container').addClass('text_Mandatory');
         $('#select2-' + id + '-container').focus();
-        setTimeout(function () { $('#select2-' + id + '-container').removeClass('animate__animated animate__shakeX'); $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('#select2-' + id + '-container').removeClass('animate__shakeX'); $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
 
 
     }
@@ -3569,14 +3569,51 @@ function AssignBuildControls(dataSource: any, CountGrid: number) {
 }
 
 
-var getClass = function (className) {
-    var constructorFunc = window[className]
+function Valid_Input(NameId: string, Message: string, Type?: string): boolean {
+
+    if (Number(Type) == 1) { //number
+
+        if (Number($("#" + NameId + "").val()) <= 0) {
+            Errorinput($("#" + NameId + ""), Message)
+            return false;
+        }
+
+    }
+    else {
+
+        if ($("#" + NameId + "").val().trim() == "") {
+            Errorinput($("#" + NameId + ""), Message)
+            return false;
+        }
+
+    }
+
+    return true;
+}
+
+
+function getClass(className) {
+    if (typeof className !== 'string') {
+        throw new Error('Class name must be a string');
+    }
+
+    const constructorFunc = window[className];
+
     if (typeof constructorFunc === 'function') {
-        //return new constructorFunc();
+        return new constructorFunc();
     } else {
         throw new Error('Invalid class name: ' + className);
     }
-};
+}
+
+//var getClass = function (className) {
+//    var constructorFunc = window[className]
+//    if (typeof constructorFunc === 'function') {
+//        return new constructorFunc();
+//    } else {
+//        throw new Error('Invalid class name: ' + className);
+//    }
+//};
 
 var _AllPages: Array<AllPages> = new Array<AllPages>();
 
