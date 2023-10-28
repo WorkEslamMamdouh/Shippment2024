@@ -13,6 +13,7 @@ var Home;
         InitalizeControls();
         InitializeEvents();
         ApplyModules();
+        Close_Loder();
     }
     Home.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

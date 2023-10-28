@@ -29,6 +29,7 @@ var Login;
         setTimeout(function () {
             USERS = GetGlopelDataUser();
             USERS.length == 0 ? GetData_Header() : null;
+            Close_Loder();
         }, 300);
         $('#bodyLogin').removeClass('hidden_Control');
     }
@@ -134,14 +135,15 @@ var Login;
         var Email = $('#Reg_Mail').val().trim();
         var UserName = $('#Reg_UserName').val().trim();
         var Password = $('#Reg_Password').val().trim();
-        Ajax.Callsync({
-            type: "POST",
+        Ajax.CallsyncSave({
+            type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
             data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
+                    Close_Loder();
                 }
                 else {
                 }

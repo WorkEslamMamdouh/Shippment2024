@@ -10,56 +10,25 @@
 
 </div>
 
-<div id="Partial_1" class="Page_Partial display_none"> 
+<div id="Partial_1" class="Page_Partial display_none">
 </div>
 <div id="Partial_2" class="Page_Partial display_none">
-</div>                       
+</div>
 <div id="Partial_3" class="Page_Partial display_none">
-</div>                       
+</div>
 <div id="Partial_4" class="Page_Partial display_none">
-</div>                       
+</div>
 <div id="Partial_5" class="Page_Partial display_none">
-</div>                       
+</div>
 <div id="Partial_6" class="Page_Partial display_none">
-</div>                       
+</div>
 <div id="Partial_7" class="Page_Partial display_none">
-</div>                       
+</div>
 <div id="Partial_8" class="Page_Partial display_none">
-</div>                     
+</div>
 <div id="Partial_9" class="Page_Partial display_none">
 </div>
 <div id="Partial_10" class="Page_Partial display_none">
-</div> 
+</div>
 
-
-<script> 
-    
-
-    setTimeout(function () { 
-        
-        $('#iconMainPages').removeClass('hidden_Control');
-        $('#btnPrintTrview').removeClass('display_none');
-        $('#btnPrintTrPDF').removeClass('display_none');
-        $('#btnPrintTrEXEL').removeClass('display_none');
-        $('#iconbar_Definition').addClass('hidden_Control'); 
-        $('#btnSave').addClass('display_none');
-        $('#btnUpdate').addClass('display_none');
-        $('#btnPrintTransaction').addClass('display_none');
-        $('#btnBack').addClass('display_none');
-        var moduleCode = sessionStorage.getItem("NewTap") 
-        if (moduleCode != "" && moduleCode != null) { 
-            sessionStorage.setItem("NewTap", "");
-            $("#btn" + moduleCode).click();
-
-        }
-        else {
-            
-            var url = new URL(window.location.href);
-            // Create a URLSearchParams object from the URL's search parameters
-            var searchParams = url.searchParams;
-            // Get the value of a specific parameter
-            var paramValue = searchParams.get('Page');
-            $("#btn" + paramValue).click(); 
-        }
-    }, 2000);
-</script>
+ 

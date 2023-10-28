@@ -1,173 +1,448 @@
-﻿<section class="u-align-center u-clearfix u-section-3" id="sec-02c8">
+﻿<section class="u-align-left u-clearfix u-section-11" id="carousel_c35d">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="u-expanded-width u-tab-links-align-left u-tabs u-tabs-1">
+        <div class="u-container-style u-group u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+                <h2 class="u-align-center u-text u-text-1">Make a Invoice</h2>
+            </div>
+        </div>
+        @************************************************Header****************************************************************@
+        <div id="Div_Header" class="u-form u-form-1">
+            <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+                <div class="u-form-email u-form-group u-form-partition-factor-2">
+                    <label for="email-f2a8" class="u-label u-text-grey-40">E-mail</label>
+                    <input type="email" placeholder="Enter a valid email address" id="email-f2a8" name="email" class="u-input u-input-rectangle" required="">
+                </div>
+                <div class="u-form-group u-form-name u-form-partition-factor-2">
+                    <label for="name-f2a8" class="u-label u-text-grey-40">Name</label>
+                    <input type="text" placeholder="Enter your Name" id="name-f2a8" name="name" class="u-input u-input-rectangle" required="">
+                </div>
+                <div class="u-form-email u-form-group u-form-partition-factor-2">
+                    <label for="email-f2a8" class="u-label u-text-grey-40">E-mail</label>
+                    <input type="email" placeholder="Enter a valid email address" id="email-f2a8" name="email" class="u-input u-input-rectangle" required="">
+                </div>
+                <div class="u-form-group u-form-name u-form-partition-factor-2">
+                    <label for="name-f2a8" class="u-label u-text-grey-40">Name</label>
+                    <input type="text" placeholder="Enter your Name" id="name-f2a8" name="name" class="u-input u-input-rectangle" required="">
+                </div>
+                <div class="u-form-date u-form-group u-form-partition-factor-2 u-form-group-3">
+                    <label for="date-4441" class="u-label u-text-grey-40">Date</label>
+                    <input type="text" placeholder="MM/DD/YYYY" id="date-4441" name="date" class="u-input u-input-rectangle" required="" data-date-format="mm/dd/yyyy">
+                </div>
+                <div class="u-form-group u-form-partition-factor-2 u-form-phone u-form-group-4">
+                    <label for="phone-447e" class="u-label u-text-grey-40">Phone</label>
+                    <input type="tel" pattern="\+?\d{0,2}[\s\(\-]?([0-9]{3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone-447e" name="phone" class="u-input u-input-rectangle" required="">
+                </div>
+
+                <div class="u-form-group u-form-group-5">
+                    <label for="text-2c3d" class="u-label u-text-grey-40">Input</label>
+                    <input type="text" placeholder="" id="text-2c3d" name="text" class="u-input u-input-rectangle">
+                </div>
+                <div class="u-form-group u-form-group-6">
+                    <label for="text-c7d4" class="u-label u-text-grey-40">Input</label>
+                    <input type="text" placeholder="" id="text-c7d4" name="text-1" class="u-input u-input-rectangle">
+                </div>
+                <div class="u-form-group u-form-message u-form-group-7">
+                    <label for="message-f2a8" class="u-label u-text-grey-40">Message</label>
+                    <textarea placeholder="Enter your message" rows="4" cols="50" id="message-f2a8" name="message" class="u-input u-input-rectangle" required=""></textarea>
+                </div>
+                <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
+                <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
+                <input type="hidden" value="" name="recaptchaResponse">
+                <input type="hidden" name="formServices" value="2b225d1a-d88e-6315-ddbc-6828b357a06f">
+            </form>
+        </div>
+        @************************************************Item****************************************************************@
+
+        <div id="Div_Item" class="display_none u-expanded-width u-tab-links-align-left u-tabs u-tabs-1">
             <ul class="u-border-2 u-border-palette-1-base u-spacing-10 u-tab-list u-unstyled" role="tablist">
                 <li class="u-tab-item" role="presentation">
-                    <a class="active u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">Description</a>
+                    <a class="active u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">Add Item</a>
                 </li>
                 <li class="u-tab-item" role="presentation">
-                    <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-2" id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false">Specifications</a>
+                    <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">Reviews Items</a>
                 </li>
-                <li class="u-tab-item" role="presentation">
-                    <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">Reviews</a>
-                </li>
-                <li class="u-tab-item u-tab-item-4" role="presentation">
-                    <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-4" id="tab-93fc" href="#link-tab-93fc" role="tab" aria-controls="link-tab-93fc" aria-selected="false">Questions</a>
-                </li>
-                <li class="u-tab-item" role="presentation">
-                    <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-5" id="link-tab-fd40" href="#tab-fd40" role="tab" aria-controls="tab-fd40" aria-selected="false">
-                        Test<br>
-                    </a>
-                </li>
+
             </ul>
             <div class="u-tab-content">
+                @******************************************************Description******************************@
+
                 <div class="u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
-                    <div class="u-container-layout u-container-layout-1">
-                        <h4 class="u-text u-text-default u-text-1">Basic Settings</h4>
-                        <div class="u-expanded-width u-table u-table-responsive u-table-1">
-                            <table class="u-table-entity">
-                                <colgroup>
-                                    <col width="25%">
-                                    <col width="25%">
-                                    <col width="25%">
-                                    <col width="25%">
-                                </colgroup>
-                                <tbody class="u-table-alt-grey-5 u-table-body">
-                                    <tr style="height: 51px;">
-                                        <td class="u-table-cell">Column 1</td>
-                                        <td class="u-table-cell">Column 2</td>
-                                        <td class="u-table-cell">Column 3</td>
-                                        <td class="u-table-cell">Column 4</td>
-                                    </tr>
-                                    <tr style="height: 51px;">
-                                        <td class="u-table-cell">Row 1</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                    </tr>
-                                    <tr style="height: 51px;">
-                                        <td class="u-table-cell">Row 2</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                    </tr>
-                                    <tr style="height: 51px;">
-                                        <td class="u-table-cell">Row 3</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                    </tr>
-                                    <tr style="height: 52px;">
-                                        <td class="u-table-cell">Row 4</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                        <td class="u-table-cell">Description</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+
+                    <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+
+                        <div class="u-form-email u-form-group u-form-partition-factor-2">
+                            <label for="email-f2a8" class="u-label u-text-grey-40">E-mail</label>
+                            <input type="email" placeholder="Enter a valid email address" id="email-f2a8" name="email" class="u-input u-input-rectangle" required="">
                         </div>
-                    </div>
+                        <div class="u-form-group u-form-name u-form-partition-factor-2">
+                            <label for="name-f2a8" class="u-label u-text-grey-40">Name</label>
+                            <input type="text" placeholder="Enter your Name" id="name-f2a8" name="name" class="u-input u-input-rectangle" required="">
+                        </div>
+                        <div class="u-form-date u-form-group u-form-partition-factor-2 u-form-group-3">
+                            <label for="date-4441" class="u-label u-text-grey-40">Date</label>
+                            <input type="text" placeholder="MM/DD/YYYY" id="date-4441" name="date" class="u-input u-input-rectangle" required="" data-date-format="mm/dd/yyyy">
+                        </div>
+                        <div class="u-form-group u-form-partition-factor-2 u-form-phone u-form-group-4">
+                            <label for="phone-447e" class="u-label u-text-grey-40">Phone</label>
+                            <input type="tel" pattern="\+?\d{0,2}[\s\(\-]?([0-9]{3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone-447e" name="phone" class="u-input u-input-rectangle" required="">
+                        </div>
+                        <div class="u-form-group u-form-message u-form-group-7">
+                            <label for="message-f2a8" class="u-label u-text-grey-40">Message</label>
+                            <textarea placeholder="Enter your message" rows="4" cols="50" id="message-f2a8" name="message" class="u-input u-input-rectangle" required=""></textarea>
+                        </div>
+                    </form>
+
                 </div>
-                <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
-                    <div class="u-container-layout u-valign-top u-container-layout-2">
-                        <p class="u-text u-text-default u-text-2">
-                            Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
-                            <br>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&nbsp;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                    </div>
-                </div>
+
+
+
+                @******************************************************Reviews******************************@
+
                 <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">
-                    <div class="u-container-layout u-container-layout-3">
-                        <h4 class="u-text u-text-default u-text-3">Be The First To Review This Product!</h4>
-                        <p class="u-text u-text-default u-text-4">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-                        <a href="" class="u-btn u-button-style u-btn-1">write product review</a>
-                    </div>
-                </div>
-                <div class="u-container-style u-tab-pane u-white u-tab-pane-4" id="link-tab-93fc" role="tabpanel" aria-labelledby="tab-93fc">
-                    <div class="u-container-layout u-container-layout-4"></div>
-                </div>
-                <div class="u-container-style u-tab-pane u-white u-tab-pane-5" id="tab-fd40" role="tabpanel" aria-labelledby="link-tab-fd40">
-                    <div class="u-container-layout u-container-layout-5">
-                        <div class="u-form u-form-1">
-                            <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
-                                <div class="u-form-group u-form-name u-label-none">
-                                    <label for="name-3b9a" class="u-label">Name</label>
-                                    <input type="text" placeholder="Enter your Name" id="name-3b9a" name="name" class="u-input u-input-rectangle" required="">
-                                </div>
-                                <div class="u-form-email u-form-group u-label-none">
-                                    <label for="email-3b9a" class="u-label">Email</label>
-                                    <input type="email" placeholder="Enter a valid email address" id="email-3b9a" name="email" class="u-input u-input-rectangle" required="">
-                                </div>
-                                <div class="u-form-group u-form-message u-label-none">
-                                    <label for="message-3b9a" class="u-label">Message</label>
-                                    <textarea placeholder="Enter your message" rows="4" cols="50" id="message-3b9a" name="message" class="u-input u-input-rectangle" required=""></textarea>
-                                </div>
-                                <div class="u-form-group u-form-select u-label-none u-form-group-4">
-                                    <label for="select-76de" class="u-label">Dropdown</label>
-                                    <div class="u-form-select-wrapper">
-                                        <select id="select-76de" name="select" class="u-input u-input-rectangle">
-                                            <option value="Item 1" data-calc="">Item 1</option>
-                                            <option value="Item 2" data-calc="">Item 2</option>
-                                            <option value="Item 3" data-calc="">Item 3</option>
-                                        </select>
-                                        <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
-                                    </div>
-                                </div>
-                                <div class="u-form-checkbox-group u-form-group u-label-none u-form-group-5">
-                                    <label class="u-label">Checks</label>
-                                    <div class="u-form-checkbox-group-wrapper">
-                                        <div class="u-input-row">
-                                            <input id="field-882d" type="checkbox" name="checkbox[]" value="Item 1" class="u-field-input" checked="checked" data-calc="">
-                                            <label class="u-field-label" for="field-882d">Item 1</label>
-                                        </div>
-                                        <div class="u-input-row">
-                                            <input id="field-4d7e" type="checkbox" name="checkbox[]" value="Item 2" class="u-field-input" data-calc="">
-                                            <label class="u-field-label" for="field-4d7e">Item 2</label>
-                                        </div>
-                                        <div class="u-input-row">
-                                            <input id="field-4131" type="checkbox" name="checkbox[]" value="Item 3" class="u-field-input" data-calc="">
-                                            <label class="u-field-label" for="field-4131">Item 3</label>
+
+                    <section class="u-clearfix u-section-13" id="sec-c56c">
+                        <div class="u-clearfix u-sheet u-sheet-1">
+                            <div class="u-expanded-width u-list u-list-1">
+                                <div class="u-repeater u-repeater-1">
+
+                                    @******************************************************ItemsAll******************************@
+
+
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="u-form-group u-form-radiobutton u-label-none u-form-group-6">
-                                    <label class="u-label">Radios</label>
-                                    <div class="u-form-radio-button-wrapper">
-                                        <div class="u-input-row">
-                                            <input id="field-f602" type="radio" name="radiobutton" value="Item 1" class="u-field-input" checked="checked" data-calc="">
-                                            <label class="u-field-label" for="field-f602">Item 1</label>
-                                        </div>
-                                        <div class="u-input-row">
-                                            <input id="field-2d62" type="radio" name="radiobutton" value="Item 2" class="u-field-input" data-calc="">
-                                            <label class="u-field-label" for="field-2d62">Item 2</label>
-                                        </div>
-                                        <div class="u-input-row">
-                                            <input id="field-7166" type="radio" name="radiobutton" value="Item 3" class="u-field-input" data-calc="">
-                                            <label class="u-field-label" for="field-7166">Item 3</label>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                                            <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
+                                                <div class="u-container-layout u-similar-container u-container-layout-6">
+                                                    <!--product_image-->
+                                                    <a class="u-product-title-link" ><img src="~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" alt="" class="u-expanded-width u-image u-image-contain u-image-default u-product-control u-image-6"></a><!--/product_image--><!--product_title-->
+                                                    <h4 class="u-product-control u-text u-text-7">
+                                                        <a class="u-product-title-link" >Leather Gloves</a>
+                                                    </h4><!--/product_title--><!--product_price-->
+                                                    <div class="u-product-control u-product-price u-product-price-6">
+                                                        <div class="u-price-wrapper u-spacing-10">
+                                                            <!--product_old_price-->
+                                                            <div class="u-hide-price u-old-price"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->
+                                                            <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">$20</div><!--/product_regular_price-->
+                                                        </div>
+                                                    </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"buy-now","content":"Buy Now"}--><!--/options_json-->
+                                                    <a class="u-active-grey-75 u-black u-border-none u-btn u-button-style u-hover-grey-75 u-product-control u-btn-7 u-dialog-link u-payment-button" data-product-button-click-type="buy-now" data-product-id="3" data-product="{&quot;id&quot;:&quot;3&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;categories&quot;:[],&quot;images&quot;:[{&quot;url&quot;:&quot;~/NewStyle/images/cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png&quot;}],&quot;created&quot;:1697849530946,&quot;updated&quot;:1698449063177,&quot;isDefault&quot;:true}"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*********************************************************************************************@
+
+
                                 </div>
-                                <div class="u-form-checkbox u-form-group u-label-none u-form-group-7">
-                                    <input type="checkbox" id="checkbox-66ac" name="checkbox-1" value="On" class="u-field-input">
-                                    <label for="checkbox-66ac" class="u-field-label">Checkbox</label>
-                                </div>
-                                <div class="u-form-date u-form-group u-label-none u-form-group-8">
-                                    <label for="date-5208" class="u-label">Date</label>
-                                    <input type="text" readonly="readonly" placeholder="MM/DD/YYYY" id="date-5208" name="date" class="u-input u-input-rectangle" required="" data-date-format="mm/dd/yyyy">
-                                </div>
-                                <div class="u-align-left u-form-group u-form-submit">
-                                    <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a>
-                                    <input type="submit" value="submit" class="u-form-control-hidden">
-                                </div>
-                                <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-                                <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-                                <input type="hidden" value="" name="recaptchaResponse">
-                                <input type="hidden" name="formServices" value="2b225d1a-d88e-6315-ddbc-6828b357a06f">
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+
+
                 </div>
+
+            </div>
+        </div>
+
+        @************************************************Review invoice****************************************************************@
+    <div id="Div_Review_invoice" class=" display_none u-form u-form-1">
+
+        <style>
+            .container {
+                max-width: 800px;
+                background-color: #fff;
+                margin: 0 auto;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+                .header h1 {
+                    color: #333;
+                }
+
+            .customer-info {
+                margin-bottom: 20px;
+            }
+
+            .invoice {
+                margin-bottom: 20px;
+            }
+
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+                .table th, .table td {
+                    border: 1px solid #ccc;
+                    padding: 8px;
+                    text-align: left;
+                }
+
+                .table th {
+                    background-color: #f2f2f2;
+                }
+
+            .total {
+                text-align: right;
+            }
+
+            .total-label {
+                color: #555;
+            }
+
+            .total-amount {
+                font-weight: bold;
+                color: #333;
+            }
+        </style>
+
+        <div class="container">
+            <div class="header">
+                <h1>Invoice</h1>
+            </div>
+            <div class="customer-info">
+                <h2>Customer Information</h2>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Phone:</strong> (555) 555-5555</p>
+                <p><strong>Address:</strong> 123 Main St, City, Country</p>
+            </div>
+            <div class="invoice">
+                <h2>Invoice</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Product 1</td>
+                            <td>2</td>
+                            <td>$10.00</td>
+                            <td>$20.00</td>
+                        </tr>
+                        <tr>
+                            <td>Product 2</td>
+                            <td>1</td>
+                            <td>$15.00</td>
+                            <td>$15.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="total">
+                    <p><span class="total-label">Total:</span> <span class="total-amount">$35.00</span></p>
+                </div>
+            </div>
+            <div class="receipt">
+                <h2>Receipt</h2> 
+                <p><strong>Transaction ID:</strong> 123456789</p>
+                <p><strong>Date:</strong> October 28, 2023</p>
             </div>
         </div>
     </div>
+        @************************************************Buttons****************************************************************@
+        <div class="u-form u-form-2">
+            <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+                </div>
+                <div id="Id_Div_Back" class="u-align-left u-form-group-3 u-form-submit display_none">
+                    <a id="Id_Back" class=" u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2  "style="color: #ffffff !important; background-color: #d8b315 !important; ">Back</a>
+                    <input type="submit" value="Back" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Next" class="u-align-left u-form-group-3 u-form-submit">
+                    <a id="Id_Next" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Next</a>
+                    <input type="submit" value="Next" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Next_Step2" class="u-align-left u-form-group-3 u-form-submit display_none">
+                    <a id="Id_Next_Step2" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Next</a>
+                    <input type="submit" value="Next" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Back_Step2" class="u-align-left u-form-group-3 u-form-submit display_none">
+                    <a id="Id_Back_Step2" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2  " style="color: #ffffff !important; background-color: #d8b315 !important;">Back</a>
+                    <input type="submit" value="Back" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Finish" class="u-align-left u-form-group-7 u-form-submit display_none">
+                    <a id="Id_Finish" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2" style="color: #ffffff !important;background-color: #049e35 !important;">Confirm Invoice</a>
+                    <input type="submit" value="Finish" class="u-form-control-hidden">
+                </div>
+            </form>
+        </div>
+    </div>
 </section>
+
+<script src="~/ClientApp/Saller/Order_Saller.js"></script>

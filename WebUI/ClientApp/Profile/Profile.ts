@@ -25,6 +25,8 @@ namespace Profile {
         _USERS = GetGlopelDataUser()
           _USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
         Display_Data();
+
+        Close_Loder();
     }
     function InitalizeControls() { 
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
@@ -85,11 +87,11 @@ namespace Profile {
         let Email = $('#Reg_Mail').val().trim();
         let UserName = SysSession.CurrentEnvironment.UserCode;
         let Password = $('#Reg_Password').val().trim();
-        let Idven = _USER[0].SalesManID;
+        let Idven = Number(_USER[0].SalesManID);
 
       let NameFun =  _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
        
-        Ajax.Callsync({
+        Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun ),
             data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
@@ -98,6 +100,7 @@ namespace Profile {
                 if (result.IsSuccess == true) { 
                     GetUSERSByCodeUser(UserName);
 
+                    Close_Loder();
                 } else {
                    
                 }

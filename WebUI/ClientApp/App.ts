@@ -8,7 +8,7 @@ var Modules = {
     Home: "Home",
     SlsTrSalesManagerNew: "SlsTrSalesManagerNew",
     SlsTrShowPrice: "SlsTrShowPrice"
-     
+
 
 };
 var MessageType = {
@@ -778,8 +778,93 @@ var Ajax = {
             error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
         })
     },
+    CallsyncSave: <T>(settings: JQueryAjaxSettings) => {
+
+
+        if (cheakUrl(settings.url)) {
+
+            $.ajax({
+
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: (d) => {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+
+
+
+                },
+                error: () => { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            })
+
+            return
+        }
+
+        let AD: Ajax_Data = new Ajax_Data();
+
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+
+            settings.data = JSON.stringify(settings.data);
+
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+
+        }
+
+        AD.type = settings.type;
+        let URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
+        Show_Loder();
+        setTimeout(function () { 
+            try {
+                $.ajax({
+                    url: Url.Action("AccessApi", "GeneralAPI"),
+                    data: { data: JSON.stringify(AD) },
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8  ',
+                        'Content-Type': 'application/json'
+                    },
+                    cache: false,
+                    async: false,
+                    success: (d) => {
+                        debugger
+                        var result = JSON.parse(d);
+                        settings.success(result, "", null);
+                        $(".waitMe").removeAttr("style").fadeOut(2500);
+
+
+                    },
+                    error: () => {
+                        Close_Loder();
+                        $(".waitMe").removeAttr("style").fadeOut(2500);
+                    }
+                })
+            } catch (e) {
+                Close_Loder();
+            }
+        }, 150);
+
+    },
     CallsyncUi: <T>(settings: JQueryAjaxSettings) => {
-        
+
 
         if (cheakUrl(settings.url)) {
 
@@ -1829,32 +1914,32 @@ function DisplayMassage(msg_Ar: string, msg_En: string, msg_type: string, OnOk?:
     setTimeout(function () { $('#DivMassage').addClass("display_none"); }, 6000);
 }
 function DisplayMassageMoreTime(msg_Ar: string, msg_En: string, msg_type: string, OnOk?: () => void) {
-	var Env = GetSystemEnvironment();
-	// msgtype : 1 : Sucess , 2: Fetal Error , 3: Data Entry Error 
-	if (Env.ScreenLanguage == "en")
-		$('#Text_Massage').html(msg_En);
-	else
-		$('#Text_Massage').html(msg_Ar);
-	$('#DivMassage').removeClass("display_none");
-	if (msg_type == '1') {
-		$('#DivMassage .alert-message').attr("Class", "toast align-items-center text-white border-0 alert-message show bg-success");
-		$('#DivMassage #icon_Massage').attr("Class", "fas fa-check-circle pe-3");
-	}
-	else if (msg_type == '2') {
-		$('#DivMassage .alert-message').attr("Class", "toast align-items-center text-white border-0 alert-message show bg-danger");
-		$('#DivMassage #icon_Massage').attr("Class", "fas fa-times-circle pe-3");
-	}
-	else if (msg_type == '3') {
-		$('#DivMassage .alert-message').attr("Class", "toast align-items-center text-white border-0 alert-message show bg-orange");
-		$('#DivMassage #icon_Massage').attr("Class", "fas fa-exclamation-triangle pe-3");
-	}
-	setTimeout(function () { $('#DivMassage').addClass("display_none"); }, 8000);
+    var Env = GetSystemEnvironment();
+    // msgtype : 1 : Sucess , 2: Fetal Error , 3: Data Entry Error 
+    if (Env.ScreenLanguage == "en")
+        $('#Text_Massage').html(msg_En);
+    else
+        $('#Text_Massage').html(msg_Ar);
+    $('#DivMassage').removeClass("display_none");
+    if (msg_type == '1') {
+        $('#DivMassage .alert-message').attr("Class", "toast align-items-center text-white border-0 alert-message show bg-success");
+        $('#DivMassage #icon_Massage').attr("Class", "fas fa-check-circle pe-3");
+    }
+    else if (msg_type == '2') {
+        $('#DivMassage .alert-message').attr("Class", "toast align-items-center text-white border-0 alert-message show bg-danger");
+        $('#DivMassage #icon_Massage').attr("Class", "fas fa-times-circle pe-3");
+    }
+    else if (msg_type == '3') {
+        $('#DivMassage .alert-message').attr("Class", "toast align-items-center text-white border-0 alert-message show bg-orange");
+        $('#DivMassage #icon_Massage').attr("Class", "fas fa-exclamation-triangle pe-3");
+    }
+    setTimeout(function () { $('#DivMassage').addClass("display_none"); }, 8000);
 }
 
 function DisplayMassage_Processes(msg_Ar: string, msg_En: string, msg_type: string, OnOk?: () => void) {
     var Env = GetSystemEnvironment();
     // msgtype : 1 : Sucess , 2: Fetal Error , 3: Data Entry Error 
-	$('#Text_Massage').html("");
+    $('#Text_Massage').html("");
     if (Env.ScreenLanguage == "en")
         $('#Text_Massage').html(msg_En);
     else
@@ -1896,15 +1981,20 @@ function DisplayMassage_Processes(msg_Ar: string, msg_En: string, msg_type: stri
 
 function Errorinput(input: any, TxtMessage?: string) {
 
-    if (TxtMessage.trim() != '') {
-        ShowMessage(TxtMessage.trim());
+    try {
+        if (TxtMessage.trim() != '') {
+            ShowMessage(TxtMessage.trim());
+        }
+    } catch (e) {
+
     }
+   
 
     var id = '';
     if (input.selector != null) {
-         
+
         $('' + input.selector + '').addClass('text_Mandatory');
-        $('' + input.selector + '').addClass('animate__animated animate__shakeX'); 
+        $('' + input.selector + '').addClass('animate__animated animate__shakeX');
 
         $('' + input.selector + '').focus();
         setTimeout(function () { $('' + input.selector + '').removeClass('animate__animated animate__shakeX'); $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
@@ -1929,7 +2019,7 @@ function Errorinput(input: any, TxtMessage?: string) {
         $('#select2-' + id + '-container').focus();
         setTimeout(function () { $('#select2-' + id + '-container').removeClass('animate__animated animate__shakeX'); $('#select2-' + id + '-container').removeClass('text_Mandatory'); }, 5000);
 
-         
+
     }
 
 }
@@ -3437,9 +3527,9 @@ function CheckDuplicateGrid(Cnt: number, CountGrid: number, inputName: string, S
 }
 
 function inputError(input: string) {
-	$('#' + input + '').addClass('text_Mandatory');
-	$('#' + input + '').focus();
-	setTimeout(function () { $('#' + input + '').removeClass('text_Mandatory'); }, 5000);
+    $('#' + input + '').addClass('text_Mandatory');
+    $('#' + input + '').focus();
+    setTimeout(function () { $('#' + input + '').removeClass('text_Mandatory'); }, 5000);
 }
 
 function DisplayBuildControls(dataSource: any, cnt: number) {
@@ -3505,7 +3595,7 @@ function GetAllPages() {
             // Display the HTML content in a container element
             //$('.Layout_Home').addClass('display_none');
             OpenPage("Login");
-            
+
 
         },
         error: function (xhr, status, error) {
@@ -3515,10 +3605,11 @@ function GetAllPages() {
 
 }
 function OpenPage(moduleCode: string) {
-   
+
 
     //$('#btn_Logout').removeClass("display_none");
 
+    Show_Loder();
 
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     if (Page.length > 0) {
@@ -3533,14 +3624,16 @@ function OpenPage(moduleCode: string) {
         setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
     }
     else {
+        Close_Loder();
         ShowMessage("No Privilage")
     }
-   
+
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string) {
     debugger
-     
+    Show_Loder();
+
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     if (Page.length > 0) {
         CounterPage++;
@@ -3563,10 +3656,11 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
 
     }
     else {
-        ShowMessage("No Privilage")
+        Close_Loder();
+        ShowMessage("No Privilage");
     }
 }
- 
+
 function Back_Page_Partial() {
     debugger
 
@@ -3579,7 +3673,7 @@ function Back_Page_Partial() {
     $('.Page_Partial').addClass("display_none");
     $('#htmlContainer').addClass("display_none");
     //$('#btn_Logout').addClass("display_none");
-    $('#btn_Logout').attr("style","will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
+    $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
 
     CounterPage--;
 
@@ -3597,20 +3691,30 @@ function Back_Page_Partial() {
 
         let _NamePage = localStorage.getItem("Partial_NamePage_" + CounterPage);
 
-        $('#Lab_NamePage').html(`` + _NamePage+`<span style="font-weight: 700;">
+        $('#Lab_NamePage').html(`` + _NamePage + `<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
     }
-     
+
 }
 
 
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
 
-function SetGlopelDataUser(Send_USERS: Array<G_USERS>) { 
+function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;
 }
 
 function GetGlopelDataUser(): Array<G_USERS> {
     return GlopelUSERS;
+}
+
+function Close_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "none";
+}
+
+function Show_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "block";
 }

@@ -563,6 +563,75 @@ var Ajax = {
             error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
         });
     },
+    CallsyncSave: function (settings) {
+        if (cheakUrl(settings.url)) {
+            $.ajax({
+                type: settings.type,
+                url: settings.url,
+                data: settings.data,
+                headers: {
+                    'Accept': 'application/json; charset=utf-8  ',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                async: false,
+                success: function (d) {
+                    settings.success(d, "", null);
+                    $(".waitMe").removeAttr("style").fadeOut(2500);
+                },
+                error: function () { $(".waitMe").removeAttr("style").fadeOut(2500); }
+            });
+            return;
+        }
+        var AD = new Ajax_Data();
+        if (typeof settings.data == "undefined") {
+            var data = [];
+            settings.data = data;
+            //alert('لا يوجد ');
+            settings.data = "";
+            AD.ISObject = true;
+        }
+        else if (isObject(settings, 'data')) {
+            //alert('Object');
+            settings.data = JSON.stringify(settings.data);
+            AD.ISObject = true;
+        }
+        else {
+            //alert('Json'); 
+        }
+        AD.type = settings.type;
+        var URL = settings.url.replace($("#GetAPIUrl").val(), "");
+        AD.url = URL;
+        AD.data = settings.data;
+        Show_Loder();
+        setTimeout(function () {
+            try {
+                $.ajax({
+                    url: Url.Action("AccessApi", "GeneralAPI"),
+                    data: { data: JSON.stringify(AD) },
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8  ',
+                        'Content-Type': 'application/json'
+                    },
+                    cache: false,
+                    async: false,
+                    success: function (d) {
+                        debugger;
+                        var result = JSON.parse(d);
+                        settings.success(result, "", null);
+                        $(".waitMe").removeAttr("style").fadeOut(2500);
+                    },
+                    error: function () {
+                        Close_Loder();
+                        $(".waitMe").removeAttr("style").fadeOut(2500);
+                    }
+                });
+            }
+            catch (e) {
+                Close_Loder();
+            }
+        }, 150);
+    },
     CallsyncUi: function (settings) {
         if (cheakUrl(settings.url)) {
             $.ajax({
@@ -1484,8 +1553,12 @@ function DisplayMassage_Processes(msg_Ar, msg_En, msg_type, OnOk) {
     //}
 }
 function Errorinput(input, TxtMessage) {
-    if (TxtMessage.trim() != '') {
-        ShowMessage(TxtMessage.trim());
+    try {
+        if (TxtMessage.trim() != '') {
+            ShowMessage(TxtMessage.trim());
+        }
+    }
+    catch (e) {
     }
     var id = '';
     if (input.selector != null) {
@@ -2707,6 +2780,7 @@ function GetAllPages() {
 }
 function OpenPage(moduleCode) {
     //$('#btn_Logout').removeClass("display_none");
+    Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     if (Page.length > 0) {
         $('#htmlContainer').html(Page[0].Page_Html);
@@ -2718,11 +2792,13 @@ function OpenPage(moduleCode) {
         setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
     }
     else {
+        Close_Loder();
         ShowMessage("No Privilage");
     }
 }
 function OpenPagePartial(moduleCode, NamePage) {
     debugger;
+    Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     if (Page.length > 0) {
         CounterPage++;
@@ -2739,6 +2815,7 @@ function OpenPagePartial(moduleCode, NamePage) {
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
     }
     else {
+        Close_Loder();
         ShowMessage("No Privilage");
     }
 }
@@ -2771,5 +2848,13 @@ function SetGlopelDataUser(Send_USERS) {
 }
 function GetGlopelDataUser() {
     return GlopelUSERS;
+}
+function Close_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "none";
+}
+function Show_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "block";
 }
 //# sourceMappingURL=App.js.map

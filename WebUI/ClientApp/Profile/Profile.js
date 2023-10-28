@@ -16,6 +16,7 @@ var Profile;
         _USERS = GetGlopelDataUser();
         _USER = _USERS.filter(function (x) { return x.USER_CODE == SysSession.CurrentEnvironment.UserCode; });
         Display_Data();
+        Close_Loder();
     }
     Profile.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -71,9 +72,9 @@ var Profile;
         var Email = $('#Reg_Mail').val().trim();
         var UserName = SysSession.CurrentEnvironment.UserCode;
         var Password = $('#Reg_Password').val().trim();
-        var Idven = _USER[0].SalesManID;
+        var Idven = Number(_USER[0].SalesManID);
         var NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
-        Ajax.Callsync({
+        Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun),
             data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven },
@@ -81,6 +82,7 @@ var Profile;
                 var result = d;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
+                    Close_Loder();
                 }
                 else {
                 }
