@@ -76,5 +76,11 @@ namespace Inv.DAL.Domain
         public Nullable<bool> IsOprInvMultiOper { get; set; }
         public Nullable<bool> IsRetailInvItemDiscount { get; set; }
         public Nullable<bool> IsRetailInvMultiStore { get; set; }
+        public string CurNameA { get; set; }
+        public string CurNameE { get; set; }
+        public string CurSmallNameA { get; set; }
+        public string CurSmallNameE { get; set; }
+        public Nullable<bool> LnkBoxCashWithGL { get; set; }
+        public Nullable<bool> LnkBoxCardWithGL { get; set; }
     }
 }

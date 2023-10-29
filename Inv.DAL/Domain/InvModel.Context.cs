@@ -28,9 +28,6 @@ namespace Inv.DAL.Domain
         }
     
         public virtual DbSet<A_D_VAT_TYPE> A_D_VAT_TYPE { get; set; }
-        public virtual DbSet<A_PERIOD> A_PERIOD { get; set; }
-        public virtual DbSet<A_Rec_D_DiscountPlan> A_Rec_D_DiscountPlan { get; set; }
-        public virtual DbSet<A_Rec_D_DiscountPlanSegment> A_Rec_D_DiscountPlanSegment { get; set; }
         public virtual DbSet<A_RecPay_D_Accounts> A_RecPay_D_Accounts { get; set; }
         public virtual DbSet<A_RecPay_D_AjustmentType> A_RecPay_D_AjustmentType { get; set; }
         public virtual DbSet<A_RecPay_D_CashBox> A_RecPay_D_CashBox { get; set; }
@@ -59,184 +56,62 @@ namespace Inv.DAL.Domain
         public virtual DbSet<G_TransCounterSetting> G_TransCounterSetting { get; set; }
         public virtual DbSet<G_USER_BRANCH> G_USER_BRANCH { get; set; }
         public virtual DbSet<G_USER_COMPANY> G_USER_COMPANY { get; set; }
-        public virtual DbSet<I_D_Category> I_D_Category { get; set; }
-        public virtual DbSet<I_D_Specification> I_D_Specification { get; set; }
-        public virtual DbSet<I_D_SpecificationValues> I_D_SpecificationValues { get; set; }
-        public virtual DbSet<I_D_UnitGroup> I_D_UnitGroup { get; set; }
-        public virtual DbSet<I_D_UOM> I_D_UOM { get; set; }
-        public virtual DbSet<I_G_CostMethods> I_G_CostMethods { get; set; }
-        public virtual DbSet<I_G_ItemType> I_G_ItemType { get; set; }
-        public virtual DbSet<I_G_StockMethods> I_G_StockMethods { get; set; }
-        public virtual DbSet<I_ItemBatch> I_ItemBatch { get; set; }
-        public virtual DbSet<I_ItemFamily> I_ItemFamily { get; set; }
-        public virtual DbSet<I_ItemSpecsValue> I_ItemSpecsValue { get; set; }
-        public virtual DbSet<I_ItemStore> I_ItemStore { get; set; }
-        public virtual DbSet<I_ItemStoreBatch> I_ItemStoreBatch { get; set; }
-        public virtual DbSet<I_Pur_D_Charges> I_Pur_D_Charges { get; set; }
-        public virtual DbSet<I_Pur_TR_ReceiveItems> I_Pur_TR_ReceiveItems { get; set; }
-        public virtual DbSet<I_Sls_TR_Invoice> I_Sls_TR_Invoice { get; set; }
-        public virtual DbSet<I_Sls_TR_InvoiceItems> I_Sls_TR_InvoiceItems { get; set; }
         public virtual DbSet<HIJRA_CONVERT> HIJRA_CONVERT { get; set; }
         public virtual DbSet<GQ_GetUserBranch> GQ_GetUserBranch { get; set; }
-        public virtual DbSet<GQ_GetUserModule> GQ_GetUserModule { get; set; }
         public virtual DbSet<GQ_Notifications> GQ_Notifications { get; set; }
         public virtual DbSet<I_VW_GetCompStatus> I_VW_GetCompStatus { get; set; }
-        public virtual DbSet<IQ_GetBoxAdjustmentList> IQ_GetBoxAdjustmentList { get; set; }
-        public virtual DbSet<IQ_GetBoxAdjustmentVat> IQ_GetBoxAdjustmentVat { get; set; }
-        public virtual DbSet<IQ_GetPurChargeInfo> IQ_GetPurChargeInfo { get; set; }
-        public virtual DbSet<IQ_GetPurReceiveCharge> IQ_GetPurReceiveCharge { get; set; }
-        public virtual DbSet<IQ_GetPurReceiveChargeSum> IQ_GetPurReceiveChargeSum { get; set; }
-        public virtual DbSet<IQ_GetPurReceiveItem> IQ_GetPurReceiveItem { get; set; }
-        public virtual DbSet<IQ_GetSlsInvoiceItem> IQ_GetSlsInvoiceItem { get; set; }
-        public virtual DbSet<I_Pur_TR_Receive> I_Pur_TR_Receive { get; set; }
         public virtual DbSet<G_ReportWebSetting> G_ReportWebSetting { get; set; }
         public virtual DbSet<GQ_ReportWebSetting> GQ_ReportWebSetting { get; set; }
-        public virtual DbSet<IQ_GetPurReceiveList> IQ_GetPurReceiveList { get; set; }
-        public virtual DbSet<IQ_GetPurReceiveStaistic> IQ_GetPurReceiveStaistic { get; set; }
-        public virtual DbSet<I_TR_Operation> I_TR_Operation { get; set; }
-        public virtual DbSet<I_TR_OperationDeposit> I_TR_OperationDeposit { get; set; }
-        public virtual DbSet<I_TR_OperationItems> I_TR_OperationItems { get; set; }
-        public virtual DbSet<IQ_GetOperation> IQ_GetOperation { get; set; }
-        public virtual DbSet<IQ_GetOperationCharges> IQ_GetOperationCharges { get; set; }
         public virtual DbSet<G_Role> G_Role { get; set; }
         public virtual DbSet<G_RoleModule> G_RoleModule { get; set; }
         public virtual DbSet<G_RoleUsers> G_RoleUsers { get; set; }
         public virtual DbSet<G_USERS> G_USERS { get; set; }
         public virtual DbSet<GQ_GetUserRole> GQ_GetUserRole { get; set; }
         public virtual DbSet<GQ_GetUsers> GQ_GetUsers { get; set; }
-        public virtual DbSet<I_Pur_Tr_ReceiveCharges> I_Pur_Tr_ReceiveCharges { get; set; }
-        public virtual DbSet<I_TR_OperationCharges> I_TR_OperationCharges { get; set; }
         public virtual DbSet<A_Voucher_Types> A_Voucher_Types { get; set; }
         public virtual DbSet<AQ_GetJournalHeader> AQ_GetJournalHeader { get; set; }
-        public virtual DbSet<A_TmpVoucherProcess> A_TmpVoucherProcess { get; set; }
         public virtual DbSet<A_JOURNAL_HEADER> A_JOURNAL_HEADER { get; set; }
-        public virtual DbSet<A_TR_VchrTemplate> A_TR_VchrTemplate { get; set; }
-        public virtual DbSet<A_TR_VchrTemplateDetail> A_TR_VchrTemplateDetail { get; set; }
-        public virtual DbSet<AQ_GetVchrTemplateDetail> AQ_GetVchrTemplateDetail { get; set; }
         public virtual DbSet<G_CONTROL> G_CONTROL { get; set; }
         public virtual DbSet<A_ACCOUNT_YEAR> A_ACCOUNT_YEAR { get; set; }
-        public virtual DbSet<I_ItemYear> I_ItemYear { get; set; }
         public virtual DbSet<A_ACCOUNT> A_ACCOUNT { get; set; }
-        public virtual DbSet<I_Item> I_Item { get; set; }
         public virtual DbSet<AQ_GetAccount> AQ_GetAccount { get; set; }
-        public virtual DbSet<IQ_GetOperationItemInfo> IQ_GetOperationItemInfo { get; set; }
         public virtual DbSet<G_LnkVar> G_LnkVar { get; set; }
         public virtual DbSet<G_LnkVarBranch> G_LnkVarBranch { get; set; }
-        public virtual DbSet<I_Sls_D_Salesman> I_Sls_D_Salesman { get; set; }
         public virtual DbSet<IQ_GetSalesMan> IQ_GetSalesMan { get; set; }
         public virtual DbSet<G_COST_CENTER> G_COST_CENTER { get; set; }
         public virtual DbSet<G_LnkTrans> G_LnkTrans { get; set; }
         public virtual DbSet<G_LnkTrans_TempVchr> G_LnkTrans_TempVchr { get; set; }
         public virtual DbSet<G_LnkTransVariable> G_LnkTransVariable { get; set; }
         public virtual DbSet<G_LnkTrans_Temp> G_LnkTrans_Temp { get; set; }
-        public virtual DbSet<I_Stk_TR_Transfer> I_Stk_TR_Transfer { get; set; }
-        public virtual DbSet<I_Stk_TR_TransferDetails> I_Stk_TR_TransferDetails { get; set; }
-        public virtual DbSet<IQ_GetTransfer> IQ_GetTransfer { get; set; }
-        public virtual DbSet<IQ_GetTransferDetail> IQ_GetTransferDetail { get; set; }
         public virtual DbSet<GQ_GetUserBarnchAccess> GQ_GetUserBarnchAccess { get; set; }
-        public virtual DbSet<I_Stk_TR_Adjust> I_Stk_TR_Adjust { get; set; }
-        public virtual DbSet<IQ_GetStkAdjust> IQ_GetStkAdjust { get; set; }
-        public virtual DbSet<IQ_GetStkAdjustDetail> IQ_GetStkAdjustDetail { get; set; }
-        public virtual DbSet<I_Stk_Tr_AdjustDetails> I_Stk_Tr_AdjustDetails { get; set; }
-        public virtual DbSet<I_Pur_Tr_PurchaseOrder> I_Pur_Tr_PurchaseOrder { get; set; }
-        public virtual DbSet<I_Pur_Tr_PurchaseOrderDetail> I_Pur_Tr_PurchaseOrderDetail { get; set; }
-        public virtual DbSet<IQ_GetPurchaseOrder> IQ_GetPurchaseOrder { get; set; }
-        public virtual DbSet<IQ_GetPurchaseOrderDetail> IQ_GetPurchaseOrderDetail { get; set; }
-        public virtual DbSet<IQ_GetOperationDepsit> IQ_GetOperationDepsit { get; set; }
-        public virtual DbSet<GQ_GetStore> GQ_GetStore { get; set; }
-        public virtual DbSet<I_TR_OperationSalesman> I_TR_OperationSalesman { get; set; }
-        public virtual DbSet<I_TR_OperationTF> I_TR_OperationTF { get; set; }
-        public virtual DbSet<I_TR_OperationTFDetail> I_TR_OperationTFDetail { get; set; }
-        public virtual DbSet<I_TR_OperationSalesmanItem> I_TR_OperationSalesmanItem { get; set; }
-        public virtual DbSet<IQ_GetOperationSalesman> IQ_GetOperationSalesman { get; set; }
-        public virtual DbSet<IQ_GetOperationSalesmanItem> IQ_GetOperationSalesmanItem { get; set; }
-        public virtual DbSet<IQ_GetOperationTF> IQ_GetOperationTF { get; set; }
-        public virtual DbSet<IQ_GetOperationTFDetail> IQ_GetOperationTFDetail { get; set; }
         public virtual DbSet<A_Pay_D_VendorDoc> A_Pay_D_VendorDoc { get; set; }
-        public virtual DbSet<A_Rec_CustomerDoc> A_Rec_CustomerDoc { get; set; }
         public virtual DbSet<AQ_GetCustomerDoc> AQ_GetCustomerDoc { get; set; }
-        public virtual DbSet<AQ_GetVendorDoc> AQ_GetVendorDoc { get; set; }
-        public virtual DbSet<A_Rec_D_CustomerDoc> A_Rec_D_CustomerDoc { get; set; }
-        public virtual DbSet<IQ_GetCustomer> IQ_GetCustomer { get; set; }
         public virtual DbSet<A_Rec_D_Customer> A_Rec_D_Customer { get; set; }
         public virtual DbSet<G_Currency> G_Currency { get; set; }
         public virtual DbSet<G_Nationality> G_Nationality { get; set; }
-        public virtual DbSet<G_VatNature> G_VatNature { get; set; }
-        public virtual DbSet<IQ_GetItemCategory> IQ_GetItemCategory { get; set; }
-        public virtual DbSet<AVAT_D_SrvCategory> AVAT_D_SrvCategory { get; set; }
-        public virtual DbSet<AQVAT_GetSrvCategory> AQVAT_GetSrvCategory { get; set; }
-        public virtual DbSet<AVAT_TR_SlsInvoice> AVAT_TR_SlsInvoice { get; set; }
-        public virtual DbSet<AVAT_TR_SlsInvoiceItem> AVAT_TR_SlsInvoiceItem { get; set; }
-        public virtual DbSet<AQVAT_GetSlsInvoiceItem> AQVAT_GetSlsInvoiceItem { get; set; }
-        public virtual DbSet<AQVAT_GetSlsInvoiceList> AQVAT_GetSlsInvoiceList { get; set; }
-        public virtual DbSet<AVAT_TR_PurInvoice> AVAT_TR_PurInvoice { get; set; }
-        public virtual DbSet<AVAT_TR_PurInvoiceDetail> AVAT_TR_PurInvoiceDetail { get; set; }
-        public virtual DbSet<AVAT_TR_PurInvoiceHeader> AVAT_TR_PurInvoiceHeader { get; set; }
-        public virtual DbSet<AVAT_TR_PurInvoiceRet> AVAT_TR_PurInvoiceRet { get; set; }
-        public virtual DbSet<AVAT_TR_PurInvoiceRetDetail> AVAT_TR_PurInvoiceRetDetail { get; set; }
-        public virtual DbSet<AQVAT_GetPurInvoiceDetail> AQVAT_GetPurInvoiceDetail { get; set; }
-        public virtual DbSet<AQVAT_GetPurInvoiceHeader> AQVAT_GetPurInvoiceHeader { get; set; }
-        public virtual DbSet<AQVAT_GetPurReturn> AQVAT_GetPurReturn { get; set; }
-        public virtual DbSet<AVAT_D_Service> AVAT_D_Service { get; set; }
-        public virtual DbSet<AQVAT_GetService> AQVAT_GetService { get; set; }
-        public virtual DbSet<AQVAT_GetPurReturnDetail> AQVAT_GetPurReturnDetail { get; set; }
         public virtual DbSet<I_Control> I_Control { get; set; }
-        public virtual DbSet<A_CCDT_COSTCENTERS> A_CCDT_COSTCENTERS { get; set; }
         public virtual DbSet<AVAT_CONTROL> AVAT_CONTROL { get; set; }
-        public virtual DbSet<AVAT_PERIOD> AVAT_PERIOD { get; set; }
-        public virtual DbSet<AVAT_PeriodDetail> AVAT_PeriodDetail { get; set; }
-        public virtual DbSet<AVAT_TRANS> AVAT_TRANS { get; set; }
-        public virtual DbSet<AQVAT_GetPeriodDetail> AQVAT_GetPeriodDetail { get; set; }
-        public virtual DbSet<A_CCDT_Types> A_CCDT_Types { get; set; }
         public virtual DbSet<A_JOURNAL_DETAIL> A_JOURNAL_DETAIL { get; set; }
         public virtual DbSet<AQ_GetJournalDetail> AQ_GetJournalDetail { get; set; }
         public virtual DbSet<G_LnkTransVoucher> G_LnkTransVoucher { get; set; }
-        public virtual DbSet<GQ_GetLnkTransVoucher> GQ_GetLnkTransVoucher { get; set; }
-        public virtual DbSet<GQ_GetLnkTransVoucherDetail> GQ_GetLnkTransVoucherDetail { get; set; }
-        public virtual DbSet<GQ_GetLnkVarBranch> GQ_GetLnkVarBranch { get; set; }
-        public virtual DbSet<GQ_GetLnkVoucherDetail> GQ_GetLnkVoucherDetail { get; set; }
         public virtual DbSet<A_CashVoucher_Detail> A_CashVoucher_Detail { get; set; }
         public virtual DbSet<A_CashVoucher_Header> A_CashVoucher_Header { get; set; }
-        public virtual DbSet<I_D_UnitGroupUom> I_D_UnitGroupUom { get; set; }
         public virtual DbSet<AQ_GetCashVoucherDetail> AQ_GetCashVoucherDetail { get; set; }
         public virtual DbSet<AQ_GetCashVoucherHeader> AQ_GetCashVoucherHeader { get; set; }
-        public virtual DbSet<I_TR_Collect> I_TR_Collect { get; set; }
-        public virtual DbSet<I_TR_CollectDetail> I_TR_CollectDetail { get; set; }
-        public virtual DbSet<IQ_GetCollectDetail> IQ_GetCollectDetail { get; set; }
-        public virtual DbSet<I_TR_OperationItemsSum> I_TR_OperationItemsSum { get; set; }
-        public virtual DbSet<IQ_GetItemFamily> IQ_GetItemFamily { get; set; }
-        public virtual DbSet<I_Period> I_Period { get; set; }
-        public virtual DbSet<I_PeriodItem> I_PeriodItem { get; set; }
-        public virtual DbSet<IQ_GetItemStoreInfo> IQ_GetItemStoreInfo { get; set; }
         public virtual DbSet<A_Pay_D_Vendor> A_Pay_D_Vendor { get; set; }
-        public virtual DbSet<I_D_IssueType> I_D_IssueType { get; set; }
-        public virtual DbSet<I_Stk_TR_IssueToCC> I_Stk_TR_IssueToCC { get; set; }
-        public virtual DbSet<I_Stk_TR_IssueToCCDetails> I_Stk_TR_IssueToCCDetails { get; set; }
-        public virtual DbSet<IQ_GetStkIssueCC> IQ_GetStkIssueCC { get; set; }
-        public virtual DbSet<IQ_GetStkIssueCCDetail> IQ_GetStkIssueCCDetail { get; set; }
         public virtual DbSet<IQ_GetVendor> IQ_GetVendor { get; set; }
-        public virtual DbSet<IQ_GetSlsInvoiceListVer2> IQ_GetSlsInvoiceListVer2 { get; set; }
-        public virtual DbSet<IQ_GetSlsInvoiceStatisticVer2> IQ_GetSlsInvoiceStatisticVer2 { get; set; }
-        public virtual DbSet<IQ_GetSlsInvoiceItemVer2> IQ_GetSlsInvoiceItemVer2 { get; set; }
-        public virtual DbSet<G_USER_LOG> G_USER_LOG { get; set; }
-        public virtual DbSet<I_Stk_TR_Open> I_Stk_TR_Open { get; set; }
-        public virtual DbSet<I_Stk_Tr_OpenDetails> I_Stk_Tr_OpenDetails { get; set; }
-        public virtual DbSet<IQ_GetStkOpenDetail> IQ_GetStkOpenDetail { get; set; }
         public virtual DbSet<G_LnkTrans_Comp> G_LnkTrans_Comp { get; set; }
-        public virtual DbSet<GQ_GetLnkTransComp> GQ_GetLnkTransComp { get; set; }
-        public virtual DbSet<IQ_GetCollectList> IQ_GetCollectList { get; set; }
         public virtual DbSet<A_RecPay_D_Category> A_RecPay_D_Category { get; set; }
-        public virtual DbSet<A_G_Vendor> A_G_Vendor { get; set; }
         public virtual DbSet<A_RecPay_Tr_ReceiptNote> A_RecPay_Tr_ReceiptNote { get; set; }
-        public virtual DbSet<IQ_GetBoxReceiveList> IQ_GetBoxReceiveList { get; set; }
-        public virtual DbSet<A_LnkVoucher> A_LnkVoucher { get; set; }
-        public virtual DbSet<AQ_GetLnkVoucher> AQ_GetLnkVoucher { get; set; }
         public virtual DbSet<G_BranchModules> G_BranchModules { get; set; }
         public virtual DbSet<G_RoleBranch> G_RoleBranch { get; set; }
         public virtual DbSet<GQ_GetRoleModule> GQ_GetRoleModule { get; set; }
         public virtual DbSet<A_ACCOUNT_GROUP> A_ACCOUNT_GROUP { get; set; }
         public virtual DbSet<A_ACCOUNT_GROUP_DETAIL> A_ACCOUNT_GROUP_DETAIL { get; set; }
         public virtual DbSet<AQ_GetAccountGroupDetail> AQ_GetAccountGroupDetail { get; set; }
+        public virtual DbSet<PromoCodes> PromoCodes { get; set; }
+        public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
+        public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
     
         public virtual int G_TOL_GetCounter(string system, Nullable<int> comp, Nullable<int> branch, Nullable<System.DateTime> dt, string trType, ObjectParameter trNo)
         {

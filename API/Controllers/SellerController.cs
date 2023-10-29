@@ -10,9 +10,7 @@ using Inv.DAL.Domain;
 using System.Net;
 using System.Web.Http;
 using System.Web.ModelBinding;
-using System.Data.Common;
-using Inv.BLL.Services.SlsInvoiceItems;
-using Inv.BLL.Services.AccDefVendor;
+using System.Data.Common; 
 using System.Security.Principal;
 
 namespace Inv.API.Controllers

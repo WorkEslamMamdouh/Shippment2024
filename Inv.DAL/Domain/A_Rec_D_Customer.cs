@@ -63,7 +63,6 @@ namespace Inv.DAL.Domain
         public string RefCode2 { get; set; }
         public string RefCode1 { get; set; }
         public Nullable<bool> IsCreditCustomer { get; set; }
-        public Nullable<int> DiscountplanID { get; set; }
         public Nullable<int> SalesmanId { get; set; }
         public string Address_postal { get; set; }
         public string Address_Province { get; set; }
