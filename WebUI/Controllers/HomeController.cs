@@ -32,6 +32,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/Login/LoginIndex.cshtml",
          "~/Views/Home/HomeIndex.cshtml",
          "~/Views/Saller/Order_SallerIndex.cshtml",
+         "~/Views/Saller/Processing_OrderIndex.cshtml",
 
                       };
 

@@ -1048,6 +1048,7 @@
     <Content Include="Views\Error\ErrorPDF_Fix.cshtml" />
     <Content Include="Views\Home\htmlContainerIndex.cshtml" />
     <Content Include="Views\Profile\ProfileIndex.cshtml" />
+    <Content Include="Views\Saller\Processing_OrderIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1089,6 +1090,7 @@
     <TypeScriptCompile Include="ClientApp\JsGrid.ts" />
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Report_Page\Report_Page.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\Processing_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Order_Saller.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />
