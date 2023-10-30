@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 var Report_Page;
 (function (Report_Page) {
-    var SysSession = GetSystemSession(Modules.Home);
+    var SysSession = GetSystemSession();
     //var btnPDF: HTMLButtonElement;
     var btnPrintEX;
     var btnPrintPdf;

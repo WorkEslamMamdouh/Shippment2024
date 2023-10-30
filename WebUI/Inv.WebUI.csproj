@@ -1049,6 +1049,8 @@
     <Content Include="Views\Home\htmlContainerIndex.cshtml" />
     <Content Include="Views\Profile\ProfileIndex.cshtml" />
     <Content Include="Views\Saller\Processing_OrderIndex.cshtml" />
+    <Content Include="Views\Order\View_OrderIndex.cshtml" />
+    <Content Include="Views\Order\Edit_OrderIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1080,6 +1082,7 @@
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
     <TypeScriptCompile Include="ClientApp\ErrorPage\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
+    <TypeScriptCompile Include="ClientApp\Order\Edit_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Profile\Profile.ts" />
     <TypeScriptCompile Include="ClientApp\Login\Login.ts" />
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
@@ -1090,6 +1093,7 @@
     <TypeScriptCompile Include="ClientApp\JsGrid.ts" />
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Report_Page\Report_Page.ts" />
+    <TypeScriptCompile Include="ClientApp\Order\View_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Processing_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Order_Saller.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />

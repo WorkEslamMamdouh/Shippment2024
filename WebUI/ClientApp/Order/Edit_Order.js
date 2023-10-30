@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    Order_Saller.InitalizeComponent();
+    Edit_Order.InitalizeComponent();
 });
-var Order_Saller;
-(function (Order_Saller) {
+var Edit_Order;
+(function (Edit_Order) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var InvMasterDetails = new InvoiceMasterDetails();
@@ -18,12 +18,12 @@ var Order_Saller;
     var CountGrid = 0;
     var NumItems = 0;
     function InitalizeComponent() {
-        InitalizeControls();
-        InitializeEvents();
         Close_Loder();
-        Clear();
+        //InitalizeControls();
+        //InitializeEvents();
+        //Clear();
     }
-    Order_Saller.InitalizeComponent = InitalizeComponent;
+    Edit_Order.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         Id_Back = document.getElementById("Id_Back");
         Id_Next = document.getElementById("Id_Next");
@@ -256,5 +256,5 @@ var Order_Saller;
         }
         $('#Total_inv_Print').html(ItemTotal.toFixed(2));
     }
-})(Order_Saller || (Order_Saller = {}));
-//# sourceMappingURL=Order_Saller.js.map
+})(Edit_Order || (Edit_Order = {}));
+//# sourceMappingURL=Edit_Order.js.map
