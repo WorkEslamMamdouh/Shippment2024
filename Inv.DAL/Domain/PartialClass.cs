@@ -86,16 +86,7 @@ namespace Inv.DAL.Domain
 
 
     }
-  
-    public partial class G_Nationality : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class G_LnkTrans_Temp : SecurityandUpdateFlagClass
-    {
-
-    }
-
+   
     public partial class G_USERS : SecurityClass_G_USERS
     {
 
@@ -103,33 +94,7 @@ namespace Inv.DAL.Domain
     public partial class G_RoleUsers : SecurityandUpdateFlagClass
     {
 
-    }
-    public partial class I_D_Category : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class A_Voucher_Types : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class A_RecPay_D_Category : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class A_RecPay_D_Group : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class I_ItemFamily : SecurityandUpdateFlagClass
-    {
-
-    }
-
-    public partial class I_Item : SecurityandUpdateFlagClass
-    {
-
-    }
-
+    } 
     public partial class A_ACCOUNT : SecurityandUpdateFlagClass_FIN_YEAR
     {
 
@@ -137,88 +102,25 @@ namespace Inv.DAL.Domain
     public partial class AQ_GetAccount : SecurityandUpdateFlagClass_FIN_YEAR
     {
 
-    }
-    public partial class A_RecPay_D_AjustmentType : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class A_RecPay_D_Accounts : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class A_Pay_D_Vendor : SecurityandUpdateFlagClass
-    {
-
-    }
-    public partial class A_Rec_D_Customer : SecurityClass
-    {
-
-    }
+    } 
     public partial class I_Sls_D_Salesman : SecurityandUpdateFlagClass
     {
     }
     public partial class A_RecPay_D_CashBox : SecurityandUpdateFlagClass
     {
     }
-    public partial class I_Sls_TR_InvoiceItems : SecurityandUpdateFlagClass
+    public partial class Sls_InvoiceItem: SecurityandUpdateFlagClass
     {
     }
     public partial class A_RecPay_Tr_ReceiptNote : SecurityandUpdateFlagClass
     {
-    }
-    public partial class I_Pur_TR_Receive : SecurityandUpdateFlagClass
-    {
-    }
-
-    public partial class I_Pur_TR_ReceiveItems : SecurityandUpdateFlagClass
-    {
-    }
-
-    public partial class I_Pur_Tr_ReceiveCharges : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class A_RecPay_Tr_Adjustment : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class I_Sls_TR_Invoice : SecurityClass
-    {
-    }
-    public partial class I_TR_Operation : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class I_TR_OperationItems : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class I_TR_OperationItemsSum : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class I_TR_OperationCharges : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class I_TR_OperationDeposit : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class A_TmpVoucherProcess : VoucherStatusClass 
-    {
-    }
-    public partial class A_JOURNAL_DETAIL : SecurityandUpdateFlagClass
-    {
-    }
-    public partial class A_TR_VchrTemplateDetail : SecurityandUpdateFlagClass
-    {
-    }
+    }  
     public partial class G_COST_CENTER : SecurityandUpdateFlagClass
     {
     }
       public partial class G_CONTROL : SecurityandUpdateFlagClass
     {
-    }
-    public partial class I_ItemYear : SecurityandIsLocalSalePriceFlagClass
-    {
-    }
-    public partial class G_LnkVarBranch : SecurityandUpdateFlagClass
-    {
-    }
+    }  
     public partial class G_SUB_SYSTEMS : SecurityandUpdateFlagClass
     {
     }public partial class G_LnkTrans : SecurityandUpdateFlagClass

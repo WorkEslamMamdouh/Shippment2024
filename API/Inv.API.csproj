@@ -251,6 +251,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\SlsInvoiceController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Controllers\Shared\G_BranchController.cs" />
     <Compile Include="Controllers\Shared\LogUser.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Models\CustomEntities\UserPrivilege.cs" />
     <Compile Include="Models\CustomModel\DashBalances.cs" />
     <Compile Include="Models\CustomModel\FilterLnkVoucher.cs" />
+    <Compile Include="Models\CustomModel\SlsInvoiceMasterDetail.cs" />
     <Compile Include="Models\CustomModel\ModelUserMasterDetail.cs" />
     <Compile Include="Models\CustomModel\NewsDetails.cs" />
     <Compile Include="Models\CustomModel\G_RoleModuleMaste.cs" />

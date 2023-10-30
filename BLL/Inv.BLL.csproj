@@ -70,8 +70,8 @@
     <Compile Include="Services\IControl\I_ControlService.cs" />
     <Compile Include="Services\IGCodes\IGCodesService.cs" />
     <Compile Include="Services\IGCodes\IIGCodesService.cs" />
-    <Compile Include="Services\SellerOrder\ISellerOrderService.cs" />
-    <Compile Include="Services\SellerOrder\SellerOrderService.cs" />
+    <Compile Include="Services\SlsInvoice\ISlsInvoiceService.cs" />
+    <Compile Include="Services\SlsInvoice\SlsInvoiceService.cs" />
     <Compile Include="Services\Seller\ISellerService.cs" />
     <Compile Include="Services\Seller\SellerService.cs" />
     <Compile Include="Services\USER_BRANCH\G_USER_BRANCHService.cs" />
