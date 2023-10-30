@@ -4,7 +4,7 @@ $(document).ready(() => {
 })
 
 namespace Report_Page {
-    var SysSession: SystemSession = GetSystemSession(Modules.Home);
+    var SysSession: SystemSession = GetSystemSession();
     //var btnPDF: HTMLButtonElement;
     var btnPrintEX: HTMLButtonElement;
     var btnPrintPdf: HTMLButtonElement;

@@ -15,7 +15,7 @@
     return d.promise();
 }; 
 class JsGrid {
-    public SysSession = GetSystemSession('Home');
+    public SysSession = GetSystemSession();
     public ElementName: string;
 
     public Inserting: boolean;

@@ -37,7 +37,12 @@ namespace Inv.DAL.Domain
         public Nullable<bool> IsFreePurchaseReturn { get; set; }
         public Nullable<bool> IsFreeSalesReturn { get; set; }
         public string ExceedMinPricePassword { get; set; }
+        public string CurNameA { get; set; }
+        public string CurNameE { get; set; }
+        public string CurSmallNameA { get; set; }
+        public string CurSmallNameE { get; set; }
         public Nullable<int> GL_VoucherCCType { get; set; }
+        public Nullable<int> GL_VoucherCCDT_Type { get; set; }
         public Nullable<int> Gl_JournalOpenType { get; set; }
         public Nullable<bool> GL_JournalMonthlyNo { get; set; }
         public Nullable<int> GL_JournalMonthlyNoWidth { get; set; }
@@ -57,7 +62,6 @@ namespace Inv.DAL.Domain
         public Nullable<bool> OperationPriceWithVAT { get; set; }
         public Nullable<bool> SalesPriceWithVAT { get; set; }
         public string DocPDFFolder { get; set; }
-        public Nullable<int> GL_VoucherCCDT_Type { get; set; }
         public Nullable<bool> ISCustVendorInGL { get; set; }
         public Nullable<bool> AutoupdateSalesPrice { get; set; }
         public Nullable<decimal> SalePriceAddPerc { get; set; }
@@ -76,10 +80,6 @@ namespace Inv.DAL.Domain
         public Nullable<bool> IsOprInvMultiOper { get; set; }
         public Nullable<bool> IsRetailInvItemDiscount { get; set; }
         public Nullable<bool> IsRetailInvMultiStore { get; set; }
-        public string CurNameA { get; set; }
-        public string CurNameE { get; set; }
-        public string CurSmallNameA { get; set; }
-        public string CurSmallNameE { get; set; }
         public Nullable<bool> LnkBoxCashWithGL { get; set; }
         public Nullable<bool> LnkBoxCardWithGL { get; set; }
     }

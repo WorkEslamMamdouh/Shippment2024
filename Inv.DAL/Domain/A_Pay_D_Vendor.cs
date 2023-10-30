@@ -23,6 +23,7 @@ namespace Inv.DAL.Domain
         public string NAMEL { get; set; }
         public string SHORTNAMEA { get; set; }
         public string SHORTNAMEL { get; set; }
+        public Nullable<int> NationalityID { get; set; }
         public string RespPersonName { get; set; }
         public string RespPersonMobile { get; set; }
         public string TEL { get; set; }
@@ -65,7 +66,8 @@ namespace Inv.DAL.Domain
         public string WebPassword { get; set; }
         public Nullable<bool> IsCreditVendor { get; set; }
         public string IDNo { get; set; }
-        public Nullable<int> NationalityID { get; set; }
+        public string OperationFixed { get; set; }
+        public string OperationSer { get; set; }
         public string Address_postal { get; set; }
         public string Address_Province { get; set; }
         public string GroupVatNo { get; set; }
@@ -75,8 +77,6 @@ namespace Inv.DAL.Domain
         public string Address_Build_Additional { get; set; }
         public string Address_City { get; set; }
         public string Address_District { get; set; }
-        public string OperationFixed { get; set; }
-        public string OperationSer { get; set; }
         public Nullable<System.DateTime> OpenbalanceAt { get; set; }
     }
 }

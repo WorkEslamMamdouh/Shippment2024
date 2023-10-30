@@ -44,20 +44,9 @@ namespace Inv.API.Controllers
                         SlsInvoiceService.InsertInvItems(item);
 
                     }
-                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(sls.CompCode), Convert.ToInt32(sls.BranchCode), sls.InvoiceID, "SlsInv", "Add", db);
-                    if (res.ResponseState == true)
-                    {
                         dbTransaction.Commit();
-                        LogUser.InsertPrint(db, sls.CompCode.ToString(), sls.BranchCode.ToString(), DateTime.Now.Year.ToString(), "", sls.InvoiceID, "", LogUser.UserLog.Insert, "SlsInv", true, null, null, null);
                         return Ok(new BaseResponse(true));
-                    }
-                    else
-                    {
-                        dbTransaction.Rollback();
-                        //LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.I_Sls_TR_Invoice.InvoiceID, obj.I_Sls_TR_Invoice.TrNo.ToString(), LogUser.UserLog.Insert, obj.MODULE_CODE, false, res.ResponseMessage.ToString(), null, null);
-
-                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
-                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -102,20 +91,9 @@ namespace Inv.API.Controllers
 
                     }
 
-                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(sls.CompCode), Convert.ToInt32(sls.BranchCode), sls.InvoiceID, "SlsInv", "Update", db);
-                    if (res.ResponseState == true)
-                    {
-                        dbTransaction.Commit();
-                        LogUser.InsertPrint(db, sls.CompCode.ToString(), sls.BranchCode.ToString(), DateTime.Now.Year.ToString(), "", sls.InvoiceID, "", LogUser.UserLog.Insert, "SlsInv", true, null, null, null);
-                        return Ok(new BaseResponse(true));
-                    }
-                    else
-                    {
-                        dbTransaction.Rollback();
-                        //LogUser.InsertPrint(db, obj.Comp_Code.ToString(), obj.Branch_Code, obj.sec_FinYear, obj.UserCode, obj.I_Sls_TR_Invoice.InvoiceID, obj.I_Sls_TR_Invoice.TrNo.ToString(), LogUser.UserLog.Insert, obj.MODULE_CODE, false, res.ResponseMessage.ToString(), null, null);
-
-                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
-                    }
+                     dbTransaction.Commit();
+                         return Ok(new BaseResponse(true));
+                   
                 }
                 catch (Exception ex)
                 {

@@ -609,20 +609,7 @@ namespace Inv.API.Controllers
 
         }
 
-        [HttpGet]
-        public IHttpActionResult GetHelp(string ModuleCode)
-        {
-
-            if (ModelState.IsValid)
-            {
-                G_ModuleHelp model = db.G_ModuleHelp.Where(x => x.MODULE_CODE == ModuleCode).FirstOrDefault();
-                return Ok(new BaseResponse(model));
-            }
-            return BadRequest(ModelState);
-
-
-        }
-
+ 
         [HttpGet]
         public IHttpActionResult GetK_control(int comCode)
         {
@@ -649,25 +636,7 @@ namespace Inv.API.Controllers
 
         }
 
-        [HttpGet]
-        public IHttpActionResult GetNotifications(int comCode, int BraCode, int yearid, string SystemCode, string SubSystemCode)
-        {
-            if (ModelState.IsValid)
-            {
-                IQueryable<G_Noteifications> not = db.G_Noteifications.Where(x => x.SYSTEM_CODE == SystemCode); // && x.SUB_SYSTEM_CODE == SubSystemCode
-                IQueryable<G_NotificationCompany> notCom = db.G_NotificationCompany.Where(x => x.SYSTEM_CODE == SystemCode && x.FIN_YEAR == yearid && x.CompCode == comCode && x.BranchCode == BraCode); // && x.SUB_SYSTEM_CODE == SubSystemCode
-
-                var res = (from nt in not
-                           join ntc in notCom on nt.MODULE_CODE equals ntc.MODULE_CODE
-                           where nt.ISActive == true && ntc.ISActive == true
-                           select new { nt.MODULE_CODE, nt.MODULE_DESCA, nt.MODULE_DESCE, ntc.NoteCount, nt.DisplayOrder }).OrderBy(x => x.DisplayOrder).ToList();
-
-                return Ok(res);
-            }
-            return BadRequest(ModelState);
-
-        }
-
+  
         [HttpGet]
         public IHttpActionResult UpdateNotificationAndSndMsg(int comCode, int BraCode, string SystemCode, string SubSystemCode)
         {
@@ -1741,52 +1710,8 @@ namespace Inv.API.Controllers
             } while (1 == 1);
             return formattedDate;
         }
-
-        [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetDashboard(int _Type, int comp, int bracode)
-        {
-            string query = "";
-
-            object res = new object();
-
-
-            if (_Type == 0)
-            {
-                query = "exec Iproc_DashOperation " + comp + " ";
-                res = db.Database.SqlQuery<Iproc_DashOperation_Result>(query).ToList();
-
-            }
-            if (_Type == 1)
-            {
-                query = "exec Iproc_DashSales " + comp + " ";
-                res = db.Database.SqlQuery<IProc_DashSales_Result>(query).ToList();
-
-            }
-            if (_Type == 2)
-            {
-                query = "exec Iproc_DashPurchase " + comp + " ";
-                res = db.Database.SqlQuery<Iproc_DashPurchase_Result>(query).ToList();
-            }
-
-
-
-            return Ok(new BaseResponse(res));
-
-        }
-
-
-        [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetDataCashAndBank(int comp, int bracode)
-        {
-            string query = "";
-
-            query = "exec IProc_DashAccounts " + comp + " , " + bracode + " ";
-            List<IProc_DashAccounts_Result> res = db.Database.SqlQuery<IProc_DashAccounts_Result>(query).ToList();
-
-            return Ok(new BaseResponse(res));
-
-        }
-
+ 
+ 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult GetDashBalances()
         {
@@ -1946,62 +1871,7 @@ namespace Inv.API.Controllers
                 return BadRequest();
             }
         }
-
-        [HttpGet, AllowAnonymous]
-        public IHttpActionResult SendMessage(int CompCode, string HdMsg, string DetMsg, string ContactMobile, int TrID)
-        {
-            Sending_Methods SendingMethods = new Sending_Methods();
-
-
-            string res = "";
-            string response = "";
-
-
-
-            I_Control IControl = db.I_Control.Where(x => x.CompCode == CompCode).First();
-
-
-            G_AlertControl cntrl = db.G_AlertControl.Where(x => x.Compcode == CompCode).First();
-
-            //----------------------SMS---------------------//
-
-            if (IControl.SendSMS == true)
-            {
-                response = SendingMethods.Send_SMS(cntrl.SMS_Provider, cntrl.SMS_UserName, cntrl.SMS_Password, cntrl.EMAIL_SenderName + " " + HdMsg + "\n " + DetMsg, cntrl.SMS_SenderName, cntrl.MobileNoPreFex + "" + ContactMobile.Substring(1, ContactMobile.Length - 1), CompCode);//"966504170785");
-                if (response == "لقد تمت العملية بنجاح")
-                {
-                    G_AlertLog ALertLogSMS = new G_AlertLog
-                    {
-                        CompCode = CompCode,
-                        TrID = TrID,
-                        MobileNo = ContactMobile
-                    };
-
-                    if (HdMsg.Length < 50)
-                    {
-                        ALertLogSMS.MsgHeader = HdMsg;
-                    }
-                    else
-                    {
-                        ALertLogSMS.MsgHeader = HdMsg.Substring(0, 49); 
-                    }
-                    ALertLogSMS.MsgBody = DetMsg;
-                    ALertLogSMS.AlertType = "1";
-                    ALertLogSMS.SendDate = DateTime.Now;
-                    ALertLogSMS.IsSent = true;
-                    db.G_AlertLog.Add(ALertLogSMS);
-                    db.SaveChanges();
-                }
-                else
-                {
-
-                }
-            }
-            res = response + "\n " + cntrl.SMS_SenderName + "\n " + cntrl.EMAIL_SenderName + " " + HdMsg + "\n " + DetMsg;
-            return Ok(new BaseResponse(res));
-        }
-
-
+ 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult Get_Table(string query, string NameTable)
         {

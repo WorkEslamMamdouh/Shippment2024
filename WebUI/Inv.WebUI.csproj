@@ -997,9 +997,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientToolsController.cs" />
     <Compile Include="Controllers\GeneralAPIController.cs" />
-    <Compile Include="Controllers\GeneralRepController.cs" />
     <Compile Include="Controllers\HController.cs" />
-    <Compile Include="Controllers\ReportsPagePrintController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
