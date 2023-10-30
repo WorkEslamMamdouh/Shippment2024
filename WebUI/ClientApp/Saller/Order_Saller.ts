@@ -8,6 +8,8 @@ namespace Order_Saller {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
+    var InvMasterDetails: InvoiceMasterDetails = new InvoiceMasterDetails();
+
 
     var Id_Back: HTMLButtonElement;
     var Id_Next: HTMLButtonElement;
@@ -106,11 +108,11 @@ namespace Order_Saller {
 
     }
     function _Finish() {
-        alert("Finish")
-        _Back();
-        Clear();
+        Assign();
+        Insert();
+      
     } 
-    //****************************************************** Validtion *****************************************
+    //****************************************************** Validtion and Clear *****************************************
     function Valid_Header(): boolean {
 
         if (!Valid_Input("Txt_Ref_No", "Please a Enter References Number 😡")) {
@@ -157,8 +159,18 @@ namespace Order_Saller {
         return true;
     }
 
+    function Clear() {
+        $(".Clear_Header").val("")
+        $(".Clear_Item").val("")
+        $('#Div_ItemsAll').html('')
+        $('#Txt_Receive_TrData').val(GetDate())
+        NumItems = 0;
+        CountGrid = 0;
+        $("#Tap_Reviews_Items").html("Reviews Items")
+        $('#Txt_Ref_No').focus()
+    }
     //****************************************************** BuildBox and Add Items *****************************************
-    function BuildBox(cnt: number, Name_Item: string, UnitPrice: number, Quantity: number) {
+    function BuildBox(cnt: number, Name_Item: string, UnitPrice: number, Quantity: number, InvoiceItemID: number, InvoiceID: number, VendorID: number) {
         let html = ` <div id="Box_No${cnt}" class="u-container-align-center u-container-style u-list-item u-repeater-item">
                                         <div class="u-container-layout u-similar-container u-container-layout-1">
                                             <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
@@ -184,13 +196,16 @@ namespace Order_Saller {
         $('#Div_ItemsAll').append(html)
 
         debugger
-        BuildAllFild(I_Sls_TR_InvoiceItems, cnt, "Box_No");
+        BuildAllFild(Sls_InvoiceItem, cnt, "Box_No");
         $("#SoldQty" + cnt).val(Quantity)
         $("#Unitprice" + cnt).val(UnitPrice)
         $("#ItemTotal" + cnt).val((UnitPrice * Quantity).toFixed(2))
-        $("#NameItem" + cnt).val(Name_Item)
+        $("#NetAfterVat" + cnt).val((UnitPrice * Quantity).toFixed(2))
+        $("#ItemDescA" + cnt).val(Name_Item)
+        $("#InvoiceID" + cnt).val(InvoiceID)
+        $("#InvoiceItemID" + cnt).val(InvoiceItemID)
+        $("#VendorID" + cnt).val(VendorID)
          
-
 
         $("#DeleteBox" + cnt).on('click', function () {
             DeleteBox(cnt);
@@ -201,7 +216,7 @@ namespace Order_Saller {
             return
         }
 
-        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val());
+        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val(), 0, 0, SysSession.CurrentEnvironment.VendorID);
         $('#StatusFlag' + CountGrid).val("i");
         CountGrid++;
         NumItems++;
@@ -238,19 +253,71 @@ namespace Order_Saller {
         Txt_NetTotal.value = (Number(Txt_Quantity.value) * Number(Txt_UnitPrice.value)).toFixed(2);
     }
 
-    function Clear() {
-        $(".Clear_Header").val("")
-        $(".Clear_Item").val("")
-        $('#Div_ItemsAll').html('')
-        $('#Txt_Receive_TrData').val(GetDate())
-        NumItems = 0;
-        CountGrid = 0;
-        $("#Tap_Reviews_Items").html("Reviews Items")
-        $('#Txt_Ref_No').focus()
+    function Assign() {
+        debugger
+
+        let Model = new Array<Sls_InvoiceItem>();
+        Model = AssignBuildControls(Sls_InvoiceItem, CountGrid);
+        console.log(Model);
+
+        let Header = new Sls_Invoice;
+
+        Header.InvoiceID = Number($('#Txt_InvoiceID').val());
+        Header.RefNO = $('#Txt_Ref_No').val().trim();
+        Header.CustomerName = $('#Txt_Name_Cust').val().trim();
+        Header.CustomerMobile1 = $('#Txt_Phone_Num1').val().trim();
+        Header.CustomerMobile2 = $('#Txt_Phone_Num2').val().trim();
+        Header.Address = $('#Txt_Address1').val().trim();
+        Header.Location = $('#Txt_location').val().trim();
+        Header.TrDate = DateFormatRep($('#Txt_Receive_TrData').val());
+        Header.PromoCode = $('#txt_Promo_Code').val().trim();
+        Header.UserCode = SysSession.CurrentEnvironment.UserCode;
+        Header.VendorID = Model[0].VendorID;
+        Header.TrType = 0;
+
+        InvMasterDetails.Sls_InvoiceItem = Model;
+        InvMasterDetails.Sls_Invoice = Header;
+
+        InvMasterDetails.Branch_Code = SysSession.CurrentEnvironment.BranchCode;
+        InvMasterDetails.Comp_Code = SysSession.CurrentEnvironment.CompCode;
+        InvMasterDetails.MODULE_CODE = "Order_Saller";
+        InvMasterDetails.UserCode = SysSession.CurrentEnvironment.UserCode;
+        InvMasterDetails.sec_FinYear = SysSession.CurrentEnvironment.CurrentYear;
+         
     }
+    function Insert() {
+        console.log(InvMasterDetails);
+        try {
+
+            Ajax.Callsync({
+                type: "POST",
+                url: sys.apiUrl("TranPosting", "UpdateDetail"),
+                data: JSON.stringify(InvMasterDetails),
+                success: (d) => {
+                    debugger
+                    let result = d as BaseResponse;
+                    if (result.IsSuccess) {
+                        debugger
+                        let res = result.Response as Array<AProc_LnkGenerateTrans_Result>;
+                        ShowMessage("Inserted 😍")
+                        _Back();
+                        Clear();
+                    } else {
+                        ShowMessage("Error 😒")
+                    }
+                }
+            });
+
+        } catch (e) {
+            ShowMessage("Error 😒")
+        }
+       
+
+    }
+
     function Create_Invoice_Print() {
-        $('#Print_Name_Cust').html("<strong>Name:</strong> "+$('#Txt_Name_Cust').val());
-        $('#Print_Name_Phone').html("<strong>Phone:</strong> "+$('#Txt_Phone_Num1').val());
+        $('#Print_Name_Cust').html("<strong>Name:</strong> " + $('#Txt_Name_Cust').val());
+        $('#Print_Name_Phone').html("<strong>Phone:</strong> " + $('#Txt_Phone_Num1').val());
         $('#Print_Name_Address').html("<strong>Address:</strong> " + $('#Txt_Address1').val());
 
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + $('#Txt_Ref_No').val());
@@ -262,10 +329,10 @@ namespace Order_Saller {
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 let Row = `    <tr>
-                            <td>${ $("#NameItem" + i).val()}</td>
-                            <td>${ $("#SoldQty" + i).val()}</td>
-                            <td>${ $("#Unitprice" + i).val()}</td>
-                            <td>${ $("#ItemTotal" + i).val()}</td>
+                            <td>${$("#NameItem" + i).val()}</td>
+                            <td>${$("#SoldQty" + i).val()}</td>
+                            <td>${$("#Unitprice" + i).val()}</td>
+                            <td>${$("#ItemTotal" + i).val()}</td>
                         </tr>`
 
                 ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());

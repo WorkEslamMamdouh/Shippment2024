@@ -80,6 +80,7 @@ var Login;
             SystemEnv.UserCode = txtUsername.value.trim();
             SystemEnv.JobTitle = setVal(USER[0].JobTitle);
             SystemEnv.I_Control = Control[0];
+            SystemEnv.VendorID = setVal(USER[0].SalesManID);
             document.cookie = "Harley_systemProperties=" + encodeURIComponent(JSON.stringify(SystemEnv).toString()) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
             $('.Layout_Home').removeClass('display_none');
             OpenPage("Home");

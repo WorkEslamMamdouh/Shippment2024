@@ -12014,3 +12014,150 @@ class AQ_GetAccountGroupDetail {
     public StatusFlag: string;
 }
 
+
+class Sls_Invoice extends SecurityClass {
+	constructor() {
+		super();
+		this.InvoiceID = 0;
+		this.TrNo = 0;
+		this.RefNO = "";
+		this.RefTrID = 0;
+		this.TrDate = "";
+		this.TrDateH = "";
+		this.TrType = 0;
+		this.CustomerName = "";
+		this.CustomerMobile1 = "";
+		this.CustomerMobile2 = "";
+		this.Address = "";
+		this.Location
+		this.SalesmanId = 0;
+		this.TotalAmount = 0;
+		this.VatAmount = 0;
+		this.VatType = 0;
+		this.DiscountAmount = 0;
+		this.DiscountPrc = 0;
+		this.NetAfterVat = 0;
+		this.CommitionAmount = 0;
+		this.CashAmount = 0;
+		this.CardAmount = 0;
+		this.RemainAmount = 0;
+		this.Remark = "";
+		this.Status = 0;
+		this.CreatedAt = "";
+		this.CreatedBy = "";
+		this.UpdatedAt = "";
+		this.UpdatedBy = "";
+		this.CompCode = 0;
+		this.BranchCode = 0;
+		this.DocNo = "";
+		this.TrTime = "";
+		this.QRCode
+		this.DeliveryDate = "";
+		this.DeliveryEndDate = "";
+		this.PromoCode = "";
+		this.ChargeAmount = 0;
+		this.FinYear = 0;
+		this.ItemCount = 0;
+		this.LineCount = 0;
+		this.VendorID = 0;
+	}
+	public InvoiceID: number;
+	public TrNo: number;
+	public RefNO: string;
+	public RefTrID: number;
+	public TrDate: string;
+	public TrDateH: string;
+	public TrType: number;
+	public CustomerName: string;
+	public CustomerMobile1: string;
+	public CustomerMobile2: string;
+	public Address: string;
+	public Location: any;
+	public SalesmanId: number;
+	public TotalAmount: number;
+	public VatAmount: number;
+	public VatType: number;
+	public DiscountAmount: number;
+	public DiscountPrc: number;
+	public NetAfterVat: number;
+	public CommitionAmount: number;
+	public CashAmount: number;
+	public CardAmount: number;
+	public RemainAmount: number;
+	public Remark: string;
+	public Status: number;
+	public CreatedAt: string;
+	public CreatedBy: string;
+	public UpdatedAt: string;
+	public UpdatedBy: string;
+	public CompCode: number;
+	public BranchCode: number;
+	public DocNo: string;
+	public TrTime: string;
+	public QRCode: any;
+	public DeliveryDate: string;
+	public DeliveryEndDate: string;
+	public PromoCode: string;
+	public ChargeAmount: number;
+	public FinYear: number;
+	public ItemCount: number;
+	public LineCount: number;
+	public VendorID: number;
+}
+
+class Sls_InvoiceItem extends SecurityClass {
+	constructor() {
+		super();
+		this.InvoiceItemID = 0;
+		this.InvoiceID = 0;
+		this.ItemDescA = "";
+		this.SoldQty = 0;
+		this.Unitprice = 0;
+		this.DiscountPrc = 0;
+		this.DiscountAmount = 0;
+		this.NetUnitPrice = 0;
+		this.ItemTotal = 0;
+		this.VatPrc = 0;
+		this.VatAmount = 0;
+		this.NetAfterVat = 0;
+		this.VatApplied = 0;
+		this.TotRetQty = 0;
+		this.Serial = 0;
+		this.SalesManID = 0;
+		this.VendorID = 0;
+		this.ItemNetAmount = 0;
+		this.StatusFlag = "";
+	}
+	public InvoiceItemID: number;
+	public InvoiceID: number;
+	public ItemDescA: string;
+	public SoldQty: number;
+	public Unitprice: number;
+	public DiscountPrc: number;
+	public DiscountAmount: number;
+	public NetUnitPrice: number;
+	public ItemTotal: number;
+	public VatPrc: number;
+	public VatAmount: number;
+	public NetAfterVat: number;
+	public VatApplied: number;
+	public TotRetQty: number;
+	public Serial: number;
+	public SalesManID: number;
+	public VendorID: number;
+	public ItemNetAmount: number;
+	public StatusFlag: string;
+}
+
+
+
+
+class InvoiceMasterDetails extends SecurityClass {
+	constructor() {
+		super();
+		this.Sls_Invoice = new Sls_Invoice();
+		this.Sls_InvoiceItem = new Array<Sls_InvoiceItem>();
+	}
+	public Sls_Invoice: Sls_Invoice;
+	public Sls_InvoiceItem: Array<Sls_InvoiceItem>;
+}
