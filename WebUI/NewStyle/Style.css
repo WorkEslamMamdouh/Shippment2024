@@ -117,3 +117,8 @@
     font-weight: bold;
     text-align: center;
 }
+
+.u-grey-25, .u-body.u-grey-25, section.u-grey-25:before, .u-grey-25 > .u-audio-main-layout-wrapper:before, .u-grey-25 > .u-container-layout:before, .u-grey-25 > .u-inner-container-layout:before, .u-grey-25.u-sidenav:before, .u-container-layout.u-container-layout.u-grey-25:before, .u-table-alt-grey-25 tr:nth-child(even) {
+    color: #111111 !important;
+    background-color: #f5f5f5 !important;
+}

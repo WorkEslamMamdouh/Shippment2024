@@ -18,10 +18,10 @@ var Processing_Order;
     var CountGrid = 0;
     var NumItems = 0;
     function InitalizeComponent() {
-        InitalizeControls();
-        InitializeEvents();
         Close_Loder();
-        Clear();
+        //InitalizeControls();
+        //InitializeEvents();
+        //Clear();
     }
     Processing_Order.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

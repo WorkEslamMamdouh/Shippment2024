@@ -25,13 +25,13 @@ namespace Processing_Order {
     var CountGrid = 0;
     var NumItems = 0;
     export function InitalizeComponent() {
-
-
-        InitalizeControls();
-        InitializeEvents();
-
         Close_Loder();
-        Clear();
+
+
+        //InitalizeControls();
+        //InitializeEvents();
+
+        //Clear();
     }
     function InitalizeControls() {
         Id_Back = document.getElementById("Id_Back") as HTMLButtonElement;
