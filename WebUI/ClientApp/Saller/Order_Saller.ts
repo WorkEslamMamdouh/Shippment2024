@@ -290,8 +290,8 @@ namespace Order_Saller {
         try {
 
             Ajax.Callsync({
-                type: "POST",
-                url: sys.apiUrl("TranPosting", "UpdateDetail"),
+                type: "Post",
+                url: sys.apiUrl("SlsInvoice", "Insert"),
                 data: JSON.stringify(InvMasterDetails),
                 success: (d) => {
                     debugger
