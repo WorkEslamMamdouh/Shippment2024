@@ -215,7 +215,7 @@ var Order_Saller;
     function Insert() {
         console.log(InvMasterDetails);
         try {
-            Ajax.Callsync({
+            Ajax.CallsyncSave({
                 type: "Post",
                 url: sys.apiUrl("SlsInvoice", "Insert"),
                 data: JSON.stringify(InvMasterDetails),
@@ -228,6 +228,7 @@ var Order_Saller;
                         ShowMessage("Inserted 😍");
                         _Back();
                         Clear();
+                        Close_Loder();
                     }
                     else {
                         ShowMessage("Error 😒");
@@ -249,7 +250,7 @@ var Order_Saller;
         var ItemTotal = 0;
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
-                var Row = "    <tr>\n                            <td>" + $("#NameItem" + i).val() + "</td>\n                            <td>" + $("#SoldQty" + i).val() + "</td>\n                            <td>" + $("#Unitprice" + i).val() + "</td>\n                            <td>" + $("#ItemTotal" + i).val() + "</td>\n                        </tr>";
+                var Row = "    <tr>\n                            <td>" + $("#ItemDescA" + i).val() + "</td>\n                            <td>" + $("#SoldQty" + i).val() + "</td>\n                            <td>" + $("#Unitprice" + i).val() + "</td>\n                            <td>" + $("#ItemTotal" + i).val() + "</td>\n                        </tr>";
                 ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());
                 $('#Body_Inv_Print').append(Row);
             }

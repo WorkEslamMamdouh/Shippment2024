@@ -289,7 +289,7 @@ namespace Order_Saller {
         console.log(InvMasterDetails);
         try {
 
-            Ajax.Callsync({
+            Ajax.CallsyncSave({
                 type: "Post",
                 url: sys.apiUrl("SlsInvoice", "Insert"),
                 data: JSON.stringify(InvMasterDetails),
@@ -302,6 +302,9 @@ namespace Order_Saller {
                         ShowMessage("Inserted 😍")
                         _Back();
                         Clear();
+
+
+                        Close_Loder();
                     } else {
                         ShowMessage("Error 😒")
                     }
@@ -329,7 +332,7 @@ namespace Order_Saller {
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 let Row = `    <tr>
-                            <td>${$("#NameItem" + i).val()}</td>
+                            <td>${$("#ItemDescA" + i).val()}</td>
                             <td>${$("#SoldQty" + i).val()}</td>
                             <td>${$("#Unitprice" + i).val()}</td>
                             <td>${$("#ItemTotal" + i).val()}</td>
