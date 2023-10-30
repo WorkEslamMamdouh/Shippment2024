@@ -7070,4 +7070,91 @@ var AQ_GetAccountGroupDetail = /** @class */ (function () {
     }
     return AQ_GetAccountGroupDetail;
 }());
+var Sls_Invoice = /** @class */ (function (_super) {
+    __extends(Sls_Invoice, _super);
+    function Sls_Invoice() {
+        var _this = _super.call(this) || this;
+        _this.InvoiceID = 0;
+        _this.TrNo = 0;
+        _this.RefNO = "";
+        _this.RefTrID = 0;
+        _this.TrDate = "";
+        _this.TrDateH = "";
+        _this.TrType = 0;
+        _this.CustomerName = "";
+        _this.CustomerMobile1 = "";
+        _this.CustomerMobile2 = "";
+        _this.Address = "";
+        _this.Location;
+        _this.SalesmanId = 0;
+        _this.TotalAmount = 0;
+        _this.VatAmount = 0;
+        _this.VatType = 0;
+        _this.DiscountAmount = 0;
+        _this.DiscountPrc = 0;
+        _this.NetAfterVat = 0;
+        _this.CommitionAmount = 0;
+        _this.CashAmount = 0;
+        _this.CardAmount = 0;
+        _this.RemainAmount = 0;
+        _this.Remark = "";
+        _this.Status = 0;
+        _this.CreatedAt = "";
+        _this.CreatedBy = "";
+        _this.UpdatedAt = "";
+        _this.UpdatedBy = "";
+        _this.CompCode = 0;
+        _this.BranchCode = 0;
+        _this.DocNo = "";
+        _this.TrTime = "";
+        _this.QRCode;
+        _this.DeliveryDate = "";
+        _this.DeliveryEndDate = "";
+        _this.PromoCode = "";
+        _this.ChargeAmount = 0;
+        _this.FinYear = 0;
+        _this.ItemCount = 0;
+        _this.LineCount = 0;
+        _this.VendorID = 0;
+        return _this;
+    }
+    return Sls_Invoice;
+}(SecurityClass));
+var Sls_InvoiceItem = /** @class */ (function (_super) {
+    __extends(Sls_InvoiceItem, _super);
+    function Sls_InvoiceItem() {
+        var _this = _super.call(this) || this;
+        _this.InvoiceItemID = 0;
+        _this.InvoiceID = 0;
+        _this.ItemDescA = "";
+        _this.SoldQty = 0;
+        _this.Unitprice = 0;
+        _this.DiscountPrc = 0;
+        _this.DiscountAmount = 0;
+        _this.NetUnitPrice = 0;
+        _this.ItemTotal = 0;
+        _this.VatPrc = 0;
+        _this.VatAmount = 0;
+        _this.NetAfterVat = 0;
+        _this.VatApplied = 0;
+        _this.TotRetQty = 0;
+        _this.Serial = 0;
+        _this.SalesManID = 0;
+        _this.VendorID = 0;
+        _this.ItemNetAmount = 0;
+        _this.StatusFlag = "";
+        return _this;
+    }
+    return Sls_InvoiceItem;
+}(SecurityClass));
+var InvoiceMasterDetails = /** @class */ (function (_super) {
+    __extends(InvoiceMasterDetails, _super);
+    function InvoiceMasterDetails() {
+        var _this = _super.call(this) || this;
+        _this.Sls_Invoice = new Sls_Invoice();
+        _this.Sls_InvoiceItem = new Array();
+        return _this;
+    }
+    return InvoiceMasterDetails;
+}(SecurityClass));
 //# sourceMappingURL=Entities.js.map
