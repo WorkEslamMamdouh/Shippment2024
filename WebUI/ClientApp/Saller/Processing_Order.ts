@@ -31,7 +31,7 @@ namespace Processing_Order {
     }
 
     function Btn_ViewOrder_onclick() {
-        alert(100)
+        //alert(100)
         OpenPagePartial("View_Order", "View Order");
     }
     

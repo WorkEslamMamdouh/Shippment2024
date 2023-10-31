@@ -20,7 +20,7 @@ var Processing_Order;
         Btn_ViewOrder.onclick = Btn_ViewOrder_onclick;
     }
     function Btn_ViewOrder_onclick() {
-        alert(100);
+        //alert(100)
         OpenPagePartial("View_Order", "View Order");
     }
 })(Processing_Order || (Processing_Order = {}));

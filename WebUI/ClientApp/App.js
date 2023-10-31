@@ -2866,6 +2866,7 @@ function Back_Page_Partial() {
     else {
         var _NamePage = localStorage.getItem("Partial_NamePage_" + CounterPage);
         $('#Lab_NamePage').html("" + _NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
+        $('#Partial_' + CounterPage).removeClass("display_none");
     }
 }
 var GlopelUSERS = new Array();

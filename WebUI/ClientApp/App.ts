@@ -3731,6 +3731,8 @@ function Back_Page_Partial() {
         $('#Lab_NamePage').html(`` + _NamePage + `<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
+         
+        $('#Partial_' + CounterPage).removeClass("display_none");
     }
 
 }
