@@ -45,5 +45,7 @@ namespace Inv.DAL.Domain
         public Nullable<int> CashBoxID { get; set; }
         public Nullable<int> SalesManID { get; set; }
         public Nullable<int> StoreID { get; set; }
+        public Nullable<int> VendorID { get; set; }
+        public string Vnd_CompName { get; set; }
     }
 }

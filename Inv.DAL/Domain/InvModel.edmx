@@ -564,6 +564,8 @@
           <Property Name="CashBoxID" Type="int" />
           <Property Name="SalesManID" Type="int" />
           <Property Name="StoreID" Type="int" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="Vnd_CompName" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -679,6 +681,8 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="SalesCreditLimit" Type="numeric" Precision="18" Scale="2" />
           <Property Name="NationalityID" Type="int" />
           <Property Name="CC_Code" Type="nvarchar" MaxLength="25" />
+          <Property Name="WebPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="WebUserName" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PromoCodes">
           <Key>
@@ -757,6 +761,16 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="SalesManID" Type="int" />
           <Property Name="VendorID" Type="int" />
           <Property Name="ItemNetAmount" Type="numeric" Precision="19" Scale="2" />
+        </EntityType>
+        <EntityType Name="Zones">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="int" Nullable="false" />
+          <Property Name="ZoneCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="DescA" Type="nvarchar" MaxLength="200" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.G_USER_LOG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1351,6 +1365,7 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <EntitySet Name="PromoCodes" EntityType="Self.PromoCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sls_Invoice" EntityType="Self.Sls_Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="Self.Sls_InvoiceItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zones" EntityType="Self.Zones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HIJRA_CONVERT" EntityType="Self.HIJRA_CONVERT" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [HIJRA_CONVERT].[HYEAR] AS [HYEAR], 
@@ -1662,7 +1677,6 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
     <edmx:ConceptualModels>
       <Schema Namespace="InvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="InvEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="A_Pay_D_Vendor" EntityType="InvModel.A_Pay_D_Vendor" />
           <EntitySet Name="A_Pay_D_VendorDoc" EntityType="InvModel.A_Pay_D_VendorDoc" />
           <EntitySet Name="G_AlertType" EntityType="InvModel.G_AlertType" />
           <EntitySet Name="G_BRANCH" EntityType="InvModel.G_BRANCH" />
@@ -1684,9 +1698,7 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <EntitySet Name="G_USER_BRANCH" EntityType="InvModel.G_USER_BRANCH" />
           <EntitySet Name="G_USER_COMPANY" EntityType="InvModel.G_USER_COMPANY" />
           <EntitySet Name="G_UserPrivillage" EntityType="InvModel.G_UserPrivillage" />
-          <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
           <EntitySet Name="I_Control" EntityType="InvModel.I_Control" />
-          <EntitySet Name="I_Sls_D_Salesman" EntityType="InvModel.I_Sls_D_Salesman" />
           <EntitySet Name="PromoCodes" EntityType="InvModel.PromoCodes" />
           <EntitySet Name="HIJRA_CONVERT" EntityType="InvModel.HIJRA_CONVERT" />
           <EntitySet Name="G_USER_LOG" EntityType="InvModel.G_USER_LOG" />
@@ -1785,76 +1797,11 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           </FunctionImport>
           <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
+          <EntitySet Name="A_Pay_D_Vendor" EntityType="InvModel.A_Pay_D_Vendor" />
+          <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
+          <EntitySet Name="I_Sls_D_Salesman" EntityType="InvModel.I_Sls_D_Salesman" />
+          <EntitySet Name="Zones" EntityType="InvModel.Zones" />
         </EntityContainer>
-        <EntityType Name="A_Pay_D_Vendor">
-          <Key>
-            <PropertyRef Name="VendorID" />
-          </Key>
-          <Property Name="VendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompCode" Type="Int32" Nullable="false" />
-          <Property Name="VendorCode" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="CatID" Type="Int32" />
-          <Property Name="GroupId" Type="Int32" />
-          <Property Name="NAMEA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NAMEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SHORTNAMEA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SHORTNAMEL" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NationalityID" Type="Int32" />
-          <Property Name="RespPersonName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RespPersonMobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WorkTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CURCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="PurchaserId" Type="Int32" />
-          <Property Name="OnPurchaserAcc" Type="Boolean" />
-          <Property Name="AccVendorID" Type="Int32" />
-          <Property Name="PaymentType" Type="Byte" />
-          <Property Name="DebitLimit" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="DebitLimitFC" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="DebitPeriod" Type="Int32" />
-          <Property Name="OpenBalanceFC" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="Openbalance" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="Debit" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="DebitFC" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="Credit" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="CreditFC" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="Isactive" Type="Boolean" />
-          <Property Name="FCRate" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="REMARKS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="STATUS" Type="Int32" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_AT" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="VendorType" Type="Byte" />
-          <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BankAccountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TaxFileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="TaxIssuePlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VATType" Type="Byte" />
-          <Property Name="AddDedType" Type="Byte" />
-          <Property Name="VATNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddDedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsWebEnabled" Type="Boolean" />
-          <Property Name="WebUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WebPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsCreditVendor" Type="Boolean" />
-          <Property Name="IDNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="OperationFixed" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="OperationSer" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Address_postal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address_Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GroupVatNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Address_Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address_Str_Additional" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address_BuildingNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address_Build_Additional" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address_District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OpenbalanceAt" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="A_Pay_D_VendorDoc">
           <Key>
             <PropertyRef Name="VendorDocID" />
@@ -2310,42 +2257,6 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <Property Name="ViewImages" Type="Boolean" />
           <Property Name="EditImages" Type="Boolean" />
         </EntityType>
-        <EntityType Name="G_USERS">
-          <Key>
-            <PropertyRef Name="USER_CODE" />
-          </Key>
-          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
-          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="GRP_CODE" Type="Int32" />
-          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="USER_TYPE" Type="Byte" />
-          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LoginUrl" Type="Boolean" />
-          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LastLogin" Type="DateTime" Precision="0" />
-          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
-          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CashBoxID" Type="Int32" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="StoreID" Type="Int32" />
-        </EntityType>
         <EntityType Name="I_Control">
           <Key>
             <PropertyRef Name="CompCode" />
@@ -2418,37 +2329,6 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <Property Name="IsRetailInvMultiStore" Type="Boolean" />
           <Property Name="LnkBoxCashWithGL" Type="Boolean" />
           <Property Name="LnkBoxCardWithGL" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="I_Sls_D_Salesman">
-          <Key>
-            <PropertyRef Name="SalesmanId" />
-          </Key>
-          <Property Name="SalesmanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="BraCode" Type="Int32" />
-          <Property Name="SalesmanCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="NameA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NameE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ShortNameA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ShortNameE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ADDRESS" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Isactive" Type="Boolean" />
-          <Property Name="REMARKS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_AT" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="GLAccCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="IsSalesEnable" Type="Boolean" />
-          <Property Name="IsPurchaseEnable" Type="Boolean" />
-          <Property Name="ISOperationEnable" Type="Boolean" />
-          <Property Name="PurchaseLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SalesCreditLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NationalityID" Type="Int32" />
-          <Property Name="CC_Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PromoCodes">
           <Key>
@@ -2960,82 +2840,162 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <Property Name="VendorID" Type="Int32" />
           <Property Name="ItemNetAmount" Type="Decimal" Precision="19" Scale="2" />
         </EntityType>
+        <EntityType Name="A_Pay_D_Vendor">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompCode" Type="Int32" Nullable="false" />
+          <Property Name="VendorCode" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CatID" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="NAMEA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NAMEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SHORTNAMEA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SHORTNAMEL" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NationalityID" Type="Int32" />
+          <Property Name="RespPersonName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RespPersonMobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CURCODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaserId" Type="Int32" />
+          <Property Name="OnPurchaserAcc" Type="Boolean" />
+          <Property Name="AccVendorID" Type="Int32" />
+          <Property Name="PaymentType" Type="Byte" />
+          <Property Name="DebitLimit" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="DebitLimitFC" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="DebitPeriod" Type="Int32" />
+          <Property Name="OpenBalanceFC" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Openbalance" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Debit" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="DebitFC" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Credit" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="CreditFC" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Isactive" Type="Boolean" />
+          <Property Name="FCRate" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="REMARKS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="STATUS" Type="Int32" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_AT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="VendorType" Type="Byte" />
+          <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxFileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="TaxIssuePlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VATType" Type="Byte" />
+          <Property Name="AddDedType" Type="Byte" />
+          <Property Name="VATNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddDedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsWebEnabled" Type="Boolean" />
+          <Property Name="WebUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsCreditVendor" Type="Boolean" />
+          <Property Name="IDNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="OperationFixed" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OperationSer" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Address_postal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address_Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroupVatNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address_Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address_Str_Additional" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address_BuildingNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address_Build_Additional" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address_District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OpenbalanceAt" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="G_USERS">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+          </Key>
+          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="GRP_CODE" Type="Int32" />
+          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_TYPE" Type="Byte" />
+          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoginUrl" Type="Boolean" />
+          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Precision="0" />
+          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CashBoxID" Type="Int32" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="Vnd_CompName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="I_Sls_D_Salesman">
+          <Key>
+            <PropertyRef Name="SalesmanId" />
+          </Key>
+          <Property Name="SalesmanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BraCode" Type="Int32" />
+          <Property Name="SalesmanCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="NameA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShortNameA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShortNameE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Isactive" Type="Boolean" />
+          <Property Name="REMARKS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_AT" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GLAccCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="IsSalesEnable" Type="Boolean" />
+          <Property Name="IsPurchaseEnable" Type="Boolean" />
+          <Property Name="ISOperationEnable" Type="Boolean" />
+          <Property Name="PurchaseLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SalesCreditLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NationalityID" Type="Int32" />
+          <Property Name="CC_Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="WebPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Zones">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="Int32" Nullable="false" />
+          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="InvModelStoreContainer" CdmEntityContainer="InvEntities">
-          <EntitySetMapping Name="A_Pay_D_Vendor">
-            <EntityTypeMapping TypeName="InvModel.A_Pay_D_Vendor">
-              <MappingFragment StoreEntitySet="A_Pay_D_Vendor">
-                <ScalarProperty Name="OpenbalanceAt" ColumnName="OpenbalanceAt" />
-                <ScalarProperty Name="Address_District" ColumnName="Address_District" />
-                <ScalarProperty Name="Address_City" ColumnName="Address_City" />
-                <ScalarProperty Name="Address_Build_Additional" ColumnName="Address_Build_Additional" />
-                <ScalarProperty Name="Address_BuildingNo" ColumnName="Address_BuildingNo" />
-                <ScalarProperty Name="Address_Str_Additional" ColumnName="Address_Str_Additional" />
-                <ScalarProperty Name="Address_Street" ColumnName="Address_Street" />
-                <ScalarProperty Name="GroupVatNo" ColumnName="GroupVatNo" />
-                <ScalarProperty Name="Address_Province" ColumnName="Address_Province" />
-                <ScalarProperty Name="Address_postal" ColumnName="Address_postal" />
-                <ScalarProperty Name="OperationSer" ColumnName="OperationSer" />
-                <ScalarProperty Name="OperationFixed" ColumnName="OperationFixed" />
-                <ScalarProperty Name="IDNo" ColumnName="IDNo" />
-                <ScalarProperty Name="IsCreditVendor" ColumnName="IsCreditVendor" />
-                <ScalarProperty Name="WebPassword" ColumnName="WebPassword" />
-                <ScalarProperty Name="WebUserName" ColumnName="WebUserName" />
-                <ScalarProperty Name="IsWebEnabled" ColumnName="IsWebEnabled" />
-                <ScalarProperty Name="AddDedNo" ColumnName="AddDedNo" />
-                <ScalarProperty Name="VATNo" ColumnName="VATNo" />
-                <ScalarProperty Name="AddDedType" ColumnName="AddDedType" />
-                <ScalarProperty Name="VATType" ColumnName="VATType" />
-                <ScalarProperty Name="TaxIssuePlace" ColumnName="TaxIssuePlace" />
-                <ScalarProperty Name="TaxFileNo" ColumnName="TaxFileNo" />
-                <ScalarProperty Name="BankAccountNo" ColumnName="BankAccountNo" />
-                <ScalarProperty Name="Bank" ColumnName="Bank" />
-                <ScalarProperty Name="VendorType" ColumnName="VendorType" />
-                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
-                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
-                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="FCRate" ColumnName="FCRate" />
-                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
-                <ScalarProperty Name="CreditFC" ColumnName="CreditFC" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="DebitFC" ColumnName="DebitFC" />
-                <ScalarProperty Name="Debit" ColumnName="Debit" />
-                <ScalarProperty Name="Openbalance" ColumnName="Openbalance" />
-                <ScalarProperty Name="OpenBalanceFC" ColumnName="OpenBalanceFC" />
-                <ScalarProperty Name="DebitPeriod" ColumnName="DebitPeriod" />
-                <ScalarProperty Name="DebitLimitFC" ColumnName="DebitLimitFC" />
-                <ScalarProperty Name="DebitLimit" ColumnName="DebitLimit" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="AccVendorID" ColumnName="AccVendorID" />
-                <ScalarProperty Name="OnPurchaserAcc" ColumnName="OnPurchaserAcc" />
-                <ScalarProperty Name="PurchaserId" ColumnName="PurchaserId" />
-                <ScalarProperty Name="CURCODE" ColumnName="CURCODE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
-                <ScalarProperty Name="WorkTel" ColumnName="WorkTel" />
-                <ScalarProperty Name="TEL" ColumnName="TEL" />
-                <ScalarProperty Name="RespPersonMobile" ColumnName="RespPersonMobile" />
-                <ScalarProperty Name="RespPersonName" ColumnName="RespPersonName" />
-                <ScalarProperty Name="NationalityID" ColumnName="NationalityID" />
-                <ScalarProperty Name="SHORTNAMEL" ColumnName="SHORTNAMEL" />
-                <ScalarProperty Name="SHORTNAMEA" ColumnName="SHORTNAMEA" />
-                <ScalarProperty Name="NAMEL" ColumnName="NAMEL" />
-                <ScalarProperty Name="NAMEA" ColumnName="NAMEA" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="CatID" ColumnName="CatID" />
-                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="A_Pay_D_VendorDoc">
             <EntityTypeMapping TypeName="InvModel.A_Pay_D_VendorDoc">
               <MappingFragment StoreEntitySet="A_Pay_D_VendorDoc">
@@ -3491,43 +3451,6 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="G_USERS">
-            <EntityTypeMapping TypeName="InvModel.G_USERS">
-              <MappingFragment StoreEntitySet="G_USERS">
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
-                <ScalarProperty Name="CashBoxID" ColumnName="CashBoxID" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="Tokenid" ColumnName="Tokenid" />
-                <ScalarProperty Name="LoginUrl" ColumnName="LoginUrl" />
-                <ScalarProperty Name="ManagedBy" ColumnName="ManagedBy" />
-                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="CHANGE_PASS_DATE" ColumnName="CHANGE_PASS_DATE" />
-                <ScalarProperty Name="USER_PASSWORD2" ColumnName="USER_PASSWORD2" />
-                <ScalarProperty Name="GRP_CODE" ColumnName="GRP_CODE" />
-                <ScalarProperty Name="REGION_CODE" ColumnName="REGION_CODE" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-                <ScalarProperty Name="USER_ACTIVE" ColumnName="USER_ACTIVE" />
-                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
-                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="I_Control">
             <EntityTypeMapping TypeName="InvModel.I_Control">
               <MappingFragment StoreEntitySet="I_Control">
@@ -3599,38 +3522,6 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
                 <ScalarProperty Name="DefPurVatType" ColumnName="DefPurVatType" />
                 <ScalarProperty Name="DefSlsVatType" ColumnName="DefSlsVatType" />
                 <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="I_Sls_D_Salesman">
-            <EntityTypeMapping TypeName="InvModel.I_Sls_D_Salesman">
-              <MappingFragment StoreEntitySet="I_Sls_D_Salesman">
-                <ScalarProperty Name="CC_Code" ColumnName="CC_Code" />
-                <ScalarProperty Name="NationalityID" ColumnName="NationalityID" />
-                <ScalarProperty Name="SalesCreditLimit" ColumnName="SalesCreditLimit" />
-                <ScalarProperty Name="PurchaseLimit" ColumnName="PurchaseLimit" />
-                <ScalarProperty Name="ISOperationEnable" ColumnName="ISOperationEnable" />
-                <ScalarProperty Name="IsPurchaseEnable" ColumnName="IsPurchaseEnable" />
-                <ScalarProperty Name="IsSalesEnable" ColumnName="IsSalesEnable" />
-                <ScalarProperty Name="GLAccCode" ColumnName="GLAccCode" />
-                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
-                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
-                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
-                <ScalarProperty Name="IDNo" ColumnName="IDNo" />
-                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
-                <ScalarProperty Name="ShortNameE" ColumnName="ShortNameE" />
-                <ScalarProperty Name="ShortNameA" ColumnName="ShortNameA" />
-                <ScalarProperty Name="NameE" ColumnName="NameE" />
-                <ScalarProperty Name="NameA" ColumnName="NameA" />
-                <ScalarProperty Name="SalesmanCode" ColumnName="SalesmanCode" />
-                <ScalarProperty Name="BraCode" ColumnName="BraCode" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="SalesmanId" ColumnName="SalesmanId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4152,6 +4043,160 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
                 <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
                 <ScalarProperty Name="InvoiceItemID" ColumnName="InvoiceItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_Pay_D_Vendor">
+            <EntityTypeMapping TypeName="InvModel.A_Pay_D_Vendor">
+              <MappingFragment StoreEntitySet="A_Pay_D_Vendor">
+                <ScalarProperty Name="OpenbalanceAt" ColumnName="OpenbalanceAt" />
+                <ScalarProperty Name="Address_District" ColumnName="Address_District" />
+                <ScalarProperty Name="Address_City" ColumnName="Address_City" />
+                <ScalarProperty Name="Address_Build_Additional" ColumnName="Address_Build_Additional" />
+                <ScalarProperty Name="Address_BuildingNo" ColumnName="Address_BuildingNo" />
+                <ScalarProperty Name="Address_Str_Additional" ColumnName="Address_Str_Additional" />
+                <ScalarProperty Name="Address_Street" ColumnName="Address_Street" />
+                <ScalarProperty Name="GroupVatNo" ColumnName="GroupVatNo" />
+                <ScalarProperty Name="Address_Province" ColumnName="Address_Province" />
+                <ScalarProperty Name="Address_postal" ColumnName="Address_postal" />
+                <ScalarProperty Name="OperationSer" ColumnName="OperationSer" />
+                <ScalarProperty Name="OperationFixed" ColumnName="OperationFixed" />
+                <ScalarProperty Name="IDNo" ColumnName="IDNo" />
+                <ScalarProperty Name="IsCreditVendor" ColumnName="IsCreditVendor" />
+                <ScalarProperty Name="WebPassword" ColumnName="WebPassword" />
+                <ScalarProperty Name="WebUserName" ColumnName="WebUserName" />
+                <ScalarProperty Name="IsWebEnabled" ColumnName="IsWebEnabled" />
+                <ScalarProperty Name="AddDedNo" ColumnName="AddDedNo" />
+                <ScalarProperty Name="VATNo" ColumnName="VATNo" />
+                <ScalarProperty Name="AddDedType" ColumnName="AddDedType" />
+                <ScalarProperty Name="VATType" ColumnName="VATType" />
+                <ScalarProperty Name="TaxIssuePlace" ColumnName="TaxIssuePlace" />
+                <ScalarProperty Name="TaxFileNo" ColumnName="TaxFileNo" />
+                <ScalarProperty Name="BankAccountNo" ColumnName="BankAccountNo" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="VendorType" ColumnName="VendorType" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="FCRate" ColumnName="FCRate" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="CreditFC" ColumnName="CreditFC" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="DebitFC" ColumnName="DebitFC" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Openbalance" ColumnName="Openbalance" />
+                <ScalarProperty Name="OpenBalanceFC" ColumnName="OpenBalanceFC" />
+                <ScalarProperty Name="DebitPeriod" ColumnName="DebitPeriod" />
+                <ScalarProperty Name="DebitLimitFC" ColumnName="DebitLimitFC" />
+                <ScalarProperty Name="DebitLimit" ColumnName="DebitLimit" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="AccVendorID" ColumnName="AccVendorID" />
+                <ScalarProperty Name="OnPurchaserAcc" ColumnName="OnPurchaserAcc" />
+                <ScalarProperty Name="PurchaserId" ColumnName="PurchaserId" />
+                <ScalarProperty Name="CURCODE" ColumnName="CURCODE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="WorkTel" ColumnName="WorkTel" />
+                <ScalarProperty Name="TEL" ColumnName="TEL" />
+                <ScalarProperty Name="RespPersonMobile" ColumnName="RespPersonMobile" />
+                <ScalarProperty Name="RespPersonName" ColumnName="RespPersonName" />
+                <ScalarProperty Name="NationalityID" ColumnName="NationalityID" />
+                <ScalarProperty Name="SHORTNAMEL" ColumnName="SHORTNAMEL" />
+                <ScalarProperty Name="SHORTNAMEA" ColumnName="SHORTNAMEA" />
+                <ScalarProperty Name="NAMEL" ColumnName="NAMEL" />
+                <ScalarProperty Name="NAMEA" ColumnName="NAMEA" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_USERS">
+            <EntityTypeMapping TypeName="InvModel.G_USERS">
+              <MappingFragment StoreEntitySet="G_USERS">
+                <ScalarProperty Name="Vnd_CompName" ColumnName="Vnd_CompName" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="CashBoxID" ColumnName="CashBoxID" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Tokenid" ColumnName="Tokenid" />
+                <ScalarProperty Name="LoginUrl" ColumnName="LoginUrl" />
+                <ScalarProperty Name="ManagedBy" ColumnName="ManagedBy" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CHANGE_PASS_DATE" ColumnName="CHANGE_PASS_DATE" />
+                <ScalarProperty Name="USER_PASSWORD2" ColumnName="USER_PASSWORD2" />
+                <ScalarProperty Name="GRP_CODE" ColumnName="GRP_CODE" />
+                <ScalarProperty Name="REGION_CODE" ColumnName="REGION_CODE" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ACTIVE" ColumnName="USER_ACTIVE" />
+                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="I_Sls_D_Salesman">
+            <EntityTypeMapping TypeName="InvModel.I_Sls_D_Salesman">
+              <MappingFragment StoreEntitySet="I_Sls_D_Salesman">
+                <ScalarProperty Name="WebUserName" ColumnName="WebUserName" />
+                <ScalarProperty Name="WebPassword" ColumnName="WebPassword" />
+                <ScalarProperty Name="CC_Code" ColumnName="CC_Code" />
+                <ScalarProperty Name="NationalityID" ColumnName="NationalityID" />
+                <ScalarProperty Name="SalesCreditLimit" ColumnName="SalesCreditLimit" />
+                <ScalarProperty Name="PurchaseLimit" ColumnName="PurchaseLimit" />
+                <ScalarProperty Name="ISOperationEnable" ColumnName="ISOperationEnable" />
+                <ScalarProperty Name="IsPurchaseEnable" ColumnName="IsPurchaseEnable" />
+                <ScalarProperty Name="IsSalesEnable" ColumnName="IsSalesEnable" />
+                <ScalarProperty Name="GLAccCode" ColumnName="GLAccCode" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="IDNo" ColumnName="IDNo" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="ShortNameE" ColumnName="ShortNameE" />
+                <ScalarProperty Name="ShortNameA" ColumnName="ShortNameA" />
+                <ScalarProperty Name="NameE" ColumnName="NameE" />
+                <ScalarProperty Name="NameA" ColumnName="NameA" />
+                <ScalarProperty Name="SalesmanCode" ColumnName="SalesmanCode" />
+                <ScalarProperty Name="BraCode" ColumnName="BraCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="SalesmanId" ColumnName="SalesmanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="InvModel.Zones">
+              <MappingFragment StoreEntitySet="Zones">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

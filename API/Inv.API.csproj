@@ -251,6 +251,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\SalesManController.cs" />
     <Compile Include="Controllers\SlsInvoiceController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Controllers\Shared\G_BranchController.cs" />

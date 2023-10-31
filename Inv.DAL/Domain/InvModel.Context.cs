@@ -27,7 +27,6 @@ namespace Inv.DAL.Domain
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<A_Pay_D_Vendor> A_Pay_D_Vendor { get; set; }
         public virtual DbSet<A_Pay_D_VendorDoc> A_Pay_D_VendorDoc { get; set; }
         public virtual DbSet<G_AlertType> G_AlertType { get; set; }
         public virtual DbSet<G_BRANCH> G_BRANCH { get; set; }
@@ -49,9 +48,7 @@ namespace Inv.DAL.Domain
         public virtual DbSet<G_USER_BRANCH> G_USER_BRANCH { get; set; }
         public virtual DbSet<G_USER_COMPANY> G_USER_COMPANY { get; set; }
         public virtual DbSet<G_UserPrivillage> G_UserPrivillage { get; set; }
-        public virtual DbSet<G_USERS> G_USERS { get; set; }
         public virtual DbSet<I_Control> I_Control { get; set; }
-        public virtual DbSet<I_Sls_D_Salesman> I_Sls_D_Salesman { get; set; }
         public virtual DbSet<PromoCodes> PromoCodes { get; set; }
         public virtual DbSet<HIJRA_CONVERT> HIJRA_CONVERT { get; set; }
         public virtual DbSet<G_USER_LOG> G_USER_LOG { get; set; }
@@ -66,6 +63,10 @@ namespace Inv.DAL.Domain
         public virtual DbSet<IQ_GetVendor> IQ_GetVendor { get; set; }
         public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
         public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
+        public virtual DbSet<A_Pay_D_Vendor> A_Pay_D_Vendor { get; set; }
+        public virtual DbSet<G_USERS> G_USERS { get; set; }
+        public virtual DbSet<I_Sls_D_Salesman> I_Sls_D_Salesman { get; set; }
+        public virtual DbSet<Zones> Zones { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {

@@ -16,6 +16,7 @@ using Inv.BLL.Services.G_Branch;
 
 using Inv.BLL.Services.Seller;
 using Inv.BLL.Services.SlsInvoice;
+using Inv.BLL.Services.SalesMan;
 
 namespace Inv.API.Infrastructure
 {
@@ -41,6 +42,7 @@ namespace Inv.API.Infrastructure
             container.RegisterType<IG_AlertControlService, G_AlertControlService>(); 
             container.RegisterType<ISellerService, SellerService>();
             container.RegisterType<ISlsInvoiceService, SlsInvoiceService>();
+            container.RegisterType<ISalesManService, SalesManService>();
         }
     }
 }
