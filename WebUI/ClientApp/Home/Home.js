@@ -71,7 +71,7 @@ var Home;
                 }
             }
             else {
-                ShowMessage("wrong code  " + singleUserModule.MODULE_CODE);
+                //ShowMessage("wrong code  " + singleUserModule.MODULE_CODE)
             }
         }
     }
