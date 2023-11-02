@@ -188,12 +188,13 @@ class SystemEnvironment {
     public Language: string;
     public CurrentYear: string;
     public UserCode: string;
-    public VendorID: number;
+    public VendorID: number; 
     public JobTitle: string;
     public UserType: number;
     public SalesManID: number;
     public CashBoxID: number;
     public StoreID: number;
+    public Vnd_CompName: string;
     public CompCode: string;
     public CompanyName: string;
     public CompanyNameAr: string;

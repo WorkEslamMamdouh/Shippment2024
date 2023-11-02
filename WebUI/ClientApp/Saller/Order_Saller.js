@@ -17,6 +17,7 @@ var Order_Saller;
     var Txt_NetTotal;
     var CountGrid = 0;
     var NumItems = 0;
+    var ItemTotal = 0;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
@@ -203,6 +204,7 @@ var Order_Saller;
         Header.PromoCode = $('#txt_Promo_Code').val().trim();
         Header.UserCode = SysSession.CurrentEnvironment.UserCode;
         Header.VendorID = Model[0].VendorID;
+        Header.NetAfterVat = Number(ItemTotal.toFixed(2));
         Header.TrType = 0;
         InvMasterDetails.Sls_InvoiceItem = Model;
         InvMasterDetails.Sls_Invoice = Header;
@@ -247,7 +249,7 @@ var Order_Saller;
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + $('#Txt_Ref_No').val());
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + $('#Txt_Receive_TrData').val());
         $('#Body_Inv_Print').html('');
-        var ItemTotal = 0;
+        ItemTotal = 0;
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 var Row = "    <tr>\n                            <td>" + $("#ItemDescA" + i).val() + "</td>\n                            <td>" + $("#SoldQty" + i).val() + "</td>\n                            <td>" + $("#Unitprice" + i).val() + "</td>\n                            <td>" + $("#ItemTotal" + i).val() + "</td>\n                        </tr>";

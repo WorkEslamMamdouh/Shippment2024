@@ -3659,6 +3659,8 @@ function OpenPage(moduleCode: string) {
 
         //$('#htmlContainer').addClass('animate__animated animate__zoomIn');
         setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
+
+        $(window).scrollTop(0);
     }
     else {
         Close_Loder();
@@ -3691,6 +3693,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
 
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
+        $(window).scrollTop(0);
     }
     else {
         Close_Loder();
@@ -3737,8 +3740,22 @@ function Back_Page_Partial() {
 
 }
 
+function Close_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "none";
+}
+
+function Show_Loder() {
+    var modal = document.getElementById("myModalLoder");
+    modal.style.display = "block";
+}
+
+
+
 
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
+var GlopelInvoices: Array<Sls_Invoice> = new Array<Sls_Invoice>();
+var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;
@@ -3748,12 +3765,19 @@ function GetGlopelDataUser(): Array<G_USERS> {
     return GlopelUSERS;
 }
 
-function Close_Loder() {
-    var modal = document.getElementById("myModalLoder");
-    modal.style.display = "none";
+
+function SetGlopelDataInvoice(Send_Invoices: Array<Sls_Invoice>) {
+    GlopelInvoices = Send_Invoices;
 }
 
-function Show_Loder() {
-    var modal = document.getElementById("myModalLoder");
-    modal.style.display = "block";
+function GetGlopelDataInvoice(): Array<Sls_Invoice> {
+    return GlopelInvoices;
+}
+
+function SetGlopelDataInvoiceItems(Send_InvoiceItems: Array<Sls_InvoiceItem>) {
+    GlopelInvoiceItems = Send_InvoiceItems;
+}
+
+function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
+    return GlopelInvoiceItems;
 }

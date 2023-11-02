@@ -6564,7 +6564,9 @@ class G_USERS extends SecurityClass {
 		this.Tokenid = "";
 		this.LastLogin = "";
 		this.Flag_Mastr = "";
+		this.Vnd_CompName = "";
 		this.StoreID = 0;
+		this.VendorID = 0;
 
 
 	}
@@ -6602,6 +6604,8 @@ class G_USERS extends SecurityClass {
 	public Tokenid: string;
 	public Flag_Mastr: string;
 	public StoreID: number;
+	public VendorID: number; 
+	public Vnd_CompName: string;
 }
 
 class ModelUserMasterDetail extends SecurityClass {

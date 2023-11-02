@@ -219,3 +219,10 @@
 .But_Inv:active {
     background-color: rgb(0,0,0);
 }
+
+
+@media (max-width: 991px) {
+    .u-section-10 .u-repeater-1 { 
+        min-height: 0px !important;
+    }
+}

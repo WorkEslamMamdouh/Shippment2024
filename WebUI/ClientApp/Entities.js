@@ -3829,7 +3829,9 @@ var G_USERS = /** @class */ (function (_super) {
         _this.Tokenid = "";
         _this.LastLogin = "";
         _this.Flag_Mastr = "";
+        _this.Vnd_CompName = "";
         _this.StoreID = 0;
+        _this.VendorID = 0;
         return _this;
     }
     return G_USERS;

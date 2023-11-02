@@ -2816,6 +2816,7 @@ function OpenPage(moduleCode) {
         $('#Back_Page').addClass("display_none");
         //$('#htmlContainer').addClass('animate__animated animate__zoomIn');
         setTimeout(function () { $('#htmlContainer').removeClass('animate__animated animate__zoomIn'); }, 800);
+        $(window).scrollTop(0);
     }
     else {
         Close_Loder();
@@ -2839,6 +2840,7 @@ function OpenPagePartial(moduleCode, NamePage) {
         $('#Back_Page').removeClass("display_none");
         $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
+        $(window).scrollTop(0);
     }
     else {
         Close_Loder();
@@ -2869,13 +2871,6 @@ function Back_Page_Partial() {
         $('#Partial_' + CounterPage).removeClass("display_none");
     }
 }
-var GlopelUSERS = new Array();
-function SetGlopelDataUser(Send_USERS) {
-    GlopelUSERS = Send_USERS;
-}
-function GetGlopelDataUser() {
-    return GlopelUSERS;
-}
 function Close_Loder() {
     var modal = document.getElementById("myModalLoder");
     modal.style.display = "none";
@@ -2883,5 +2878,26 @@ function Close_Loder() {
 function Show_Loder() {
     var modal = document.getElementById("myModalLoder");
     modal.style.display = "block";
+}
+var GlopelUSERS = new Array();
+var GlopelInvoices = new Array();
+var GlopelInvoiceItems = new Array();
+function SetGlopelDataUser(Send_USERS) {
+    GlopelUSERS = Send_USERS;
+}
+function GetGlopelDataUser() {
+    return GlopelUSERS;
+}
+function SetGlopelDataInvoice(Send_Invoices) {
+    GlopelInvoices = Send_Invoices;
+}
+function GetGlopelDataInvoice() {
+    return GlopelInvoices;
+}
+function SetGlopelDataInvoiceItems(Send_InvoiceItems) {
+    GlopelInvoiceItems = Send_InvoiceItems;
+}
+function GetGlopelDataInvoiceItems() {
+    return GlopelInvoiceItems;
 }
 //# sourceMappingURL=App.js.map
