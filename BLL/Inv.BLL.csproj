@@ -70,6 +70,8 @@
     <Compile Include="Services\IControl\I_ControlService.cs" />
     <Compile Include="Services\IGCodes\IGCodesService.cs" />
     <Compile Include="Services\IGCodes\IIGCodesService.cs" />
+    <Compile Include="Services\SalesMan\ISalesManService.cs" />
+    <Compile Include="Services\SalesMan\SalesManService.cs" />
     <Compile Include="Services\SlsInvoice\ISlsInvoiceService.cs" />
     <Compile Include="Services\SlsInvoice\SlsInvoiceService.cs" />
     <Compile Include="Services\Seller\ISellerService.cs" />

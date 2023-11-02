@@ -4,9 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="49b3c42467d940a1883c80fae4bc3c31" Name="Diagram1" ZoomLevel="71">
+      <Diagram DiagramId="49b3c42467d940a1883c80fae4bc3c31" Name="Diagram1" ZoomLevel="35">
         <EntityTypeShape EntityType="InvModel.A_CCDT_COSTCENTERS" Width="1.5" PointX="10.75" PointY="24.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="InvModel.A_Pay_D_Vendor" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.A_Pay_D_VendorDoc" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.G_AlertType" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.G_BRANCH" Width="1.5" PointX="2.75" PointY="4.75" />
@@ -28,9 +27,7 @@
         <EntityTypeShape EntityType="InvModel.G_USER_BRANCH" Width="1.5" PointX="10.75" PointY="14.75" />
         <EntityTypeShape EntityType="InvModel.G_USER_COMPANY" Width="1.5" PointX="14.75" PointY="12.75" />
         <EntityTypeShape EntityType="InvModel.G_UserPrivillage" Width="1.5" PointX="4.75" PointY="15.75" />
-        <EntityTypeShape EntityType="InvModel.G_USERS" Width="1.5" PointX="16.75" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.I_Control" Width="1.5" PointX="16.75" PointY="8.75" />
-        <EntityTypeShape EntityType="InvModel.I_Sls_D_Salesman" Width="1.5" PointX="12.75" PointY="16.75" />
         <EntityTypeShape EntityType="InvModel.PromoCodes" Width="1.5" PointX="0.75" PointY="17.75" />
         <EntityTypeShape EntityType="InvModel.HIJRA_CONVERT" Width="1.5" PointX="18.75" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.G_USER_LOG" Width="1.5" PointX="8.75" PointY="18.75" />
@@ -45,6 +42,10 @@
         <EntityTypeShape EntityType="InvModel.IQ_GetVendor" Width="1.5" PointX="22.75" PointY="3.75" />
         <EntityTypeShape EntityType="InvModel.Sls_Invoice" Width="1.5" PointX="5.375" PointY="22.75" />
         <EntityTypeShape EntityType="InvModel.Sls_InvoiceItem" Width="1.5" PointX="7.375" PointY="23.75" />
+        <EntityTypeShape EntityType="InvModel.A_Pay_D_Vendor" Width="1.5" PointX="9.0628178310873064" PointY="27.595008952354551" />
+        <EntityTypeShape EntityType="InvModel.G_USERS" Width="1.5" PointX="2.2368397145703622" PointY="14.171799502415489" />
+        <EntityTypeShape EntityType="InvModel.I_Sls_D_Salesman" Width="1.5" PointX="1.6774553571257069" PointY="15.293595917193961" />
+        <EntityTypeShape EntityType="InvModel.Zones" Width="1.5" PointX="7.264949673444475" PointY="11.15748470051097" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

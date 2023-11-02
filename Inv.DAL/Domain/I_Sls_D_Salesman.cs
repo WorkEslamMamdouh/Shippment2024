@@ -40,5 +40,7 @@ namespace Inv.DAL.Domain
         public Nullable<decimal> SalesCreditLimit { get; set; }
         public Nullable<int> NationalityID { get; set; }
         public string CC_Code { get; set; }
+        public string WebPassword { get; set; }
+        public string WebUserName { get; set; }
     }
 }
