@@ -1048,7 +1048,7 @@
     <Content Include="Views\Error\ErrorPDF_Fix.cshtml" />
     <Content Include="Views\Home\htmlContainerIndex.cshtml" />
     <Content Include="Views\Profile\ProfileIndex.cshtml" />
-    <Content Include="Views\Saller\Processing_OrderIndex.cshtml" />
+    <Content Include="Views\Saller\View_Seller_OrdersIndex.cshtml" />
     <Content Include="Views\Order\View_OrderIndex.cshtml" />
     <Content Include="Views\Order\Edit_OrderIndex.cshtml" />
     <None Include="Web.Debug.config">
@@ -1094,7 +1094,7 @@
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Report_Page\Report_Page.ts" />
     <TypeScriptCompile Include="ClientApp\Order\View_Order.ts" />
-    <TypeScriptCompile Include="ClientApp\Saller\Processing_Order.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\View_Seller_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Order_Saller.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />

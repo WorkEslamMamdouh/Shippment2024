@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(() => {
-    Processing_Order.InitalizeComponent();
+    View_Seller_Orders.InitalizeComponent();
 
 });
 
-namespace Processing_Order {
+namespace View_Seller_Orders {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
      

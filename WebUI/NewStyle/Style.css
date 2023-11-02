@@ -208,4 +208,14 @@
 
 .Font_SizeLab {
     font-size: 14px !important;
-} 
+}
+
+
+.But_Inv:hover {
+    background-color: rgb(0,0,0); 
+}
+
+
+.But_Inv:active {
+    background-color: rgb(0,0,0);
+}
