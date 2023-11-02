@@ -25,6 +25,7 @@ namespace Order_Saller {
     var CountGrid = 0;
     var NumItems = 0;
     var ItemTotal = 0;
+    var ItemCount = 0;
     export function InitalizeComponent() {
 
 
@@ -275,6 +276,7 @@ namespace Order_Saller {
         Header.UserCode = SysSession.CurrentEnvironment.UserCode;
         Header.VendorID = Model[0].VendorID;
         Header.NetAfterVat = Number(ItemTotal.toFixed(2));
+        Header.ItemCount = Number(ItemCount);
         Header.TrType = 0;
 
         InvMasterDetails.Sls_InvoiceItem = Model;
@@ -331,6 +333,7 @@ namespace Order_Saller {
         $('#Body_Inv_Print').html('');
 
          ItemTotal = 0;
+        ItemCount = 0;
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 let Row = `    <tr>
@@ -341,6 +344,7 @@ namespace Order_Saller {
                         </tr>`
 
                 ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());
+                ItemCount = ItemCount + Number($("#SoldQty" + i).val());
 
                 $('#Body_Inv_Print').append(Row);
             }

@@ -2835,8 +2835,8 @@ function OpenPagePartial(moduleCode, NamePage) {
         $('.Page_Partial').addClass("display_none");
         $('#Partial_' + CounterPage).html(Page[0].Page_Html);
         $('#Partial_' + CounterPage).removeClass("display_none");
-        //$('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
-        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
+        //$('#Partial_' + CounterPage).addClass('animate__animated animate__pulse');
+        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__pulse'); }, 800);
         $('#Back_Page').removeClass("display_none");
         $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
@@ -2891,11 +2891,11 @@ function GetGlopelDataUser() {
 function SetGlopelDataInvoice(Send_Invoices) {
     GlopelInvoices = Send_Invoices;
 }
-function GetGlopelDataInvoice() {
-    return GlopelInvoices;
-}
 function SetGlopelDataInvoiceItems(Send_InvoiceItems) {
     GlopelInvoiceItems = Send_InvoiceItems;
+}
+function GetGlopelDataInvoice() {
+    return GlopelInvoices;
 }
 function GetGlopelDataInvoiceItems() {
     return GlopelInvoiceItems;

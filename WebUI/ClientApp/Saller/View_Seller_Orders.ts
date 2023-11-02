@@ -36,8 +36,8 @@ namespace View_Seller_Orders {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Sls_Invoice', Condition: " Status = 0 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID+"" },
-            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where Status = 0 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID+") " },
+            { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status <> 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID+"" },
+            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status <> 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID+") " },
             ]
 
         DataResult(Table);

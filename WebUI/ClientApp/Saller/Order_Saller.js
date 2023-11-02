@@ -18,6 +18,7 @@ var Order_Saller;
     var CountGrid = 0;
     var NumItems = 0;
     var ItemTotal = 0;
+    var ItemCount = 0;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
@@ -205,6 +206,7 @@ var Order_Saller;
         Header.UserCode = SysSession.CurrentEnvironment.UserCode;
         Header.VendorID = Model[0].VendorID;
         Header.NetAfterVat = Number(ItemTotal.toFixed(2));
+        Header.ItemCount = Number(ItemCount);
         Header.TrType = 0;
         InvMasterDetails.Sls_InvoiceItem = Model;
         InvMasterDetails.Sls_Invoice = Header;
@@ -250,10 +252,12 @@ var Order_Saller;
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + $('#Txt_Receive_TrData').val());
         $('#Body_Inv_Print').html('');
         ItemTotal = 0;
+        ItemCount = 0;
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 var Row = "    <tr>\n                            <td>" + $("#ItemDescA" + i).val() + "</td>\n                            <td>" + $("#SoldQty" + i).val() + "</td>\n                            <td>" + $("#Unitprice" + i).val() + "</td>\n                            <td>" + $("#ItemTotal" + i).val() + "</td>\n                        </tr>";
                 ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());
+                ItemCount = ItemCount + Number($("#SoldQty" + i).val());
                 $('#Body_Inv_Print').append(Row);
             }
         }

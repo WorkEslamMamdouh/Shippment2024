@@ -3683,8 +3683,8 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
         $('.Page_Partial').addClass("display_none");
         $('#Partial_' + CounterPage).html(Page[0].Page_Html);
         $('#Partial_' + CounterPage).removeClass("display_none");
-        //$('#Partial_' + CounterPage).addClass('animate__animated animate__zoomIn');
-        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__zoomIn'); }, 800);
+        //$('#Partial_' + CounterPage).addClass('animate__animated animate__pulse');
+        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__pulse'); }, 800);
         $('#Back_Page').removeClass("display_none");
 
         $('#Lab_NamePage').html(`` + NamePage + `<span style="font-weight: 700;">
@@ -3769,15 +3769,14 @@ function GetGlopelDataUser(): Array<G_USERS> {
 function SetGlopelDataInvoice(Send_Invoices: Array<Sls_Invoice>) {
     GlopelInvoices = Send_Invoices;
 }
-
-function GetGlopelDataInvoice(): Array<Sls_Invoice> {
-    return GlopelInvoices;
-}
-
+ 
 function SetGlopelDataInvoiceItems(Send_InvoiceItems: Array<Sls_InvoiceItem>) {
     GlopelInvoiceItems = Send_InvoiceItems;
 }
 
+function GetGlopelDataInvoice(): Array<Sls_Invoice> {
+    return GlopelInvoices;
+}
 function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
     return GlopelInvoiceItems;
 }
