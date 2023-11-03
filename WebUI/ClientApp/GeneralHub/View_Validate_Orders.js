@@ -24,8 +24,8 @@ var View_Validate_Orders;
         var Table;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID + "" },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID + ") " },
+                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 0 " },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 0" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
