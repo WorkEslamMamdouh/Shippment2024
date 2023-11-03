@@ -5,12 +5,14 @@ var View_Validate_Orders;
 (function (View_Validate_Orders) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
+    var _Grid = new JsGrid();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
         GetData_Invoice();
+        InitializeGrid();
         Display_Orders();
         Close_Loder();
     }
@@ -19,13 +21,56 @@ var View_Validate_Orders;
     }
     function InitializeEvents() {
     }
+    function InitializeGrid() {
+        _Grid.ElementName = "_Grid";
+        //_Grid.OnRowDoubleClicked = GridDoubleClick;
+        _Grid.PrimaryKey = "TRID";
+        _Grid.Paging = true;
+        _Grid.PageSize = 15;
+        _Grid.Sorting = true;
+        _Grid.InsertionMode = JsGridInsertionMode.Binding;
+        _Grid.Editing = false;
+        _Grid.Inserting = false;
+        _Grid.SelectedIndex = 1;
+        _Grid.OnItemEditing = function () { };
+        _Grid.Columns = [
+            { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
+            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
+            {
+                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    txt.innerHTML = DateFormat(item.TrDate);
+                    return txt;
+                }
+            },
+            { title: "Name", name: "CustomerName", type: "text", width: "100px" },
+            { title: "Mobile", name: "CustomerMobile1", type: "text", width: "100px" },
+            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
+            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+        ];
+        _Grid.Bind();
+    }
+    function _SearchBox_Change() {
+        $("#_Grid").jsGrid("option", "pageIndex", 1);
+        //if (txtSearch.value != "") {
+        //    let search: string = txtSearch.value.toLowerCase();
+        //    let SearchDetails = LnkTransDetails.filter(x => x.TR_NO.toString().search(search) >= 0 || x.VOUCHER_DESCA.toLowerCase().search(search) >= 0 || x.TR_DESCA.toLowerCase().search(search) >= 0);
+        //    _Grid.DataSource = SearchDetails;
+        //    _Grid.Bind();
+        //} else {
+        //    _Grid.DataSource = LnkTransDetails;
+        //    _Grid.Bind();
+        //}
+    }
     function GetData_Invoice() {
         debugger;
         var Table;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 0 " },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 0" },
+                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 1 " },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 1" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -36,10 +81,16 @@ var View_Validate_Orders;
         SetGlopelDataInvoiceItems(_InvoiceItems);
     }
     function Display_Orders() {
-        $('#Div_View_Orders').html("");
-        for (var i = 0; i < _Invoices.length; i++) {
-            Build_Orders(i);
-        }
+        debugger;
+        _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+        debugger;
+        _Grid.DataSource = _Invoices;
+        _Grid.Bind();
+        debugger;
+        //$('#Div_View_Orders').html("");
+        //for (var i = 0; i < _Invoices.length; i++) {
+        //    Build_Orders(i)
+        //}
     }
     function Build_Orders(cnt) {
         var html = "\n\n             <div class=\"u-align-center u-container-align-center-xs u-container-style u-products-item u-repeater-item u-white u-repeater-item-2 animate__animated animate__zoomIn\" data-product-id=\"3\">\n                    <div class=\"u-container-layout u-similar-container u-valign-top-xs u-container-layout-2\">\n                        <!--product_image-->\n                        <a class=\"u-product-title-link\"><img alt=\"\" class=\"u-expanded-width u-image u-image-default u-product-control u-image-2\" src=\"/NewStyle/images/istockphoto-853561716-1024x1024.jpg\" style=\"height: 180px;\" ></a><!--/product_image--><!--product_title-->\n                        <h6 class=\"u-align-center-xs u-product-control u-text u-text-2\">\n                            <a class=\"u-product-title-link\">" + _Invoices[cnt].CustomerName + "</a>\n                        </h6>\n                        <h6 class=\"u-align-center-xs u-product-control u-text u-text-2\">\n                            <a class=\"u-product-title-link\">( " + _Invoices[cnt].RefNO + " )</a>\n                        </h6>\n                        <div class=\"u-align-center-xs u-product-control u-product-price u-product-price-2\">\n                            <div class=\"u-price-wrapper u-spacing-10\">\n                                <!--product_old_price-->\n                                <div class=\"u-hide-price u-old-price\"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->\n                                <div class=\"u-price u-text-palette-2-base\" style=\"font-size: 1.25rem; font-weight: 700;\">( " + _Invoices[cnt].NetAfterVat + " )</div><!--/product_regular_price-->\n                            </div>\n                        </div><!--/product_price--><!--product_button--><!--options_json--><!--{\"clickType\":\"go-to-page\",\"content\":\"View\"}--><!--/options_json-->\n                        <a id=\"Btn_ViewOrder" + cnt + "\" class=\"u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2\" data-product-button-click-type=\"go-to-page\"><!--product_button_content-->View<!--/product_button_content--></a><!--/product_button-->\n                    </div>\n                </div>\n\n";

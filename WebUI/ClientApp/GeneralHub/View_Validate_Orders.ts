@@ -7,6 +7,7 @@ $(document).ready(() => {
 namespace View_Validate_Orders {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
+    var _Grid: JsGrid = new JsGrid();
 
     var _Invoices: Array<Sls_Invoice> = new Array <Sls_Invoice>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
@@ -18,6 +19,7 @@ namespace View_Validate_Orders {
         InitalizeControls();
         InitializeEvents();
         GetData_Invoice();
+        InitializeGrid();
         Display_Orders();
         Close_Loder(); 
     }
@@ -29,15 +31,61 @@ namespace View_Validate_Orders {
         
          
     }
+    function InitializeGrid() { 
+        _Grid.ElementName = "_Grid";
+        //_Grid.OnRowDoubleClicked = GridDoubleClick;
+        _Grid.PrimaryKey = "TRID";
+        _Grid.Paging = true;
+        _Grid.PageSize = 15;
+        _Grid.Sorting = true;
+        _Grid.InsertionMode = JsGridInsertionMode.Binding;
+        _Grid.Editing = false;
+        _Grid.Inserting = false;
+        _Grid.SelectedIndex = 1;
+        _Grid.OnItemEditing = () => { };
+        _Grid.Columns = [
+            { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
+            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
+            {
+                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
+                itemTemplate: (s: string, item: Sls_Invoice): HTMLLabelElement => {
+                    let txt: HTMLLabelElement = document.createElement("label");
+                    txt.innerHTML = DateFormat(item.TrDate);
+                    return txt;
+                }
+            },
+            { title: "Name", name: "CustomerName", type: "text", width: "100px" },
+            { title: "Mobile", name: "CustomerMobile1", type: "text", width: "100px" },
+            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
+            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            
+        ];
+        _Grid.Bind();
+        
+    }
+    function _SearchBox_Change() {
+        $("#_Grid").jsGrid("option", "pageIndex", 1);
 
+        //if (txtSearch.value != "") {
+        //    let search: string = txtSearch.value.toLowerCase();
+        //    let SearchDetails = LnkTransDetails.filter(x => x.TR_NO.toString().search(search) >= 0 || x.VOUCHER_DESCA.toLowerCase().search(search) >= 0 || x.TR_DESCA.toLowerCase().search(search) >= 0);
+
+        //    _Grid.DataSource = SearchDetails;
+        //    _Grid.Bind();
+        //} else {
+        //    _Grid.DataSource = LnkTransDetails;
+        //    _Grid.Bind();
+        //}
+    }
     function GetData_Invoice() {
         debugger
 
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 0 " },
-            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 0" },
+            { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 1 " },
+            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 1" },
             ]
 
         DataResult(Table);
@@ -52,11 +100,16 @@ namespace View_Validate_Orders {
     }
 
     function Display_Orders() {
-
-        $('#Div_View_Orders').html("");
-        for (var i = 0; i < _Invoices.length; i++) {
-            Build_Orders(i)
-        }
+        debugger
+        _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+        debugger
+        _Grid.DataSource = _Invoices;
+        _Grid.Bind();
+        debugger
+        //$('#Div_View_Orders').html("");
+        //for (var i = 0; i < _Invoices.length; i++) {
+        //    Build_Orders(i)
+        //}
 
     }
     function Build_Orders(cnt: number) {

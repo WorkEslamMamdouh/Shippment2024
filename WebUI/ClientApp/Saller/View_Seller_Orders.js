@@ -37,6 +37,10 @@ var View_Seller_Orders;
     }
     function Display_Orders() {
         $('#Div_View_Orders').html("");
+        if (_Invoices.length == 0) {
+            $('#_Nothing').removeClass("display_none");
+            return;
+        }
         for (var i = 0; i < _Invoices.length; i++) {
             Build_Orders(i);
         }

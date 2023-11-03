@@ -102,6 +102,8 @@ class JsGrid {
             this.SwitchColumnsLanguage();
         }
 
+        debugger
+
         $("#" + this.ElementName).jsGrid({
             width: this.Width,
             height: this.Height,
