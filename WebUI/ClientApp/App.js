@@ -2601,6 +2601,10 @@ function CopyRowGrid(DataList, Key, value) {
 }
 var List_Table = new Array();
 var globle_Table = new Array();
+function CleaningList_Table() {
+    List_Table = new Array();
+    globle_Table = new Array();
+}
 function DataResult(Table) {
     debugger;
     var sys = new SystemTools;

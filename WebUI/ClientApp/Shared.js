@@ -232,6 +232,7 @@ function GetSystemEnvironment() {
 //    }
 //}
 function GetSystemSession() {
+    CleaningList_Table();
     var SysSession = new SystemSession;
     SysSession.CurrentEnvironment = JSON.parse(readCookie("Harley_systemProperties"));
     return SysSession;
