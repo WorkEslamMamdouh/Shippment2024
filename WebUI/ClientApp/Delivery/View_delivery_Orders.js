@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    View_Seller_Orders.InitalizeComponent();
+    View_delivery_Orders.InitalizeComponent();
 });
-var View_Seller_Orders;
-(function (View_Seller_Orders) {
+var View_delivery_Orders;
+(function (View_delivery_Orders) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Invoices = new Array();
@@ -14,7 +14,7 @@ var View_Seller_Orders;
         Display_Orders();
         Close_Loder();
     }
-    View_Seller_Orders.InitalizeComponent = InitalizeComponent;
+    View_delivery_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
     }
     function InitializeEvents() {
@@ -24,8 +24,8 @@ var View_Seller_Orders;
         var Table;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
+                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID + "" },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID + ") " },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -49,5 +49,5 @@ var View_Seller_Orders;
             OpenPagePartial("View_Order", "Order 🧺");
         });
     }
-})(View_Seller_Orders || (View_Seller_Orders = {}));
-//# sourceMappingURL=View_Seller_Orders.js.map
+})(View_delivery_Orders || (View_delivery_Orders = {}));
+//# sourceMappingURL=View_delivery_Orders.js.map

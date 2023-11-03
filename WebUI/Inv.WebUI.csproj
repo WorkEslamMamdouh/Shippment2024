@@ -1051,6 +1051,7 @@
     <Content Include="Views\Saller\View_Seller_OrdersIndex.cshtml" />
     <Content Include="Views\Order\View_OrderIndex.cshtml" />
     <Content Include="Views\Order\Edit_OrderIndex.cshtml" />
+    <Content Include="Views\Delivery\View_delivery_OrdersIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1094,6 +1095,7 @@
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Report_Page\Report_Page.ts" />
     <TypeScriptCompile Include="ClientApp\Order\View_Order.ts" />
+    <TypeScriptCompile Include="ClientApp\Delivery\View_delivery_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\View_Seller_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Order_Saller.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />

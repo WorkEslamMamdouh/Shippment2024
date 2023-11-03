@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(() => {
-    View_Seller_Orders.InitalizeComponent();
+    View_delivery_Orders.InitalizeComponent();
 
 });
 
-namespace View_Seller_Orders {
+namespace View_delivery_Orders {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
@@ -36,8 +36,8 @@ namespace View_Seller_Orders {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID+"" },
-            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID+") " },
+            { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+"" },
+            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+") " },
             ]
 
         DataResult(Table);
