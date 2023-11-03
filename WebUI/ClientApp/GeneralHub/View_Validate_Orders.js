@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    View_delivery_Orders.InitalizeComponent();
+    View_Validate_Orders.InitalizeComponent();
 });
-var View_delivery_Orders;
-(function (View_delivery_Orders) {
+var View_Validate_Orders;
+(function (View_Validate_Orders) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Invoices = new Array();
@@ -14,7 +14,7 @@ var View_delivery_Orders;
         Display_Orders();
         Close_Loder();
     }
-    View_delivery_Orders.InitalizeComponent = InitalizeComponent;
+    View_Validate_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
     }
     function InitializeEvents() {
@@ -36,7 +36,6 @@ var View_delivery_Orders;
         SetGlopelDataInvoiceItems(_InvoiceItems);
     }
     function Display_Orders() {
-        debugger;
         $('#Div_View_Orders').html("");
         for (var i = 0; i < _Invoices.length; i++) {
             Build_Orders(i);
@@ -50,5 +49,5 @@ var View_delivery_Orders;
             OpenPagePartial("View_Order", "Order 🧺");
         });
     }
-})(View_delivery_Orders || (View_delivery_Orders = {}));
-//# sourceMappingURL=View_delivery_Orders.js.map
+})(View_Validate_Orders || (View_Validate_Orders = {}));
+//# sourceMappingURL=View_Validate_Orders.js.map

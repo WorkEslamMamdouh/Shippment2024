@@ -1897,7 +1897,15 @@ namespace Inv.API.Controllers
                 if (item.IsProc == false || item.IsProc == null)
                 {
                     query = "select * from " + item.NameTable + " " + (item.Condition.Trim() == "" ? "" : " Where " + item.Condition);
-                      res = Get_Model(query, item.NameTable);
+                    try
+                    {
+                        res = Get_Model(query, item.NameTable); 
+                    }
+                    catch (Exception)
+                    {
+
+                        res = new List<object>();
+                    }
 
                 }
                 else

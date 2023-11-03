@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(() => {
-    View_delivery_Orders.InitalizeComponent();
+    View_Validate_Orders.InitalizeComponent();
 
 });
 
-namespace View_delivery_Orders {
+namespace View_Validate_Orders {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
@@ -53,7 +53,6 @@ namespace View_delivery_Orders {
 
     function Display_Orders() {
 
-        debugger
         $('#Div_View_Orders').html("");
         for (var i = 0; i < _Invoices.length; i++) {
             Build_Orders(i)

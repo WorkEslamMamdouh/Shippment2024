@@ -2612,6 +2612,7 @@ function DataResult(Table) {
         success: function (d) {
             var result = d;
             if (result.IsSuccess) {
+                debugger;
                 List_Table = result.Response;
                 return List_Table;
             }

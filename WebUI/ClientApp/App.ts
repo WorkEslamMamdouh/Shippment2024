@@ -3406,6 +3406,7 @@ function DataResult(Table: Array<Table>): Array<Table_Result> {
         success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess) {
+                debugger
                 List_Table = result.Response as Array<Table_Result>;
                 return List_Table;
             }

@@ -36,7 +36,6 @@ var View_delivery_Orders;
         SetGlopelDataInvoiceItems(_InvoiceItems);
     }
     function Display_Orders() {
-        debugger;
         $('#Div_View_Orders').html("");
         for (var i = 0; i < _Invoices.length; i++) {
             Build_Orders(i);
