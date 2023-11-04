@@ -91,6 +91,10 @@ namespace Inv.DAL.Domain
     {
 
     }
+    public partial class Zones : SecurityandUpdateFlagClass
+    {
+
+    }
     public partial class G_RoleUsers : SecurityandUpdateFlagClass
     {
 

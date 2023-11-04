@@ -8,8 +8,11 @@ var Zone;
     var _USERS = new Array();
     var _USER = new Array();
     var _Zones = new Array();
+    var _ZonesObj = new Zones();
+    var _ZonesModel = new Array();
     var CountGrid = 0;
     var Submit_Update_Profile;
+    var btnAdd;
     var Submit_Backdown_Profile;
     function InitalizeComponent() {
         debugger;
@@ -25,18 +28,18 @@ var Zone;
     Zone.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
+        btnAdd = document.getElementById("btnAdd");
         Submit_Backdown_Profile = document.getElementById("Submit_Backdown_Profile");
     }
     function InitializeEvents() {
+        btnAdd.onclick = AddRow;
         Submit_Update_Profile.onclick = SubmitUpdate;
-        Submit_Backdown_Profile.onclick = BackeDown;
+        Submit_Backdown_Profile.onclick = Display_Data;
     }
-    function BackeDown() {
-        WorningMessage("هل انت متأكد من التراجع عن التعديلات ؟", "Are you sure for undoing the modifications?", "تحذير", "worning", function () {
-            $('#Zone_Grid').html("");
-            CountGrid = 0;
-            Display_Data();
-        });
+    function AddRow() {
+        BuildGrid(CountGrid);
+        $("#txtStatusFlag".concat(CountGrid)).val('i');
+        CountGrid++;
     }
     function Display_Data() {
         debugger;
@@ -49,6 +52,8 @@ var Zone;
         //**************************************************************************************************************
         debugger;
         _Zones = GetDataTable('Zones');
+        $('#Zone_Grid').html("");
+        CountGrid = 0;
         for (var i = 0; i < _Zones.length; i++) {
             BuildGrid(i);
             $("#Txt_ZoneID".concat(i)).val(_Zones[i].ZoneID);
@@ -61,58 +66,25 @@ var Zone;
         }
     }
     function SubmitUpdate() {
-        if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
-            Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
-            return;
+        for (var i = 0; i < CountGrid; i++) {
+            if ($('#Txt_ZoneCode' + i).val().trim() == "") {
+                Errorinput($('#Txt_ZoneCode' + i), "Please a Enter Zone Code 🤨");
+                return;
+            }
+            if ($('#Txt_DescA' + i).val().trim() == "") {
+                Errorinput($('#Txt_DescA' + i), "Please a Enter Zone Describition 🤨");
+                return;
+            }
         }
-        if ($('#Reg_Full_Name').val().trim() == "") {
-            Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name 🤨");
-            return;
-        }
-        else if ($('#Reg_Address').val().trim() == "") {
-            Errorinput($('#Reg_Address'), "Please a Enter Address 🤨");
-            return;
-        }
-        else if ($('#Reg_Mobile').val().trim() == "") {
-            Errorinput($('#Reg_Mobile'), "Please a Enter Mobile 😏");
-            return;
-        }
-        else if ($('#Reg_ID_Num').val().trim() == "") {
-            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
-            return;
-        }
-        var USERID_Num = _USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE; });
-        if (USERID_Num.length > 0) {
-            Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
-            return;
-        }
-        else if ($('#Reg_Mail').val().trim() == "") {
-            Errorinput($('#Reg_Mail'), "Please a Enter Mail 😡");
-            return;
-        }
-        else if ($('#Reg_Password').val().trim() == "") {
-            Errorinput($('#Reg_Password'), "Please a Enter Password 😡");
-            return;
-        }
-        debugger;
-        var Name = $('#Reg_Full_Name').val().trim();
-        var CompName = $('#Reg_Comp_Name').val().trim();
-        var address = $('#Reg_Address').val().trim();
-        var Mobile = $('#Reg_Mobile').val().trim();
-        var IDNO = $('#Reg_ID_Num').val().trim();
-        var Email = $('#Reg_Mail').val().trim();
-        var UserName = SysSession.CurrentEnvironment.UserCode;
-        var Password = $('#Reg_Password').val().trim();
-        var Idven = Number(_USER[0].SalesManID);
-        var NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
+        Assign();
         Ajax.CallsyncSave({
-            type: "Get",
-            url: sys.apiUrl("Seller", NameFun),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName },
+            type: "Post",
+            url: sys.apiUrl("SalesMan", "UpdateZones"),
+            data: JSON.stringify(_ZonesModel),
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
-                    //GetUSERSByCodeUser(UserName);
+                    Display_Data();
                     Close_Loder();
                 }
                 else {
@@ -162,11 +134,26 @@ var Zone;
         });
     }
     function DeleteRow(RecNo) {
-        debugger;
-        WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", function () {
-            $("#txtStatusFlag" + RecNo).val() == 'i' ? $("#txtStatusFlag" + RecNo).val('m') : $("#txtStatusFlag" + RecNo).val('d');
-            $("#Row" + RecNo).attr("hidden", "true");
-        });
+        $("#txtStatusFlag" + RecNo).val() == 'i' ? $("#txtStatusFlag" + RecNo).val('m') : $("#txtStatusFlag" + RecNo).val('d');
+        $("#Row" + RecNo).attr("hidden", "true");
+    }
+    function Assign() {
+        _ZonesModel = new Array();
+        for (var i = 0; i < CountGrid; i++) {
+            if ($("#txtStatusFlag".concat(i)).val() != 'm' && $("#txtStatusFlag".concat(i)).val() != '') {
+                _ZonesObj = new Zones();
+                _ZonesObj.ZoneID = Number($("#Txt_ZoneID".concat(i)).val());
+                _ZonesObj.ZoneCode = $("#Txt_ZoneCode".concat(i)).val();
+                _ZonesObj.DescA = $("#Txt_DescA".concat(i)).val();
+                _ZonesObj.Active = $("#chk_Active".concat(i)).is(":checked");
+                _ZonesObj.Remarks = $("#Txt_Remarks".concat(i)).val();
+                _ZonesObj.StatusFlag = $("#txtStatusFlag".concat(i)).val();
+                _ZonesModel.push(_ZonesObj);
+            }
+        }
+        _ZonesModel[0].UserCode = _USER[0].USER_CODE;
+        _ZonesModel[0].Comp_Code = _USER[0].CompCode.toString();
+        _ZonesModel[0].Branch_Code = _USER[0].Branch_Code;
     }
 })(Zone || (Zone = {}));
 //# sourceMappingURL=Zone.js.map

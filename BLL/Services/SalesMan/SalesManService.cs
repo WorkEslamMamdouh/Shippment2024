@@ -1,5 +1,5 @@
 ﻿using Inv.DAL.Domain;
-using Inv.DAL.Repository; 
+using Inv.DAL.Repository;
 
 namespace Inv.BLL.Services.SalesMan
 {
@@ -25,7 +25,24 @@ namespace Inv.BLL.Services.SalesMan
             var Item = unitOfWork.Repository<I_Sls_D_Salesman>().Update(entity);
             unitOfWork.Save();
             return Item;
-        } 
+        }
+        public Zones InsertZone(Zones entity)
+        {
+            var Item = unitOfWork.Repository<Zones>().Insert(entity);
+            unitOfWork.Save();
+            return Item;
+        }
+        public Zones UpdateZone(Zones entity)
+        {
+            var Item = unitOfWork.Repository<Zones>().Insert(entity);
+            unitOfWork.Save();
+            return Item;
+        }
+        public void DeleteZone(int id)
+        {
+            unitOfWork.Repository<Zones>().Delete(id);
+            unitOfWork.Save();
+        }
         #endregion
     }
 }
