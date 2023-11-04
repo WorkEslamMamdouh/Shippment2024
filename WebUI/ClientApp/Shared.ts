@@ -316,7 +316,7 @@ function GetPrivileges(): UserPrivilege {
 
 function GetSystemEnvironment(): SystemEnvironment {
     if (document.cookie.length > 0) {
-        let sys: SystemEnvironment = JSON.parse(getCookie("Inv1_systemProperties")) as SystemEnvironment;
+        let sys: SystemEnvironment = JSON.parse(getCookie("Harley_systemProperties")) as SystemEnvironment;
         sys.CompanyNameAr = "";
         sys.CompanyName = "";
         //alert(getCookie("Kids_systemProperties"));

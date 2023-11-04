@@ -133,7 +133,7 @@ var SystemTools = /** @class */ (function () {
                 SearchGrid.SearchDataGrid.PageSize = settings.PageSize; // < 50 ? 50 : settings.PageSize;
                 SearchGrid.SearchDataGrid.PrimaryKey = settings.ReturnDataPropertyName; //"RowIndex";
                 var boxWidth = settings.Width <= 100 ? "90%" : settings.Width.toString() + "px";
-                var boxHeight = settings.Height <= 100 ? "50%" : settings.Height.toString() + "px";
+                var boxHeight = settings.Height <= 100 ? "70%" : settings.Height.toString() + "px";
                 var boxLeft = settings.Left <= 50 ? "5%" : settings.Left.toString() + "px";
                 var boxTop = settings.Top <= 50 ? "10%" : settings.Top.toString() + "px";
                 debugger;
