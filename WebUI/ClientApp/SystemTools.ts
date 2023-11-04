@@ -163,7 +163,7 @@
                 SearchGrid.SearchDataGrid.PrimaryKey = settings.ReturnDataPropertyName; //"RowIndex";
 
                 let boxWidth: string = settings.Width <= 100 ? "90%" : settings.Width.toString() + "px";
-                let boxHeight: string = settings.Height <= 100 ? "50%" : settings.Height.toString() + "px";
+                let boxHeight: string = settings.Height <= 100 ? "70%" : settings.Height.toString() + "px";
                 let boxLeft: string = settings.Left <= 50 ? "5%" : settings.Left.toString() + "px";
                 let boxTop: string = settings.Top <= 50 ? "10%" : settings.Top.toString() + "px";
 

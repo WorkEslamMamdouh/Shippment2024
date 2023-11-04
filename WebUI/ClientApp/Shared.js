@@ -201,7 +201,7 @@ function GetPrivileges() {
 }
 function GetSystemEnvironment() {
     if (document.cookie.length > 0) {
-        var sys = JSON.parse(getCookie("Inv1_systemProperties"));
+        var sys = JSON.parse(getCookie("Harley_systemProperties"));
         sys.CompanyNameAr = "";
         sys.CompanyName = "";
         //alert(getCookie("Kids_systemProperties"));
