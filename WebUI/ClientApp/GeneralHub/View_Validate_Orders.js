@@ -100,6 +100,7 @@ var View_Validate_Orders;
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", "", function () {
             var id = SearchGrid.SearchDataGrid.SelectedKey;
+            alert(id);
         });
     }
 })(View_Validate_Orders || (View_Validate_Orders = {}));

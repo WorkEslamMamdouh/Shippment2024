@@ -30,8 +30,8 @@
     <link href="~/Scripts/jsgrid/jsgrid.min.css" rel="stylesheet" />
 
 
-    <link href="~/Newtemplate/template/animate.min.css" rel="stylesheet" /> 
-    <link href="~/NewStyle/Style.css" rel="stylesheet" /> 
+    <link href="~/Newtemplate/template/animate.min.css" rel="stylesheet" />
+    <link href="~/NewStyle/Style.css" rel="stylesheet" />
     <link href="~/NewStyle/Loder/Loder.css" rel="stylesheet" />
 
 </head>
@@ -182,9 +182,32 @@
 
     </div>
 
+
+    <!-- Search Box Modal-->
+    <div id="Div_SearchBox" class="modal">
+
+    </div>
+    <div id="SearchBox" class="display_none fade search-box">
+        <div class="search-content">
+            <input type="button" onclick="$('#SearchBox').removeClass('show');" class="close close-search-box" data-dismiss="modal" aria-label="Close" id="btnCloseSearch" name="name" value="x" />
+            <h4 id="searchTitle" class="search-title"></h4>
+        </div>
+        <div class="table-serach-container">
+            <div id="tableDiv" class="table table-bordered table-hover w-100"></div>
+        </div>
+    </div>
+
+
     <script>
         var modal = document.getElementById("myModalLoder");
         modal.style.display = "block";
+
+        var Div_SearchBox = document.getElementById("Div_SearchBox");
+
+        Div_SearchBox.onclick = () => {
+            Div_SearchBox.style.display = "none";
+            $("#SearchBox").addClass("display_none")
+        };
     </script>
 
     @Scripts.Render("~/Bundles/AppScript2")
@@ -193,8 +216,8 @@
 
     @RenderSection("Script", required: false)
 
-    <script src="~/NewStyle/nicepage.js"></script>
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/NewStyle/nicepage.js"></script>
 
 
 

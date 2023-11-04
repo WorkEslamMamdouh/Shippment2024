@@ -114,11 +114,13 @@ var SystemTools = /** @class */ (function () {
             },
             async: true,
             success: function (resp) {
+                debugger;
                 var response = resp;
                 if (response == null) {
                     MessageBox.Show("Search not available, Please call your app administrator", "Search");
                     return;
                 }
+                debugger;
                 var columns = response.Columns;
                 var result = JSON.parse(response.DataResult);
                 var settings = response.Settings;
@@ -130,24 +132,31 @@ var SystemTools = /** @class */ (function () {
                 SearchGrid.SearchDataGrid.ElementName = "SearchDataTable";
                 SearchGrid.SearchDataGrid.PageSize = settings.PageSize; // < 50 ? 50 : settings.PageSize;
                 SearchGrid.SearchDataGrid.PrimaryKey = settings.ReturnDataPropertyName; //"RowIndex";
-                var boxWidth = settings.Width <= 100 ? "80%" : settings.Width.toString() + "px";
-                var boxHeight = settings.Height <= 100 ? "80%" : settings.Height.toString() + "px";
+                var boxWidth = settings.Width <= 100 ? "90%" : settings.Width.toString() + "px";
+                var boxHeight = settings.Height <= 100 ? "50%" : settings.Height.toString() + "px";
                 var boxLeft = settings.Left <= 50 ? "5%" : settings.Left.toString() + "px";
                 var boxTop = settings.Top <= 50 ? "10%" : settings.Top.toString() + "px";
+                debugger;
                 $("#SearchBox").css("width", boxWidth);
                 $("#SearchBox").css("height", boxHeight);
                 $("#SearchBox").css("left", boxLeft);
                 $("#SearchBox").css("top", boxTop);
+                debugger;
                 SearchGrid.SearchDataGrid.Bind();
+                debugger;
                 SearchGrid.SearchDataGrid.OnDoubleClick = function () {
                     debugger;
                     console.log(SearchGrid.SearchDataGrid.SelectedKey);
-                    $("#SearchBox").removeClass("show");
-                    $("#SearchBox").removeClass("modal-backdrop");
-                    $("#SearchBox").modal("hide"); //.css("display", "none");
-                    $("#SearchBox").addClass("modal");
+                    //$("#SearchBox").removeClass("show")
+                    //$("#SearchBox").removeClass("modal-backdrop")
+                    //$("#SearchBox").modal("hide");//.css("display", "none");
+                    //$("#SearchBox").addClass("modal");
+                    var Div_SearchBox = document.getElementById("Div_SearchBox");
+                    Div_SearchBox.style.display = "none";
+                    $("#SearchBox").addClass("display_none");
                     OnSearchSelected();
                 };
+                debugger;
                 try {
                     if (_this.SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
                         document.getElementById("searchTitle").innerText = settings.SerachFormTitleA;
@@ -161,13 +170,16 @@ var SystemTools = /** @class */ (function () {
                 }
                 $(".ui-igedit-input").keyup(function (e) {
                 });
-                $("#SearchBox").modal("show"); //.css("display", "");//
-                // $("#SearchBox").addClass("in");//.css("display", "");//
-                $("#SearchBox").addClass("show");
-                $("#SearchBox").removeClass("modal");
-                $("#SearchBox").addClass("modal-backdrop");
-                $("#SearchDataTable").css("width", "100%");
+                //$("#SearchBox").modal("show");                
+                //$("#SearchBox").addClass("show")
+                //$("#SearchBox").removeClass("modal")
+                //$("#SearchBox").addClass("modal-backdrop")
+                var modal = document.getElementById("Div_SearchBox");
+                modal.style.display = "block";
+                $("#SearchBox").removeClass("display_none");
+                $("#SearchDataTable").css("width", "97%");
                 $("#SearchDataTable").css("height", "100%");
+                debugger;
             }
         });
         //$("#SearchDataTable_filter label input").addClass('display_none'); 

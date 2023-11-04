@@ -139,13 +139,14 @@
             },
             async: true,
             success: (resp) => {
-
+                debugger
                 var response = resp;
                 if (response == null) {
                     MessageBox.Show("Search not available, Please call your app administrator", "Search");
                     return;
                 }
 
+                debugger
                 let columns = response.Columns as Array<datatableColumn>;
                 let result = JSON.parse(response.DataResult);
 
@@ -161,28 +162,37 @@
                 SearchGrid.SearchDataGrid.PageSize = settings.PageSize;// < 50 ? 50 : settings.PageSize;
                 SearchGrid.SearchDataGrid.PrimaryKey = settings.ReturnDataPropertyName; //"RowIndex";
 
-                let boxWidth: string = settings.Width <= 100 ? "80%" : settings.Width.toString() + "px";
-                let boxHeight: string = settings.Height <= 100 ? "80%" : settings.Height.toString() + "px";
+                let boxWidth: string = settings.Width <= 100 ? "90%" : settings.Width.toString() + "px";
+                let boxHeight: string = settings.Height <= 100 ? "50%" : settings.Height.toString() + "px";
                 let boxLeft: string = settings.Left <= 50 ? "5%" : settings.Left.toString() + "px";
                 let boxTop: string = settings.Top <= 50 ? "10%" : settings.Top.toString() + "px";
+
+                debugger
 
                 $("#SearchBox").css("width", boxWidth);
                 $("#SearchBox").css("height", boxHeight);
                 $("#SearchBox").css("left", boxLeft);
                 $("#SearchBox").css("top", boxTop);
 
+                debugger
                 SearchGrid.SearchDataGrid.Bind();
-
+                debugger
                 SearchGrid.SearchDataGrid.OnDoubleClick = () => {
                     debugger
                     console.log(SearchGrid.SearchDataGrid.SelectedKey);
-                    $("#SearchBox").removeClass("show")
-                    $("#SearchBox").removeClass("modal-backdrop")
-                    $("#SearchBox").modal("hide");//.css("display", "none");
-                    $("#SearchBox").addClass("modal");
+                    //$("#SearchBox").removeClass("show")
+                    //$("#SearchBox").removeClass("modal-backdrop")
+                    //$("#SearchBox").modal("hide");//.css("display", "none");
+                    //$("#SearchBox").addClass("modal");
+
+                    var Div_SearchBox = document.getElementById("Div_SearchBox");
+                    Div_SearchBox.style.display = "none";
+                    $("#SearchBox").addClass("display_none")
+             
+
                     OnSearchSelected();
                 };
-
+                debugger
                 try {
 
                     if (this.SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
@@ -199,14 +209,18 @@
 
                 });
 
-                $("#SearchBox").modal("show");//.css("display", "");//
-                // $("#SearchBox").addClass("in");//.css("display", "");//
-                $("#SearchBox").addClass("show")
-                $("#SearchBox").removeClass("modal")
-                $("#SearchBox").addClass("modal-backdrop")
+                //$("#SearchBox").modal("show");                
+                //$("#SearchBox").addClass("show")
+                //$("#SearchBox").removeClass("modal")
+                //$("#SearchBox").addClass("modal-backdrop")
 
-                $("#SearchDataTable").css("width", "100%");
+                var modal = document.getElementById("Div_SearchBox");
+                modal.style.display = "block";
+                $("#SearchBox").removeClass("display_none")
+
+                $("#SearchDataTable").css("width", "97%");
                 $("#SearchDataTable").css("height", "100%");
+                debugger
             }
         });
 
