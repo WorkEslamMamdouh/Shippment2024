@@ -124,9 +124,9 @@
 
         this.orgCondition = Condition;
 
-        let SystemCode = this.SysSession.CurrentEnvironment.SystemCode;
-        let SubSystemCode = this.SysSession.CurrentEnvironment.SubSystemCode;
-        let ScreenLanguage = this.SysSession.CurrentEnvironment.ScreenLanguage;
+        let SystemCode = 'I' //this.SysSession.CurrentEnvironment.SystemCode;
+        let SubSystemCode = 'I'// this.SysSession.CurrentEnvironment.SubSystemCode;
+        let ScreenLanguage =  this.SysSession.CurrentEnvironment.ScreenLanguage;
         Ajax.CallAsync({
             url: this.apiUrl("SystemTools", "FindKey"),
             data: {

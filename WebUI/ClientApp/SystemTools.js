@@ -99,8 +99,8 @@ var SystemTools = /** @class */ (function () {
     SystemTools.prototype.FindKey = function (moduleCode, _SearchControlName, Condition, OnSearchSelected) {
         var _this = this;
         this.orgCondition = Condition;
-        var SystemCode = this.SysSession.CurrentEnvironment.SystemCode;
-        var SubSystemCode = this.SysSession.CurrentEnvironment.SubSystemCode;
+        var SystemCode = 'I'; //this.SysSession.CurrentEnvironment.SystemCode;
+        var SubSystemCode = 'I'; // this.SysSession.CurrentEnvironment.SubSystemCode;
         var ScreenLanguage = this.SysSession.CurrentEnvironment.ScreenLanguage;
         Ajax.CallAsync({
             url: this.apiUrl("SystemTools", "FindKey"),

@@ -1657,12 +1657,8 @@ function DateTimeFormat(dateForm: string): string {
 }
 
 function DateStartMonth() {
-
-
-    var sys: SystemTools = new SystemTools();
-    var todaystr: string = ConvertToDateDash(GetDate()) <= ConvertToDateDash(sys.SysSession.CurrentEnvironment.EndDate) ? GetDate() : sys.SysSession.CurrentEnvironment.EndDate;
-
-    var dateString = todaystr;
+     
+    var dateString = GetDate();
     var yyyy = dateString.substring(0, 4);
     var mm = dateString.substring(5, 7);
     var dd = dateString.substring(8, 10);

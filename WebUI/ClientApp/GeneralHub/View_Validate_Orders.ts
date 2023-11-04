@@ -12,13 +12,16 @@ namespace View_Validate_Orders {
     var _Invoices: Array<Sls_Invoice> = new Array <Sls_Invoice>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
-    var txtSearch: HTMLInputElement; 
+    var txtSearch: HTMLInputElement;
+    var Filter_Select_Seller: HTMLButtonElement;
      
     export function InitalizeComponent() {
 
 
         InitalizeControls();
         InitializeEvents();
+        $('#Txt_From_Date').val(DateStartMonth())
+        $('#Txt_To_Date').val(GetDate())
         GetData_Invoice();
         InitializeGrid();
         Display_Orders();
@@ -26,11 +29,12 @@ namespace View_Validate_Orders {
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
+        Filter_Select_Seller = document.getElementById('Filter_Select_Seller') as HTMLButtonElement;
     }
     function InitializeEvents() {
 
         txtSearch.onkeyup = _SearchBox_Change;
-         
+        Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
     }
     function InitializeGrid() { 
         _Grid.ElementName = "_Grid";
@@ -98,8 +102,7 @@ namespace View_Validate_Orders {
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         
-    }
-
+    } 
     function Display_Orders() {
         
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID")); 
@@ -112,5 +115,11 @@ namespace View_Validate_Orders {
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     } 
 
+    function Filter_Select_Seller_onclick() {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", "", () => {
+            let id = SearchGrid.SearchDataGrid.SelectedKey
+             
+        });
+    }
      
 }

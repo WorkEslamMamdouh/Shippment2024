@@ -9,9 +9,12 @@ var View_Validate_Orders;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var txtSearch;
+    var Filter_Select_Seller;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
+        $('#Txt_From_Date').val(DateStartMonth());
+        $('#Txt_To_Date').val(GetDate());
         GetData_Invoice();
         InitializeGrid();
         Display_Orders();
@@ -20,9 +23,11 @@ var View_Validate_Orders;
     View_Validate_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
+        Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
+        Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
     }
     function InitializeGrid() {
         _Grid.ElementName = "_Grid";
@@ -91,6 +96,11 @@ var View_Validate_Orders;
         $('#Txt_Total_LineCount').val(_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
+    }
+    function Filter_Select_Seller_onclick() {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", "", function () {
+            var id = SearchGrid.SearchDataGrid.SelectedKey;
+        });
     }
 })(View_Validate_Orders || (View_Validate_Orders = {}));
 //# sourceMappingURL=View_Validate_Orders.js.map
