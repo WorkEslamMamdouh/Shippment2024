@@ -29,7 +29,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult SignUp(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password)
+        public IHttpActionResult SignUp(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password,string CompName)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -43,7 +43,7 @@ namespace Inv.API.Controllers
                     string Qury = @"declare @LASTID int 
                         INSERT INTO [dbo].[A_Pay_D_Vendor]
                     ([CompCode],[VendorCode],[NAMEA],[NAMEL],[IDNo],[MOBILE],[EMAIL],[Isactive],[CREATED_AT],[WebUserName],[WebPassword]
-                    ,[Address_Street])VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "')  SET @LASTID = @@IDENTITY select @LASTID";
+                    ,[Address_Street],REMARKS)VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "',N'" + CompName + "')  SET @LASTID = @@IDENTITY select @LASTID";
 
                     int Vendorid = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
 
@@ -75,7 +75,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateSeller(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId)
+        public IHttpActionResult UpdateSeller(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId, string CompName)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -87,7 +87,7 @@ namespace Inv.API.Controllers
                     // Generate a random integer between 1 and 100
                     int randomNumber = random.Next(1, 10000);
                     string Qury = @"UPDATE[dbo].[A_Pay_D_Vendor] SET
-                    [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + "',[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
+                    [VendorCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',REMARKS =N'"+CompName+"', [NAMEA]= N'" + Name + "',[NAMEL] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[Address_Street] =N'" + address + "' where VendorID = " + VendorId + " ";
                     db.Database.ExecuteSqlCommand(Qury);
                     ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, VendorId, "SignUp", "Update", db);
                     if (res.ResponseState == true)
