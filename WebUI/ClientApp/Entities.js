@@ -7149,6 +7149,20 @@ var Sls_InvoiceItem = /** @class */ (function (_super) {
     }
     return Sls_InvoiceItem;
 }(SecurityClass));
+var Zones = /** @class */ (function (_super) {
+    __extends(Zones, _super);
+    function Zones() {
+        var _this = _super.call(this) || this;
+        _this.ZoneID = 0;
+        _this.ZoneCode = "";
+        _this.DescA = "";
+        _this.Active = false;
+        _this.Remarks = "";
+        _this.StatusFlag = "";
+        return _this;
+    }
+    return Zones;
+}(SecurityClass));
 var InvoiceMasterDetails = /** @class */ (function (_super) {
     __extends(InvoiceMasterDetails, _super);
     function InvoiceMasterDetails() {

@@ -12,6 +12,8 @@ using System.Web.Http;
 using System.Web.ModelBinding;
 using System.Data.Common; 
 using System.Security.Principal;
+using System.Reflection.Emit;
+using Unity;
 
 namespace Inv.API.Controllers
 {
@@ -107,6 +109,22 @@ namespace Inv.API.Controllers
 
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult UpdateInvStatus(int CompCode,int BranchCode,int InvoiceID, int SlsManID, int Status,string UserCode, string StatusDesc)
+        {
+            string Cond = "";
+            if (SlsManID != 0 )
+            {
+                Cond = ", SalesmanId = " + SlsManID + "";
+            }
+            string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+            Status ="+Status+" "+Cond+" where InvoiceID = " + InvoiceID + "";
+            db.Database.ExecuteSqlCommand(Qury);
+
+
+            LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, InvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.Invoice, true, null, null, StatusDesc);
+            return Ok(new BaseResponse(true));
+        }
 
     }
 }

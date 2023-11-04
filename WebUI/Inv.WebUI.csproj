@@ -1096,6 +1096,7 @@
     <Content Include="Views\Order\Edit_OrderIndex.cshtml" />
     <Content Include="Views\Delivery\View_delivery_OrdersIndex.cshtml" />
     <Content Include="Views\GeneralHub\View_Validate_OrdersIndex.cshtml" />
+    <Content Include="Views\Zone\ZoneIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1128,6 +1129,7 @@
     <TypeScriptCompile Include="ClientApp\GeneralHub\View_Validate_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Order\Edit_Order.ts" />
+    <TypeScriptCompile Include="ClientApp\Zone\Zone.ts" />
     <TypeScriptCompile Include="ClientApp\Profile\Profile.ts" />
     <TypeScriptCompile Include="ClientApp\Login\Login.ts" />
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />

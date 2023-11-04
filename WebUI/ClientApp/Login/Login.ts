@@ -125,6 +125,11 @@ namespace Login {
 
     function SubmitRegister() {
 
+        if ($('#Reg_Comp_Name').val().trim() == "") {
+            Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
+            return
+        }
+
         if ($('#Reg_Full_Name').val().trim() == "") {
             Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name 😡");
             return
@@ -171,13 +176,14 @@ namespace Login {
         let Email = $('#Reg_Mail').val().trim();
         let UserName = $('#Reg_UserName').val().trim();
         let Password = $('#Reg_Password').val().trim();
+        let CompName = $('#Reg_Comp_Name').val().trim();
 
 
 
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
-            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password },
+            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName },
             success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {

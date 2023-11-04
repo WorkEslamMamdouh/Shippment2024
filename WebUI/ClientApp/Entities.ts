@@ -12153,6 +12153,24 @@ class Sls_InvoiceItem extends SecurityClass {
 	public StatusFlag: string;
 }
 
+class Zones extends SecurityClass {
+	constructor() {
+		super();
+		this.ZoneID = 0;
+		this.ZoneCode = "";
+		this.DescA = "";
+		this.Active = false;
+		this.Remarks = "";
+		this.StatusFlag = "";
+	}
+	public ZoneID: number;	 
+	public ZoneCode: string;
+	public DescA: string;
+	public Active: boolean;
+	public Remarks: string;
+	public StatusFlag: string;
+}
+
 
 
 

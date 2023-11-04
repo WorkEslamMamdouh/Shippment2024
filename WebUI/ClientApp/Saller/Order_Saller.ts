@@ -278,6 +278,8 @@ namespace Order_Saller {
         Header.NetAfterVat = Number(ItemTotal.toFixed(2));
         Header.ItemCount = Number(ItemCount);
         Header.TrType = 0;
+        Header.CompCode = 1;
+        Header.BranchCode = 1;
 
         InvMasterDetails.Sls_InvoiceItem = Model;
         InvMasterDetails.Sls_Invoice = Header;

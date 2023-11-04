@@ -37,6 +37,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/GeneralHub/View_Validate_OrdersIndex.cshtml",
          "~/Views/Order/View_OrderIndex.cshtml",
          "~/Views/Order/Edit_OrderIndex.cshtml",
+         "~/Views/Zone/ZoneIndex.cshtml",
 
                       };
 
