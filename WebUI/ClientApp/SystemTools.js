@@ -179,6 +179,11 @@ var SystemTools = /** @class */ (function () {
                 $("#SearchBox").removeClass("display_none");
                 $("#SearchDataTable").css("width", "97%");
                 $("#SearchDataTable").css("height", "100%");
+                $("#btnCloseSearch").on('click', function () {
+                    var Div_SearchBox = document.getElementById("Div_SearchBox");
+                    Div_SearchBox.style.display = "none";
+                    $("#SearchBox").addClass("display_none");
+                });
                 debugger;
             }
         });
