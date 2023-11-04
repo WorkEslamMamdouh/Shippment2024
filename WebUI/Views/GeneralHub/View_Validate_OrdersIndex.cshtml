@@ -2,56 +2,41 @@
 <div class="sparkline8-graph col-xs-12" style="border-radius: 50px;">
 
     <div class="inside-table my-4">
-        
+
 
         <div class="u-form-email u-form-group u-form-partition-factor-2" style="border-color: black;margin-left: 5%;width: 90%;margin-bottom: 1%;">
             <label for="Txt_Ref_No" class="u-label u-text-grey-40">_____Search 🔎</label>
-            <input type="text" placeholder="   Search : " id="txtSearch" name="email" class="Clear_Header u-input u-input-rectangle" required=""> 
+            <input type="text" placeholder="   Search : " id="txtSearch" name="email" class="Clear_Header u-input u-input-rectangle" required="">
         </div>
 
         <div id="_Grid">
 
         </div>
 
-        <div class="col-xs-12 col-lg-4 col-sm-12">
-            <div class="col-xs-5 col-lg-4 col-sm-5">
-                <label style="font-weight: bold;font-size: 17px;"> Total Rece </label>
-            </div>
-
-            <div class="col-xs-7 col-lg-8 col-sm-7">
-                <input id="txtTotalReceipt" type="text" disabled class="  form-control " placeholder="Amount : " style="background-color: aquamarine;">
-            </div>
-
-        </div>
-
-        <div class="col-xs-12 col-lg-4 col-sm-12">
-
-
-            <div class="col-xs-5 col-lg-4 col-sm-5">
-                <label style="font-weight: bold;font-size: 17px;"> Total Exch </label>
-            </div>
-
-            <div class="col-xs-7 col-lg-8 col-sm-7">
-                <input id="txtTotalExchange" type="text" disabled class="  form-control " placeholder="Amount : " style="background-color: #ff7f7f;">
-            </div>
-
-        </div>
-
-
-        <div class="col-xs-12 col-lg-4 col-sm-12">
-            <div class="col-xs-5 col-lg-4 col-sm-5">
-                <label style="font-weight: bold;font-size: 17px;"> Total All </label>
-            </div>
-
-            <div class="col-xs-7 col-lg-8 col-sm-7">
-                <input id="txtTotal" type="text" disabled class="  form-control " placeholder="Amount : ">
-            </div>
-        </div>
-
 
     </div>
 
+    <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+        <div class="u-form-email u-form-group u-form-partition-factor-7">
+            
+        </div>
+        <div class="u-form-email u-form-group u-form-partition-factor-4">
+            <label for="" class="u-label u-text-grey-40">Line Count</label>
+            <input disabled type="text" placeholder="0" id="Txt_Total_LineCount"  class=" u-input u-input-rectangle" > 
+        </div>
+        <div class="u-form-group u-form-name u-form-partition-factor-4">
+            <label for="" class="u-label u-text-grey-40">Items Count</label>
+            <input disabled type="text" placeholder="0" id="Txt_Total_ItemsCount" class=" u-input u-input-rectangle">
+        </div>
+        <div class="u-form-group u-form-name u-form-partition-factor-4">
+            <label for="" class="u-label u-text-grey-40">Total Amount</label>
+            <input disabled type="text" placeholder="0" id="Txt_Total_Amount"  class="  u-input u-input-rectangle" >
+        </div>
+    </form>
+
 </div>
+
+
 
 
 <script src="~/ClientApp/JsGrid.js"></script>

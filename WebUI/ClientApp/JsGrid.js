@@ -260,38 +260,6 @@ var JsGrid = /** @class */ (function () {
                     e_item_PrimaryTrNo = "";
                 }
                 //**********************************************************************
-                if ($("#Mod_Flag").val() != 1) {
-                    $('#Loading_Div').html('<span class="loader" style="font-size: 465%;z-index: 99999;"></span>');
-                }
-                setTimeout(function () {
-                    _this.SelectedIndex = _this.DataSource.indexOf(e_item); // e.itemIndex;
-                    _this.SelectedItem = e_item;
-                    _this.SelectedKey = e_item_PrimaryKey;
-                    if (_this.OnRowDoubleClicked != null)
-                        _this.OnRowDoubleClicked();
-                    if ($("#Mod_Flag").val() != 1) {
-                        $('#icon-bar').removeClass('display_none');
-                        $("#divIconbar").fadeIn(3000);
-                        $("#NewAdd_Falg").val(0);
-                        $('#btnPrintTransaction').removeClass('display_none');
-                        $('#btnUpdate').removeClass('display_none');
-                        $('#btnBack').addClass('display_none');
-                        $('#btnSave').addClass('display_none');
-                        $('#Loading_Div').html('');
-                        setTimeout(function () {
-                            var compCode = localStorage.getItem("compCode");
-                            var UserCode = localStorage.getItem("UserCode");
-                            var BranchCode = localStorage.getItem("BranchCode");
-                            var CurrentYear = localStorage.getItem("CurrentYear");
-                            var Model_Screen = localStorage.getItem("Model_Screen");
-                            DoubleClickLog(UserCode, compCode, BranchCode, Model_Screen, CurrentYear, e_item_PrimaryKey, e_item_PrimaryTrNo);
-                        }, 5000);
-                    }
-                    if ($("#NoDubleclick").val() == 0) {
-                        document.body.scrollTop = 800;
-                        document.documentElement.scrollTop = 800;
-                    }
-                }, 150);
             },
             onRefreshing: function (arg) {
             },

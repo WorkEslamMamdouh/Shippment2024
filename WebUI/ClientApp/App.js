@@ -2884,6 +2884,23 @@ function Show_Loder() {
     var modal = document.getElementById("myModalLoder");
     modal.style.display = "block";
 }
+function SumValue(ListData, Key, FractionDigits) {
+    var SumValues = ListData.reduce(function (total, obj) { return total + obj[Key]; }, 0);
+    if (FractionDigits > 0) {
+        return Digits(SumValues, FractionDigits);
+    }
+    else {
+        return SumValues.toString();
+    }
+}
+function Digits(_number, FractionDigits) {
+    if (FractionDigits > 0) {
+        return _number.toLocaleString('en-US', { maximumFractionDigits: FractionDigits });
+    }
+    else {
+        return _number.toLocaleString('en-US', { maximumFractionDigits: 1 });
+    }
+}
 var GlopelUSERS = new Array();
 var GlopelInvoices = new Array();
 var GlopelInvoiceItems = new Array();

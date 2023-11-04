@@ -3756,7 +3756,24 @@ function Show_Loder() {
 }
 
 
+function SumValue(ListData: any[], Key: string, FractionDigits?: number): string {
+    const SumValues = ListData.reduce((total, obj) => total + obj[Key], 0);
 
+    if (FractionDigits > 0) {
+        return Digits(SumValues, FractionDigits);
+    } else {
+        return SumValues.toString();
+    }
+}
+
+function Digits(_number: number, FractionDigits?: number): string {
+    if (FractionDigits > 0) {
+        return _number.toLocaleString('en-US', { maximumFractionDigits: FractionDigits });
+    }
+    else {
+        return _number.toLocaleString('en-US', { maximumFractionDigits: 1 });
+    }
+}
 
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
 var GlopelInvoices: Array<Sls_Invoice> = new Array<Sls_Invoice>();

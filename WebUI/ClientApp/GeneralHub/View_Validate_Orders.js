@@ -8,6 +8,7 @@ var View_Validate_Orders;
     var _Grid = new JsGrid();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
+    var txtSearch;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
@@ -18,8 +19,10 @@ var View_Validate_Orders;
     }
     View_Validate_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
+        txtSearch = document.getElementById('txtSearch');
     }
     function InitializeEvents() {
+        txtSearch.onkeyup = _SearchBox_Change;
     }
     function InitializeGrid() {
         _Grid.ElementName = "_Grid";
@@ -54,15 +57,16 @@ var View_Validate_Orders;
     }
     function _SearchBox_Change() {
         $("#_Grid").jsGrid("option", "pageIndex", 1);
-        //if (txtSearch.value != "") {
-        //    let search: string = txtSearch.value.toLowerCase();
-        //    let SearchDetails = LnkTransDetails.filter(x => x.TR_NO.toString().search(search) >= 0 || x.VOUCHER_DESCA.toLowerCase().search(search) >= 0 || x.TR_DESCA.toLowerCase().search(search) >= 0);
-        //    _Grid.DataSource = SearchDetails;
-        //    _Grid.Bind();
-        //} else {
-        //    _Grid.DataSource = LnkTransDetails;
-        //    _Grid.Bind();
-        //}
+        if (txtSearch.value != "") {
+            var search_1 = txtSearch.value.toLowerCase();
+            var SearchDetails = _Invoices.filter(function (x) { return x.InvoiceID.toString().search(search_1) >= 0 || x.CustomerName.toLowerCase().search(search_1) >= 0 || x.RefNO.toLowerCase().search(search_1) >= 0 || x.CustomerMobile1.toLowerCase().search(search_1) >= 0 || x.NetAfterVat.toString().search(search_1) >= 0; });
+            _Grid.DataSource = SearchDetails;
+            _Grid.Bind();
+        }
+        else {
+            _Grid.DataSource = _Invoices;
+            _Grid.Bind();
+        }
     }
     function GetData_Invoice() {
         debugger;
@@ -81,24 +85,12 @@ var View_Validate_Orders;
         SetGlopelDataInvoiceItems(_InvoiceItems);
     }
     function Display_Orders() {
-        debugger;
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
-        debugger;
         _Grid.DataSource = _Invoices;
         _Grid.Bind();
-        debugger;
-        //$('#Div_View_Orders').html("");
-        //for (var i = 0; i < _Invoices.length; i++) {
-        //    Build_Orders(i)
-        //}
-    }
-    function Build_Orders(cnt) {
-        var html = "\n\n             <div class=\"u-align-center u-container-align-center-xs u-container-style u-products-item u-repeater-item u-white u-repeater-item-2 animate__animated animate__zoomIn\" data-product-id=\"3\">\n                    <div class=\"u-container-layout u-similar-container u-valign-top-xs u-container-layout-2\">\n                        <!--product_image-->\n                        <a class=\"u-product-title-link\"><img alt=\"\" class=\"u-expanded-width u-image u-image-default u-product-control u-image-2\" src=\"/NewStyle/images/istockphoto-853561716-1024x1024.jpg\" style=\"height: 180px;\" ></a><!--/product_image--><!--product_title-->\n                        <h6 class=\"u-align-center-xs u-product-control u-text u-text-2\">\n                            <a class=\"u-product-title-link\">" + _Invoices[cnt].CustomerName + "</a>\n                        </h6>\n                        <h6 class=\"u-align-center-xs u-product-control u-text u-text-2\">\n                            <a class=\"u-product-title-link\">( " + _Invoices[cnt].RefNO + " )</a>\n                        </h6>\n                        <div class=\"u-align-center-xs u-product-control u-product-price u-product-price-2\">\n                            <div class=\"u-price-wrapper u-spacing-10\">\n                                <!--product_old_price-->\n                                <div class=\"u-hide-price u-old-price\"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->\n                                <div class=\"u-price u-text-palette-2-base\" style=\"font-size: 1.25rem; font-weight: 700;\">( " + _Invoices[cnt].NetAfterVat + " )</div><!--/product_regular_price-->\n                            </div>\n                        </div><!--/product_price--><!--product_button--><!--options_json--><!--{\"clickType\":\"go-to-page\",\"content\":\"View\"}--><!--/options_json-->\n                        <a id=\"Btn_ViewOrder" + cnt + "\" class=\"u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2\" data-product-button-click-type=\"go-to-page\"><!--product_button_content-->View<!--/product_button_content--></a><!--/product_button-->\n                    </div>\n                </div>\n\n";
-        $('#Div_View_Orders').append(html);
-        $("#Btn_ViewOrder" + cnt).on('click', function () {
-            localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString());
-            OpenPagePartial("View_Order", "Order 🧺");
-        });
+        $('#Txt_Total_LineCount').val(_Invoices.length);
+        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
+        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
 })(View_Validate_Orders || (View_Validate_Orders = {}));
 //# sourceMappingURL=View_Validate_Orders.js.map
