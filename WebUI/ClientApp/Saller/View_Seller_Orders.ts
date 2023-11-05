@@ -8,7 +8,7 @@ namespace View_Seller_Orders {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
-    var _Invoices: Array<Sls_Invoice> = new Array <Sls_Invoice>();
+    var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
      
      

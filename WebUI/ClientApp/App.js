@@ -1279,6 +1279,15 @@ function DateTimeFormat(dateForm) {
         return DateFormat((new Date()).toString());
     }
 }
+function DateStartYear() {
+    var dateString = GetDate();
+    var yyyy = dateString.substring(0, 4);
+    var mm = dateString.substring(5, 7);
+    var dd = dateString.substring(8, 10);
+    var ReturnedDate;
+    ReturnedDate = yyyy + '-' + '01' + '-' + '01';
+    return ReturnedDate;
+}
 function DateStartMonth() {
     var dateString = GetDate();
     var yyyy = dateString.substring(0, 4);

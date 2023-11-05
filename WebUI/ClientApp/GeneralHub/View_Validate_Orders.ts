@@ -16,17 +16,17 @@ namespace View_Validate_Orders {
     var Filter_Select_Seller: HTMLButtonElement;
     var Filter_View: HTMLButtonElement;
     var btnDelete_Filter: HTMLButtonElement;
-     
+
     export function InitalizeComponent() {
 
 
         InitalizeControls();
         InitializeEvents();
-        $('#Txt_From_Date').val(DateStartMonth())
-        $('#Txt_To_Date').val(GetDate()) 
-        InitializeGrid(); 
+        $('#Txt_From_Date').val(DateStartYear())
+        $('#Txt_To_Date').val(GetDate())
+        InitializeGrid();
         GetData_Invoice();
-        Close_Loder(); 
+        Close_Loder();
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
@@ -41,7 +41,7 @@ namespace View_Validate_Orders {
         Filter_View.onclick = () => { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice() };
         btnDelete_Filter.onclick = Clear;
     }
-    function InitializeGrid() { 
+    function InitializeGrid() {
         _Grid.ElementName = "_Grid";
         //_Grid.OnRowDoubleClicked = GridDoubleClick;
         _Grid.PrimaryKey = "TRID";
@@ -66,14 +66,28 @@ namespace View_Validate_Orders {
                 }
             },
             { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
-            { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" }, 
+            { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
-            
+            {
+                title: "View",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("View");
+                    txt.id = "butView" + item.InvoiceID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+               
+                    txt.onclick = (e) => {
+                        ViewInvoice(item.InvoiceID);
+                    };
+                    return txt;
+                }
+            },
         ];
         _Grid.Bind();
-        
+
     }
     function _SearchBox_Change() {
         $("#_Grid").jsGrid("option", "pageIndex", 1);
@@ -130,7 +144,6 @@ namespace View_Validate_Orders {
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
-
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", "", () => {
             debugger
@@ -138,16 +151,21 @@ namespace View_Validate_Orders {
             let id = SearchGrid.SearchDataGrid.SelectedKey
             dataScr = dataScr.filter(x => x.VendorID == id);
             $('#Txt_VendorID').val(id)
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )"; 
+            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
         });
     }
     function Clear() {
-        $('#Txt_From_Date').val(DateStartMonth())
+        $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         $('#Txt_VendorID').val('')
         Filter_Select_Seller.innerHTML = 'Select Seller'
         $('#btnDelete_Filter').addClass('display_none')
         GetData_Invoice();
     }
-     
+
+    function ViewInvoice(InvoiceID) {
+
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        OpenPagePartial("View_Order", "Order 🧺");
+    }
 }

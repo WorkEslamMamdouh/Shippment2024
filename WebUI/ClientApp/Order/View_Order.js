@@ -5,7 +5,7 @@ var View_Order;
 (function (View_Order) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
-    var _Inv = new Sls_Invoice();
+    var _Inv = new Vnd_Inv_SlsMan();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var InvoiceID = 0;

@@ -15,7 +15,7 @@ var View_Validate_Orders;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
-        $('#Txt_From_Date').val(DateStartMonth());
+        $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
         GetData_Invoice();
@@ -63,6 +63,20 @@ var View_Validate_Orders;
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            {
+                title: "View",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("View");
+                    txt.id = "butView" + item.InvoiceID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+                    txt.onclick = function (e) {
+                        ViewInvoice(item.InvoiceID);
+                    };
+                    return txt;
+                }
+            },
         ];
         _Grid.Bind();
     }
@@ -123,12 +137,16 @@ var View_Validate_Orders;
         });
     }
     function Clear() {
-        $('#Txt_From_Date').val(DateStartMonth());
+        $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         $('#Txt_VendorID').val('');
         Filter_Select_Seller.innerHTML = 'Select Seller';
         $('#btnDelete_Filter').addClass('display_none');
         GetData_Invoice();
+    }
+    function ViewInvoice(InvoiceID) {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        OpenPagePartial("View_Order", "Order 🧺");
     }
 })(View_Validate_Orders || (View_Validate_Orders = {}));
 //# sourceMappingURL=View_Validate_Orders.js.map
