@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    View_Validate_Orders.InitalizeComponent();
+    Detail_Merchant_Payment.InitalizeComponent();
 });
-var View_Validate_Orders;
-(function (View_Validate_Orders) {
+var Detail_Merchant_Payment;
+(function (Detail_Merchant_Payment) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Grid = new JsGrid();
@@ -21,7 +21,7 @@ var View_Validate_Orders;
         GetData_Invoice();
         Close_Loder();
     }
-    View_Validate_Orders.InitalizeComponent = InitalizeComponent;
+    Detail_Merchant_Payment.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
@@ -105,8 +105,8 @@ var View_Validate_Orders;
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -148,5 +148,5 @@ var View_Validate_Orders;
         localStorage.setItem("InvoiceID", InvoiceID.toString());
         OpenPagePartial("View_Order", "Order 🧺");
     }
-})(View_Validate_Orders || (View_Validate_Orders = {}));
-//# sourceMappingURL=View_Validate_Orders.js.map
+})(Detail_Merchant_Payment || (Detail_Merchant_Payment = {}));
+//# sourceMappingURL=Detail_Merchant_Payment.js.map

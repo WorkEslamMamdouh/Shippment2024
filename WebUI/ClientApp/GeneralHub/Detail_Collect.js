@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    View_Validate_Orders.InitalizeComponent();
+    Detail_Collect.InitalizeComponent();
 });
-var View_Validate_Orders;
-(function (View_Validate_Orders) {
+var Detail_Collect;
+(function (Detail_Collect) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Grid = new JsGrid();
@@ -21,7 +21,7 @@ var View_Validate_Orders;
         GetData_Invoice();
         Close_Loder();
     }
-    View_Validate_Orders.InitalizeComponent = InitalizeComponent;
+    Detail_Collect.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
@@ -148,5 +148,5 @@ var View_Validate_Orders;
         localStorage.setItem("InvoiceID", InvoiceID.toString());
         OpenPagePartial("View_Order", "Order 🧺");
     }
-})(View_Validate_Orders || (View_Validate_Orders = {}));
-//# sourceMappingURL=View_Validate_Orders.js.map
+})(Detail_Collect || (Detail_Collect = {}));
+//# sourceMappingURL=Detail_Collect.js.map

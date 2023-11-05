@@ -40,7 +40,10 @@ namespace Inv.WebUI.Controllers
          "~/Views/Zone/ZoneIndex.cshtml",
          "~/Views/UserDef/UserDefIndex.cshtml",
          "~/Views/PromoCode/PromoCodeIndex.cshtml",
-
+         "~/Views/GeneralHub/RecieptOrdersIndex.cshtml",
+         "~/Views/GeneralHub/CashCollectIndex.cshtml",
+         "~/Views/GeneralHub/Merchant_PaymentIndex.cshtml",
+         "~/Views/Delivery/WalletIndex.cshtml", 
                       };
 
         #endregion  Open Pages 
