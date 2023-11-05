@@ -1132,6 +1132,27 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <Property Name="OpenbalanceAt" Type="smalldatetime" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6013: The table/view 'Shippment2024.dbo.SalesMan_Invoices' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="SalesMan_Invoices">
+          <Property Name="SalesmanId" Type="int" />
+          <Property Name="SlsMan_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="SlsMan_Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalAmount" Type="numeric" Precision="38" Scale="2" />
+          <Property Name="CommitionAmount" Type="numeric" Precision="38" Scale="2" />
+          <Property Name="Status" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Shippment2024.dbo.Vendor_Invoices' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Vendor_Invoices">
+          <Property Name="VendorID" Type="int" />
+          <Property Name="Vnd_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Vnd_Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vnd_Company" Type="nvarchar" MaxLength="250" />
+          <Property Name="TotalAmount" Type="numeric" Precision="38" Scale="2" />
+          <Property Name="CommitionAmount" Type="numeric" Precision="38" Scale="2" />
+          <Property Name="Status" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vnd_Inv_SlsMan">
           <Key>
