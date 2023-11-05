@@ -12,6 +12,7 @@ using System.Web.Http;
 using System.Web.ModelBinding;
 using System.Data.Common; 
 using System.Security.Principal;
+using System.ServiceModel;
 
 namespace Inv.API.Controllers
 {
@@ -148,6 +149,53 @@ namespace Inv.API.Controllers
                     dbTransaction.Commit();
                     return Ok(new BaseResponse(true));
 
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int ZoneID)
+        { 
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Random random = new Random();
+
+                    // Generate a random integer between 1 and 100
+                    int randomNumber = random.Next(1, 10000);
+                    string Qury = @"INSERT INTO [dbo].[G_USERS]
+                    ([CompCode],[USER_NAME],[Fax],[MOBILE],[EMAIL],[USER_ACTIVE],[CreatedAt],[USER_CODE],[USER_PASSWORD]
+                    ,[ADDRESS],USER_TYPE)VALUES(N'" + CompCode + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + ")";
+
+                    db.Database.ExecuteSqlCommand(Qury);
+                    var User = "UserAdministrator";
+                    if (ZoneID == 6)
+                    {
+                        User = "UserAccount"; 
+                    }
+                    else if (ZoneID == 4)
+                    {
+                        User = "StockKeeper";
+                    }
+                    else
+                    {
+                        User = "StockMan";
+                    }
+                    db.GProc_CreateUser(UserName, User);
+                    db.GProc_GenerateUserPrivilage(CompCode, BranchCode, UserName); 
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true)); 
                 }
                 catch (Exception ex)
                 {
