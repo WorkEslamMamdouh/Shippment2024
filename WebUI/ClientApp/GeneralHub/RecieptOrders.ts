@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(() => {
-    View_Validate_Orders.InitalizeComponent();
+    RecieptOrders.InitalizeComponent();
 
 });
 
-namespace View_Validate_Orders {
+namespace RecieptOrders {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
     var _Grid: JsGrid = new JsGrid();
@@ -68,8 +68,7 @@ namespace View_Validate_Orders {
             { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
             { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
-            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
-            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" }, 
             {
                 title: "View",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
@@ -115,8 +114,8 @@ namespace View_Validate_Orders {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ]
 
         DataResult(Table);
@@ -141,8 +140,7 @@ namespace View_Validate_Orders {
 
 
         $('#Txt_Total_LineCount').val(_Invoices.length);
-        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount")); 
     }
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", "", () => {

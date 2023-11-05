@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    View_Validate_Orders.InitalizeComponent();
+    RecieptOrders.InitalizeComponent();
 });
-var View_Validate_Orders;
-(function (View_Validate_Orders) {
+var RecieptOrders;
+(function (RecieptOrders) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Grid = new JsGrid();
@@ -21,7 +21,7 @@ var View_Validate_Orders;
         GetData_Invoice();
         Close_Loder();
     }
-    View_Validate_Orders.InitalizeComponent = InitalizeComponent;
+    RecieptOrders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
@@ -62,7 +62,6 @@ var View_Validate_Orders;
             { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
-            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
@@ -105,8 +104,8 @@ var View_Validate_Orders;
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -124,7 +123,6 @@ var View_Validate_Orders;
         _Grid.Bind();
         $('#Txt_Total_LineCount').val(_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", "", function () {
@@ -148,5 +146,5 @@ var View_Validate_Orders;
         localStorage.setItem("InvoiceID", InvoiceID.toString());
         OpenPagePartial("View_Order", "Order 🧺");
     }
-})(View_Validate_Orders || (View_Validate_Orders = {}));
-//# sourceMappingURL=View_Validate_Orders.js.map
+})(RecieptOrders || (RecieptOrders = {}));
+//# sourceMappingURL=RecieptOrders.js.map
