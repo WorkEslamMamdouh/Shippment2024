@@ -10,7 +10,7 @@ var CashCollect;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var txtSearch;
-    var Filter_Select_Seller;
+    var Filter_Select_Delivery;
     var Filter_View;
     var btnDelete_Filter;
     function InitalizeComponent() {
@@ -25,13 +25,13 @@ var CashCollect;
     CashCollect.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
-        Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
+        Filter_Select_Delivery = document.getElementById('Filter_Select_Delivery');
         Filter_View = document.getElementById('Filter_View');
         btnDelete_Filter = document.getElementById('btnDelete_Filter');
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
-        Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
+        Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
@@ -100,11 +100,11 @@ var CashCollect;
         var StartDate = DateFormat($('#Txt_From_Date').val());
         var EndDate = DateFormat($('#Txt_To_Date').val());
         var Con = "";
-        if (Number($('#Txt_VendorID').val()) != 0) {
-            Con = " and VendorID =" + Number($('#Txt_VendorID').val());
+        if (Number($('#Txt_SalesmanId').val()) != 0) {
+            Con = " and SalesmanId =" + Number($('#Txt_SalesmanId').val());
         }
         else {
-            Errorinput($('#Filter_Select_Seller'), "Must Select Seller");
+            Errorinput($('#Filter_Select_Delivery'), "Must Select Seller");
             return;
         }
         var Table;
@@ -132,21 +132,21 @@ var CashCollect;
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
-    function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 5", function () {
+    function Filter_Select_Delivery_onclick() {
+        sys.FindKey("Salesman", "btnSalesman", " Status = 5", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
-            dataScr = dataScr.filter(function (x) { return x.VendorID == id; });
-            $('#Txt_VendorID').val(id);
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
+            dataScr = dataScr.filter(function (x) { return x.SalesmanId == id; });
+            $('#Txt_SalesmanId').val(id);
+            Filter_Select_Delivery.innerHTML = "( " + dataScr[0].SlsMan_Name + " )";
         });
     }
     function Clear() {
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
-        $('#Txt_VendorID').val('');
-        Filter_Select_Seller.innerHTML = 'Select Seller';
+        $('#Txt_SalesmanId').val('');
+        Filter_Select_Delivery.innerHTML = 'Select Delivery';
         $('#btnDelete_Filter').addClass('display_none');
         _Grid.DataSource = New_Invoices;
         _Grid.Bind();

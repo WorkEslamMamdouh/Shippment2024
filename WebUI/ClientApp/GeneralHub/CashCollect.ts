@@ -14,7 +14,7 @@ namespace CashCollect {
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
     var txtSearch: HTMLInputElement;
-    var Filter_Select_Seller: HTMLButtonElement;
+    var Filter_Select_Delivery: HTMLButtonElement;
     var Filter_View: HTMLButtonElement;
     var btnDelete_Filter: HTMLButtonElement;
 
@@ -31,14 +31,14 @@ namespace CashCollect {
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
-        Filter_Select_Seller = document.getElementById('Filter_Select_Seller') as HTMLButtonElement;
+        Filter_Select_Delivery = document.getElementById('Filter_Select_Delivery') as HTMLButtonElement;
         Filter_View = document.getElementById('Filter_View') as HTMLButtonElement;
         btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement;
     }
     function InitializeEvents() {
 
         txtSearch.onkeyup = _SearchBox_Change;
-        Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
+        Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
@@ -110,11 +110,11 @@ namespace CashCollect {
         let StartDate = DateFormat($('#Txt_From_Date').val());
         let EndDate = DateFormat($('#Txt_To_Date').val());
         let Con = "";
-        if (Number($('#Txt_VendorID').val()) != 0) {
-            Con = " and VendorID =" + Number($('#Txt_VendorID').val());
+        if (Number($('#Txt_SalesmanId').val()) != 0) {
+            Con = " and SalesmanId =" + Number($('#Txt_SalesmanId').val());
         }
         else {
-            Errorinput($('#Filter_Select_Seller'), "Must Select Seller")
+            Errorinput($('#Filter_Select_Delivery'), "Must Select Seller")
             return
         }
         var Table: Array<Table>;
@@ -150,21 +150,21 @@ namespace CashCollect {
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
-    function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 5", () => {
+    function Filter_Select_Delivery_onclick() {
+        sys.FindKey("Salesman", "btnSalesman", " Status = 5", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             let id = SearchGrid.SearchDataGrid.SelectedKey
-            dataScr = dataScr.filter(x => x.VendorID == id);
-            $('#Txt_VendorID').val(id)
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
+            dataScr = dataScr.filter(x => x.SalesmanId == id);
+            $('#Txt_SalesmanId').val(id)
+            Filter_Select_Delivery.innerHTML = "( " + dataScr[0].SlsMan_Name + " )";
         });
     }
     function Clear() {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
-        $('#Txt_VendorID').val('')
-        Filter_Select_Seller.innerHTML = 'Select Seller'
+        $('#Txt_SalesmanId').val('')
+        Filter_Select_Delivery.innerHTML = 'Select Delivery'
         $('#btnDelete_Filter').addClass('display_none')
 
         _Grid.DataSource = New_Invoices;
