@@ -1279,6 +1279,15 @@ function DateTimeFormat(dateForm) {
         return DateFormat((new Date()).toString());
     }
 }
+function DateStartYear() {
+    var dateString = GetDate();
+    var yyyy = dateString.substring(0, 4);
+    var mm = dateString.substring(5, 7);
+    var dd = dateString.substring(8, 10);
+    var ReturnedDate;
+    ReturnedDate = yyyy + '-' + '01' + '-' + '01';
+    return ReturnedDate;
+}
 function DateStartMonth() {
     var dateString = GetDate();
     var yyyy = dateString.substring(0, 4);
@@ -2660,7 +2669,7 @@ function BuildAllFild(dataSource, cnt, NameRow) {
     for (var _i = 0, properties_3 = properties; _i < properties_3.length; _i++) {
         var property = properties_3[_i];
         if (document.getElementById(property + cnt) == null) {
-            html += "<input id=\"".concat(property + cnt, "\" type=\"hidden\" value=\"\" class=\"form-control \"/>");
+            html += "<input id=\"" + (property + cnt) + "\" type=\"hidden\" value=\"\" class=\"form-control \"/>";
         }
         else {
             $("#" + property + cnt).on('change', function () {

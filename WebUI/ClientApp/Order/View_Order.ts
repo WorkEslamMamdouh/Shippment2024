@@ -8,8 +8,8 @@ namespace View_Order {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
-    var _Inv: Sls_Invoice = new Sls_Invoice();
-    var _Invoices: Array<Sls_Invoice> = new Array<Sls_Invoice>();
+    var _Inv: Vnd_Inv_SlsMan = new Vnd_Inv_SlsMan();
+    var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
     var InvoiceID = 0;

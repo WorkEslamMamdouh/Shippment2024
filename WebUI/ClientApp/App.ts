@@ -1656,6 +1656,19 @@ function DateTimeFormat(dateForm: string): string {
     }
 }
 
+
+function DateStartYear() {
+
+    var dateString = GetDate();
+    var yyyy = dateString.substring(0, 4);
+    var mm = dateString.substring(5, 7);
+    var dd = dateString.substring(8, 10);
+
+    var ReturnedDate: string;
+    ReturnedDate = yyyy + '-' + '01' + '-' + '01';
+    return ReturnedDate;
+}
+
 function DateStartMonth() {
      
     var dateString = GetDate();
@@ -3772,7 +3785,7 @@ function Digits(_number: number, FractionDigits?: number): string {
 }
 
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
-var GlopelInvoices: Array<Sls_Invoice> = new Array<Sls_Invoice>();
+var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
@@ -3784,7 +3797,7 @@ function GetGlopelDataUser(): Array<G_USERS> {
 }
 
 
-function SetGlopelDataInvoice(Send_Invoices: Array<Sls_Invoice>) {
+function SetGlopelDataInvoice(Send_Invoices: Array<Vnd_Inv_SlsMan>) {
     GlopelInvoices = Send_Invoices;
 }
  
@@ -3792,7 +3805,7 @@ function SetGlopelDataInvoiceItems(Send_InvoiceItems: Array<Sls_InvoiceItem>) {
     GlopelInvoiceItems = Send_InvoiceItems;
 }
 
-function GetGlopelDataInvoice(): Array<Sls_Invoice> {
+function GetGlopelDataInvoice(): Array<Vnd_Inv_SlsMan> {
     return GlopelInvoices;
 }
 function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
