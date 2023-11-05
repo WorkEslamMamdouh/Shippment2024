@@ -32,7 +32,7 @@ var View_Validate_Orders;
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = function () { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice(); };
+        Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -103,6 +103,10 @@ var View_Validate_Orders;
         if (Number($('#Txt_VendorID').val()) != 0) {
             Con = " and VendorID =" + Number($('#Txt_VendorID').val());
         }
+        else {
+            Errorinput($('#Filter_Select_Seller'), "Must Select Seller");
+            return;
+        }
         var Table;
         Table =
             [
@@ -118,6 +122,7 @@ var View_Validate_Orders;
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         Display_Orders();
+        $('#btnDelete_Filter').removeClass('display_none');
     }
     function Display_Orders() {
         var _Invs = _Invoices;
@@ -128,13 +133,13 @@ var View_Validate_Orders;
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
     function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", "", function () {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 1", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             dataScr = dataScr.filter(function (x) { return x.VendorID == id; });
             $('#Txt_VendorID').val(id);
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
+            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
         });
     }
     function Clear() {

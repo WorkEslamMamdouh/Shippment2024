@@ -39,7 +39,7 @@ namespace RecieptOrders {
 
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = () => { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice() };
+        Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -69,7 +69,8 @@ namespace RecieptOrders {
             { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
             { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
-            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" }, 
+            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
+            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
@@ -78,7 +79,7 @@ namespace RecieptOrders {
                     txt.value = ("View Control ⚙️");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
-               
+
                     txt.onclick = (e) => {
                         ViewInvoice(item.InvoiceID);
                     };
@@ -112,6 +113,10 @@ namespace RecieptOrders {
         if (Number($('#Txt_VendorID').val()) != 0) {
             Con = " and VendorID =" + Number($('#Txt_VendorID').val());
         }
+        else {
+            Errorinput($('#Filter_Select_Seller'), "Must Select Seller")
+            return
+        }
         var Table: Array<Table>;
         Table =
             [
@@ -132,6 +137,7 @@ namespace RecieptOrders {
 
         Display_Orders();
 
+        $('#btnDelete_Filter').removeClass('display_none');
     }
     function Display_Orders() {
 
@@ -141,19 +147,19 @@ namespace RecieptOrders {
 
 
         $('#Txt_Total_LineCount').val(_Invoices.length);
-        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount")); 
+        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
+        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
     function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", "", () => {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 2", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             let id = SearchGrid.SearchDataGrid.SelectedKey
             dataScr = dataScr.filter(x => x.VendorID == id);
             $('#Txt_VendorID').val(id)
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
+            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
         });
     }
-
     function Clear() {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
@@ -169,6 +175,7 @@ namespace RecieptOrders {
         $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
     }
+
     function ViewInvoice(InvoiceID) {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())

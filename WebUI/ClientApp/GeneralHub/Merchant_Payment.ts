@@ -5,6 +5,7 @@ $(document).ready(() => {
 });
 
 namespace Merchant_Payment {
+
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
     var _Grid: JsGrid = new JsGrid();
@@ -39,7 +40,7 @@ namespace Merchant_Payment {
 
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = () => { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice() };
+        Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -79,7 +80,7 @@ namespace Merchant_Payment {
                     txt.value = ("View Control ⚙️");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
-               
+
                     txt.onclick = (e) => {
                         ViewInvoice(item.InvoiceID);
                     };
@@ -113,11 +114,15 @@ namespace Merchant_Payment {
         if (Number($('#Txt_VendorID').val()) != 0) {
             Con = " and VendorID =" + Number($('#Txt_VendorID').val());
         }
+        else {
+            Errorinput($('#Filter_Select_Seller'), "Must Select Seller")
+            return
+        }
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 6 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 6 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ]
 
         DataResult(Table);
@@ -133,6 +138,7 @@ namespace Merchant_Payment {
 
         Display_Orders();
 
+        $('#btnDelete_Filter').removeClass('display_none');
     }
     function Display_Orders() {
 
@@ -146,13 +152,13 @@ namespace Merchant_Payment {
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
     function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", "", () => {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 6", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             let id = SearchGrid.SearchDataGrid.SelectedKey
             dataScr = dataScr.filter(x => x.VendorID == id);
             $('#Txt_VendorID').val(id)
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
+            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
         });
     }
     function Clear() {

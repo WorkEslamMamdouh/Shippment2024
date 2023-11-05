@@ -32,7 +32,7 @@ var Merchant_Payment;
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = function () { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice(); };
+        Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -103,11 +103,15 @@ var Merchant_Payment;
         if (Number($('#Txt_VendorID').val()) != 0) {
             Con = " and VendorID =" + Number($('#Txt_VendorID').val());
         }
+        else {
+            Errorinput($('#Filter_Select_Seller'), "Must Select Seller");
+            return;
+        }
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 6 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 6 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -118,6 +122,7 @@ var Merchant_Payment;
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         Display_Orders();
+        $('#btnDelete_Filter').removeClass('display_none');
     }
     function Display_Orders() {
         var _Invs = _Invoices;
@@ -128,13 +133,13 @@ var Merchant_Payment;
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
     function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", "", function () {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 6", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             dataScr = dataScr.filter(function (x) { return x.VendorID == id; });
             $('#Txt_VendorID').val(id);
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
+            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
         });
     }
     function Clear() {

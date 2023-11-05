@@ -32,7 +32,7 @@ var RecieptOrders;
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = function () { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice(); };
+        Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -63,6 +63,7 @@ var RecieptOrders;
             { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
+            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
@@ -102,6 +103,10 @@ var RecieptOrders;
         if (Number($('#Txt_VendorID').val()) != 0) {
             Con = " and VendorID =" + Number($('#Txt_VendorID').val());
         }
+        else {
+            Errorinput($('#Filter_Select_Seller'), "Must Select Seller");
+            return;
+        }
         var Table;
         Table =
             [
@@ -117,6 +122,7 @@ var RecieptOrders;
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         Display_Orders();
+        $('#btnDelete_Filter').removeClass('display_none');
     }
     function Display_Orders() {
         var _Invs = _Invoices;
@@ -124,15 +130,16 @@ var RecieptOrders;
         _Grid.Bind();
         $('#Txt_Total_LineCount').val(_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
+        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
     function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", "", function () {
+        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 2", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             dataScr = dataScr.filter(function (x) { return x.VendorID == id; });
             $('#Txt_VendorID').val(id);
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
+            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
         });
     }
     function Clear() {
