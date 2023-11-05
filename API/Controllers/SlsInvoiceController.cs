@@ -126,5 +126,60 @@ namespace Inv.API.Controllers
             return Ok(new BaseResponse(true));
         }
 
+
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult ReturnInvoice([FromBody] List<InvoiceReturn> obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Random random = new Random();
+
+                    // Generate a random integer between 1 and 100
+                    int randomNumber = random.Next(1, 10000);
+                    string Qury = @"declare @LASTID int
+                    insert into Sls_Invoice
+                    (TrNo, RefNO, RefTrID, TrDate, TrDateH, TrType, CustomerName, CustomerMobile1, CustomerMobile2, Address,
+                    Location, SalesmanId, TotalAmount, VatAmount, VatType, DiscountAmount, DiscountPrc, NetAfterVat, 
+                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status, CreatedAt, CreatedBy, UpdatedAt,
+                    UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
+                    ChargeAmount, ItemCount, LineCount, VendorID)
+                    select  TrNo, RefNO, "+ obj[0].InvoiceID + @", "+ DateTime.Now.ToString() + @", TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
+                    Location, SalesmanId, TotalAmount, VatAmount, VatType, DiscountAmount, DiscountPrc, NetAfterVat, 
+                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  "+ DateTime.Now.ToString() + @", "+ obj[0].UserCode + @", UpdatedAt,
+                    UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
+                    ChargeAmount, ItemCount, LineCount, VendorID
+                    from Sls_Invoice where InvoiceID = "+ obj[0].InvoiceID + " SET @LASTID = @@IDENTITY select @LASTID";
+
+                    int RetIvoiceID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
+                    List<Sls_InvoiceItem> invItem =    db.Sls_InvoiceItem.Where(x => x.InvoiceID == obj[0].InvoiceID).ToList();
+
+                    for (int i = 0; i < obj.Count; i++)
+                    {
+                        invItem[i].InvoiceID = RetIvoiceID;
+                        invItem[i].InvoiceItemID = obj[i].InvoiceItemID;
+                        invItem[i].SoldQty = obj[i].ItemQty;
+                        SlsInvoiceService.InsertInvItems(invItem[i]); 
+                    }
+                     
+                        dbTransaction.Commit();
+                        LogUser.Insert(db, obj[0].CompCode.ToString(), obj[0].BranchCode.ToString(), DateTime.Now.Year.ToString(), "", RetIvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.InvoiceReturn, true, null, null,"اضافة مرتجع");
+                        return Ok(new BaseResponse(true));
+                   
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
     }
 }

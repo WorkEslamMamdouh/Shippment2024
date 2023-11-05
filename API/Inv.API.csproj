@@ -277,6 +277,7 @@
     <Compile Include="Models\CustomEntities\UserPrivilege.cs" />
     <Compile Include="Models\CustomModel\DashBalances.cs" />
     <Compile Include="Models\CustomModel\FilterLnkVoucher.cs" />
+    <Compile Include="Models\CustomModel\InvoiceReturn.cs" />
     <Compile Include="Models\CustomModel\SlsInvoiceMasterDetail.cs" />
     <Compile Include="Models\CustomModel\ModelUserMasterDetail.cs" />
     <Compile Include="Models\CustomModel\G_RoleModuleMaste.cs" />
