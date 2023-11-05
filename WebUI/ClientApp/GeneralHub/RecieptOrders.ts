@@ -9,6 +9,7 @@ namespace RecieptOrders {
     var SysSession: SystemSession = GetSystemSession();
     var _Grid: JsGrid = new JsGrid();
 
+    var New_Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
@@ -25,7 +26,7 @@ namespace RecieptOrders {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
-        GetData_Invoice();
+        //GetData_Invoice();
         Close_Loder();
     }
     function InitalizeControls() {
@@ -152,15 +153,22 @@ namespace RecieptOrders {
             Filter_Select_Seller.innerHTML = "( " + dataScr[0].NAMEL + " )";
         });
     }
+
     function Clear() {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         $('#Txt_VendorID').val('')
         Filter_Select_Seller.innerHTML = 'Select Seller'
         $('#btnDelete_Filter').addClass('display_none')
-        GetData_Invoice();
-    }
 
+        _Grid.DataSource = New_Invoices;
+        _Grid.Bind();
+
+
+        $('#Txt_Total_LineCount').val(New_Invoices.length);
+        $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
+        $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
+    }
     function ViewInvoice(InvoiceID) {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
