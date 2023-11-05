@@ -1103,8 +1103,6 @@
     <Content Include="Views\GeneralHub\RecieptOrdersIndex.cshtml" />
     <Content Include="Views\GeneralHub\Merchant_PaymentIndex.cshtml" />
     <Content Include="Views\Delivery\WalletIndex.cshtml" />
-    <Content Include="Views\GeneralHub\Detail_PaymentIndex.cshtml" />
-    <Content Include="Views\GeneralHub\Detail_CollectIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1134,10 +1132,8 @@
     <TypeScriptCompile Include="ClientApp\AjaxCaller.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
-    <TypeScriptCompile Include="ClientApp\GeneralHub\Detail_Collect.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\CashCollect.ts" />
     <TypeScriptCompile Include="ClientApp\Delivery\Wallet.ts" />
-    <TypeScriptCompile Include="ClientApp\GeneralHub\Detail_Payment.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\RecieptOrders.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\Merchant_Payment.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\View_Validate_Orders.ts" />
