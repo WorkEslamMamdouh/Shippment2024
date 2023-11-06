@@ -2929,4 +2929,22 @@ function GetGlopelDataInvoice() {
 function GetGlopelDataInvoiceItems() {
     return GlopelInvoiceItems;
 }
+function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc) {
+    var sys = new SystemTools;
+    var Env = GetSystemEnvironment();
+    Ajax.CallsyncSave({
+        type: "Get",
+        url: sys.apiUrl("SlsInvoice", "UpdateInvStatus"),
+        data: { CompCode: Env.CompCode, BranchCode: Env.BranchCode, InvoiceID: _InvoiceID, SlsManID: SlsManID, Status: Status, UserCode: Env.UserCode, StatusDesc: StatusDesc },
+        success: function (d) {
+            var result = d;
+            if (result.IsSuccess == true) {
+                Close_Loder();
+            }
+            else {
+                Close_Loder();
+            }
+        }
+    });
+}
 //# sourceMappingURL=App.js.map

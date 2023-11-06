@@ -51,7 +51,7 @@ namespace Inv.API.Controllers
                     if (res.ResponseState == true)
                     {
                         dbTransaction.Commit();
-                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", Vendorid, "", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
+                        //LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", Vendorid, "", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
                         return Ok(new BaseResponse(true));
                     }
                     else

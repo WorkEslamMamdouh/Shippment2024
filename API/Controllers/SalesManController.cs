@@ -52,7 +52,7 @@ namespace Inv.API.Controllers
                     if (res.ResponseState == true)
                     {
                         dbTransaction.Commit();
-                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
+                        //LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
                         return Ok(new BaseResponse(true));
                     }
                     else
@@ -94,13 +94,13 @@ namespace Inv.API.Controllers
                     if (res.ResponseState == true)
                     {
                         dbTransaction.Commit();
-                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "Update", true, null, null, null);
+                        //LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "Update", true, null, null, null);
                         return Ok(new BaseResponse(true));
                     }
                     else
                     {
                         dbTransaction.Rollback();
-                        LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "Update", false, res.ResponseMessage.ToString(), null, null);
+                        //LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "Update", false, res.ResponseMessage.ToString(), null, null);
 
                         return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
                     }
