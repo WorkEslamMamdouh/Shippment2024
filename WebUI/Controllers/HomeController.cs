@@ -43,7 +43,9 @@ namespace Inv.WebUI.Controllers
          "~/Views/GeneralHub/RecieptOrdersIndex.cshtml",
          "~/Views/GeneralHub/CashCollectIndex.cshtml",
          "~/Views/GeneralHub/Merchant_PaymentIndex.cshtml",
-         "~/Views/Delivery/WalletIndex.cshtml", 
+         "~/Views/Delivery/WalletIndex.cshtml",
+         "~/Views/Delivery/ShipOrderIndex.cshtml", 
+
                       };
 
         #endregion  Open Pages 
