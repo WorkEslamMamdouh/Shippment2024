@@ -2939,6 +2939,12 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc) {
         success: function (d) {
             var result = d;
             if (result.IsSuccess == true) {
+                debugger;
+                if (Status < 0) {
+                    Status = 0;
+                }
+                $("._clearSta").removeClass("is-active");
+                $("#View_Status" + Status).addClass("is-active");
                 Close_Loder();
             }
             else {

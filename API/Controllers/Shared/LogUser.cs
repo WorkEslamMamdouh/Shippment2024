@@ -58,16 +58,13 @@ namespace Inv.API.Controllers
         {
             try
             {
-                if (TrNo.Trim() != "" && TrNo != null)
-                {
-                    ErrorNo = TrNo;
-                }
+                
 
                 string dateValue = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
 
                 string sql = @"INSERT INTO  G_USER_LOG( USER_CODE, SYSTEM_CODE, COMP_CODE, BranchCode, FinYear, TimeStamp, MODULE_CODE, OperationId, DataID, ISSucceed, ErrorMessage, ExtraData) 
                             VALUES ('" + USER_CODE + "','I' ," + Convert.ToInt32(COMP_CODE) + "," + Convert.ToInt32(BranchCode) + ", " + short.Parse(FinYear) + ",'" + dateValue + "' ," + @"
-                                   '" + PageName + "','" + Convert.ToByte(OperationId) + "', '" + DataId + "' ,'" + ISSucceed + "', '" + ErrorMessage + "' , '"+ ErrorNo + "') ";
+                                   '" + PageName + "','" + Convert.ToByte(OperationId) + "', '" + DataId + "' ,'" + ISSucceed + "', '" + ErrorMessage + "' , '"+ Info + "') ";
 
                 _db.Database.ExecuteSqlCommand(sql);
                 //G_USER_LOG obj = new G_USER_LOG();

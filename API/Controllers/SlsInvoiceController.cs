@@ -122,7 +122,7 @@ namespace Inv.API.Controllers
             db.Database.ExecuteSqlCommand(Qury);
 
 
-            LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, InvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.Invoice, true, null, null, StatusDesc);
+            LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, InvoiceID, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
             return Ok(new BaseResponse(true));
         }
 

@@ -3815,19 +3815,26 @@ function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
 
 function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, StatusDesc: string) {
     let sys = new SystemTools;
-    var Env = GetSystemEnvironment();
+    var Env = GetSystemEnvironment(); 
     Ajax.CallsyncSave({
         type: "Get",
         url: sys.apiUrl("SlsInvoice", "UpdateInvStatus"),
         data: { CompCode: Env.CompCode, BranchCode: Env.BranchCode, InvoiceID: _InvoiceID, SlsManID: SlsManID, Status: Status, UserCode: Env.UserCode ,StatusDesc: StatusDesc },
-        success: (d) => {//(int CompCode, int BranchCode, int InvoiceID, int SlsManID, int Status, string UserCode, string StatusDesc)
+        success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess == true) {
+                debugger
+                if (Status < 0) {
+                    Status = 0;
+                }
+                $("._clearSta").removeClass("is-active");
+                $("#View_Status" + Status).addClass("is-active");
 
-                Close_Loder();
+                Close_Loder(); 
             } else {
-                Close_Loder();
+                Close_Loder(); 
             }
         }
     });
+     
 }

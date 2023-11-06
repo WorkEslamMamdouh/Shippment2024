@@ -13,14 +13,14 @@ namespace View_Order {
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
     var btn_Delete: HTMLButtonElement;
-    var btn_freeze: HTMLButtonElement; 
+    var btn_freeze: HTMLButtonElement;
     var btn_Edit_Order: HTMLButtonElement;
     var btn_Confirm: HTMLButtonElement;
     var btn_Open_Location: HTMLButtonElement;
     var btn_Print: HTMLButtonElement;
     var btn_Delivery_Order: HTMLButtonElement;
     var btn_Deliver_shipment: HTMLButtonElement;
-    var btn_Deliver_Customer: HTMLButtonElement; 
+    var btn_Deliver_Customer: HTMLButtonElement;
     var btn_Receiving_Order: HTMLButtonElement;
     var btn_Active: HTMLButtonElement;
 
@@ -29,7 +29,7 @@ namespace View_Order {
 
     export function InitalizeComponent() {
 
-       let _USERS = GetGlopelDataUser()
+        let _USERS = GetGlopelDataUser()
         _USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
 
         InitalizeControls();
@@ -53,7 +53,7 @@ namespace View_Order {
         btn_Print = document.getElementById('btn_Print') as HTMLButtonElement;
         btn_Delivery_Order = document.getElementById('btn_Delivery_Order') as HTMLButtonElement;
         btn_Deliver_shipment = document.getElementById('btn_Deliver_shipment') as HTMLButtonElement;
-        btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer') as HTMLButtonElement; 
+        btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer') as HTMLButtonElement;
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order') as HTMLButtonElement;
         btn_Active = document.getElementById('btn_Active') as HTMLButtonElement;
     }
@@ -66,47 +66,71 @@ namespace View_Order {
         btn_Print.onclick = btn_Print_onclick
         btn_Delivery_Order.onclick = btn_Delivery_Order_onclick
         btn_Deliver_shipment.onclick = btn_Deliver_shipment_onclick
-        btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick 
+        btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick
         btn_Active.onclick = btn_Active_onclick
     }
 
     function Display_information_Inv() {
+        $("._clearSta").removeClass("is-active");
         $("#View_Status" + _Inv.Status).addClass("is-active");
 
         $("#Name_Cust_View_Or").html("Name: " + _Inv.CustomerName);
         $("#Phone_View_Or").html("Phone: " + _Inv.CustomerMobile1 + " & " + _Inv.CustomerMobile2);
-        $("#RefNo_TrNo_View_Or").html(" RefNo ( " + _Inv.RefNO + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TrNo ( " + _Inv.TrNo+" )");
+        $("#RefNo_TrNo_View_Or").html(" RefNo ( " + _Inv.RefNO + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TrNo ( " + _Inv.TrNo + " )");
         $("#Coun_Total_View_Or").html(" Counter Item ( " + _Inv.ItemCount + "  ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.NetAfterVat + "  )");
 
     }
 
-    function Display_Role_User() { 
+    function Display_Role_User() {
         $(".Status" + _USER[0].USER_TYPE).removeClass('display_none')
+
+        if (_Inv.Status == 0) { //freeze
+            $("#btn_Active").removeClass("display_none")
+            $("#btn_freeze").addClass("display_none")
+        }
+        else { //Active
+            $("#btn_Active").addClass("display_none")
+            $("#btn_freeze").removeClass("display_none")
+        }
+
     }
 
     //******************************************************* Events Buttons ************************************
-   
+
     function btn_Delete_onclick() {
-
-        UpdateInvStatus(InvoiceID, 0, -1,'Delete Invoice')
-         
-    } 
+         UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )') 
+            $('#Back_Page').click();
+       
+    }
     function btn_freeze_onclick() {
+    
+         UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )') 
+         
+            $("#btn_Active").removeClass("display_none")
+            $("#btn_freeze").addClass("display_none")
+        
+    }
+    function btn_Active_onclick() {
+        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )') 
+            $("#btn_Active").addClass("display_none")
+            $("#btn_freeze").removeClass("display_none")
+       
 
-    } 
+    }
+
     function btn_Edit_Order_onclick() {
 
-    } 
+    }
     function btn_Confirm_onclick() {
 
-    } 
+    }
     function btn_Open_Location_onclick() {
 
-    } 
+    }
     function btn_Print_onclick() {
 
-    } 
+    }
     function btn_Delivery_Order_onclick() {
 
     }
@@ -119,8 +143,6 @@ namespace View_Order {
     function btn_Receiving_Order_onclick() {
 
     }
-    function btn_Active_onclick() {
 
-    } 
 
 }
