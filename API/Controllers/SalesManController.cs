@@ -183,11 +183,11 @@ namespace Inv.API.Controllers
                     {
                         User = "UserAccount"; 
                     }
-                    else if (ZoneID == 4)
+                    if (ZoneID == 4)
                     {
                         User = "StockKeeper";
                     }
-                    else
+                    if (ZoneID ==5)
                     {
                         User = "StockMan";
                     }

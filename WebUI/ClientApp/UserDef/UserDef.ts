@@ -59,6 +59,7 @@ namespace UserDef {
 		_G_Code = GetDataTable('G_Codes');
 		_Zones = GetDataTable('Zones');
 		FillDropwithAttr(_G_Code, "Usr_UserType", "CodeValue", "DescA", "No", "", "");
+		FillDropwithAttr(_Zones, "Usr_Zone", "ZoneID", "DescA", "No", "", "");
 	}
 	function UserType_Change() {
 		if (Usr_UserType.value == "3") {
@@ -113,7 +114,9 @@ namespace UserDef {
 			success: (d) => {
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {
+					GetUSERSByCodeUser(UserName);
 					Display_Data();
+					UserType_Change();
 					Close_Loder();
 				} else {
 
@@ -129,5 +132,21 @@ namespace UserDef {
 
 
 	}
- 			   
+	function GetUSERSByCodeUser(User_Code: string) {
+		var Table: Array<Table>;
+		Table =
+			[
+				{ NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+			]
+
+		DataResult(Table);
+		//**************************************************************************************************************
+
+		let _USER = GetDataTable('G_USERS');
+		_USERS = _USERS.filter(x => x.USER_CODE != User_Code)
+		_USERS.push(_USER[0]);
+
+		SetGlopelDataUser(_USERS);
+		ShowMessage("Updated 🤞😉")
+	}	   
 }
