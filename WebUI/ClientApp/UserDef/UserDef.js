@@ -47,6 +47,7 @@ var UserDef;
         _G_Code = GetDataTable('G_Codes');
         _Zones = GetDataTable('Zones');
         FillDropwithAttr(_G_Code, "Usr_UserType", "CodeValue", "DescA", "No", "", "");
+        FillDropwithAttr(_Zones, "Usr_Zone", "ZoneID", "DescA", "No", "", "");
     }
     function UserType_Change() {
         if (Usr_UserType.value == "3") {
@@ -101,13 +102,29 @@ var UserDef;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
+                    GetUSERSByCodeUser(UserName);
                     Display_Data();
+                    UserType_Change();
                     Close_Loder();
                 }
                 else {
                 }
             }
         });
+    }
+    function GetUSERSByCodeUser(User_Code) {
+        var Table;
+        Table =
+            [
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            ];
+        DataResult(Table);
+        //**************************************************************************************************************
+        var _USER = GetDataTable('G_USERS');
+        _USERS = _USERS.filter(function (x) { return x.USER_CODE != User_Code; });
+        _USERS.push(_USER[0]);
+        SetGlopelDataUser(_USERS);
+        ShowMessage("Updated 🤞😉");
     }
 })(UserDef || (UserDef = {}));
 //# sourceMappingURL=UserDef.js.map
