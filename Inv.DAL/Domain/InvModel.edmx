@@ -763,6 +763,7 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="SalesManID" Type="int" />
           <Property Name="VendorID" Type="int" />
           <Property Name="ItemNetAmount" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StoreID" Type="int" />
         </EntityType>
         <EntityType Name="Zones">
           <Key>
@@ -3203,6 +3204,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="SalesManID" Type="Int32" />
           <Property Name="VendorID" Type="Int32" />
           <Property Name="ItemNetAmount" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StoreID" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4463,6 +4465,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySetMapping Name="Sls_InvoiceItem">
             <EntityTypeMapping TypeName="InvModel.Sls_InvoiceItem">
               <MappingFragment StoreEntitySet="Sls_InvoiceItem">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="ItemNetAmount" ColumnName="ItemNetAmount" />
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />

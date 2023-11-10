@@ -33,5 +33,6 @@ namespace Inv.DAL.Domain
         public Nullable<int> SalesManID { get; set; }
         public Nullable<int> VendorID { get; set; }
         public Nullable<decimal> ItemNetAmount { get; set; }
+        public Nullable<int> StoreID { get; set; }
     }
 }
