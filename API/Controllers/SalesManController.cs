@@ -211,7 +211,7 @@ namespace Inv.API.Controllers
 
 
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult UpdateStores([FromBody] List<Zones> obj)
+        public IHttpActionResult UpdateStores([FromBody] List<G_STORE> obj)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -219,9 +219,9 @@ namespace Inv.API.Controllers
                 try
                 {
 
-                    List<Zones> InsertedItems = obj.Where(x => x.StatusFlag == 'i').ToList();
-                    List<Zones> UpdatedItems = obj.Where(x => x.StatusFlag == 'u').ToList();
-                    List<Zones> DeletedItems = obj.Where(x => x.StatusFlag == 'd').ToList();
+                    List<G_STORE> InsertedItems = obj.Where(x => x.StatusFlag == 'i').ToList();
+                    List<G_STORE> UpdatedItems = obj.Where(x => x.StatusFlag == 'u').ToList();
+                    List<G_STORE> DeletedItems = obj.Where(x => x.StatusFlag == 'd').ToList();
 
                     foreach (var item in InsertedItems)
                     {
