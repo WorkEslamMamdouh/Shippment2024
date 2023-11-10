@@ -9,6 +9,8 @@ namespace Inv.BLL.Services.SalesMan
         Zones InsertZone(Zones entity);
         Zones UpdateZone(Zones entity);
         void DeleteZone(int id);
-         
+        G_STORE InsertStore(G_STORE entity);
+        G_STORE UpdateStore(G_STORE entity); 
+
     }
 }

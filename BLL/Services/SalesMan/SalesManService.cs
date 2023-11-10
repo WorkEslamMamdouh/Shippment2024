@@ -34,7 +34,7 @@ namespace Inv.BLL.Services.SalesMan
         }
         public Zones UpdateZone(Zones entity)
         {
-            var Item = unitOfWork.Repository<Zones>().Insert(entity);
+            var Item = unitOfWork.Repository<Zones>().Update(entity);
             unitOfWork.Save();
             return Item;
         }
@@ -42,6 +42,18 @@ namespace Inv.BLL.Services.SalesMan
         {
             unitOfWork.Repository<Zones>().Delete(id);
             unitOfWork.Save();
+        }
+         public G_STORE InsertStore(G_STORE entity)
+        {
+            var Item = unitOfWork.Repository<G_STORE>().Insert(entity);
+            unitOfWork.Save();
+            return Item;
+        }
+        public G_STORE UpdateStore(G_STORE entity)
+        {
+            var Item = unitOfWork.Repository<G_STORE>().Update(entity);
+            unitOfWork.Save();
+            return Item;
         }
         #endregion
     }

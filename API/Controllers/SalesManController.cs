@@ -209,5 +209,45 @@ namespace Inv.API.Controllers
 
         }
 
+
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult UpdateStores([FromBody] List<G_STORE> obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+
+                    List<G_STORE> InsertedItems = obj.Where(x => x.StatusFlag == 'i').ToList();
+                    List<G_STORE> UpdatedItems = obj.Where(x => x.StatusFlag == 'u').ToList();
+                    List<G_STORE> DeletedItems = obj.Where(x => x.StatusFlag == 'd').ToList();
+
+                    foreach (var item in InsertedItems)
+                    {
+                        SalesManService.InsertStore(item);
+
+                    }
+                    foreach (var item in UpdatedItems)
+                    {
+                        SalesManService.UpdateStore(item);
+
+                    } 
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
+
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
     }
 }

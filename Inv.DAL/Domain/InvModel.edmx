@@ -5,6 +5,96 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="InvModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="A_ACCOUNT">
+          <Key>
+            <PropertyRef Name="COMP_CODE" />
+            <PropertyRef Name="ACC_CODE" />
+          </Key>
+          <Property Name="COMP_CODE" Type="int" Nullable="false" />
+          <Property Name="ACC_CODE" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="ACC_DESCA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ACC_DESCL" Type="nvarchar" MaxLength="100" />
+          <Property Name="ACC_GROUP" Type="smallint" />
+          <Property Name="ACC_TYPE" Type="smallint" />
+          <Property Name="ACC_LEVEL" Type="smallint" />
+          <Property Name="ACC_ACTIVE" Type="bit" />
+          <Property Name="PARENT_ACC" Type="nvarchar" MaxLength="20" />
+          <Property Name="DETAIL" Type="bit" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="CREATED_AT" Type="smalldatetime" />
+          <Property Name="UPDATED_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="LAST_UPDATE" Type="smalldatetime" />
+          <Property Name="CCDT_TYPE" Type="nvarchar" MaxLength="10" />
+          <Property Name="CUR_CODE" Type="nvarchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="A_ACCOUNT_YEAR">
+          <Key>
+            <PropertyRef Name="COMP_CODE" />
+            <PropertyRef Name="ACC_CODE" />
+            <PropertyRef Name="FIN_YEAR" />
+          </Key>
+          <Property Name="COMP_CODE" Type="int" Nullable="false" />
+          <Property Name="ACC_CODE" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="FIN_YEAR" Type="int" Nullable="false" />
+          <Property Name="OPENING_BALANCE" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CREDIT" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="DEBIT" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ACC_LIMIT" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="A_JOURNAL_DETAIL">
+          <Key>
+            <PropertyRef Name="VoucherDetailID" />
+          </Key>
+          <Property Name="VoucherDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VoucherID" Type="int" />
+          <Property Name="COMP_CODE" Type="int" />
+          <Property Name="VOUCHER_CODE" Type="int" />
+          <Property Name="VOUCHER_SERIAL" Type="int" />
+          <Property Name="ACC_CODE" Type="nvarchar" MaxLength="25" />
+          <Property Name="CC_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="DEBIT" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CREDIT" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="DESCL" Type="nvarchar" MaxLength="300" />
+          <Property Name="DESCA" Type="nvarchar" MaxLength="300" />
+          <Property Name="CCDT_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="INVOICE_NO" Type="int" />
+          <Property Name="BOOK_TR_NO" Type="int" />
+          <Property Name="SRC_SYSTEM_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="SRC_SUB_SYSTEM_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="SRC_BRA_CODE" Type="int" />
+          <Property Name="SRC_TR_CODE" Type="nvarchar" MaxLength="20" />
+          <Property Name="SRC_TR_NO" Type="int" />
+          <Property Name="SRC_TR_TYPE" Type="nvarchar" MaxLength="20" />
+          <Property Name="DEBIT_FC" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CREDIT_FC" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="A_JOURNAL_HEADER">
+          <Key>
+            <PropertyRef Name="VoucherID" />
+          </Key>
+          <Property Name="VoucherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMP_CODE" Type="int" />
+          <Property Name="VOUCHER_CODE" Type="int" />
+          <Property Name="VOUCHER_DATE" Type="smalldatetime" />
+          <Property Name="VOUCHER_DESC" Type="nvarchar" MaxLength="300" />
+          <Property Name="VOUCHER_STATUS" Type="tinyint" />
+          <Property Name="TYPE_CODE" Type="smallint" />
+          <Property Name="REF_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="CREATED_AT" Type="smalldatetime" />
+          <Property Name="UPDATED_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="UPDATED_AT" Type="smalldatetime" />
+          <Property Name="POSTED_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="POSTED_AT" Type="smalldatetime" />
+          <Property Name="BOOK_TR_NO" Type="int" />
+          <Property Name="SOURCE_TYPE" Type="nvarchar" MaxLength="10" />
+          <Property Name="TotalDebit" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="TotalCredit" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="VOUCHER_DATEH" Type="nvarchar" MaxLength="50" />
+          <Property Name="AUTHORISED_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="AUTHORISED_AT" Type="smalldatetime" />
+        </EntityType>
         <EntityType Name="A_Pay_D_Vendor">
           <Key>
             <PropertyRef Name="VendorID" />
@@ -87,6 +177,63 @@
           <Property Name="IDIssueDateH" Type="nvarchar" MaxLength="20" />
           <Property Name="IDExpireDate" Type="smalldatetime" />
           <Property Name="IDExpireDateH" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="A_RecPay_Tr_ReceiptNote">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CashBoxID" Type="int" />
+          <Property Name="TrType" Type="int" />
+          <Property Name="RecPayTypeId" Type="int" />
+          <Property Name="TrNo" Type="int" />
+          <Property Name="TrDate" Type="smalldatetime" />
+          <Property Name="TrDateH" Type="nvarchar" MaxLength="20" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="FromCashBoxID" Type="int" />
+          <Property Name="ExpenseID" Type="int" />
+          <Property Name="Amount" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="CashAmount" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="CardAmount" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="BankAccountCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiptDescA" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReceiptDescE" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsPosted" Type="bit" />
+          <Property Name="VoucherNo" Type="int" />
+          <Property Name="VoucherType" Type="tinyint" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedAt" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="UpdatedAt" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CheckNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransferNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankAcc_Code" Type="nvarchar" MaxLength="25" />
+          <Property Name="IsDeffered" Type="bit" />
+          <Property Name="DueDate" Type="smalldatetime" />
+          <Property Name="CashType" Type="int" />
+          <Property Name="Charges" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ChargeProviderID" Type="int" />
+          <Property Name="ChargesVat" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ChargeWithVat" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ChargeVatType" Type="int" />
+          <Property Name="ChargesVatPrc" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ChargeInvoiceNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProviderID" Type="int" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProviderVatNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="ProviderVatType" Type="int" />
+          <Property Name="ProviderVatPrc" Type="int" />
+          <Property Name="ProviderVatAmount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ProviderInvoiceNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProviderIndDate" Type="smalldatetime" />
+          <Property Name="ProviderAmountBeforeVat" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CC_Code" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="G_AlertType">
           <Key>
@@ -444,6 +591,31 @@
           <Property Name="Language" Type="tinyint" />
           <Property Name="FieldTitleA" Type="nvarchar" MaxLength="120" />
         </EntityType>
+        <EntityType Name="G_STORE">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="COMP_CODE" Type="int" />
+          <Property Name="BRA_CODE" Type="int" />
+          <Property Name="STORE_CODE" Type="int" />
+          <Property Name="DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="DescL" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="StockAccCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel1" Type="nvarchar" MaxLength="20" />
+          <Property Name="Tel2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="STORE_TYPE" Type="tinyint" />
+          <Property Name="TYPE_CODE" Type="tinyint" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedAt" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedAt" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="G_SUB_SYSTEMS">
           <Key>
             <PropertyRef Name="SYSTEM_CODE" />
@@ -739,6 +911,7 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="ItemCount" Type="int" />
           <Property Name="LineCount" Type="int" />
           <Property Name="VendorID" Type="int" />
+          <Property Name="StoreID" Type="int" />
         </EntityType>
         <EntityType Name="Sls_InvoiceItem">
           <Key>
@@ -764,6 +937,16 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="VendorID" Type="int" />
           <Property Name="ItemNetAmount" Type="numeric" Precision="19" Scale="2" />
           <Property Name="StoreID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Zones">
           <Key>
@@ -1133,78 +1316,6 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <Property Name="cust_NameE" Type="nvarchar" MaxLength="100" />
           <Property Name="OpenbalanceAt" Type="smalldatetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Vnd_Inv_SlsMan">
-          <Key>
-            <PropertyRef Name="VendorCode" />
-            <PropertyRef Name="InvoiceID" />
-            <PropertyRef Name="CommitionAmount" />
-          </Key>
-          <Property Name="SalesmanCode" Type="nvarchar" MaxLength="25" />
-          <Property Name="SlsMan_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="SlsMan_IDNO" Type="nvarchar" MaxLength="50" />
-          <Property Name="SlsMan_Mobile" Type="nvarchar" MaxLength="50" />
-          <Property Name="SlsMan_Active" Type="bit" />
-          <Property Name="SlsMan_UserName" Type="nvarchar" MaxLength="200" />
-          <Property Name="VendorCode" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Vnd_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Vnd_Mobile" Type="nvarchar" MaxLength="50" />
-          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
-          <Property Name="Vnd_Active" Type="bit" />
-          <Property Name="REMARKS" Type="nvarchar" MaxLength="250" />
-          <Property Name="Vnd_UserNAME" Type="nvarchar" MaxLength="50" />
-          <Property Name="Vnd_IDNO" Type="nvarchar" MaxLength="15" />
-          <Property Name="InvoiceID" Type="int" Nullable="false" />
-          <Property Name="TrNo" Type="int" />
-          <Property Name="RefNO" Type="nvarchar" MaxLength="50" />
-          <Property Name="RefTrID" Type="int" />
-          <Property Name="TrDate" Type="smalldatetime" />
-          <Property Name="TrDateH" Type="nvarchar" MaxLength="20" />
-          <Property Name="TrType" Type="int" />
-          <Property Name="CustomerName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CustomerMobile1" Type="nvarchar" MaxLength="20" />
-          <Property Name="CustomerMobile2" Type="nvarchar" MaxLength="20" />
-          <Property Name="Address" Type="nvarchar" MaxLength="2000" />
-          <Property Name="Location" Type="varchar" MaxLength="5000" />
-          <Property Name="SalesmanId" Type="int" />
-          <Property Name="TotalAmount" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="VatAmount" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="VatType" Type="int" />
-          <Property Name="DiscountAmount" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="DiscountPrc" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="NetAfterVat" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="CommitionAmount" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="CashAmount" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="CardAmount" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="RemainAmount" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="Remark" Type="nvarchar" MaxLength="250" />
-          <Property Name="Status" Type="int" />
-          <Property Name="CreatedAt" Type="smalldatetime" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="25" />
-          <Property Name="UpdatedAt" Type="smalldatetime" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="25" />
-          <Property Name="CompCode" Type="int" />
-          <Property Name="BranchCode" Type="int" />
-          <Property Name="DocNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="TrTime" Type="time" Precision="7" />
-          <Property Name="QRCode" Type="varchar" MaxLength="2000" />
-          <Property Name="DeliveryDate" Type="smalldatetime" />
-          <Property Name="DeliveryEndDate" Type="smalldatetime" />
-          <Property Name="PromoCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="ChargeAmount" Type="numeric" Precision="19" Scale="4" />
-          <Property Name="FinYear" Type="int" />
-          <Property Name="ItemCount" Type="int" />
-          <Property Name="LineCount" Type="int" />
-          <Property Name="VendorID" Type="int" />
-          <Property Name="ZoneCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="DescA" Type="nvarchar" MaxLength="200" />
-          <Property Name="Active" Type="bit" />
-          <Property Name="Sls_ZoneID" Type="int" />
-          <Property Name="Zone_Remarks" Type="nvarchar" MaxLength="4000" />
-          <Property Name="Inv_SlsManID" Type="int" />
-          <Property Name="Inv_VendorID" Type="int" />
-        </EntityType>
         <Function Name="G_ProcessTransVer2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Comp" Type="int" Mode="In" />
           <Parameter Name="Branch" Type="int" Mode="In" />
@@ -1412,8 +1523,13 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Parameter Name="user" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="InvModelStoreContainer">
+          <EntitySet Name="A_ACCOUNT" EntityType="Self.A_ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="A_ACCOUNT_YEAR" EntityType="Self.A_ACCOUNT_YEAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="A_JOURNAL_DETAIL" EntityType="Self.A_JOURNAL_DETAIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="A_JOURNAL_HEADER" EntityType="Self.A_JOURNAL_HEADER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="A_Pay_D_Vendor" EntityType="Self.A_Pay_D_Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="A_Pay_D_VendorDoc" EntityType="Self.A_Pay_D_VendorDoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="A_RecPay_Tr_ReceiptNote" EntityType="Self.A_RecPay_Tr_ReceiptNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_AlertType" EntityType="Self.G_AlertType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_BRANCH" EntityType="Self.G_BRANCH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_BranchModules" EntityType="Self.G_BranchModules" Schema="dbo" store:Type="Tables" />
@@ -1429,6 +1545,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="G_SearchForm" EntityType="Self.G_SearchForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SearchFormModule" EntityType="Self.G_SearchFormModule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SearchFormSetting" EntityType="Self.G_SearchFormSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_STORE" EntityType="Self.G_STORE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SUB_SYSTEMS" EntityType="Self.G_SUB_SYSTEMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SYSTEM" EntityType="Self.G_SYSTEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_USER_BRANCH" EntityType="Self.G_USER_BRANCH" Schema="dbo" store:Type="Tables" />
@@ -1440,6 +1557,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="PromoCodes" EntityType="Self.PromoCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sls_Invoice" EntityType="Self.Sls_Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="Self.Sls_InvoiceItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zones" EntityType="Self.Zones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HIJRA_CONVERT" EntityType="Self.HIJRA_CONVERT" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1746,73 +1864,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
     [IQ_GetVendor].[OpenbalanceAt] AS [OpenbalanceAt]
     FROM [dbo].[IQ_GetVendor] AS [IQ_GetVendor]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Vnd_Inv_SlsMan" EntityType="Self.Vnd_Inv_SlsMan" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Vnd_Inv_SlsMan].[SalesmanCode] AS [SalesmanCode], 
-    [Vnd_Inv_SlsMan].[SlsMan_Name] AS [SlsMan_Name], 
-    [Vnd_Inv_SlsMan].[SlsMan_IDNO] AS [SlsMan_IDNO], 
-    [Vnd_Inv_SlsMan].[SlsMan_Mobile] AS [SlsMan_Mobile], 
-    [Vnd_Inv_SlsMan].[SlsMan_Active] AS [SlsMan_Active], 
-    [Vnd_Inv_SlsMan].[SlsMan_UserName] AS [SlsMan_UserName], 
-    [Vnd_Inv_SlsMan].[VendorCode] AS [VendorCode], 
-    [Vnd_Inv_SlsMan].[Vnd_Name] AS [Vnd_Name], 
-    [Vnd_Inv_SlsMan].[Vnd_Mobile] AS [Vnd_Mobile], 
-    [Vnd_Inv_SlsMan].[EMAIL] AS [EMAIL], 
-    [Vnd_Inv_SlsMan].[Vnd_Active] AS [Vnd_Active], 
-    [Vnd_Inv_SlsMan].[REMARKS] AS [REMARKS], 
-    [Vnd_Inv_SlsMan].[Vnd_UserNAME] AS [Vnd_UserNAME], 
-    [Vnd_Inv_SlsMan].[Vnd_IDNO] AS [Vnd_IDNO], 
-    [Vnd_Inv_SlsMan].[InvoiceID] AS [InvoiceID], 
-    [Vnd_Inv_SlsMan].[TrNo] AS [TrNo], 
-    [Vnd_Inv_SlsMan].[RefNO] AS [RefNO], 
-    [Vnd_Inv_SlsMan].[RefTrID] AS [RefTrID], 
-    [Vnd_Inv_SlsMan].[TrDate] AS [TrDate], 
-    [Vnd_Inv_SlsMan].[TrDateH] AS [TrDateH], 
-    [Vnd_Inv_SlsMan].[TrType] AS [TrType], 
-    [Vnd_Inv_SlsMan].[CustomerName] AS [CustomerName], 
-    [Vnd_Inv_SlsMan].[CustomerMobile1] AS [CustomerMobile1], 
-    [Vnd_Inv_SlsMan].[CustomerMobile2] AS [CustomerMobile2], 
-    [Vnd_Inv_SlsMan].[Address] AS [Address], 
-    [Vnd_Inv_SlsMan].[Location] AS [Location], 
-    [Vnd_Inv_SlsMan].[SalesmanId] AS [SalesmanId], 
-    [Vnd_Inv_SlsMan].[TotalAmount] AS [TotalAmount], 
-    [Vnd_Inv_SlsMan].[VatAmount] AS [VatAmount], 
-    [Vnd_Inv_SlsMan].[VatType] AS [VatType], 
-    [Vnd_Inv_SlsMan].[DiscountAmount] AS [DiscountAmount], 
-    [Vnd_Inv_SlsMan].[DiscountPrc] AS [DiscountPrc], 
-    [Vnd_Inv_SlsMan].[NetAfterVat] AS [NetAfterVat], 
-    [Vnd_Inv_SlsMan].[CommitionAmount] AS [CommitionAmount], 
-    [Vnd_Inv_SlsMan].[CashAmount] AS [CashAmount], 
-    [Vnd_Inv_SlsMan].[CardAmount] AS [CardAmount], 
-    [Vnd_Inv_SlsMan].[RemainAmount] AS [RemainAmount], 
-    [Vnd_Inv_SlsMan].[Remark] AS [Remark], 
-    [Vnd_Inv_SlsMan].[Status] AS [Status], 
-    [Vnd_Inv_SlsMan].[CreatedAt] AS [CreatedAt], 
-    [Vnd_Inv_SlsMan].[CreatedBy] AS [CreatedBy], 
-    [Vnd_Inv_SlsMan].[UpdatedAt] AS [UpdatedAt], 
-    [Vnd_Inv_SlsMan].[UpdatedBy] AS [UpdatedBy], 
-    [Vnd_Inv_SlsMan].[CompCode] AS [CompCode], 
-    [Vnd_Inv_SlsMan].[BranchCode] AS [BranchCode], 
-    [Vnd_Inv_SlsMan].[DocNo] AS [DocNo], 
-    [Vnd_Inv_SlsMan].[TrTime] AS [TrTime], 
-    [Vnd_Inv_SlsMan].[QRCode] AS [QRCode], 
-    [Vnd_Inv_SlsMan].[DeliveryDate] AS [DeliveryDate], 
-    [Vnd_Inv_SlsMan].[DeliveryEndDate] AS [DeliveryEndDate], 
-    [Vnd_Inv_SlsMan].[PromoCode] AS [PromoCode], 
-    [Vnd_Inv_SlsMan].[ChargeAmount] AS [ChargeAmount], 
-    [Vnd_Inv_SlsMan].[FinYear] AS [FinYear], 
-    [Vnd_Inv_SlsMan].[ItemCount] AS [ItemCount], 
-    [Vnd_Inv_SlsMan].[LineCount] AS [LineCount], 
-    [Vnd_Inv_SlsMan].[VendorID] AS [VendorID], 
-    [Vnd_Inv_SlsMan].[ZoneCode] AS [ZoneCode], 
-    [Vnd_Inv_SlsMan].[DescA] AS [DescA], 
-    [Vnd_Inv_SlsMan].[Active] AS [Active], 
-    [Vnd_Inv_SlsMan].[Sls_ZoneID] AS [Sls_ZoneID], 
-    [Vnd_Inv_SlsMan].[Zone_Remarks] AS [Zone_Remarks], 
-    [Vnd_Inv_SlsMan].[Inv_SlsManID] AS [Inv_SlsManID], 
-    [Vnd_Inv_SlsMan].[Inv_VendorID] AS [Inv_VendorID]
-    FROM [dbo].[Vnd_Inv_SlsMan] AS [Vnd_Inv_SlsMan]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1937,13 +1988,19 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
             <Parameter Name="BraCode" Mode="In" Type="Int32" />
             <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
           <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
           <EntitySet Name="A_Pay_D_Vendor" EntityType="InvModel.A_Pay_D_Vendor" />
           <EntitySet Name="I_Sls_D_Salesman" EntityType="InvModel.I_Sls_D_Salesman" />
-          <EntitySet Name="Vnd_Inv_SlsMan" EntityType="InvModel.Vnd_Inv_SlsMan" />
           <EntitySet Name="Zones" EntityType="InvModel.Zones" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
+          <EntitySet Name="A_ACCOUNT" EntityType="InvModel.A_ACCOUNT" />
+          <EntitySet Name="A_ACCOUNT_YEAR" EntityType="InvModel.A_ACCOUNT_YEAR" />
+          <EntitySet Name="A_JOURNAL_DETAIL" EntityType="InvModel.A_JOURNAL_DETAIL" />
+          <EntitySet Name="A_JOURNAL_HEADER" EntityType="InvModel.A_JOURNAL_HEADER" />
+          <EntitySet Name="A_RecPay_Tr_ReceiptNote" EntityType="InvModel.A_RecPay_Tr_ReceiptNote" />
+          <EntitySet Name="G_STORE" EntityType="InvModel.G_STORE" />
+          <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
+          <EntitySet Name="sysdiagrams" EntityType="InvModel.sysdiagrams" />
         </EntityContainer>
         <EntityType Name="A_Pay_D_VendorDoc">
           <Key>
@@ -2913,53 +2970,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Type="Boolean" Name="EditImages" Nullable="true" />
           <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Sls_Invoice">
-          <Key>
-            <PropertyRef Name="InvoiceID" />
-          </Key>
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrNo" Type="Int32" />
-          <Property Name="RefNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RefTrID" Type="Int32" />
-          <Property Name="TrDate" Type="DateTime" Precision="0" />
-          <Property Name="TrDateH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TrType" Type="Int32" />
-          <Property Name="CustomerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerMobile1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerMobile2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Location" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
-          <Property Name="SalesmanId" Type="Int32" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="VatAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="VatType" Type="Int32" />
-          <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DiscountPrc" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NetAfterVat" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CommitionAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="CashAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CardAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="RemainAmount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="BranchCode" Type="Int32" />
-          <Property Name="DocNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TrTime" Type="Time" Precision="7" />
-          <Property Name="QRCode" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
-          <Property Name="DeliveryEndDate" Type="DateTime" Precision="0" />
-          <Property Name="PromoCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ChargeAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FinYear" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="ItemCount" Type="Int32" />
-          <Property Name="LineCount" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-        </EntityType>
         <EntityType Name="G_USERS">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -3101,27 +3111,218 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="WebUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ZoneID" Type="Int32" />
         </EntityType>
-        <EntityType Name="Vnd_Inv_SlsMan">
+        <EntityType Name="Zones">
           <Key>
-            <PropertyRef Name="VendorCode" />
-            <PropertyRef Name="InvoiceID" />
-            <PropertyRef Name="CommitionAmount" />
+            <PropertyRef Name="ZoneID" />
           </Key>
-          <Property Name="SalesmanCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="SlsMan_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SlsMan_IDNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SlsMan_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SlsMan_Active" Type="Boolean" />
-          <Property Name="SlsMan_UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="VendorCode" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Vnd_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Vnd_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vnd_Active" Type="Boolean" />
-          <Property Name="REMARKS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Vnd_UserNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vnd_IDNO" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="ZoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sls_InvoiceItem">
+          <Key>
+            <PropertyRef Name="InvoiceItemID" />
+          </Key>
+          <Property Name="InvoiceItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceID" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoldQty" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="DiscountPrc" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="NetUnitPrice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="ItemTotal" Type="Decimal" Precision="37" Scale="10" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="VatPrc" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="VatAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="NetAfterVat" Type="Decimal" Precision="38" Scale="10" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="VatApplied" Type="Int32" />
+          <Property Name="TotRetQty" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Serial" Type="Int32" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="ItemNetAmount" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StoreID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="A_ACCOUNT">
+          <Key>
+            <PropertyRef Name="COMP_CODE" />
+            <PropertyRef Name="ACC_CODE" />
+          </Key>
+          <Property Name="COMP_CODE" Type="Int32" Nullable="false" />
+          <Property Name="ACC_CODE" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ACC_DESCA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACC_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACC_GROUP" Type="Int16" />
+          <Property Name="ACC_TYPE" Type="Int16" />
+          <Property Name="ACC_LEVEL" Type="Int16" />
+          <Property Name="ACC_ACTIVE" Type="Boolean" />
+          <Property Name="PARENT_ACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DETAIL" Type="Boolean" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_AT" Type="DateTime" Precision="0" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_UPDATE" Type="DateTime" Precision="0" />
+          <Property Name="CCDT_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CUR_CODE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="A_ACCOUNT_YEAR">
+          <Key>
+            <PropertyRef Name="COMP_CODE" />
+            <PropertyRef Name="ACC_CODE" />
+            <PropertyRef Name="FIN_YEAR" />
+          </Key>
+          <Property Name="COMP_CODE" Type="Int32" Nullable="false" />
+          <Property Name="ACC_CODE" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="FIN_YEAR" Type="Int32" Nullable="false" />
+          <Property Name="OPENING_BALANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CREDIT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DEBIT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ACC_LIMIT" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="REMARKS" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="A_JOURNAL_DETAIL">
+          <Key>
+            <PropertyRef Name="VoucherDetailID" />
+          </Key>
+          <Property Name="VoucherDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VoucherID" Type="Int32" />
+          <Property Name="COMP_CODE" Type="Int32" />
+          <Property Name="VOUCHER_CODE" Type="Int32" />
+          <Property Name="VOUCHER_SERIAL" Type="Int32" />
+          <Property Name="ACC_CODE" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CC_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DEBIT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CREDIT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DESCL" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DESCA" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CCDT_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="INVOICE_NO" Type="Int32" />
+          <Property Name="BOOK_TR_NO" Type="Int32" />
+          <Property Name="SRC_SYSTEM_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SRC_SUB_SYSTEM_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SRC_BRA_CODE" Type="Int32" />
+          <Property Name="SRC_TR_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SRC_TR_NO" Type="Int32" />
+          <Property Name="SRC_TR_TYPE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DEBIT_FC" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CREDIT_FC" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="A_JOURNAL_HEADER">
+          <Key>
+            <PropertyRef Name="VoucherID" />
+          </Key>
+          <Property Name="VoucherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMP_CODE" Type="Int32" />
+          <Property Name="VOUCHER_CODE" Type="Int32" />
+          <Property Name="VOUCHER_DATE" Type="DateTime" Precision="0" />
+          <Property Name="VOUCHER_DESC" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="VOUCHER_STATUS" Type="Byte" />
+          <Property Name="TYPE_CODE" Type="Int16" />
+          <Property Name="REF_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_AT" Type="DateTime" Precision="0" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATED_AT" Type="DateTime" Precision="0" />
+          <Property Name="POSTED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="POSTED_AT" Type="DateTime" Precision="0" />
+          <Property Name="BOOK_TR_NO" Type="Int32" />
+          <Property Name="SOURCE_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TotalDebit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalCredit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="VOUCHER_DATEH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AUTHORISED_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AUTHORISED_AT" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="A_RecPay_Tr_ReceiptNote">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CashBoxID" Type="Int32" />
+          <Property Name="TrType" Type="Int32" />
+          <Property Name="RecPayTypeId" Type="Int32" />
+          <Property Name="TrNo" Type="Int32" />
+          <Property Name="TrDate" Type="DateTime" Precision="0" />
+          <Property Name="TrDateH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="FromCashBoxID" Type="Int32" />
+          <Property Name="ExpenseID" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="CashAmount" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="CardAmount" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="BankAccountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiptDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiptDescE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsPosted" Type="Boolean" />
+          <Property Name="VoucherNo" Type="Int32" />
+          <Property Name="VoucherType" Type="Byte" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CheckNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransferNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankAcc_Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeffered" Type="Boolean" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
+          <Property Name="CashType" Type="Int32" />
+          <Property Name="Charges" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChargeProviderID" Type="Int32" />
+          <Property Name="ChargesVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChargeWithVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChargeVatType" Type="Int32" />
+          <Property Name="ChargesVatPrc" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChargeInvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderID" Type="Int32" />
+          <Property Name="ProviderName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderVatNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderVatType" Type="Int32" />
+          <Property Name="ProviderVatPrc" Type="Int32" />
+          <Property Name="ProviderVatAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProviderInvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderIndDate" Type="DateTime" Precision="0" />
+          <Property Name="ProviderAmountBeforeVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CC_Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_STORE">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="COMP_CODE" Type="Int32" />
+          <Property Name="BRA_CODE" Type="Int32" />
+          <Property Name="STORE_CODE" Type="Int32" />
+          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="StockAccCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="STORE_TYPE" Type="Byte" />
+          <Property Name="TYPE_CODE" Type="Byte" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sls_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TrNo" Type="Int32" />
           <Property Name="RefNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RefTrID" Type="Int32" />
@@ -3159,52 +3360,21 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="DeliveryEndDate" Type="DateTime" Precision="0" />
           <Property Name="PromoCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChargeAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FinYear" Type="Int32" />
+          <Property Name="FinYear" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="ItemCount" Type="Int32" />
           <Property Name="LineCount" Type="Int32" />
           <Property Name="VendorID" Type="Int32" />
-          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="Sls_ZoneID" Type="Int32" />
-          <Property Name="Zone_Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Inv_SlsManID" Type="Int32" />
-          <Property Name="Inv_VendorID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Zones">
-          <Key>
-            <PropertyRef Name="ZoneID" />
-          </Key>
-          <Property Name="ZoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sls_InvoiceItem">
-          <Key>
-            <PropertyRef Name="InvoiceItemID" />
-          </Key>
-          <Property Name="InvoiceItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceID" Type="Int32" />
-          <Property Name="ItemCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SoldQty" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="DiscountPrc" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="NetUnitPrice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="ItemTotal" Type="Decimal" Precision="37" Scale="10" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="VatPrc" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="VatAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="NetAfterVat" Type="Decimal" Precision="38" Scale="10" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="VatApplied" Type="Int32" />
-          <Property Name="TotRetQty" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="Serial" Type="Int32" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="ItemNetAmount" Type="Decimal" Precision="19" Scale="2" />
           <Property Name="StoreID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4190,54 +4360,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <FunctionImportMapping FunctionImportName="GProc_CreateUser" FunctionName="InvModel.Store.GProc_CreateUser" />
           <FunctionImportMapping FunctionImportName="GProc_GenerateBranchModules" FunctionName="InvModel.Store.GProc_GenerateBranchModules" />
           <FunctionImportMapping FunctionImportName="GProc_GenerateUserPrivilage" FunctionName="InvModel.Store.GProc_GenerateUserPrivilage" />
-          <EntitySetMapping Name="Sls_Invoice">
-            <EntityTypeMapping TypeName="InvModel.Sls_Invoice">
-              <MappingFragment StoreEntitySet="Sls_Invoice">
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-                <ScalarProperty Name="LineCount" ColumnName="LineCount" />
-                <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
-                <ScalarProperty Name="FinYear" ColumnName="FinYear" />
-                <ScalarProperty Name="ChargeAmount" ColumnName="ChargeAmount" />
-                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
-                <ScalarProperty Name="DeliveryEndDate" ColumnName="DeliveryEndDate" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="QRCode" ColumnName="QRCode" />
-                <ScalarProperty Name="TrTime" ColumnName="TrTime" />
-                <ScalarProperty Name="DocNo" ColumnName="DocNo" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="RemainAmount" ColumnName="RemainAmount" />
-                <ScalarProperty Name="CardAmount" ColumnName="CardAmount" />
-                <ScalarProperty Name="CashAmount" ColumnName="CashAmount" />
-                <ScalarProperty Name="CommitionAmount" ColumnName="CommitionAmount" />
-                <ScalarProperty Name="NetAfterVat" ColumnName="NetAfterVat" />
-                <ScalarProperty Name="DiscountPrc" ColumnName="DiscountPrc" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="VatType" ColumnName="VatType" />
-                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="SalesmanId" ColumnName="SalesmanId" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CustomerMobile2" ColumnName="CustomerMobile2" />
-                <ScalarProperty Name="CustomerMobile1" ColumnName="CustomerMobile1" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="TrType" ColumnName="TrType" />
-                <ScalarProperty Name="TrDateH" ColumnName="TrDateH" />
-                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
-                <ScalarProperty Name="RefTrID" ColumnName="RefTrID" />
-                <ScalarProperty Name="RefNO" ColumnName="RefNO" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="G_USERS">
             <EntityTypeMapping TypeName="InvModel.G_USERS">
               <MappingFragment StoreEntitySet="G_USERS">
@@ -4382,16 +4504,222 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Vnd_Inv_SlsMan">
-            <EntityTypeMapping TypeName="InvModel.Vnd_Inv_SlsMan">
-              <MappingFragment StoreEntitySet="Vnd_Inv_SlsMan">
-                <ScalarProperty Name="Inv_VendorID" ColumnName="Inv_VendorID" />
-                <ScalarProperty Name="Inv_SlsManID" ColumnName="Inv_SlsManID" />
-                <ScalarProperty Name="Zone_Remarks" ColumnName="Zone_Remarks" />
-                <ScalarProperty Name="Sls_ZoneID" ColumnName="Sls_ZoneID" />
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="InvModel.Zones">
+              <MappingFragment StoreEntitySet="Zones">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DescA" ColumnName="DescA" />
                 <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sls_InvoiceItem">
+            <EntityTypeMapping TypeName="InvModel.Sls_InvoiceItem">
+              <MappingFragment StoreEntitySet="Sls_InvoiceItem">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ItemNetAmount" ColumnName="ItemNetAmount" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="TotRetQty" ColumnName="TotRetQty" />
+                <ScalarProperty Name="VatApplied" ColumnName="VatApplied" />
+                <ScalarProperty Name="NetAfterVat" ColumnName="NetAfterVat" />
+                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
+                <ScalarProperty Name="VatPrc" ColumnName="VatPrc" />
+                <ScalarProperty Name="ItemTotal" ColumnName="ItemTotal" />
+                <ScalarProperty Name="NetUnitPrice" ColumnName="NetUnitPrice" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="DiscountPrc" ColumnName="DiscountPrc" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
+                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="InvoiceItemID" ColumnName="InvoiceItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_ACCOUNT">
+            <EntityTypeMapping TypeName="InvModel.A_ACCOUNT">
+              <MappingFragment StoreEntitySet="A_ACCOUNT">
+                <ScalarProperty Name="CUR_CODE" ColumnName="CUR_CODE" />
+                <ScalarProperty Name="CCDT_TYPE" ColumnName="CCDT_TYPE" />
+                <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="DETAIL" ColumnName="DETAIL" />
+                <ScalarProperty Name="PARENT_ACC" ColumnName="PARENT_ACC" />
+                <ScalarProperty Name="ACC_ACTIVE" ColumnName="ACC_ACTIVE" />
+                <ScalarProperty Name="ACC_LEVEL" ColumnName="ACC_LEVEL" />
+                <ScalarProperty Name="ACC_TYPE" ColumnName="ACC_TYPE" />
+                <ScalarProperty Name="ACC_GROUP" ColumnName="ACC_GROUP" />
+                <ScalarProperty Name="ACC_DESCL" ColumnName="ACC_DESCL" />
+                <ScalarProperty Name="ACC_DESCA" ColumnName="ACC_DESCA" />
+                <ScalarProperty Name="ACC_CODE" ColumnName="ACC_CODE" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_ACCOUNT_YEAR">
+            <EntityTypeMapping TypeName="InvModel.A_ACCOUNT_YEAR">
+              <MappingFragment StoreEntitySet="A_ACCOUNT_YEAR">
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="ACC_LIMIT" ColumnName="ACC_LIMIT" />
+                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="OPENING_BALANCE" ColumnName="OPENING_BALANCE" />
+                <ScalarProperty Name="FIN_YEAR" ColumnName="FIN_YEAR" />
+                <ScalarProperty Name="ACC_CODE" ColumnName="ACC_CODE" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_JOURNAL_DETAIL">
+            <EntityTypeMapping TypeName="InvModel.A_JOURNAL_DETAIL">
+              <MappingFragment StoreEntitySet="A_JOURNAL_DETAIL">
+                <ScalarProperty Name="CREDIT_FC" ColumnName="CREDIT_FC" />
+                <ScalarProperty Name="DEBIT_FC" ColumnName="DEBIT_FC" />
+                <ScalarProperty Name="SRC_TR_TYPE" ColumnName="SRC_TR_TYPE" />
+                <ScalarProperty Name="SRC_TR_NO" ColumnName="SRC_TR_NO" />
+                <ScalarProperty Name="SRC_TR_CODE" ColumnName="SRC_TR_CODE" />
+                <ScalarProperty Name="SRC_BRA_CODE" ColumnName="SRC_BRA_CODE" />
+                <ScalarProperty Name="SRC_SUB_SYSTEM_CODE" ColumnName="SRC_SUB_SYSTEM_CODE" />
+                <ScalarProperty Name="SRC_SYSTEM_CODE" ColumnName="SRC_SYSTEM_CODE" />
+                <ScalarProperty Name="BOOK_TR_NO" ColumnName="BOOK_TR_NO" />
+                <ScalarProperty Name="INVOICE_NO" ColumnName="INVOICE_NO" />
+                <ScalarProperty Name="CCDT_CODE" ColumnName="CCDT_CODE" />
+                <ScalarProperty Name="DESCA" ColumnName="DESCA" />
+                <ScalarProperty Name="DESCL" ColumnName="DESCL" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
+                <ScalarProperty Name="CC_CODE" ColumnName="CC_CODE" />
+                <ScalarProperty Name="ACC_CODE" ColumnName="ACC_CODE" />
+                <ScalarProperty Name="VOUCHER_SERIAL" ColumnName="VOUCHER_SERIAL" />
+                <ScalarProperty Name="VOUCHER_CODE" ColumnName="VOUCHER_CODE" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+                <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+                <ScalarProperty Name="VoucherDetailID" ColumnName="VoucherDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_JOURNAL_HEADER">
+            <EntityTypeMapping TypeName="InvModel.A_JOURNAL_HEADER">
+              <MappingFragment StoreEntitySet="A_JOURNAL_HEADER">
+                <ScalarProperty Name="AUTHORISED_AT" ColumnName="AUTHORISED_AT" />
+                <ScalarProperty Name="AUTHORISED_BY" ColumnName="AUTHORISED_BY" />
+                <ScalarProperty Name="VOUCHER_DATEH" ColumnName="VOUCHER_DATEH" />
+                <ScalarProperty Name="TotalCredit" ColumnName="TotalCredit" />
+                <ScalarProperty Name="TotalDebit" ColumnName="TotalDebit" />
+                <ScalarProperty Name="SOURCE_TYPE" ColumnName="SOURCE_TYPE" />
+                <ScalarProperty Name="BOOK_TR_NO" ColumnName="BOOK_TR_NO" />
+                <ScalarProperty Name="POSTED_AT" ColumnName="POSTED_AT" />
+                <ScalarProperty Name="POSTED_BY" ColumnName="POSTED_BY" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="REF_CODE" ColumnName="REF_CODE" />
+                <ScalarProperty Name="TYPE_CODE" ColumnName="TYPE_CODE" />
+                <ScalarProperty Name="VOUCHER_STATUS" ColumnName="VOUCHER_STATUS" />
+                <ScalarProperty Name="VOUCHER_DESC" ColumnName="VOUCHER_DESC" />
+                <ScalarProperty Name="VOUCHER_DATE" ColumnName="VOUCHER_DATE" />
+                <ScalarProperty Name="VOUCHER_CODE" ColumnName="VOUCHER_CODE" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+                <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="A_RecPay_Tr_ReceiptNote">
+            <EntityTypeMapping TypeName="InvModel.A_RecPay_Tr_ReceiptNote">
+              <MappingFragment StoreEntitySet="A_RecPay_Tr_ReceiptNote">
+                <ScalarProperty Name="CC_Code" ColumnName="CC_Code" />
+                <ScalarProperty Name="ProviderAmountBeforeVat" ColumnName="ProviderAmountBeforeVat" />
+                <ScalarProperty Name="ProviderIndDate" ColumnName="ProviderIndDate" />
+                <ScalarProperty Name="ProviderInvoiceNo" ColumnName="ProviderInvoiceNo" />
+                <ScalarProperty Name="ProviderVatAmount" ColumnName="ProviderVatAmount" />
+                <ScalarProperty Name="ProviderVatPrc" ColumnName="ProviderVatPrc" />
+                <ScalarProperty Name="ProviderVatType" ColumnName="ProviderVatType" />
+                <ScalarProperty Name="ProviderVatNo" ColumnName="ProviderVatNo" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+                <ScalarProperty Name="ChargeInvoiceNo" ColumnName="ChargeInvoiceNo" />
+                <ScalarProperty Name="ChargesVatPrc" ColumnName="ChargesVatPrc" />
+                <ScalarProperty Name="ChargeVatType" ColumnName="ChargeVatType" />
+                <ScalarProperty Name="ChargeWithVat" ColumnName="ChargeWithVat" />
+                <ScalarProperty Name="ChargesVat" ColumnName="ChargesVat" />
+                <ScalarProperty Name="ChargeProviderID" ColumnName="ChargeProviderID" />
+                <ScalarProperty Name="Charges" ColumnName="Charges" />
+                <ScalarProperty Name="CashType" ColumnName="CashType" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="IsDeffered" ColumnName="IsDeffered" />
+                <ScalarProperty Name="BankAcc_Code" ColumnName="BankAcc_Code" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="TransferNo" ColumnName="TransferNo" />
+                <ScalarProperty Name="CheckNo" ColumnName="CheckNo" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="VoucherType" ColumnName="VoucherType" />
+                <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+                <ScalarProperty Name="ReceiptDescE" ColumnName="ReceiptDescE" />
+                <ScalarProperty Name="ReceiptDescA" ColumnName="ReceiptDescA" />
+                <ScalarProperty Name="BankAccountCode" ColumnName="BankAccountCode" />
+                <ScalarProperty Name="CardAmount" ColumnName="CardAmount" />
+                <ScalarProperty Name="CashAmount" ColumnName="CashAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
+                <ScalarProperty Name="FromCashBoxID" ColumnName="FromCashBoxID" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TrDateH" ColumnName="TrDateH" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="RecPayTypeId" ColumnName="RecPayTypeId" />
+                <ScalarProperty Name="TrType" ColumnName="TrType" />
+                <ScalarProperty Name="CashBoxID" ColumnName="CashBoxID" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_STORE">
+            <EntityTypeMapping TypeName="InvModel.G_STORE">
+              <MappingFragment StoreEntitySet="G_STORE">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="TYPE_CODE" ColumnName="TYPE_CODE" />
+                <ScalarProperty Name="STORE_TYPE" ColumnName="STORE_TYPE" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+                <ScalarProperty Name="StockAccCode" ColumnName="StockAccCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DescL" ColumnName="DescL" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="STORE_CODE" ColumnName="STORE_CODE" />
+                <ScalarProperty Name="BRA_CODE" ColumnName="BRA_CODE" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sls_Invoice">
+            <EntityTypeMapping TypeName="InvModel.Sls_Invoice">
+              <MappingFragment StoreEntitySet="Sls_Invoice">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="LineCount" ColumnName="LineCount" />
                 <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
@@ -4434,57 +4762,17 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
                 <ScalarProperty Name="RefNO" ColumnName="RefNO" />
                 <ScalarProperty Name="TrNo" ColumnName="TrNo" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="Vnd_IDNO" ColumnName="Vnd_IDNO" />
-                <ScalarProperty Name="Vnd_UserNAME" ColumnName="Vnd_UserNAME" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="Vnd_Active" ColumnName="Vnd_Active" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="Vnd_Mobile" ColumnName="Vnd_Mobile" />
-                <ScalarProperty Name="Vnd_Name" ColumnName="Vnd_Name" />
-                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
-                <ScalarProperty Name="SlsMan_UserName" ColumnName="SlsMan_UserName" />
-                <ScalarProperty Name="SlsMan_Active" ColumnName="SlsMan_Active" />
-                <ScalarProperty Name="SlsMan_Mobile" ColumnName="SlsMan_Mobile" />
-                <ScalarProperty Name="SlsMan_IDNO" ColumnName="SlsMan_IDNO" />
-                <ScalarProperty Name="SlsMan_Name" ColumnName="SlsMan_Name" />
-                <ScalarProperty Name="SalesmanCode" ColumnName="SalesmanCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Zones">
-            <EntityTypeMapping TypeName="InvModel.Zones">
-              <MappingFragment StoreEntitySet="Zones">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="DescA" ColumnName="DescA" />
-                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
-                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sls_InvoiceItem">
-            <EntityTypeMapping TypeName="InvModel.Sls_InvoiceItem">
-              <MappingFragment StoreEntitySet="Sls_InvoiceItem">
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="ItemNetAmount" ColumnName="ItemNetAmount" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
-                <ScalarProperty Name="Serial" ColumnName="Serial" />
-                <ScalarProperty Name="TotRetQty" ColumnName="TotRetQty" />
-                <ScalarProperty Name="VatApplied" ColumnName="VatApplied" />
-                <ScalarProperty Name="NetAfterVat" ColumnName="NetAfterVat" />
-                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
-                <ScalarProperty Name="VatPrc" ColumnName="VatPrc" />
-                <ScalarProperty Name="ItemTotal" ColumnName="ItemTotal" />
-                <ScalarProperty Name="NetUnitPrice" ColumnName="NetUnitPrice" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="DiscountPrc" ColumnName="DiscountPrc" />
-                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
-                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
-                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="InvoiceItemID" ColumnName="InvoiceItemID" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="InvModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

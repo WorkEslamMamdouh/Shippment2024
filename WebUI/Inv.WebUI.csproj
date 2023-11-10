@@ -281,7 +281,6 @@
     <Content Include="NewStyle\images\b95d9abc8b862656098218a335b619025aa7ac4a3d19803ef76bb57a5d77cc90736e61db4918688fd89c3b8db9a06ffb549d71fadad9059c2d8cb9_1280.png" />
     <Content Include="NewStyle\images\businessman-checking-stock-market-online_53876-11970.jpg" />
     <Content Include="NewStyle\images\caac4e54.svg" />
-    <Content Include="NewStyle\images\cardboard-box-with-cargo-checklist-pencil.jpg" />
     <Content Include="NewStyle\images\cd3cd20c1d71f67d069f3f625694f521579f424d9c9e14253f385fe632dc97e67b1375511a8e4e43e62d783be85c11826e4f6431bcc5c074bfeedb_1280.png" />
     <Content Include="NewStyle\images\curved-back-arrow-left-pointer-icon-curve-cursor-symbol-vector.jpg" />
     <Content Include="NewStyle\images\d754debf.svg" />
@@ -306,6 +305,7 @@
     <Content Include="NewStyle\images\r-min.jpg" />
     <Content Include="NewStyle\images\red-delivery-car-deliver-express-shipping-fast-delivery-background-3d-rendering-illustration.jpg" />
     <Content Include="NewStyle\images\sdsee.jpg" />
+    <Content Include="NewStyle\images\Stores.jpg" />
     <Content Include="NewStyle\images\t.jpg" />
     <Content Include="NewStyle\images\ui.jpg" />
     <Content Include="NewStyle\images\ui.png" />
@@ -1104,6 +1104,11 @@
     <Content Include="Views\GeneralHub\Merchant_PaymentIndex.cshtml" />
     <Content Include="Views\Delivery\WalletIndex.cshtml" />
     <Content Include="Views\GeneralHub\ShipOrderIndex.cshtml" />
+    <Content Include="Views\Store\StoreIndex.cshtml" />
+    <Content Include="Views\Accountant\PaymentNoteIndex.cshtml" />
+    <Content Include="Views\Accountant\ReceiptNoteIndex.cshtml" />
+    <Content Include="Views\UserControl\VendorControlIndex.cshtml" />
+    <Content Include="Views\UserControl\SlsManControlIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1130,6 +1135,7 @@
     <Folder Include="Reports\Report\Reports\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\Accountant\PaymentNote.ts" />
     <TypeScriptCompile Include="ClientApp\AjaxCaller.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
@@ -1141,6 +1147,10 @@
     <TypeScriptCompile Include="ClientApp\GeneralHub\View_Validate_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Order\Edit_Order.ts" />
+    <TypeScriptCompile Include="ClientApp\Accountant\ReceiptNote.ts" />
+    <TypeScriptCompile Include="ClientApp\UserControl\VendorControl.ts" />
+    <TypeScriptCompile Include="ClientApp\UserControl\SlsManControl.ts" />
+    <TypeScriptCompile Include="ClientApp\Store\Store.ts" />
     <TypeScriptCompile Include="ClientApp\UserDef\UserDef.ts" />
     <TypeScriptCompile Include="ClientApp\PromoCode\PromoCode.ts" />
     <TypeScriptCompile Include="ClientApp\Zone\Zone.ts" />
