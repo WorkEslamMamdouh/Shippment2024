@@ -16,6 +16,7 @@ namespace Inv.DAL.Domain
     {
         public int InvoiceItemID { get; set; }
         public Nullable<int> InvoiceID { get; set; }
+        public string ItemCode { get; set; }
         public string ItemDescA { get; set; }
         public Nullable<decimal> SoldQty { get; set; }
         public Nullable<decimal> Unitprice { get; set; }
