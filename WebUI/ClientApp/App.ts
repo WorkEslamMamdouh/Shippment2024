@@ -3683,7 +3683,7 @@ function OpenPage(moduleCode: string) {
 
 }
 
-function OpenPagePartial(moduleCode: string, NamePage: string) {
+function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back?: () => void) {
     debugger
     Show_Loder();
 
@@ -3708,6 +3708,16 @@ function OpenPagePartial(moduleCode: string, NamePage: string) {
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
         $(window).scrollTop(0);
+         
+            OnDisplay_Back();
+
+         
+
+        $("#Display_Back_Page").on('click', function () {
+            debugger
+            OnDisplay_Back()            
+        });
+
     }
     else {
         Close_Loder();
@@ -3813,7 +3823,7 @@ function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
 }
 
 
-function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, StatusDesc: string) {
+function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, StatusDesc: string, OnSuccess?: () => void) {
     let sys = new SystemTools;
     var Env = GetSystemEnvironment(); 
     Ajax.CallsyncSave({
@@ -3829,7 +3839,7 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
                 }
                 $("._clearSta").removeClass("is-active");
                 $("#View_Status" + Status).addClass("is-active");
-
+                OnSuccess();
                 Close_Loder(); 
             } else {
                 Close_Loder(); 

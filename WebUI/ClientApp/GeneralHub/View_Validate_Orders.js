@@ -156,7 +156,15 @@ var View_Validate_Orders;
     }
     function ViewInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("View_Order", "Order 🧺");
+        OpenPagePartial("View_Order", "Order 🧺", function () { Display_Refrsh(); });
+    }
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return;
+        }
+        GetData_Invoice();
     }
 })(View_Validate_Orders || (View_Validate_Orders = {}));
 //# sourceMappingURL=View_Validate_Orders.js.map

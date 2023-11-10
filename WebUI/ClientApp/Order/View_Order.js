@@ -82,18 +82,24 @@ var View_Order;
     }
     //******************************************************* Events Buttons ************************************
     function btn_Delete_onclick() {
-        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )');
-        $('#Back_Page').click();
+        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', function () {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click();
+        });
     }
     function btn_freeze_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )');
-        $("#btn_Active").removeClass("display_none");
-        $("#btn_freeze").addClass("display_none");
+        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', function () {
+            $("#btn_Active").removeClass("display_none");
+            $("#btn_freeze").addClass("display_none");
+            $("#Display_Back_Page").click();
+        });
     }
     function btn_Active_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )');
-        $("#btn_Active").addClass("display_none");
-        $("#btn_freeze").removeClass("display_none");
+        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', function () {
+            $("#btn_Active").addClass("display_none");
+            $("#btn_freeze").removeClass("display_none");
+            $("#Display_Back_Page").click();
+        });
     }
     function btn_Edit_Order_onclick() {
     }
