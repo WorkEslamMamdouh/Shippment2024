@@ -59,7 +59,7 @@ var VendorControl;
             },
             { title: "Job Title", name: "DescA", type: "text", width: "100px" },
             {
-                title: "Block",
+                title: "Block", css: "width: 40px;height: 35px;",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "checkbox";
