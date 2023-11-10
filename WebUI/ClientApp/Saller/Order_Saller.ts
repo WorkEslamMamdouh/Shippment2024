@@ -283,6 +283,8 @@ namespace Order_Saller {
         Header.TrType = 0;
         Header.CompCode = 1;
         Header.BranchCode = 1;
+        Header.CreatedBy = SysSession.CurrentEnvironment.UserCode;
+        Header.CreatedAt = GetDate();
 
         InvMasterDetails.Sls_InvoiceItem = Model;
         InvMasterDetails.Sls_Invoice = Header;
