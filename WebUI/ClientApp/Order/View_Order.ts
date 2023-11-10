@@ -91,14 +91,17 @@ namespace View_Order {
             if (_Inv.Status == 0) { //freeze
                 $("#btn_Active").removeClass("display_none")
                 $("#btn_freeze").addClass("display_none")
+                $("#btn_Edit_Order").removeClass("display_none")
             }
             if (_Inv.Status == 1) { //Active
                 $("#btn_Active").addClass("display_none")
+                $("#btn_Edit_Order").addClass("display_none")
                 $("#btn_freeze").removeClass("display_none")
             }
-            if (_Inv.Status == 2) { //Active
+            if (_Inv.Status == 2) { //Confirm
                 $("#btn_Active").addClass("display_none")
                 $("#btn_freeze").removeClass("display_none")
+                $("#btn_Edit_Order").addClass("display_none")
             }
         }
        
@@ -117,6 +120,7 @@ namespace View_Order {
     
         UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', () => { 
             $("#btn_Active").removeClass("display_none")
+            $("#btn_Edit_Order").removeClass("display_none")
             $("#btn_freeze").addClass("display_none")
             $("#Display_Back_Page").click();
         }) 
@@ -124,6 +128,7 @@ namespace View_Order {
     function btn_Active_onclick() {
         UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', () => { 
             $("#btn_Active").addClass("display_none")
+            $("#btn_Edit_Order").addClass("display_none")
             $("#btn_freeze").removeClass("display_none")
             $("#Display_Back_Page").click();
         }) 

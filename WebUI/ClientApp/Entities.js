@@ -7241,4 +7241,31 @@ var Vnd_Inv_SlsMan = /** @class */ (function () {
     }
     return Vnd_Inv_SlsMan;
 }());
+var GQ_USERS = /** @class */ (function (_super) {
+    __extends(GQ_USERS, _super);
+    function GQ_USERS() {
+        var _this = _super.call(this) || this;
+        _this.USER_CODE = "";
+        _this.USER_PASSWORD = "";
+        _this.USER_NAME = "";
+        _this.USER_ACTIVE = false;
+        _this.CompCode = 0;
+        _this.Address = "";
+        _this.Tel = "";
+        _this.Fax = "";
+        _this.Mobile = "";
+        _this.Email = "";
+        _this.JobTitle = "";
+        _this.USER_TYPE = 0;
+        _this.Expr1 = "";
+        _this.SalesManID = 0;
+        _this.StoreID = 0;
+        _this.VendorID = 0;
+        _this.Vnd_CompName = "";
+        _this.CodeValue = 0;
+        _this.DescA = "";
+        return _this;
+    }
+    return GQ_USERS;
+}(SecurityClass));
 //# sourceMappingURL=Entities.js.map

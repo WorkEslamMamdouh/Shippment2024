@@ -2669,7 +2669,7 @@ function BuildAllFild(dataSource, cnt, NameRow) {
     for (var _i = 0, properties_3 = properties; _i < properties_3.length; _i++) {
         var property = properties_3[_i];
         if (document.getElementById(property + cnt) == null) {
-            html += "<input id=\"".concat(property + cnt, "\" type=\"hidden\" value=\"\" class=\"form-control \"/>");
+            html += "<input id=\"" + (property + cnt) + "\" type=\"hidden\" value=\"\" class=\"form-control \"/>";
         }
         else {
             $("#" + property + cnt).on('change', function () {

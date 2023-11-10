@@ -241,8 +241,11 @@ var Edit_Order;
         Header.TrType = 0;
         Header.CompCode = 1;
         Header.BranchCode = 1;
+        Header.CreatedBy = _Inv.CreatedBy;
+        Header.CreatedAt = _Inv.CreatedAt;
         Header.UpdatedBy = SysSession.CurrentEnvironment.UserCode;
         Header.UpdatedAt = GetDate();
+        Header.Status = _Inv.Status;
         InvMasterDetails.Sls_InvoiceItem = Model;
         InvMasterDetails.Sls_Invoice = Header;
         InvMasterDetails.Branch_Code = SysSession.CurrentEnvironment.BranchCode;
@@ -264,9 +267,10 @@ var Edit_Order;
                     if (result.IsSuccess) {
                         debugger;
                         var res = result.Response;
-                        ShowMessage("Inserted 😍");
+                        ShowMessage("Updated 😍");
                         _Back();
                         Clear();
+                        $('#Back_Page').click();
                         Close_Loder();
                     }
                     else {
