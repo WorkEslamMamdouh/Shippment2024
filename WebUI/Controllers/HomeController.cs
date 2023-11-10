@@ -49,7 +49,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/Accountant/ReceiptNoteIndex.cshtml",
          "~/Views/Accountant/PaymentNoteIndex.cshtml",
          "~/Views/UserControl/VendorControlIndex.cshtml",
-         "~/Views/UserControl/SlsManControlIndex.cshtml", 
+         "~/Views/UserControl/EmpControlIndex.cshtml", 
 
                       };
 

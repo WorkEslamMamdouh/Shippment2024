@@ -74,6 +74,8 @@ namespace Inv.DAL.Domain
         public virtual DbSet<G_STORE> G_STORE { get; set; }
         public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<GQ_USERS> GQ_USERS { get; set; }
+        public virtual DbSet<Vnd_Inv_SlsMan> Vnd_Inv_SlsMan { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {

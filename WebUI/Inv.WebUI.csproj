@@ -310,7 +310,10 @@
     <Content Include="NewStyle\images\ui.jpg" />
     <Content Include="NewStyle\images\ui.png" />
     <Content Include="NewStyle\images\uii.jpg" />
+    <Content Include="NewStyle\images\UserControl.jpg" />
     <Content Include="NewStyle\images\vcvc.jpg" />
+    <Content Include="NewStyle\images\VendorControl.jpg" />
+    <Content Include="NewStyle\images\ZoneDef.jpg" />
     <Content Include="NewStyle\index.html" />
     <Content Include="NewStyle\intlTelInput\intlTelInput.css" />
     <Content Include="NewStyle\intlTelInput\intlTelInput.min.js" />
@@ -1108,7 +1111,7 @@
     <Content Include="Views\Accountant\PaymentNoteIndex.cshtml" />
     <Content Include="Views\Accountant\ReceiptNoteIndex.cshtml" />
     <Content Include="Views\UserControl\VendorControlIndex.cshtml" />
-    <Content Include="Views\UserControl\SlsManControlIndex.cshtml" />
+    <Content Include="Views\UserControl\EmpControlIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1149,7 +1152,7 @@
     <TypeScriptCompile Include="ClientApp\Order\Edit_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Accountant\ReceiptNote.ts" />
     <TypeScriptCompile Include="ClientApp\UserControl\VendorControl.ts" />
-    <TypeScriptCompile Include="ClientApp\UserControl\SlsManControl.ts" />
+    <TypeScriptCompile Include="ClientApp\UserControl\EmpControl.ts" />
     <TypeScriptCompile Include="ClientApp\Store\Store.ts" />
     <TypeScriptCompile Include="ClientApp\UserDef\UserDef.ts" />
     <TypeScriptCompile Include="ClientApp\PromoCode\PromoCode.ts" />

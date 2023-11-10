@@ -104,6 +104,9 @@
     <Compile Include="Domain\GQ_ReportWebSetting.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\GQ_USERS.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\G_AlertType.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
@@ -223,6 +226,9 @@
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\sysdiagrams.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Vnd_Inv_SlsMan.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Zones.cs">

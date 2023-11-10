@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    VendorControl.InitalizeComponent();
+    EmpControl.InitalizeComponent();
 });
-var VendorControl;
-(function (VendorControl) {
+var EmpControl;
+(function (EmpControl) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Grid = new JsGrid();
@@ -18,7 +18,7 @@ var VendorControl;
         InitializeGrid();
         Close_Loder();
     }
-    VendorControl.InitalizeComponent = InitalizeComponent;
+    EmpControl.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         Filter_View = document.getElementById('Filter_View');
@@ -59,20 +59,6 @@ var VendorControl;
             },
             { title: "Job Title", name: "DescA", type: "text", width: "100px" },
             {
-                title: "Block",
-                itemTemplate: function (s, item) {
-                    var txt = document.createElement("input");
-                    txt.type = "checkbox";
-                    txt.id = "ChkView" + item.USER_CODE;
-                    txt.className = "checkbox";
-                    txt.checked = !item.USER_ACTIVE;
-                    txt.onclick = function (e) {
-                        BlockSeller(item.USER_CODE, txt.checked == true ? 1 : 0);
-                    };
-                    return txt;
-                }
-            },
-            {
                 title: "View",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
@@ -109,10 +95,13 @@ var VendorControl;
         if ($('#drpActive').val() != "Null") {
             Con = " and USER_ACTIVE =" + Number($('#drpActive').val());
         }
+        if ($('#drpUserType').val() != "Null") {
+            Con = " and USER_TYPE =" + Number($('#drpUserType').val());
+        }
         var Table;
         Table =
             [
-                { NameTable: 'GQ_USERS', Condition: " USER_TYPE = 10  and [USER_NAME] != 'SellerMan' " + Con },
+                { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and [USER_NAME] not in ('StockKeeper','StockMan','UserAccount','UserAdministrator') " + Con },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -125,7 +114,7 @@ var VendorControl;
     }
     function ViewUser(UserCode) {
         localStorage.setItem("UserCode", UserCode);
-        OpenPagePartial("Profile", "Profile 👤");
+        OpenPagePartial("Profile", "Profile ��");
     }
     function Clear() {
         $('#drpActive').val("Null");
@@ -135,22 +124,5 @@ var VendorControl;
         _Grid.DataSource = _Usersnone;
         _Grid.Bind();
     }
-    function BlockSeller(UserCode, Active) {
-        Ajax.CallsyncSave({
-            type: "Get",
-            url: sys.apiUrl("Seller", "Blockseller"),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, SellerCode: UserCode, USER_CODE: SysSession.CurrentEnvironment.UserCode, Active: Active },
-            success: function (d) {
-                var result = d;
-                if (result.IsSuccess == true) {
-                    ShowMessage("Seller Blocked ��‍👍");
-                    GetData_Users();
-                    Close_Loder();
-                }
-                else {
-                }
-            }
-        });
-    }
-})(VendorControl || (VendorControl = {}));
-//# sourceMappingURL=VendorControl.js.map
+})(EmpControl || (EmpControl = {}));
+//# sourceMappingURL=EmpControl.js.map

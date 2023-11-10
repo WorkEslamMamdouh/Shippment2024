@@ -26,6 +26,7 @@ namespace Inv.API.Controllers
         }
         public enum PageName
         {
+            VendorControl,
             DirectTransfer,
             SlsTrSalesManager,
             Sales_Services,

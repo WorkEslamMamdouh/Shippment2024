@@ -125,6 +125,30 @@ namespace Inv.API.Controllers
             return Ok(new BaseResponse(true));
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Blockseller(string CompCode, string BranchCode, string SellerCode, string USER_CODE,int Active)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Random random = new Random();
+
+
+                    string Qury = @"Update G_USERS set USER_ACTIVE = " + Active + "";
+                    db.Database.ExecuteSqlCommand(Qury);
+                    LogUser.Insert(db, CompCode, BranchCode, DateTime.Now.Year.ToString(), "", null, "", LogUser.UserLog.Insert,LogUser.PageName.VendorControl, true, null, null,"Block Vendor "+SellerCode+" By User "+ USER_CODE+ "");
+                    return Ok(new BaseResponse(true));
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }  
+        }
 
     }
 }

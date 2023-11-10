@@ -12314,3 +12314,47 @@ class Vnd_Inv_SlsMan {
 	public Inv_VendorID: number;
 }
 
+class GQ_USERS extends SecurityClass {
+	constructor() {
+		super();
+		this.USER_CODE = "";
+		this.USER_PASSWORD = "";
+		this.USER_NAME = "";
+		this.USER_ACTIVE = false;
+		this.CompCode = 0;
+		this.Address = "";
+		this.Tel = "";
+		this.Fax = "";
+		this.Mobile = "";
+		this.Email = "";
+		this.JobTitle = "";
+		this.USER_TYPE = 0;
+		this.Expr1 = "";
+		this.SalesManID = 0;
+		this.StoreID = 0;
+		this.VendorID = 0;
+		this.Vnd_CompName = "";
+		this.CodeValue = 0;
+		this.DescA = "";
+	}
+	public USER_CODE: string;
+	public USER_PASSWORD: string;
+	public USER_NAME: string;
+	public USER_ACTIVE: boolean;
+	public CompCode: number;
+	public Address: string;
+	public Tel: string;
+	public Fax: string;
+	public Mobile: string;
+	public Email: string;
+	public JobTitle: string;
+	public USER_TYPE: number;
+	public Expr1: string;
+	public SalesManID: number;
+	public StoreID: number;
+	public VendorID: number;
+	public Vnd_CompName: string;
+	public CodeValue: number;
+	public DescA: string;
+}
+
