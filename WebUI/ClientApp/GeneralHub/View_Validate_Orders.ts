@@ -179,6 +179,18 @@ namespace View_Validate_Orders {
     function ViewInvoice(InvoiceID) {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("View_Order", "Order 🧺");
+        OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+      
+    }
+
+
+
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return
+        }
+        GetData_Invoice();
     }
 }

@@ -2835,7 +2835,7 @@ function OpenPage(moduleCode) {
         ShowMessage("No Privilage");
     }
 }
-function OpenPagePartial(moduleCode, NamePage) {
+function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back) {
     debugger;
     Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
@@ -2853,6 +2853,11 @@ function OpenPagePartial(moduleCode, NamePage) {
         $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
         $(window).scrollTop(0);
+        OnDisplay_Back();
+        $("#Display_Back_Page").on('click', function () {
+            debugger;
+            OnDisplay_Back();
+        });
     }
     else {
         Close_Loder();
@@ -2929,7 +2934,7 @@ function GetGlopelDataInvoice() {
 function GetGlopelDataInvoiceItems() {
     return GlopelInvoiceItems;
 }
-function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc) {
+function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
     var sys = new SystemTools;
     var Env = GetSystemEnvironment();
     Ajax.CallsyncSave({
@@ -2945,6 +2950,7 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc) {
                 }
                 $("._clearSta").removeClass("is-active");
                 $("#View_Status" + Status).addClass("is-active");
+                OnSuccess();
                 Close_Loder();
             }
             else {
