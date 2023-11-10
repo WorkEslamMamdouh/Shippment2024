@@ -225,19 +225,14 @@ namespace Inv.API.Controllers
 
                     foreach (var item in InsertedItems)
                     {
-                        SalesManService.InsertZone(item);
+                        SalesManService.InsertStore(item);
 
                     }
                     foreach (var item in UpdatedItems)
                     {
-                        SalesManService.UpdateZone(item);
+                        SalesManService.UpdateStore(item);
 
-                    }
-                    foreach (var item in DeletedItems)
-                    {
-                        SalesManService.DeleteZone(item.ZoneID);
-
-                    }
+                    } 
 
                     dbTransaction.Commit();
                     return Ok(new BaseResponse(true));

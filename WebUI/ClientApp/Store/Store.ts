@@ -108,11 +108,7 @@ namespace Store {
 		let html = '<tr id="Row' + cnt + '" style="height: 51px; ">' +
 			'<input id="Txt_StoreID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
 			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
-
-			'<td class="btn_minus" style = "width: 2%;" > ' +
-			'<button  id="btn_minus' + cnt + '"> <i class="fa-solid fa-circle-minus" > </i></button > ' +
-			'</td>' +
-
+					    
 			'<td class="u-table-cell" > ' +
 			'<input type="text" id="Txt_StoreCode' + cnt + '" maxlength="50" class="Clear_Header  u-input u-input-rectangle">' +
 			'</td>' +
@@ -148,16 +144,9 @@ namespace Store {
 			if ($("#txtStatusFlag" + cnt).val() != "i")
 				$("#txtStatusFlag" + cnt).val("u");
 		});
-		$(`#btn_minus${cnt}`).on('click', function () {
-			DeleteRow(cnt);
-		});
-
-
+		 
 	}
-	function DeleteRow(RecNo: number) {
-		$("#txtStatusFlag" + RecNo).val() == 'i' ? $("#txtStatusFlag" + RecNo).val('m') : $("#txtStatusFlag" + RecNo).val('d');
-		$("#Row" + RecNo).attr("hidden", "true");
-	}
+	 
 	function Assign() {
 		_STOREModel = new Array<G_STORE>();
 		for (var i = 0; i < CountGrid; i++) {

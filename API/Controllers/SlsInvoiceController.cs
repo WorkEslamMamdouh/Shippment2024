@@ -69,7 +69,7 @@ namespace Inv.API.Controllers
             {
                 try
                 {
-                    var sls = SlsInvoiceService.InsertInvoice(obj.Sls_Invoice);
+                    var sls = SlsInvoiceService.UpdateInvoice(obj.Sls_Invoice);
                     List<Sls_InvoiceItem> InsertedItems = obj.Sls_InvoiceItem.Where(x => x.StatusFlag == 'i').ToList();
                     List<Sls_InvoiceItem> UpdatedItems = obj.Sls_InvoiceItem.Where(x => x.StatusFlag == 'u').ToList();
                     List<Sls_InvoiceItem> DeletedItems = obj.Sls_InvoiceItem.Where(x => x.StatusFlag == 'd').ToList();

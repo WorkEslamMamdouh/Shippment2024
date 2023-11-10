@@ -40,11 +40,9 @@
         <EntityTypeShape EntityType="InvModel.I_VW_GetCompStatus" Width="1.5" PointX="22.75" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.IQ_GetSalesMan" Width="1.5" PointX="2.75" PointY="22.75" />
         <EntityTypeShape EntityType="InvModel.IQ_GetVendor" Width="1.5" PointX="22.75" PointY="3.75" />
-        <EntityTypeShape EntityType="InvModel.Sls_Invoice" Width="1.5" PointX="5.375" PointY="23.125" />
         <EntityTypeShape EntityType="InvModel.G_USERS" Width="1.5" PointX="2.2368397145703622" PointY="14.171799502415489" />
         <EntityTypeShape EntityType="InvModel.A_Pay_D_Vendor" Width="1.5" PointX="13.375" PointY="16.75" />
         <EntityTypeShape EntityType="InvModel.I_Sls_D_Salesman" Width="1.5" PointX="9.375" PointY="23.75" />
-        <EntityTypeShape EntityType="InvModel.Vnd_Inv_SlsMan" Width="1.5" PointX="15.375" PointY="23.75" />
         <EntityTypeShape EntityType="InvModel.Zones" Width="1.5" PointX="17.375" PointY="3.75" />
         <EntityTypeShape EntityType="InvModel.Sls_InvoiceItem" Width="1.5" PointX="23.375" PointY="20.75" />
         <EntityTypeShape EntityType="InvModel.A_ACCOUNT" Width="1.5" PointX="25.375" PointY="0.75" />
@@ -53,6 +51,8 @@
         <EntityTypeShape EntityType="InvModel.A_JOURNAL_HEADER" Width="1.5" PointX="25.375" PointY="15.75" />
         <EntityTypeShape EntityType="InvModel.A_RecPay_Tr_ReceiptNote" Width="1.5" PointX="17.375" PointY="25.75" />
         <EntityTypeShape EntityType="InvModel.G_STORE" Width="1.5" PointX="19.375" PointY="25.75" />
+        <EntityTypeShape EntityType="InvModel.Sls_Invoice" Width="1.5" PointX="5.375" PointY="22.75" />
+        <EntityTypeShape EntityType="InvModel.sysdiagrams" Width="1.5" PointX="25.375" PointY="21.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
