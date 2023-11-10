@@ -68,6 +68,12 @@ namespace Inv.DAL.Domain
         public virtual DbSet<Vnd_Inv_SlsMan> Vnd_Inv_SlsMan { get; set; }
         public virtual DbSet<Zones> Zones { get; set; }
         public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
+        public virtual DbSet<A_ACCOUNT> A_ACCOUNT { get; set; }
+        public virtual DbSet<A_ACCOUNT_YEAR> A_ACCOUNT_YEAR { get; set; }
+        public virtual DbSet<A_JOURNAL_DETAIL> A_JOURNAL_DETAIL { get; set; }
+        public virtual DbSet<A_JOURNAL_HEADER> A_JOURNAL_HEADER { get; set; }
+        public virtual DbSet<A_RecPay_Tr_ReceiptNote> A_RecPay_Tr_ReceiptNote { get; set; }
+        public virtual DbSet<G_STORE> G_STORE { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {

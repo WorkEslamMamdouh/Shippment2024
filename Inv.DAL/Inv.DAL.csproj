@@ -50,10 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\A_ACCOUNT.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\A_ACCOUNT_YEAR.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\A_JOURNAL_DETAIL.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\A_JOURNAL_HEADER.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\A_Pay_D_Vendor.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\A_Pay_D_VendorDoc.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\A_RecPay_Tr_ReceiptNote.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\GFunc_GetPrivilageRole_Result.cs">
@@ -132,6 +147,9 @@
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\G_SearchFormSetting.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_STORE.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\G_SUB_SYSTEMS.cs">
