@@ -7,9 +7,13 @@ $(document).ready(() => {
 namespace Edit_Order {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
+    var _USER: Array<G_USERS> = new Array<G_USERS>();
 
     var InvMasterDetails: InvoiceMasterDetails = new InvoiceMasterDetails();
-
+    var _Inv: Vnd_Inv_SlsMan = new Vnd_Inv_SlsMan();
+    var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
+    var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
+    var _InvItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
     var Id_Back: HTMLButtonElement;
     var Id_Next: HTMLButtonElement;
@@ -21,17 +25,33 @@ namespace Edit_Order {
     var Txt_Quantity: HTMLInputElement;
     var Txt_UnitPrice: HTMLInputElement;
     var Txt_NetTotal: HTMLInputElement;
+    var Txt_PrcVatAmount: HTMLInputElement;
+    var Txt_CommitionAmount: HTMLInputElement;
 
     var CountGrid = 0;
     var NumItems = 0;
+    var ItemTotal = 0;
+    var ItemCount = 0;
+    var InvoiceID = 0;
+
     export function InitalizeComponent() {
+
+        let _USERS = GetGlopelDataUser()
+        _USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
+
+        InitalizeControls();
+        InitializeEvents();
+          Clear();
+        _Invoices = GetGlopelDataInvoice();
+        _InvoiceItems = GetGlopelDataInvoiceItems();
+        InvoiceID = Number(localStorage.getItem("InvoiceID"))
+        _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
+        _InvItems = _InvoiceItems.filter(x => x.InvoiceID == InvoiceID)
+        Display_information_Inv();
+
+
         Close_Loder();
-
-
-        //InitalizeControls();
-        //InitializeEvents();
-
-        //Clear();
+      
     }
     function InitalizeControls() {
         Id_Back = document.getElementById("Id_Back") as HTMLButtonElement;
@@ -43,7 +63,9 @@ namespace Edit_Order {
         Txt_Quantity = document.getElementById("Txt_Quantity") as HTMLInputElement;
         Txt_UnitPrice = document.getElementById("Txt_UnitPrice") as HTMLInputElement;
         Txt_NetTotal = document.getElementById("Txt_NetTotal") as HTMLInputElement;
-         
+        Txt_PrcVatAmount = document.getElementById("Txt_PrcVatAmount") as HTMLInputElement;
+        Txt_CommitionAmount = document.getElementById("Txt_CommitionAmount") as HTMLInputElement;
+
     }
     function InitializeEvents() {
 
@@ -56,6 +78,9 @@ namespace Edit_Order {
 
         Txt_UnitPrice.onkeyup = BoxTotal;
         Txt_Quantity.onkeyup = BoxTotal;
+
+        Txt_PrcVatAmount.onkeyup = TotalComplet;
+        Txt_CommitionAmount.onkeyup = TotalComplet;
     }
 
     function _Next() {
@@ -79,7 +104,7 @@ namespace Edit_Order {
         $('#Div_Item').addClass('display_none')
         $('#Div_Review_invoice').addClass('display_none')
         $('#Div_Header').removeClass('display_none')
-    } 
+    }
     function _Back_Step2() {
         $('#Id_Div_Next_Step2').removeClass('display_none')
         $('#Id_Div_Back').removeClass('display_none')
@@ -108,10 +133,15 @@ namespace Edit_Order {
 
     }
     function _Finish() {
+        debugger
+        if (!$('.User1').is(":hidden")) { 
+            if (!Valid_Input("Txt_CommitionAmount", "Please a Enter Commition Amount 😡" , "1")) {
+                return false;
+            }
+        }
         Assign();
-        Insert();
-      
-    } 
+        Update(); 
+    }
     //****************************************************** Validtion and Clear *****************************************
     function Valid_Header(): boolean {
 
@@ -140,7 +170,7 @@ namespace Edit_Order {
         }
 
         return true;
-    } 
+    }
     function Valid_Item(): boolean {
 
         if (!Valid_Input("Txt_Name_Item", "Please a Enter Name Item 😡")) {
@@ -154,7 +184,7 @@ namespace Edit_Order {
         if (!Valid_Input("Txt_Quantity", "Please a Enter Quantity 😡")) {
             return false;
         }
-         
+
 
         return true;
     }
@@ -204,23 +234,24 @@ namespace Edit_Order {
         $("#ItemDescA" + cnt).val(Name_Item)
         $("#InvoiceID" + cnt).val(InvoiceID)
         $("#InvoiceItemID" + cnt).val(InvoiceItemID)
+        
         $("#VendorID" + cnt).val(VendorID)
-         
+
 
         $("#DeleteBox" + cnt).on('click', function () {
             DeleteBox(cnt);
         });
-    } 
+    }
     function AddItemBox() {
         if (!Valid_Item()) {
             return
         }
 
-        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val(), 0, 0, SysSession.CurrentEnvironment.VendorID);
+        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val(), 0, 0, _Inv.VendorID);
         $('#StatusFlag' + CountGrid).val("i");
         CountGrid++;
         NumItems++;
-        
+
         $("#Tap_Reviews_Items").html("Reviews Items ( " + NumItems + " )")
         $(".Clear_Item").val("")
         $("#Txt_Name_Item").focus()
@@ -228,23 +259,23 @@ namespace Edit_Order {
         ShowMessage("Add Item ✅")
     }
     function DeleteBox(RecNo: number) {
-     
-            var statusFlag = $("#StatusFlag" + RecNo).val();
-            if (statusFlag == "i")
-                $("#StatusFlag" + RecNo).val("m");
-            else
-                $("#StatusFlag" + RecNo).val("d");
+
+        var statusFlag = $("#StatusFlag" + RecNo).val();
+        if (statusFlag == "i")
+            $("#StatusFlag" + RecNo).val("m");
+        else
+            $("#StatusFlag" + RecNo).val("d");
 
 
 
         $("#Box_No" + RecNo).addClass("display_none");
-        
+
         NumItems--;
         if (NumItems == 0) {
-        $("#Tap_Reviews_Items").html("Reviews Items")
+            $("#Tap_Reviews_Items").html("Reviews Items")
         }
         else {
-        $("#Tap_Reviews_Items").html("Reviews Items ( " + NumItems + " )")
+            $("#Tap_Reviews_Items").html("Reviews Items ( " + NumItems + " )")
         }
 
         ShowMessage("Deleted ❌")
@@ -269,11 +300,22 @@ namespace Edit_Order {
         Header.CustomerMobile2 = $('#Txt_Phone_Num2').val().trim();
         Header.Address = $('#Txt_Address1').val().trim();
         Header.Location = $('#Txt_location').val().trim();
-        Header.TrDate = DateFormatRep($('#Txt_Receive_TrData').val());
+        Header.TrDate = DateFormatRep($('#Txt__TrData').val());
+        Header.DeliveryDate = DateFormatRep($('#Txt_Receive_TrData').val());
         Header.PromoCode = $('#txt_Promo_Code').val().trim();
         Header.UserCode = SysSession.CurrentEnvironment.UserCode;
-        Header.VendorID = Model[0].VendorID;
+        Header.VendorID = _Inv.VendorID;
+        Header.VatType = Number($('#Txt_PrcVatAmount').val());  
+        Header.VatAmount = Number($('#Txt_VatAmount').val());
+        Header.TotalAmount = Number($('#Txt_TotalAmount').val());
+        Header.CommitionAmount = Number($('#Txt_CommitionAmount').val());
+        Header.NetAfterVat = Number($('#Txt_NetAmount').val());
+        Header.ItemCount = Number(ItemCount);
         Header.TrType = 0;
+        Header.CompCode = 1;
+        Header.BranchCode = 1;
+        Header.UpdatedBy = SysSession.CurrentEnvironment.UserCode;
+        Header.UpdatedAt = GetDate();
 
         InvMasterDetails.Sls_InvoiceItem = Model;
         InvMasterDetails.Sls_Invoice = Header;
@@ -283,15 +325,14 @@ namespace Edit_Order {
         InvMasterDetails.MODULE_CODE = "Order_Saller";
         InvMasterDetails.UserCode = SysSession.CurrentEnvironment.UserCode;
         InvMasterDetails.sec_FinYear = SysSession.CurrentEnvironment.CurrentYear;
-         
-    }
-    function Insert() {
-        console.log(InvMasterDetails);
-        try {
 
-            Ajax.Callsync({
+    }
+    function Update() {
+        console.log(InvMasterDetails);
+        try { 
+            Ajax.CallsyncSave({
                 type: "Post",
-                url: sys.apiUrl("SlsInvoice", "Insert"),
+                url: sys.apiUrl("SlsInvoice", "Update"),
                 data: JSON.stringify(InvMasterDetails),
                 success: (d) => {
                     debugger
@@ -302,6 +343,9 @@ namespace Edit_Order {
                         ShowMessage("Inserted 😍")
                         _Back();
                         Clear();
+
+
+                        Close_Loder();
                     } else {
                         ShowMessage("Error 😒")
                     }
@@ -311,7 +355,7 @@ namespace Edit_Order {
         } catch (e) {
             ShowMessage("Error 😒")
         }
-       
+
 
     }
 
@@ -325,26 +369,75 @@ namespace Edit_Order {
 
         $('#Body_Inv_Print').html('');
 
-        let ItemTotal = 0;
+        ItemTotal = 0;
+        ItemCount = 0;
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 let Row = `    <tr>
-                            <td>${$("#NameItem" + i).val()}</td>
+                            <td>${$("#ItemDescA" + i).val()}</td>
                             <td>${$("#SoldQty" + i).val()}</td>
                             <td>${$("#Unitprice" + i).val()}</td>
                             <td>${$("#ItemTotal" + i).val()}</td>
                         </tr>`
 
                 ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());
+                ItemCount = ItemCount + Number($("#SoldQty" + i).val());
 
                 $('#Body_Inv_Print').append(Row);
             }
         }
 
-        $('#Total_inv_Print').html(ItemTotal.toFixed(2));
+        $('#Txt_TotalAmount').val(ItemTotal.toFixed(2));
 
+        $('#Txt_NetAmount').val(ItemTotal.toFixed(2));
+         
+        $('#Total_inv_Print').html(ItemTotal.toFixed(2));
+    }
+
+    function Display_information_Inv() {
+        debugger
+        $('#Txt_InvoiceID').val(_Inv.InvoiceID)
+        $('#Txt_Ref_No').val(_Inv.RefNO)
+        $('#Txt_Name_Cust').val(_Inv.CustomerName)
+        $('#Txt_Phone_Num1').val(_Inv.CustomerMobile1)
+        $('#Txt_Phone_Num2').val(_Inv.CustomerMobile2)
+        $('#Txt_Address1').val(_Inv.Address)
+        $('#Txt_location').val(_Inv.Location)
+        $('#Txt_Remarks').val(_Inv.Remark) 
+        $('#Txt_Receive_TrData').val(DateFormat(_Inv.DeliveryDate))
+        $('#Txt__TrData').val(DateFormat(_Inv.TrDate))
+        $('#txt_Promo_Code').val(_Inv.PromoCode)
+        $('#txt_VendorID').val(_Inv.VendorID)
+        $('#Txt_PrcVatAmount').val(_Inv.VatType)
+        $('#Txt_VatAmount').val(_Inv.VatAmount)
+        $('#Txt_TotalAmount').val(_Inv.TotalAmount)
+        $('#Txt_CommitionAmount').val(_Inv.CommitionAmount)
+        $('#Txt_NetAmount').val(_Inv.NetAfterVat)
+        Display_BuildBox();
+        TotalComplet();
+
+        $(".User" + _USER[0].USER_TYPE).removeClass('display_none')
+    }
+
+    function Display_BuildBox() {
+
+        for (var i = 0; i < _InvItems.length; i++) { 
+            BuildBox(CountGrid, _InvItems[i].ItemDescA, _InvItems[i].Unitprice, _InvItems[i].SoldQty, _InvItems[i].InvoiceItemID, _InvItems[i].InvoiceID, Number(_Inv.VendorID));
+            $('#StatusFlag' + CountGrid).val("");
+            CountGrid++;
+            NumItems++; 
+            $("#Tap_Reviews_Items").html("Reviews Items ( " + NumItems + " )") 
+        }
 
 
     }
 
+    function TotalComplet() { 
+        let PrcVat = Number($('#Txt_PrcVatAmount').val()); 
+        let TotalAmount = Number($('#Txt_TotalAmount').val());
+        let VatAmount = ((PrcVat * TotalAmount) / 100);
+        $('#Txt_VatAmount').val(VatAmount)
+        let CommitionAmount = Number($('#Txt_CommitionAmount').val())
+        $('#Txt_NetAmount').val((VatAmount + TotalAmount + CommitionAmount).toFixed(2)) 
+    }
 }

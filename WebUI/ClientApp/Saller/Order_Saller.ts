@@ -271,10 +271,13 @@ namespace Order_Saller {
         Header.CustomerMobile2 = $('#Txt_Phone_Num2').val().trim();
         Header.Address = $('#Txt_Address1').val().trim();
         Header.Location = $('#Txt_location').val().trim();
-        Header.TrDate = DateFormatRep($('#Txt_Receive_TrData').val());
+        //Header.TrDate = DateFormatRep($('#Txt_Receive_TrData').val());
+        Header.TrDate = GetDate();
+        Header.DeliveryDate = DateFormatRep($('#Txt_Receive_TrData').val());
         Header.PromoCode = $('#txt_Promo_Code').val().trim();
         Header.UserCode = SysSession.CurrentEnvironment.UserCode;
         Header.VendorID = Model[0].VendorID;
+        Header.TotalAmount = Number(ItemTotal.toFixed(2));
         Header.NetAfterVat = Number(ItemTotal.toFixed(2));
         Header.ItemCount = Number(ItemCount);
         Header.TrType = 0;

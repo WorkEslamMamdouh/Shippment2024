@@ -70,14 +70,21 @@ var View_Order;
         $("#Coun_Total_View_Or").html(" Counter Item ( " + _Inv.ItemCount + "  ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.NetAfterVat + "  )");
     }
     function Display_Role_User() {
-        $(".Status" + _USER[0].USER_TYPE).removeClass('display_none');
-        if (_Inv.Status == 0) { //freeze
-            $("#btn_Active").removeClass("display_none");
-            $("#btn_freeze").addClass("display_none");
-        }
-        else { //Active
-            $("#btn_Active").addClass("display_none");
-            $("#btn_freeze").removeClass("display_none");
+        $(".USER" + _USER[0].USER_TYPE).removeClass('hidden_Control');
+        $(".Status" + _Inv.Status).removeClass('display_none');
+        if (_USER[0].USER_TYPE == 10) {
+            if (_Inv.Status == 0) { //freeze
+                $("#btn_Active").removeClass("display_none");
+                $("#btn_freeze").addClass("display_none");
+            }
+            if (_Inv.Status == 1) { //Active
+                $("#btn_Active").addClass("display_none");
+                $("#btn_freeze").removeClass("display_none");
+            }
+            if (_Inv.Status == 2) { //Active
+                $("#btn_Active").addClass("display_none");
+                $("#btn_freeze").removeClass("display_none");
+            }
         }
     }
     //******************************************************* Events Buttons ************************************
@@ -102,8 +109,14 @@ var View_Order;
         });
     }
     function btn_Edit_Order_onclick() {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        OpenPagePartial("Edit_Order", "Edit Order");
     }
     function btn_Confirm_onclick() {
+        UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', function () {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click();
+        });
     }
     function btn_Open_Location_onclick() {
     }
