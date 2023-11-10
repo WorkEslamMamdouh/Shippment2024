@@ -66,9 +66,10 @@ var VendorControl;
                     txt.id = "ChkView" + item.USER_CODE;
                     txt.className = "checkbox";
                     txt.checked = !item.USER_ACTIVE;
-                    //txt.style.width=
+                    txt.style.width = "50px";
+                    txt.style.height = "35px";
                     txt.onclick = function (e) {
-                        BlockSeller(item.USER_CODE, txt.checked == true ? 1 : 0);
+                        BlockSeller(item.USER_CODE, txt.checked == true ? 0 : 1);
                     };
                     return txt;
                 }
@@ -144,9 +145,9 @@ var VendorControl;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
-                    ShowMessage("Seller Blocked ��‍👍");
                     GetData_Users();
                     Close_Loder();
+                    Active == 0 ? ShowMessage("Seller Blocked 🤦‍ ") : ShowMessage("Seller Un Blocked 👍");
                 }
                 else {
                 }

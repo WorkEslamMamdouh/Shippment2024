@@ -132,13 +132,12 @@ namespace Inv.API.Controllers
             using (var dbTransaction = db.Database.BeginTransaction())
             {
                 try
-                {
-                    Random random = new Random();
+                { 
 
-
-                    string Qury = @"Update G_USERS set USER_ACTIVE = " + Active + "";
+                    string Qury = @"Update G_USERS set USER_ACTIVE = " + Active + " where USER_CODE = '"+SellerCode+"'";
                     db.Database.ExecuteSqlCommand(Qury);
                     LogUser.Insert(db, CompCode, BranchCode, DateTime.Now.Year.ToString(), "", null, "", LogUser.UserLog.Insert,LogUser.PageName.VendorControl, true, null, null,"Block Vendor "+SellerCode+" By User "+ USER_CODE+ "");
+                    dbTransaction.Commit();
                     return Ok(new BaseResponse(true));
                 }
                 catch (Exception ex)
