@@ -59,13 +59,14 @@ var VendorControl;
             },
             { title: "Job Title", name: "DescA", type: "text", width: "100px" },
             {
-                title: "Block", css: "width: 40px;height: 35px;",
+                title: "Block",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "checkbox";
                     txt.id = "ChkView" + item.USER_CODE;
                     txt.className = "checkbox";
                     txt.checked = !item.USER_ACTIVE;
+                    //txt.style.width=
                     txt.onclick = function (e) {
                         BlockSeller(item.USER_CODE, txt.checked == true ? 1 : 0);
                     };
