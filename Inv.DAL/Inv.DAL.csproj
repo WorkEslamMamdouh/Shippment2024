@@ -219,6 +219,9 @@
     <Compile Include="Domain\PromoCodes.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\SalesMan_Invoices.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Sls_Invoice.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
@@ -226,6 +229,9 @@
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\sysdiagrams.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Vendor_Invoices.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Vnd_Inv_SlsMan.cs">

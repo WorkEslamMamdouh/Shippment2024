@@ -75,7 +75,7 @@ namespace Inv.DAL.Domain
         public Nullable<int> SalesmanId { get; set; }
         public int VendorID { get; set; }
         public Nullable<int> ZoneID { get; set; }
-        public int StoreId { get; set; }
+        public Nullable<int> StoreId { get; set; }
         public Nullable<int> STORE_CODE { get; set; }
         public string Store_DescA { get; set; }
     }

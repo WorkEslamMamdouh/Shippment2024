@@ -1344,26 +1344,32 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_GetVendor' does not have a pr
           <Property Name="OpenbalanceAt" Type="smalldatetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Shippment2024.dbo.SalesMan_Invoices' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'Shippment2024.dbo.SalesMan_Invoices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SalesMan_Invoices">
-          <Property Name="SalesmanId" Type="int" />
+          <Key>
+            <PropertyRef Name="SalesmanId" />
+          </Key>
           <Property Name="SlsMan_Name" Type="nvarchar" MaxLength="100" />
           <Property Name="SlsMan_Mobile" Type="nvarchar" MaxLength="50" />
           <Property Name="TotalAmount" Type="numeric" Precision="38" Scale="2" />
           <Property Name="CommitionAmount" Type="numeric" Precision="38" Scale="2" />
           <Property Name="Status" Type="int" />
-        </EntityType>-->
+          <Property Name="SalesmanId" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Shippment2024.dbo.Vendor_Invoices' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'Shippment2024.dbo.Vendor_Invoices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vendor_Invoices">
-          <Property Name="VendorID" Type="int" />
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
           <Property Name="Vnd_Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Vnd_Mobile" Type="nvarchar" MaxLength="50" />
           <Property Name="Vnd_Company" Type="nvarchar" MaxLength="250" />
           <Property Name="TotalAmount" Type="numeric" Precision="38" Scale="2" />
           <Property Name="CommitionAmount" Type="numeric" Precision="38" Scale="2" />
           <Property Name="Status" Type="int" />
-        </EntityType>-->
+          <Property Name="VendorID" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vnd_Inv_SlsMan">
@@ -1372,7 +1378,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
             <PropertyRef Name="InvoiceID" />
             <PropertyRef Name="CommitionAmount" />
             <PropertyRef Name="VendorID" />
-            <PropertyRef Name="StoreId" />
           </Key>
           <Property Name="SalesmanCode" Type="nvarchar" MaxLength="25" />
           <Property Name="SlsMan_Name" Type="nvarchar" MaxLength="100" />
@@ -1435,7 +1440,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="SalesmanId" Type="int" />
           <Property Name="VendorID" Type="int" Nullable="false" />
           <Property Name="ZoneID" Type="int" />
-          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
           <Property Name="STORE_CODE" Type="int" />
           <Property Name="Store_DescA" Type="nvarchar" MaxLength="100" />
         </EntityType>
@@ -2010,6 +2015,27 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
     [IQ_GetVendor].[OpenbalanceAt] AS [OpenbalanceAt]
     FROM [dbo].[IQ_GetVendor] AS [IQ_GetVendor]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="SalesMan_Invoices" EntityType="Self.SalesMan_Invoices" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SalesMan_Invoices].[SlsMan_Name] AS [SlsMan_Name], 
+    [SalesMan_Invoices].[SlsMan_Mobile] AS [SlsMan_Mobile], 
+    [SalesMan_Invoices].[TotalAmount] AS [TotalAmount], 
+    [SalesMan_Invoices].[CommitionAmount] AS [CommitionAmount], 
+    [SalesMan_Invoices].[Status] AS [Status], 
+    [SalesMan_Invoices].[SalesmanId] AS [SalesmanId]
+    FROM [dbo].[SalesMan_Invoices] AS [SalesMan_Invoices]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vendor_Invoices" EntityType="Self.Vendor_Invoices" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vendor_Invoices].[Vnd_Name] AS [Vnd_Name], 
+    [Vendor_Invoices].[Vnd_Mobile] AS [Vnd_Mobile], 
+    [Vendor_Invoices].[Vnd_Company] AS [Vnd_Company], 
+    [Vendor_Invoices].[TotalAmount] AS [TotalAmount], 
+    [Vendor_Invoices].[CommitionAmount] AS [CommitionAmount], 
+    [Vendor_Invoices].[Status] AS [Status], 
+    [Vendor_Invoices].[VendorID] AS [VendorID]
+    FROM [dbo].[Vendor_Invoices] AS [Vendor_Invoices]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vnd_Inv_SlsMan" EntityType="Self.Vnd_Inv_SlsMan" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vnd_Inv_SlsMan].[SalesmanCode] AS [SalesmanCode], 
@@ -2216,6 +2242,8 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
           <EntitySet Name="sysdiagrams" EntityType="InvModel.sysdiagrams" />
           <EntitySet Name="GQ_USERS" EntityType="InvModel.GQ_USERS" />
+          <EntitySet Name="SalesMan_Invoices" EntityType="InvModel.SalesMan_Invoices" />
+          <EntitySet Name="Vendor_Invoices" EntityType="InvModel.Vendor_Invoices" />
           <EntitySet Name="Vnd_Inv_SlsMan" EntityType="InvModel.Vnd_Inv_SlsMan" />
         </EntityContainer>
         <EntityType Name="A_Pay_D_VendorDoc">
@@ -3617,13 +3645,35 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="CodeValue" Type="Int32" />
           <Property Name="DescA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="SalesMan_Invoices">
+          <Key>
+            <PropertyRef Name="SalesmanId" />
+          </Key>
+          <Property Name="SlsMan_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SlsMan_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="CommitionAmount" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="SalesmanId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vendor_Invoices">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="Vnd_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Vnd_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vnd_Company" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="CommitionAmount" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vnd_Inv_SlsMan">
           <Key>
             <PropertyRef Name="VendorCode" />
             <PropertyRef Name="InvoiceID" />
             <PropertyRef Name="CommitionAmount" />
             <PropertyRef Name="VendorID" />
-            <PropertyRef Name="StoreId" />
           </Key>
           <Property Name="SalesmanCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="SlsMan_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -3686,7 +3736,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="SalesmanId" Type="Int32" />
           <Property Name="VendorID" Type="Int32" Nullable="false" />
           <Property Name="ZoneID" Type="Int32" />
-          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="StoreId" Type="Int32" />
           <Property Name="STORE_CODE" Type="Int32" />
           <Property Name="Store_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -5112,6 +5162,31 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
                 <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
                 <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
                 <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesMan_Invoices">
+            <EntityTypeMapping TypeName="InvModel.SalesMan_Invoices">
+              <MappingFragment StoreEntitySet="SalesMan_Invoices">
+                <ScalarProperty Name="SalesmanId" ColumnName="SalesmanId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CommitionAmount" ColumnName="CommitionAmount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="SlsMan_Mobile" ColumnName="SlsMan_Mobile" />
+                <ScalarProperty Name="SlsMan_Name" ColumnName="SlsMan_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendor_Invoices">
+            <EntityTypeMapping TypeName="InvModel.Vendor_Invoices">
+              <MappingFragment StoreEntitySet="Vendor_Invoices">
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CommitionAmount" ColumnName="CommitionAmount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Vnd_Company" ColumnName="Vnd_Company" />
+                <ScalarProperty Name="Vnd_Mobile" ColumnName="Vnd_Mobile" />
+                <ScalarProperty Name="Vnd_Name" ColumnName="Vnd_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
