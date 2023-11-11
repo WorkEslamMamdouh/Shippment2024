@@ -346,6 +346,7 @@ namespace Edit_Order {
                         debugger
                         let res = result.Response as Array<AProc_LnkGenerateTrans_Result>;
                         ShowMessage("Updated 😍")
+                        $("#Display_Back_Page2").click();
                         _Back();
                         Clear();
 

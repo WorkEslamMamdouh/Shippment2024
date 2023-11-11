@@ -268,6 +268,7 @@ var Edit_Order;
                         debugger;
                         var res = result.Response;
                         ShowMessage("Updated 😍");
+                        $("#Display_Back_Page2").click();
                         _Back();
                         Clear();
                         $('#Back_Page').click();

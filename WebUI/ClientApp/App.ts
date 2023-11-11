@@ -3683,7 +3683,7 @@ function OpenPage(moduleCode: string) {
 
 }
 
-function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back?: () => void) {
+function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
     debugger
     Show_Loder();
 
@@ -3708,15 +3708,32 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back?: 
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
         $(window).scrollTop(0);
-         
-            OnDisplay_Back();
 
-         
+        debugger
+        if (OnDisplay_Back1 != null) {
 
-        $("#Display_Back_Page").on('click', function () {
-            debugger
-            OnDisplay_Back()            
-        });
+            OnDisplay_Back1();
+
+
+
+            $("#Display_Back_Page").on('click', function () {
+                debugger
+                OnDisplay_Back1()
+            });
+        }
+
+        if (OnDisplay_Back2 != null) {
+
+            OnDisplay_Back2();
+
+
+
+            $("#Display_Back_Page2").on('click', function () {
+                debugger
+                OnDisplay_Back2()
+            });
+        }
+            
 
     }
     else {

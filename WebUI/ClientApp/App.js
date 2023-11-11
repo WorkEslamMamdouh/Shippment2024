@@ -2835,7 +2835,7 @@ function OpenPage(moduleCode) {
         ShowMessage("No Privilage");
     }
 }
-function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back) {
+function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2) {
     debugger;
     Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
@@ -2853,11 +2853,21 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back) {
         $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
         $(window).scrollTop(0);
-        OnDisplay_Back();
-        $("#Display_Back_Page").on('click', function () {
-            debugger;
-            OnDisplay_Back();
-        });
+        debugger;
+        if (OnDisplay_Back1 != null) {
+            OnDisplay_Back1();
+            $("#Display_Back_Page").on('click', function () {
+                debugger;
+                OnDisplay_Back1();
+            });
+        }
+        if (OnDisplay_Back2 != null) {
+            OnDisplay_Back2();
+            $("#Display_Back_Page2").on('click', function () {
+                debugger;
+                OnDisplay_Back2();
+            });
+        }
     }
     else {
         Close_Loder();

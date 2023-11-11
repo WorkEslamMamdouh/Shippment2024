@@ -136,7 +136,7 @@ namespace View_Order {
 
     function btn_Edit_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("Edit_Order", "Edit Order");
+        OpenPagePartial("Edit_Order", "Edit Order", null, () => { Display_Refrsh() });
     }
     function btn_Confirm_onclick() {
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', () => {
@@ -163,5 +163,21 @@ namespace View_Order {
 
     }
 
+
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return
+        }
+        debugger
+        $("#Display_Back_Page").click();
+         
+        _Invoices = GetGlopelDataInvoice();
+        _InvoiceItems = GetGlopelDataInvoiceItems();
+        InvoiceID = Number(localStorage.getItem("InvoiceID"))
+        _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
+        Display_information_Inv();
+    }
 
 }

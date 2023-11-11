@@ -115,7 +115,7 @@ var View_Order;
     }
     function btn_Edit_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("Edit_Order", "Edit Order");
+        OpenPagePartial("Edit_Order", "Edit Order", null, function () { Display_Refrsh(); });
     }
     function btn_Confirm_onclick() {
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', function () {
@@ -134,6 +134,20 @@ var View_Order;
     function btn_Deliver_Customer_onclick() {
     }
     function btn_Receiving_Order_onclick() {
+    }
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return;
+        }
+        debugger;
+        $("#Display_Back_Page").click();
+        _Invoices = GetGlopelDataInvoice();
+        _InvoiceItems = GetGlopelDataInvoiceItems();
+        InvoiceID = Number(localStorage.getItem("InvoiceID"));
+        _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
+        Display_information_Inv();
     }
 })(View_Order || (View_Order = {}));
 //# sourceMappingURL=View_Order.js.map
