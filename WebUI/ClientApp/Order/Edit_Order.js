@@ -109,6 +109,7 @@ var Edit_Order;
         $('#Div_Header').addClass('display_none');
         $('#Div_Item').addClass('display_none');
         $('#Div_Review_invoice').removeClass('display_none');
+        TotalComplet();
     }
     function _Finish() {
         debugger;

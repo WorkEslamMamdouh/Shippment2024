@@ -139,6 +139,12 @@ namespace View_Order {
         OpenPagePartial("Edit_Order", "Edit Order", null, () => { Display_Refrsh() });
     }
     function btn_Confirm_onclick() {
+
+        if (Number(_Inv.CommitionAmount) <= 0) {
+            Errorinput($('#btn_Edit_Order'), 'Please a Review Order 😒 ')
+            return
+        }
+
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
@@ -170,7 +176,9 @@ namespace View_Order {
             Run_Fun = true;
             return
         }
-        debugger
+
+
+
         $("#Display_Back_Page").click();
          
         _Invoices = GetGlopelDataInvoice();
