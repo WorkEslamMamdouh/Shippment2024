@@ -21,6 +21,7 @@ var RecieptOrders;
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
+        SetTimer(12000, GetData_Invoice);
     }
     RecieptOrders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -119,6 +120,7 @@ var RecieptOrders;
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
         _InvoiceItems = GetDataTable('Sls_InvoiceItem');
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+        debugger;
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         Display_Orders();

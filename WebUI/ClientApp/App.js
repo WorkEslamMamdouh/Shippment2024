@@ -2891,6 +2891,7 @@ function Back_Page_Partial() {
         $('#htmlContainer').removeClass("display_none");
         $('#Back_Page').addClass("display_none");
         $('#Lab_NamePage').html("Home<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
+        clearTimer();
     }
     else {
         var _NamePage = localStorage.getItem("Partial_NamePage_" + CounterPage);
@@ -2968,5 +2969,18 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
             }
         }
     });
+}
+var intervalID;
+function SetTimer(_Time, OnFun) {
+    //if (OnFun) {
+    //    setTimeout(function () {
+    //        OnFun();
+    //        SetTimer(_Time, OnFun);
+    //    }, _Time);
+    //}
+}
+function clearTimer() {
+    debugger;
+    //SetTimer(0, null);
 }
 //# sourceMappingURL=App.js.map

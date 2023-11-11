@@ -3767,6 +3767,8 @@ function Back_Page_Partial() {
         $('#Lab_NamePage').html(`Home<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
+
+        clearTimer();
     }
     else {
 
@@ -3864,4 +3866,20 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
         }
     });
      
+}
+
+var intervalID;
+
+function SetTimer(_Time: number, OnFun?: () => void) {
+    //if (OnFun) {
+    //    setTimeout(function () {
+    //        OnFun();
+    //        SetTimer(_Time, OnFun);
+    //    }, _Time);
+    //}
+}
+
+function clearTimer() {
+    debugger
+    //SetTimer(0, null);
 }

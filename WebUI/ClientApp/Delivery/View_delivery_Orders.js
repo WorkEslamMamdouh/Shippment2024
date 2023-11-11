@@ -13,6 +13,7 @@ var View_delivery_Orders;
         GetData_Invoice();
         Display_Orders();
         Close_Loder();
+        SetTimer(12000, GetData_Invoice);
     }
     View_delivery_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

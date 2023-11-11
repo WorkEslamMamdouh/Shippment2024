@@ -28,6 +28,8 @@ namespace View_Validate_Orders {
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
+
+        SetTimer(12000, GetData_Invoice)
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;

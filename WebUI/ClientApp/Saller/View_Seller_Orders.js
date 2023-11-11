@@ -12,6 +12,7 @@ var View_Seller_Orders;
         InitializeEvents();
         GetData_Invoice();
         Close_Loder();
+        SetTimer(12000, GetData_Invoice);
     }
     View_Seller_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

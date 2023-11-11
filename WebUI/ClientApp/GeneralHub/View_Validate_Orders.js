@@ -21,6 +21,7 @@ var View_Validate_Orders;
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
+        SetTimer(12000, GetData_Invoice);
     }
     View_Validate_Orders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

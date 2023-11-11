@@ -33,6 +33,7 @@ var View_Order;
         Display_information_Inv();
         Display_Role_User();
         Close_Loder();
+        SetTimer(12000, Dis_Refrsh);
     }
     View_Order.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -97,6 +98,7 @@ var View_Order;
         UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
+            clearTimer();
         });
     }
     function btn_freeze_onclick() {
@@ -127,6 +129,7 @@ var View_Order;
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
+            clearTimer();
         });
     }
     function btn_Open_Location_onclick() {
@@ -147,11 +150,23 @@ var View_Order;
             Run_Fun = true;
             return;
         }
+        Dis_Refrsh();
+    }
+    function Dis_Refrsh() {
         $("#Display_Back_Page").click();
+        debugger;
+        _Inv = new Vnd_Inv_SlsMan();
+        _Invoices = new Array();
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
         InvoiceID = Number(localStorage.getItem("InvoiceID"));
         _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
+        if (_Inv == null) {
+            debugger;
+            $('#Back_Page').click();
+            clearTimer();
+            return;
+        }
         Display_information_Inv();
     }
 })(View_Order || (View_Order = {}));

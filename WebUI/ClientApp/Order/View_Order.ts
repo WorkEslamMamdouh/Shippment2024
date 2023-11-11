@@ -26,6 +26,7 @@ namespace View_Order {
 
 
     var InvoiceID = 0;
+     
 
     export function InitalizeComponent() {
 
@@ -42,6 +43,8 @@ namespace View_Order {
         Display_information_Inv();
         Display_Role_User();
         Close_Loder();
+
+        SetTimer(12000, Dis_Refrsh) 
     }
     function InitalizeControls() {
 
@@ -81,7 +84,7 @@ namespace View_Order {
         $("#Vat_Total_View_Or").html(" Vat ( " + _Inv.VatAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.TotalAmount + " ) ");
         $("#Comm_Total_View_Or").html(" Commition ( " + _Inv.CommitionAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Net Total ( " + _Inv.NetAfterVat + " ) ");
         $("#Coun_View").html("  &nbsp;&nbsp;&nbsp;    Counter Item ( " + _Inv.ItemCount + " ) ");
-         
+
     }
 
     function Display_Role_User() {
@@ -106,34 +109,35 @@ namespace View_Order {
                 $("#btn_Edit_Order").addClass("display_none")
             }
         }
-       
+
 
     }
 
     //******************************************************* Events Buttons ************************************
 
     function btn_Delete_onclick() {
-        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', () => { 
+        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-        }) 
+            clearTimer();
+        })
     }
     function btn_freeze_onclick() {
-    
-        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', () => { 
+
+        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', () => {
             $("#btn_Active").removeClass("display_none")
             $("#btn_Edit_Order").removeClass("display_none")
             $("#btn_freeze").addClass("display_none")
             $("#Display_Back_Page").click();
-        }) 
+        })
     }
     function btn_Active_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', () => { 
+        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', () => {
             $("#btn_Active").addClass("display_none")
             $("#btn_Edit_Order").addClass("display_none")
             $("#btn_freeze").removeClass("display_none")
             $("#Display_Back_Page").click();
-        }) 
+        })
     }
 
     function btn_Edit_Order_onclick() {
@@ -150,6 +154,7 @@ namespace View_Order {
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
+            clearTimer();
         })
     }
     function btn_Open_Location_onclick() {
@@ -181,13 +186,26 @@ namespace View_Order {
 
 
 
+        Dis_Refrsh();
+    }
+
+    function Dis_Refrsh() {
         $("#Display_Back_Page").click();
-         
+
+        debugger
+        _Inv = new Vnd_Inv_SlsMan();
+        _Invoices = new Array<Vnd_Inv_SlsMan>();
+
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
+        if (_Inv == null) {
+            debugger
+            $('#Back_Page').click();
+            clearTimer();
+            return;
+        }
         Display_information_Inv();
     }
-
 }
