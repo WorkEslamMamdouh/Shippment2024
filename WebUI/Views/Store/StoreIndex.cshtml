@@ -5,36 +5,42 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <div class="">
-	<div class="u-container-layout u-container-layout-1">
-		<h4 class="u-text u-text-default u-text-1">Zone Definition</h4>
-		<div class="u-expanded-width u-table u-table-responsive u-table-1">
-			<table class="u-table-entity">
-				<colgroup> 
-					<col width="10%">
-					<col width="20%">
-					<col width="5%">
-					<col width="65%">
-				</colgroup>
-				<thead class="u-table-alt-grey-5 u-table-body" style="font-weight: bold;background-color: #d4dada87;">
-					<tr style="height: 51px;"> 
-						<td class="u-table-cell">Code</td>
-						<td class="u-table-cell">Describtion</td>
-						<td class="u-table-cell">Active</td>
-						<td class="u-table-cell">Remark</td>
-					</tr>
-				</thead>
-				<tbody class="u-table-alt-grey-5 u-table-body" id="Zone_Grid">
-				</tbody>
-			</table>
+    <div class=" ">
+        <div class="u-expanded-width u-table u-table-responsive u-table-1">
+            <table class="u-table-entity">
+                <colgroup>
+                    <col width="10%">
+                    <col width="20%">
+                    <col width="5%">
+                    <col width="65%">
+                </colgroup>
+                <thead class="u-table-alt-grey-5 u-table-body" style="font-weight: bold;background-color: #d4dada87;">
+                    <tr style="height: 51px;">
+                        <td class="u-table-cell">Code</td>
+                        <td class="u-table-cell">Describtion</td>
+                        <td class="u-table-cell">Active</td>
+                        <td class="u-table-cell">Remark</td>
+                    </tr>
+                </thead>
+                <tbody class="u-table-alt-grey-5 u-table-body" id="Zone_Grid">
+                </tbody>
+            </table>
+			 
+        </div>
+        <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+            <div class="u-form-group u-form-group-5">
+                <input type="button" id="btnAdd" value="Add Zone" class="Style_Add_Item u-input u-input-rectangle" required="">
+            </div>
+            <div class="u-form-email u-form-group u-form-partition-factor-2">
+                <input type="button" id="Submit_Update_Profile" value="Save" class="Style_Add_Item u-input u-input-rectangle" style="width: 100%; background-color: darkcyan;">
+            </div>
+            <div class="u-form-group u-form-name u-form-partition-factor-2">
+                <input type="button" id="Submit_Backdown_Profile" value="Back down" class="Style_Add_Item u-input u-input-rectangle" style="width: 100%; background-color: #a5b219; ">
+            </div>
 
-			<span id="btnAdd" class="glyphicon glyphicon-plus-sign "></span>
-		</div>
-		<div class="submit">
-			<input type="button" class=" __button dark" id="Submit_Update_Profile" value="Update">
-			<input type="button" class=" __button dark" id="Submit_Backdown_Profile" value="Back down">
-		</div>
-		 
-	</div>
+        </form>
+
+    </div>
 
 </div>
 
