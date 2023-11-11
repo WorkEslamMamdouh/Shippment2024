@@ -26,7 +26,7 @@ namespace UserDef {
 
 
 		_USERS = GetGlopelDataUser()
-		_USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
+		_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase())
 		Display_Data();
 
 		Close_Loder();
