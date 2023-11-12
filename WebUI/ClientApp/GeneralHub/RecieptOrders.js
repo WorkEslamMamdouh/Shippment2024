@@ -21,7 +21,6 @@ var RecieptOrders;
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
-        SetTimer(12000, GetData_Invoice);
     }
     RecieptOrders.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

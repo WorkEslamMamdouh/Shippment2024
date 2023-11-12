@@ -33,6 +33,11 @@ var AllPages = /** @class */ (function () {
     }
     return AllPages;
 }());
+var OpenPages = /** @class */ (function () {
+    function OpenPages() {
+    }
+    return OpenPages;
+}());
 var APISessionRecord = /** @class */ (function () {
     function APISessionRecord() {
     }

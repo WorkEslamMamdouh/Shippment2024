@@ -33,6 +33,10 @@ class AllPages {
 	public Page_Html: string;
 }
 
+class OpenPages {
+	public ModuleCode: string; 
+}
+
 class APISessionRecord {
 
 	public SetAPISessionAPI(key: string, value: string) {

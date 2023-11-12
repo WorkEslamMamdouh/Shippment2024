@@ -2797,7 +2797,12 @@ function getClass(className) {
 //    }
 //};
 var _AllPages = new Array();
+var ModulesOpenPages = new Array();
 var CounterPage = 0;
+function GetModuleCode() {
+    debugger;
+    return ModulesOpenPages[ModulesOpenPages.length - 1].ModuleCode.toString();
+}
 function GetAllPages() {
     debugger;
     $.ajax({
@@ -2841,6 +2846,12 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     if (Page.length > 0) {
         CounterPage++;
+        var _OpenPages = new OpenPages();
+        _OpenPages.ModuleCode = moduleCode;
+        ModulesOpenPages.push(_OpenPages);
+        debugger;
+        Set_Refresh(moduleCode);
+        //*************************************************************************
         //$('#btn_Logout').addClass("display_none");
         $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
         $('#htmlContainer').addClass("display_none");
@@ -2874,6 +2885,11 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
         ShowMessage("No Privilage");
     }
 }
+function Set_Refresh(moduleCode) {
+    var btnhtml = "   <a id=\"Refresh_" + moduleCode + "\" style=\"\" class=\"Refresh_" + moduleCode + "\">Refresh</a>";
+    $("#Div_Refresh").html(btnhtml);
+    setInterval(function () { $(".Refresh_" + moduleCode).click(); }, 12000);
+}
 function Back_Page_Partial() {
     debugger;
     if (CounterPage == 0) {
@@ -2885,18 +2901,22 @@ function Back_Page_Partial() {
     //$('#btn_Logout').addClass("display_none");
     $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
     CounterPage--;
+    $("#Div_Refresh").html("");
     if (CounterPage == 0) {
         //$('#btn_Logout').removeClass("display_none");
         $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
         $('#htmlContainer').removeClass("display_none");
         $('#Back_Page').addClass("display_none");
         $('#Lab_NamePage').html("Home<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
-        clearTimer();
     }
     else {
         var _NamePage = localStorage.getItem("Partial_NamePage_" + CounterPage);
         $('#Lab_NamePage').html("" + _NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         $('#Partial_' + CounterPage).removeClass("display_none");
+        var _Mod_1 = GetModuleCode();
+        ModulesOpenPages = ModulesOpenPages.filter(function (x) { return x.ModuleCode != _Mod_1; });
+        _Mod_1 = GetModuleCode();
+        Set_Refresh(_Mod_1);
     }
 }
 function Close_Loder() {
@@ -2969,18 +2989,5 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
             }
         }
     });
-}
-var intervalID;
-function SetTimer(_Time, OnFun) {
-    //if (OnFun) {
-    //    setTimeout(function () {
-    //        OnFun();
-    //        SetTimer(_Time, OnFun);
-    //    }, _Time);
-    //}
-}
-function clearTimer() {
-    debugger;
-    //SetTimer(0, null);
 }
 //# sourceMappingURL=App.js.map

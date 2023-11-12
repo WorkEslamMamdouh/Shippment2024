@@ -44,7 +44,18 @@ namespace View_Order {
         Display_Role_User();
         Close_Loder();
 
-        SetTimer(12000, Dis_Refrsh) 
+        SetRefresh(GetModuleCode())
+    }
+    function SetRefresh(moduleCode: string) {
+     
+        //$("#Refresh_" + moduleCode).on('click', function () { 
+        //    Dis_Refrsh();
+        //});
+
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            Dis_Refrsh();
+            // Shows an alert when a dynamically created button is clicked
+        });
     }
     function InitalizeControls() {
 
@@ -119,7 +130,7 @@ namespace View_Order {
         UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-            clearTimer();
+           
         })
     }
     function btn_freeze_onclick() {
@@ -154,7 +165,7 @@ namespace View_Order {
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-            clearTimer();
+           
         })
     }
     function btn_Open_Location_onclick() {
@@ -203,7 +214,7 @@ namespace View_Order {
         if (_Inv == null) {
             debugger
             $('#Back_Page').click();
-            clearTimer();
+           
             return;
         }
         Display_information_Inv();

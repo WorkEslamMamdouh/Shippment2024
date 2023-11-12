@@ -33,9 +33,18 @@ var View_Order;
         Display_information_Inv();
         Display_Role_User();
         Close_Loder();
-        SetTimer(12000, Dis_Refrsh);
+        SetRefresh(GetModuleCode());
     }
     View_Order.InitalizeComponent = InitalizeComponent;
+    function SetRefresh(moduleCode) {
+        //$("#Refresh_" + moduleCode).on('click', function () { 
+        //    Dis_Refrsh();
+        //});
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            Dis_Refrsh();
+            // Shows an alert when a dynamically created button is clicked
+        });
+    }
     function InitalizeControls() {
         btn_Delete = document.getElementById('btn_Delete');
         btn_freeze = document.getElementById('btn_freeze');
@@ -98,7 +107,6 @@ var View_Order;
         UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-            clearTimer();
         });
     }
     function btn_freeze_onclick() {
@@ -129,7 +137,6 @@ var View_Order;
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-            clearTimer();
         });
     }
     function btn_Open_Location_onclick() {
@@ -164,7 +171,6 @@ var View_Order;
         if (_Inv == null) {
             debugger;
             $('#Back_Page').click();
-            clearTimer();
             return;
         }
         Display_information_Inv();

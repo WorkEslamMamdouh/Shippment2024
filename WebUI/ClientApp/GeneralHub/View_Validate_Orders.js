@@ -21,9 +21,26 @@ var View_Validate_Orders;
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
-        SetTimer(12000, GetData_Invoice);
+        SetRefresh(GetModuleCode());
     }
     View_Validate_Orders.InitalizeComponent = InitalizeComponent;
+    function SetRefresh(moduleCode) {
+        debugger;
+        //$("#Refresh_" + moduleCode).on('click', function () {
+        //    if (Number($('#Txt_VendorID').val()) == 0) {
+        //        return;
+        //    }
+        //    GetData_Invoice()
+        //});
+        // Event listener for dynamically generated buttons
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            if (Number($('#Txt_VendorID').val()) == 0) {
+                return;
+            }
+            GetData_Invoice();
+            // Shows an alert when a dynamically created button is clicked
+        });
+    }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
