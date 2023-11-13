@@ -145,6 +145,35 @@ namespace Inv.API.Controllers
             return Ok(new BaseResponse(true));
         }
 
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult Coding_Item([FromBody] List<CustomCoding> obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.Database.ExecuteSqlCommand("Update Sls_Invoice set StoreID = " + obj[0].StoreID + ", Status =    3  where InvoiceID = " + obj[0].InvoiceID + "");
+                    for (int i = 0; i < obj.Count; i++)
+                    {
+                        db.Database.ExecuteSqlCommand("update Sls_InvoiceItem set itemcode='N'" + obj[i].ItemCode + "'' , StoreID = " + obj[i].StoreID + " where InvoiceItemID = " + obj[i].InvoiceItemID +"");
+                    }
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
+
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
 
 
         [HttpGet, AllowAnonymous]
