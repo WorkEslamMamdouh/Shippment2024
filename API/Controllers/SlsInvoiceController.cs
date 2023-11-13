@@ -10,7 +10,7 @@ using Inv.DAL.Domain;
 using System.Net;
 using System.Web.Http;
 using System.Web.ModelBinding;
-using System.Data.Common; 
+using System.Data.Common;
 using System.Security.Principal;
 using System.Reflection.Emit;
 using Unity;
@@ -43,12 +43,19 @@ namespace Inv.API.Controllers
                     foreach (var item in InsertedItems)
                     {
                         item.InvoiceID = sls.InvoiceID;
-                        SlsInvoiceService.InsertInvItems(item);
-
+                        var NewItem = item;
+                        var cnt = item.SoldQty;
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            NewItem.SoldQty = 1;
+                            SlsInvoiceService.InsertInvItems(NewItem);
+                        }
                     }
-                        dbTransaction.Commit();
-                        return Ok(new BaseResponse(true));
-                    
+
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
+
                 }
                 catch (Exception ex)
                 {
@@ -77,25 +84,30 @@ namespace Inv.API.Controllers
                     foreach (var item in InsertedItems)
                     {
                         item.InvoiceID = sls.InvoiceID;
-                        SlsInvoiceService.InsertInvItems(item);
-
+                        var NewItem = item;
+                        var cnt = item.SoldQty;
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            NewItem.SoldQty = 1;
+                            SlsInvoiceService.InsertInvItems(NewItem);
+                        }
                     }
+
+
                     foreach (var item in UpdatedItems)
                     {
                         item.InvoiceID = sls.InvoiceID;
                         SlsInvoiceService.UpdateInvItems(item);
 
                     }
-                    foreach (var item in DeletedItems)
+                    if (DeletedItems.Count > 0 )
                     {
-                        item.InvoiceID = sls.InvoiceID;
-                        SlsInvoiceService.DeleteInvItems(item.InvoiceItemID);
+                        db.Database.ExecuteSqlCommand("delete from Sls_InvoiceItem where InvoiceID=" + DeletedItems[0].InvoiceID + " and  ItemDescA='N'" + DeletedItems[0].ItemDescA + "'' and Unitprice=" + DeletedItems[0].Unitprice + " ");
+                    } 
 
-                    }
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
 
-                     dbTransaction.Commit();
-                         return Ok(new BaseResponse(true));
-                   
                 }
                 catch (Exception ex)
                 {
@@ -110,15 +122,15 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateInvStatus(int CompCode,int BranchCode,int InvoiceID, int SlsManID, int Status,string UserCode, string StatusDesc)
+        public IHttpActionResult UpdateInvStatus(int CompCode, int BranchCode, int InvoiceID, int SlsManID, int Status, string UserCode, string StatusDesc)
         {
             string Cond = "";
-            if (SlsManID != 0 )
+            if (SlsManID != 0)
             {
                 Cond = ", SalesmanId = " + SlsManID + "";
             }
             string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
-            Status ="+Status+" "+Cond+" where InvoiceID = " + InvoiceID + "";
+            Status =" + Status + " " + Cond + " where InvoiceID = " + InvoiceID + "";
             db.Database.ExecuteSqlCommand(Qury);
 
 
@@ -147,28 +159,28 @@ namespace Inv.API.Controllers
                     CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status, CreatedAt, CreatedBy, UpdatedAt,
                     UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
                     ChargeAmount, ItemCount, LineCount, VendorID)
-                    select  TrNo, RefNO, "+ obj[0].InvoiceID + @", "+ DateTime.Now.ToString() + @", TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
+                    select  TrNo, RefNO, " + obj[0].InvoiceID + @", " + DateTime.Now.ToString() + @", TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
                     Location, SalesmanId, TotalAmount, VatAmount, VatType, DiscountAmount, DiscountPrc, NetAfterVat, 
-                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  "+ DateTime.Now.ToString() + @", "+ obj[0].UserCode + @", UpdatedAt,
+                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  " + DateTime.Now.ToString() + @", " + obj[0].UserCode + @", UpdatedAt,
                     UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
                     ChargeAmount, ItemCount, LineCount, VendorID
-                    from Sls_Invoice where InvoiceID = "+ obj[0].InvoiceID + " SET @LASTID = @@IDENTITY select @LASTID";
+                    from Sls_Invoice where InvoiceID = " + obj[0].InvoiceID + " SET @LASTID = @@IDENTITY select @LASTID";
 
                     int RetIvoiceID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
-                    List<Sls_InvoiceItem> invItem =    db.Sls_InvoiceItem.Where(x => x.InvoiceID == obj[0].InvoiceID).ToList();
+                    List<Sls_InvoiceItem> invItem = db.Sls_InvoiceItem.Where(x => x.InvoiceID == obj[0].InvoiceID).ToList();
 
                     for (int i = 0; i < obj.Count; i++)
                     {
                         invItem[i].InvoiceID = RetIvoiceID;
                         invItem[i].InvoiceItemID = obj[i].InvoiceItemID;
                         invItem[i].SoldQty = obj[i].ItemQty;
-                        SlsInvoiceService.InsertInvItems(invItem[i]); 
+                        SlsInvoiceService.InsertInvItems(invItem[i]);
                     }
-                     
-                        dbTransaction.Commit();
-                        LogUser.Insert(db, obj[0].CompCode.ToString(), obj[0].BranchCode.ToString(), DateTime.Now.Year.ToString(), "", RetIvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.InvoiceReturn, true, null, null,"اضافة مرتجع");
-                        return Ok(new BaseResponse(true));
-                   
+
+                    dbTransaction.Commit();
+                    LogUser.Insert(db, obj[0].CompCode.ToString(), obj[0].BranchCode.ToString(), DateTime.Now.Year.ToString(), "", RetIvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.InvoiceReturn, true, null, null, "اضافة مرتجع");
+                    return Ok(new BaseResponse(true));
+
                 }
                 catch (Exception ex)
                 {

@@ -23,7 +23,7 @@ var View_Order;
     var InvoiceID = 0;
     function InitalizeComponent() {
         var _USERS = GetGlopelDataUser();
-        _USER = _USERS.filter(function (x) { return x.USER_CODE == SysSession.CurrentEnvironment.UserCode; });
+        _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
         InitalizeControls();
         InitializeEvents();
         _Invoices = GetGlopelDataInvoice();

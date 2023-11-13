@@ -17,7 +17,7 @@ var UserDef;
         InitalizeControls();
         InitializeEvents();
         _USERS = GetGlopelDataUser();
-        _USER = _USERS.filter(function (x) { return x.USER_CODE == SysSession.CurrentEnvironment.UserCode; });
+        _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
         Display_Data();
         Close_Loder();
     }

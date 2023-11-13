@@ -114,7 +114,7 @@ var EmpControl;
     }
     function ViewUser(UserCode) {
         localStorage.setItem("UserCode", UserCode);
-        OpenPagePartial("Profile", "Profile ��");
+        OpenPagePartial("Profile", "Profile 👤");
     }
     function Clear() {
         $('#drpActive').val("Null");

@@ -37,7 +37,7 @@ namespace Edit_Order {
     export function InitalizeComponent() {
 
         let _USERS = GetGlopelDataUser()
-        _USER = _USERS.filter(x => x.USER_CODE == SysSession.CurrentEnvironment.UserCode)
+        _USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase())
 
         InitalizeControls();
         InitializeEvents();
