@@ -12118,6 +12118,7 @@ class Sls_InvoiceItem extends SecurityClass {
 		super();
 		this.InvoiceItemID = 0;
 		this.InvoiceID = 0;
+		this.ItemCode = "";
 		this.ItemDescA = "";
 		this.SoldQty = 0;
 		this.Unitprice = 0;
@@ -12134,10 +12135,12 @@ class Sls_InvoiceItem extends SecurityClass {
 		this.SalesManID = 0;
 		this.VendorID = 0;
 		this.ItemNetAmount = 0;
+		this.StoreID = 0;
 		this.StatusFlag = "";
 	}
 	public InvoiceItemID: number;
 	public InvoiceID: number;
+	public ItemCode: string;
 	public ItemDescA: string;
 	public SoldQty: number;
 	public Unitprice: number;
@@ -12154,6 +12157,7 @@ class Sls_InvoiceItem extends SecurityClass {
 	public SalesManID: number;
 	public VendorID: number;
 	public ItemNetAmount: number;
+	public StoreID: number;
 	public StatusFlag: string;
 }
 

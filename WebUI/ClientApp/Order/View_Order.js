@@ -37,9 +37,6 @@ var View_Order;
     }
     View_Order.InitalizeComponent = InitalizeComponent;
     function SetRefresh(moduleCode) {
-        //$("#Refresh_" + moduleCode).on('click', function () { 
-        //    Dis_Refrsh();
-        //});
         $(document).on('click', '.Refresh_' + moduleCode, function () {
             Dis_Refrsh();
             // Shows an alert when a dynamically created button is clicked
@@ -150,6 +147,8 @@ var View_Order;
     function btn_Deliver_Customer_onclick() {
     }
     function btn_Receiving_Order_onclick() {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        OpenPagePartial("Coding_Items", "Coding Items", null, null);
     }
     var Run_Fun = false;
     function Display_Refrsh() {

@@ -48,10 +48,6 @@ namespace View_Order {
     }
     function SetRefresh(moduleCode: string) {
      
-        //$("#Refresh_" + moduleCode).on('click', function () { 
-        //    Dis_Refrsh();
-        //});
-
         $(document).on('click', '.Refresh_' + moduleCode, function () {
             Dis_Refrsh();
             // Shows an alert when a dynamically created button is clicked
@@ -184,7 +180,8 @@ namespace View_Order {
 
     }
     function btn_Receiving_Order_onclick() {
-
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        OpenPagePartial("Coding_Items", "Coding Items", null, null);
     }
 
 

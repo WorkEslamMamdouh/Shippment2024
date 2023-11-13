@@ -2614,6 +2614,7 @@ function CleaningList_Table() {
 }
 function DataResult(Table) {
     debugger;
+    CleaningList_Table();
     var sys = new SystemTools;
     globle_Table = Table;
     Ajax.Callsync({

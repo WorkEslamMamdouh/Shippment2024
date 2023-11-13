@@ -3410,6 +3410,7 @@ function CleaningList_Table() {
 }
 function DataResult(Table: Array<Table>): Array<Table_Result> {
     debugger
+    CleaningList_Table();
     let sys = new SystemTools;
     globle_Table = Table;
     Ajax.Callsync({
