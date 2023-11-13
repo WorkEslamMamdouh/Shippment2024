@@ -10,9 +10,9 @@ namespace Edit_Order {
     var _USER: Array<G_USERS> = new Array<G_USERS>();
 
     var InvMasterDetails: InvoiceMasterDetails = new InvoiceMasterDetails();
-    var _Inv: Vnd_Inv_SlsMan = new Vnd_Inv_SlsMan();
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
+    var _Inv: Vnd_Inv_SlsMan = new Vnd_Inv_SlsMan();
     var _InvItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
     var Id_Back: HTMLButtonElement;
@@ -130,7 +130,7 @@ namespace Edit_Order {
         $('#Div_Header').addClass('display_none')
         $('#Div_Item').addClass('display_none')
         $('#Div_Review_invoice').removeClass('display_none')
-
+        TotalComplet();
     }
     function _Finish() {
         debugger
@@ -346,6 +346,7 @@ namespace Edit_Order {
                         debugger
                         let res = result.Response as Array<AProc_LnkGenerateTrans_Result>;
                         ShowMessage("Updated 😍")
+                        $("#Display_Back_Page2").click();
                         _Back();
                         Clear();
 

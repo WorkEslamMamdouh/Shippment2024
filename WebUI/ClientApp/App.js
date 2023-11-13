@@ -2614,6 +2614,7 @@ function CleaningList_Table() {
 }
 function DataResult(Table) {
     debugger;
+    CleaningList_Table();
     var sys = new SystemTools;
     globle_Table = Table;
     Ajax.Callsync({
@@ -2797,7 +2798,12 @@ function getClass(className) {
 //    }
 //};
 var _AllPages = new Array();
+var ModulesOpenPages = new Array();
 var CounterPage = 0;
+function GetModuleCode() {
+    debugger;
+    return ModulesOpenPages[ModulesOpenPages.length - 1].ModuleCode.toString();
+}
 function GetAllPages() {
     debugger;
     $.ajax({
@@ -2835,12 +2841,18 @@ function OpenPage(moduleCode) {
         ShowMessage("No Privilage");
     }
 }
-function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back) {
+function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2) {
     debugger;
     Show_Loder();
     var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
     if (Page.length > 0) {
         CounterPage++;
+        var _OpenPages = new OpenPages();
+        _OpenPages.ModuleCode = moduleCode;
+        ModulesOpenPages.push(_OpenPages);
+        debugger;
+        Set_Refresh(moduleCode);
+        //*************************************************************************
         //$('#btn_Logout').addClass("display_none");
         $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
         $('#htmlContainer').addClass("display_none");
@@ -2853,16 +2865,31 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back) {
         $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
         $(window).scrollTop(0);
-        OnDisplay_Back();
-        $("#Display_Back_Page").on('click', function () {
-            debugger;
-            OnDisplay_Back();
-        });
+        debugger;
+        if (OnDisplay_Back1 != null) {
+            OnDisplay_Back1();
+            $("#Display_Back_Page").on('click', function () {
+                debugger;
+                OnDisplay_Back1();
+            });
+        }
+        if (OnDisplay_Back2 != null) {
+            OnDisplay_Back2();
+            $("#Display_Back_Page2").on('click', function () {
+                debugger;
+                OnDisplay_Back2();
+            });
+        }
     }
     else {
         Close_Loder();
         ShowMessage("No Privilage");
     }
+}
+function Set_Refresh(moduleCode) {
+    var btnhtml = "   <a id=\"Refresh_" + moduleCode + "\" style=\"\" class=\"Refresh_" + moduleCode + "\">Refresh</a>";
+    $("#Div_Refresh").html(btnhtml);
+    setInterval(function () { $(".Refresh_" + moduleCode).click(); }, 12000);
 }
 function Back_Page_Partial() {
     debugger;
@@ -2875,6 +2902,7 @@ function Back_Page_Partial() {
     //$('#btn_Logout').addClass("display_none");
     $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
     CounterPage--;
+    $("#Div_Refresh").html("");
     if (CounterPage == 0) {
         //$('#btn_Logout').removeClass("display_none");
         $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
@@ -2886,6 +2914,10 @@ function Back_Page_Partial() {
         var _NamePage = localStorage.getItem("Partial_NamePage_" + CounterPage);
         $('#Lab_NamePage').html("" + _NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
         $('#Partial_' + CounterPage).removeClass("display_none");
+        var _Mod_1 = GetModuleCode();
+        ModulesOpenPages = ModulesOpenPages.filter(function (x) { return x.ModuleCode != _Mod_1; });
+        _Mod_1 = GetModuleCode();
+        Set_Refresh(_Mod_1);
     }
 }
 function Close_Loder() {

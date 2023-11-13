@@ -43,6 +43,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/GeneralHub/RecieptOrdersIndex.cshtml",
          "~/Views/GeneralHub/CashCollectIndex.cshtml",
          "~/Views/GeneralHub/Merchant_PaymentIndex.cshtml",
+         "~/Views/GeneralHub/Coding_ItemsIndex.cshtml",
          "~/Views/Delivery/WalletIndex.cshtml",
          "~/Views/GeneralHub/ShipOrderIndex.cshtml", 
          "~/Views/Store/StoreIndex.cshtml",

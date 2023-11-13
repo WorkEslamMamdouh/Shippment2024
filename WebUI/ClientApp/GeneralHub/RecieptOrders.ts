@@ -28,6 +28,7 @@ namespace RecieptOrders {
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
+         
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
@@ -132,6 +133,7 @@ namespace RecieptOrders {
 
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
 
+        debugger
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
 

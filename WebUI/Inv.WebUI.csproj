@@ -1112,6 +1112,7 @@
     <Content Include="Views\Accountant\ReceiptNoteIndex.cshtml" />
     <Content Include="Views\UserControl\VendorControlIndex.cshtml" />
     <Content Include="Views\UserControl\EmpControlIndex.cshtml" />
+    <Content Include="Views\GeneralHub\Coding_ItemsIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1144,6 +1145,7 @@
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\CashCollect.ts" />
     <TypeScriptCompile Include="ClientApp\Delivery\Wallet.ts" />
+    <TypeScriptCompile Include="ClientApp\GeneralHub\Coding_Items.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\ShipOrder.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\RecieptOrders.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\Merchant_Payment.ts" />

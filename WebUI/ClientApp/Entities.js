@@ -33,6 +33,11 @@ var AllPages = /** @class */ (function () {
     }
     return AllPages;
 }());
+var OpenPages = /** @class */ (function () {
+    function OpenPages() {
+    }
+    return OpenPages;
+}());
 var APISessionRecord = /** @class */ (function () {
     function APISessionRecord() {
     }
@@ -7128,6 +7133,7 @@ var Sls_InvoiceItem = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.InvoiceItemID = 0;
         _this.InvoiceID = 0;
+        _this.ItemCode = "";
         _this.ItemDescA = "";
         _this.SoldQty = 0;
         _this.Unitprice = 0;
@@ -7144,6 +7150,7 @@ var Sls_InvoiceItem = /** @class */ (function (_super) {
         _this.SalesManID = 0;
         _this.VendorID = 0;
         _this.ItemNetAmount = 0;
+        _this.StoreID = 0;
         _this.StatusFlag = "";
         return _this;
     }

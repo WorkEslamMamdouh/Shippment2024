@@ -19,7 +19,7 @@ namespace View_Seller_Orders {
         GetData_Invoice();
         
         Close_Loder();
-
+          
     }
     function InitalizeControls() {
 

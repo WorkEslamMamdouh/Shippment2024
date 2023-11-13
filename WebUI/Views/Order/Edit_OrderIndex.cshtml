@@ -261,22 +261,24 @@
                     </div>
                     <br />
                     <table class="User1 User2 table display_none">
-                        <thead>
+                        <thead> 
                             <tr>
-                                <th>Prc Vat</th>
-                                <th>Total</th>
-                                <th>Commition</th>
-                                <th>Net Amount</th>
+                                <th>Prc Vat :</th>
+                                <th><input type="number" value="0" id="Txt_PrcVatAmount" class=" u-input u-input-rectangle"><input type="hidden" value="0" id="Txt_VatAmount" class=" u-input u-input-rectangle"></th>
                             </tr>
-                        </thead>
-                        <tbody id="">
                             <tr>
-                                <td><input type="number" value="0" id="Txt_PrcVatAmount" class=" u-input u-input-rectangle"><input type="hidden" value="0" id="Txt_VatAmount" class=" u-input u-input-rectangle"></td>
-                                <td> <input disabled type="number" value="0" id="Txt_TotalAmount" class=" u-input u-input-rectangle"></td>
-                                <td> <input type="number" value="0" id="Txt_CommitionAmount" class=" u-input u-input-rectangle"></td>
-                                <td> <input disabled type="number" value="0" id="Txt_NetAmount" class=" u-input u-input-rectangle"></td>
+                                <th>Total :</th>
+                                <th> <input disabled type="number" value="0" id="Txt_TotalAmount" class=" u-input u-input-rectangle"></th>
                             </tr>
-                        </tbody>
+                            <tr>
+                                <th>Commition :</th>
+                                <th> <input type="number" value="0" id="Txt_CommitionAmount" class=" u-input u-input-rectangle"></th>
+                            </tr>
+                            <tr>
+                                <th>Net :</th>
+                                <th><input disabled type="number" value="0" id="Txt_NetAmount" class=" u-input u-input-rectangle"></th>
+                            </tr>
+                        </thead> 
 
                     </table>
 

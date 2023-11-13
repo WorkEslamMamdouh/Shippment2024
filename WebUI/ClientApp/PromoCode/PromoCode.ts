@@ -110,7 +110,7 @@ namespace PromoCode {
 			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
 
 			'<td class="btn_minus" style = "width: 2%;" > ' +
-			'<button  id="btn_minus' + cnt + '"> <i class="fa-solid fa-circle-minus" > </i></button > ' +
+			'<input type="button" id="btn_minus' + cnt + '" value="❌" class="Style_Add_Item u-input u-input-rectangle" style="width: 100%;background-color: #ffdddd;color: white;">' +
 			'</td>' +
 
 			'<td class="u-table-cell" > ' +

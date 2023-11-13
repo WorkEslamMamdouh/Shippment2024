@@ -33,8 +33,15 @@ var View_Order;
         Display_information_Inv();
         Display_Role_User();
         Close_Loder();
+        SetRefresh(GetModuleCode());
     }
     View_Order.InitalizeComponent = InitalizeComponent;
+    function SetRefresh(moduleCode) {
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            Dis_Refrsh();
+            // Shows an alert when a dynamically created button is clicked
+        });
+    }
     function InitalizeControls() {
         btn_Delete = document.getElementById('btn_Delete');
         btn_freeze = document.getElementById('btn_freeze');
@@ -67,7 +74,9 @@ var View_Order;
         $("#Name_Cust_View_Or").html("Name: " + _Inv.CustomerName);
         $("#Phone_View_Or").html("Phone: " + _Inv.CustomerMobile1 + " & " + _Inv.CustomerMobile2);
         $("#RefNo_TrNo_View_Or").html(" RefNo ( " + _Inv.RefNO + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TrNo ( " + _Inv.TrNo + " )");
-        $("#Coun_Total_View_Or").html(" Counter Item ( " + _Inv.ItemCount + "  ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.NetAfterVat + "  )");
+        $("#Vat_Total_View_Or").html(" Vat ( " + _Inv.VatAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.TotalAmount + " ) ");
+        $("#Comm_Total_View_Or").html(" Commition ( " + _Inv.CommitionAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Net Total ( " + _Inv.NetAfterVat + " ) ");
+        $("#Coun_View").html("  &nbsp;&nbsp;&nbsp;    Counter Item ( " + _Inv.ItemCount + " ) ");
     }
     function Display_Role_User() {
         $(".USER" + _USER[0].USER_TYPE).removeClass('hidden_Control');
@@ -115,9 +124,13 @@ var View_Order;
     }
     function btn_Edit_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("Edit_Order", "Edit Order");
+        OpenPagePartial("Edit_Order", "Edit Order", null, function () { Display_Refrsh(); });
     }
     function btn_Confirm_onclick() {
+        if (Number(_Inv.CommitionAmount) <= 0) {
+            Errorinput($('#btn_Edit_Order'), 'Please a Review Order 😒 ');
+            return;
+        }
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
@@ -134,6 +147,32 @@ var View_Order;
     function btn_Deliver_Customer_onclick() {
     }
     function btn_Receiving_Order_onclick() {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        OpenPagePartial("Coding_Items", "Coding Items", null, null);
+    }
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return;
+        }
+        Dis_Refrsh();
+    }
+    function Dis_Refrsh() {
+        $("#Display_Back_Page").click();
+        debugger;
+        _Inv = new Vnd_Inv_SlsMan();
+        _Invoices = new Array();
+        _Invoices = GetGlopelDataInvoice();
+        _InvoiceItems = GetGlopelDataInvoiceItems();
+        InvoiceID = Number(localStorage.getItem("InvoiceID"));
+        _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
+        if (_Inv == null) {
+            debugger;
+            $('#Back_Page').click();
+            return;
+        }
+        Display_information_Inv();
     }
 })(View_Order || (View_Order = {}));
 //# sourceMappingURL=View_Order.js.map

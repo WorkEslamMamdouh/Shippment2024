@@ -26,6 +26,7 @@ namespace View_Order {
 
 
     var InvoiceID = 0;
+     
 
     export function InitalizeComponent() {
 
@@ -42,6 +43,15 @@ namespace View_Order {
         Display_information_Inv();
         Display_Role_User();
         Close_Loder();
+
+        SetRefresh(GetModuleCode())
+    }
+    function SetRefresh(moduleCode: string) {
+     
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            Dis_Refrsh();
+            // Shows an alert when a dynamically created button is clicked
+        });
     }
     function InitalizeControls() {
 
@@ -78,7 +88,9 @@ namespace View_Order {
         $("#Name_Cust_View_Or").html("Name: " + _Inv.CustomerName);
         $("#Phone_View_Or").html("Phone: " + _Inv.CustomerMobile1 + " & " + _Inv.CustomerMobile2);
         $("#RefNo_TrNo_View_Or").html(" RefNo ( " + _Inv.RefNO + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TrNo ( " + _Inv.TrNo + " )");
-        $("#Coun_Total_View_Or").html(" Counter Item ( " + _Inv.ItemCount + "  ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.NetAfterVat + "  )");
+        $("#Vat_Total_View_Or").html(" Vat ( " + _Inv.VatAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.TotalAmount + " ) ");
+        $("#Comm_Total_View_Or").html(" Commition ( " + _Inv.CommitionAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Net Total ( " + _Inv.NetAfterVat + " ) ");
+        $("#Coun_View").html("  &nbsp;&nbsp;&nbsp;    Counter Item ( " + _Inv.ItemCount + " ) ");
 
     }
 
@@ -104,44 +116,52 @@ namespace View_Order {
                 $("#btn_Edit_Order").addClass("display_none")
             }
         }
-       
+
 
     }
 
     //******************************************************* Events Buttons ************************************
 
     function btn_Delete_onclick() {
-        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', () => { 
+        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-        }) 
+           
+        })
     }
     function btn_freeze_onclick() {
-    
-        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', () => { 
+
+        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', () => {
             $("#btn_Active").removeClass("display_none")
             $("#btn_Edit_Order").removeClass("display_none")
             $("#btn_freeze").addClass("display_none")
             $("#Display_Back_Page").click();
-        }) 
+        })
     }
     function btn_Active_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', () => { 
+        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', () => {
             $("#btn_Active").addClass("display_none")
             $("#btn_Edit_Order").addClass("display_none")
             $("#btn_freeze").removeClass("display_none")
             $("#Display_Back_Page").click();
-        }) 
+        })
     }
 
     function btn_Edit_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("Edit_Order", "Edit Order");
+        OpenPagePartial("Edit_Order", "Edit Order", null, () => { Display_Refrsh() });
     }
     function btn_Confirm_onclick() {
+
+        if (Number(_Inv.CommitionAmount) <= 0) {
+            Errorinput($('#btn_Edit_Order'), 'Please a Review Order 😒 ')
+            return
+        }
+
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
+           
         })
     }
     function btn_Open_Location_onclick() {
@@ -160,8 +180,40 @@ namespace View_Order {
 
     }
     function btn_Receiving_Order_onclick() {
-
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        OpenPagePartial("Coding_Items", "Coding Items", null, null);
     }
 
 
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return
+        }
+
+
+
+        Dis_Refrsh();
+    }
+
+    function Dis_Refrsh() {
+        $("#Display_Back_Page").click();
+
+        debugger
+        _Inv = new Vnd_Inv_SlsMan();
+        _Invoices = new Array<Vnd_Inv_SlsMan>();
+
+        _Invoices = GetGlopelDataInvoice();
+        _InvoiceItems = GetGlopelDataInvoiceItems();
+        InvoiceID = Number(localStorage.getItem("InvoiceID"))
+        _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
+        if (_Inv == null) {
+            debugger
+            $('#Back_Page').click();
+           
+            return;
+        }
+        Display_information_Inv();
+    }
 }

@@ -119,6 +119,7 @@ var RecieptOrders;
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
         _InvoiceItems = GetDataTable('Sls_InvoiceItem');
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+        debugger;
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         Display_Orders();

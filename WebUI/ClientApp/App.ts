@@ -3410,6 +3410,7 @@ function CleaningList_Table() {
 }
 function DataResult(Table: Array<Table>): Array<Table_Result> {
     debugger
+    CleaningList_Table();
     let sys = new SystemTools;
     globle_Table = Table;
     Ajax.Callsync({
@@ -3630,9 +3631,14 @@ function getClass(className) {
 //};
 
 var _AllPages: Array<AllPages> = new Array<AllPages>();
+var ModulesOpenPages: Array<OpenPages> = new Array<OpenPages>();
 
-var CounterPage = 0;
+var CounterPage = 0; 
 
+function GetModuleCode(): string {
+    debugger
+    return ModulesOpenPages[ModulesOpenPages.length - 1].ModuleCode.toString();
+}
 function GetAllPages() {
 
     debugger
@@ -3683,13 +3689,21 @@ function OpenPage(moduleCode: string) {
 
 }
 
-function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back?: () => void) {
+function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
     debugger
     Show_Loder();
-
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
     if (Page.length > 0) {
         CounterPage++;
+         
+        let _OpenPages: OpenPages = new OpenPages();
+        _OpenPages.ModuleCode = moduleCode;
+        ModulesOpenPages.push(_OpenPages);
+
+        debugger
+        Set_Refresh(moduleCode);
+
+        //*************************************************************************
 
         //$('#btn_Logout').addClass("display_none");
         $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
@@ -3708,16 +3722,33 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back?: 
         localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
         $(window).scrollTop(0);
-         
-            OnDisplay_Back();
 
-         
+        debugger
+        if (OnDisplay_Back1 != null) {
 
-        $("#Display_Back_Page").on('click', function () {
-            debugger
-            OnDisplay_Back()            
-        });
+            OnDisplay_Back1();
 
+
+
+            $("#Display_Back_Page").on('click', function () {
+                debugger
+                OnDisplay_Back1()
+            });
+        }
+
+        if (OnDisplay_Back2 != null) {
+
+            OnDisplay_Back2();
+
+
+
+            $("#Display_Back_Page2").on('click', function () {
+                debugger
+                OnDisplay_Back2()
+            });
+        }
+
+ 
     }
     else {
         Close_Loder();
@@ -3725,6 +3756,11 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back?: 
     }
 }
 
+function Set_Refresh(moduleCode: string) {
+    let btnhtml = `   <a id="Refresh_${moduleCode}" style="" class="Refresh_${moduleCode}">Refresh</a>`;
+    $("#Div_Refresh").html(btnhtml);
+    setInterval(() => { $(".Refresh_" + moduleCode).click() }, 12000)
+}
 function Back_Page_Partial() {
     debugger
 
@@ -3741,6 +3777,9 @@ function Back_Page_Partial() {
 
     CounterPage--;
 
+    $("#Div_Refresh").html("");
+
+
     if (CounterPage == 0) {
         //$('#btn_Logout').removeClass("display_none");
         $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;");
@@ -3750,6 +3789,7 @@ function Back_Page_Partial() {
         $('#Lab_NamePage').html(`Home<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
+         
     }
     else {
 
@@ -3760,7 +3800,15 @@ function Back_Page_Partial() {
                 </span>`);
          
         $('#Partial_' + CounterPage).removeClass("display_none");
+
+        let _Mod = GetModuleCode();
+        ModulesOpenPages = ModulesOpenPages.filter(x => x.ModuleCode != _Mod)
+          _Mod = GetModuleCode();
+        Set_Refresh(_Mod);
     }
+
+
+
 
 }
 
@@ -3848,3 +3896,5 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
     });
      
 }
+
+ 

@@ -7,9 +7,9 @@ var Edit_Order;
     var SysSession = GetSystemSession();
     var _USER = new Array();
     var InvMasterDetails = new InvoiceMasterDetails();
-    var _Inv = new Vnd_Inv_SlsMan();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
+    var _Inv = new Vnd_Inv_SlsMan();
     var _InvItems = new Array();
     var Id_Back;
     var Id_Next;
@@ -109,6 +109,7 @@ var Edit_Order;
         $('#Div_Header').addClass('display_none');
         $('#Div_Item').addClass('display_none');
         $('#Div_Review_invoice').removeClass('display_none');
+        TotalComplet();
     }
     function _Finish() {
         debugger;
@@ -268,6 +269,7 @@ var Edit_Order;
                         debugger;
                         var res = result.Response;
                         ShowMessage("Updated 😍");
+                        $("#Display_Back_Page2").click();
                         _Back();
                         Clear();
                         $('#Back_Page').click();

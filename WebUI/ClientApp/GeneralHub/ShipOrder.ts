@@ -28,6 +28,7 @@ namespace ShipOrder {
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
+         
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;

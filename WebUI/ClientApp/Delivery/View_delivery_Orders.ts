@@ -19,7 +19,8 @@ namespace View_delivery_Orders {
         InitializeEvents();
         GetData_Invoice();
         Display_Orders();
-        Close_Loder(); 
+        Close_Loder();
+         
     }
     function InitalizeControls() { 
          
