@@ -37,15 +37,15 @@ namespace View_delivery_Orders {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+"" },
-            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+") " },
+            { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+"" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+") " },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
-        _Invoices = GetDataTable('Sls_Invoice');
-        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
+        _Invoices = GetDataTable('Vnd_Inv_SlsMan');
+        _InvoiceItems = GetDataTable('IQ_ItemCollect');
 
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);

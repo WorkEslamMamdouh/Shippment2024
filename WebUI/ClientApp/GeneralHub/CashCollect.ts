@@ -121,7 +121,7 @@ namespace CashCollect {
         Table =
             [
                 { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ]
 
         DataResult(Table);

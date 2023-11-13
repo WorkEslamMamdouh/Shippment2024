@@ -37,14 +37,14 @@ namespace View_Seller_Orders {
         Table =
             [
                 { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
         _Invoices = GetDataTable('Sls_Invoice');
-        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
+        _InvoiceItems = GetDataTable('IQ_ItemCollect');
 
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);

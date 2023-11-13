@@ -12068,6 +12068,8 @@ class Sls_Invoice extends SecurityClass {
 		this.ItemCount = 0;
 		this.LineCount = 0;
 		this.VendorID = 0;
+		this.StoreID = 0;
+		this.ZoneID = 0;
 	}
 	public InvoiceID: number;
 	public TrNo: number;
@@ -12111,6 +12113,8 @@ class Sls_Invoice extends SecurityClass {
 	public ItemCount: number;
 	public LineCount: number;
 	public VendorID: number;
+	public StoreID: number;
+	public ZoneID: number;
 }
 
 class Sls_InvoiceItem extends SecurityClass {

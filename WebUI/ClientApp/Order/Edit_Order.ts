@@ -41,7 +41,8 @@ namespace Edit_Order {
 
         InitalizeControls();
         InitializeEvents();
-          Clear();
+        Clear();
+        GetData_Zones();
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
@@ -82,7 +83,25 @@ namespace Edit_Order {
         Txt_PrcVatAmount.onkeyup = TotalComplet;
         Txt_CommitionAmount.onkeyup = TotalComplet;
     }
+    function GetData_Zones() {
+        debugger
 
+        var Table: Array<Table>;
+        Table =
+            [
+                { NameTable: 'Zones', Condition: "" },
+
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+        debugger
+        let _Zones = GetDataTable('Zones');
+
+        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
+        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+
+    }
     function _Next() {
         if (!Valid_Header()) {
             return
@@ -160,7 +179,10 @@ namespace Edit_Order {
         if (!Valid_Input("Txt_Phone_Num2", "Please a Enter Phone 2 😡")) {
             return false;
         }
-
+        if ($('#db_Zone').val() == 'null') {
+            Errorinput($('#db_Zone'), 'Please a Select Zone 😡')
+            return false;
+        }
         if (!Valid_Input("Txt_Address1", "Please a Enter Address 😡")) {
             return false;
         }
@@ -299,6 +321,7 @@ namespace Edit_Order {
         Header.CustomerMobile1 = $('#Txt_Phone_Num1').val().trim();
         Header.CustomerMobile2 = $('#Txt_Phone_Num2').val().trim();
         Header.Address = $('#Txt_Address1').val().trim();
+        Header.ZoneID = $('#db_Zone').val(); 
         Header.Location = $('#Txt_location').val().trim();
         Header.TrDate = DateFormatRep($('#Txt__TrData').val());
         Header.DeliveryDate = DateFormatRep($('#Txt_Receive_TrData').val());

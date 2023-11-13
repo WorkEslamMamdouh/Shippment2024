@@ -116,14 +116,14 @@ namespace Wallet {
         Table =
             [
                 { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
-        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
+        _InvoiceItems = GetDataTable('IQ_ItemCollect');
 
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
 

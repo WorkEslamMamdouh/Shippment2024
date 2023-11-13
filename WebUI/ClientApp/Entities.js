@@ -7123,6 +7123,8 @@ var Sls_Invoice = /** @class */ (function (_super) {
         _this.ItemCount = 0;
         _this.LineCount = 0;
         _this.VendorID = 0;
+        _this.StoreID = 0;
+        _this.ZoneID = 0;
         return _this;
     }
     return Sls_Invoice;
