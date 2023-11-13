@@ -206,6 +206,9 @@
     <Compile Include="Domain\IQ_GetVendor.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\IQ_ItemCollect.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\I_Control.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
