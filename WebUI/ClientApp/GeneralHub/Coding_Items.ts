@@ -46,25 +46,30 @@ namespace Coding_Items {
         _GridItems.Inserting = false;
         _GridItems.SelectedIndex = 1;
         _GridItems.OnItemEditing = () => { };
-        _GridItems.Columns = [
-            { title: "InvoiceItemID", name: "InvoiceItemID", type: "text", width: "0%", visible: false },
-            { title: "Num", name: "InvoiceItemID", type: "number", width: "10px" },
-            { title: "ItemDesc", name: "ItemDescA", type: "number", width: "30px" }, 
+        _GridItems.Columns = [ 
+            { title: "Num", name: "InvoiceItemID", type: "number", width: "10px" }, 
             {
-                title: "View", width: "60px",
-                itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLInputElement => {
-                    let txt: HTMLInputElement = document.createElement("input");
-                    txt.type = "button";
-                    txt.value = ("View Control ⚙️");
-                    txt.id = "butView" + item.InvoiceItemID;
-                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
-
-                    txt.onclick = (e) => {
-                        ViewInvoice(item.InvoiceItemID);
-                    };
+                title: "ItemDesc", css: "ColumPadding", name: "ItemDescA", width: "100px",
+                itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLLabelElement => {
+                    let txt: HTMLLabelElement = document.createElement("label");
+                    txt.innerHTML = item.ItemDescA;
+                    txt.style.textAlign = "center";
                     return txt;
                 }
             },
+            { title: "ItemCode", css: "ColumPadding", name: "TrDate", width: "100px",
+                itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "text";
+                    txt.style.width = "100%"; 
+                    txt.className = "Clear_Header u-input u-input-rectangle";
+                    txt.style.textAlign = "center";
+                    txt.id = "txtItemCode" + item.InvoiceItemID;
+                      
+                    return txt;
+                }
+            },
+             
         ];
         _GridItems.Bind();
 
