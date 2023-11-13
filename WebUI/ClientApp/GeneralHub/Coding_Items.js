@@ -47,6 +47,7 @@ var Coding_Items;
                     var txt = document.createElement("label");
                     txt.innerHTML = item.ItemDescA;
                     txt.style.textAlign = "center";
+                    txt.style.backgroundColor = "aliceblue";
                     return txt;
                 }
             },
