@@ -57,6 +57,7 @@
         <EntityTypeShape EntityType="InvModel.Vendor_Invoices" Width="1.5" PointX="27.375" PointY="0.75" />
         <EntityTypeShape EntityType="InvModel.Vnd_Inv_SlsMan" Width="1.5" PointX="27.375" PointY="4.75" />
         <EntityTypeShape EntityType="InvModel.Sls_Invoice" Width="1.5" PointX="5.375" PointY="22.75" />
+        <EntityTypeShape EntityType="InvModel.IQ_ItemCollect" Width="1.5" PointX="27.375" PointY="19.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
