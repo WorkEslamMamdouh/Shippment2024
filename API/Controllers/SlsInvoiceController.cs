@@ -158,7 +158,7 @@ namespace Inv.API.Controllers
                     {
                         db.Database.ExecuteSqlCommand("update Sls_InvoiceItem set itemcode='N'" + obj[i].ItemCode + "'' , StoreID = " + obj[i].StoreID + " where InvoiceItemID = " + obj[i].InvoiceItemID +"");
                     }
-
+                    LogUser.Insert(db, obj[0].CompCode.ToString(), obj[0].BranchCode.ToString(), DateTime.Now.Year.ToString(), obj[0].UserCode, obj[0].InvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.Coding_item, true, null, null, "Coding Item");
                     dbTransaction.Commit();
                     return Ok(new BaseResponse(true));
 
