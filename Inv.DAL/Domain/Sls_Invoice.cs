@@ -57,5 +57,6 @@ namespace Inv.DAL.Domain
         public Nullable<int> LineCount { get; set; }
         public Nullable<int> VendorID { get; set; }
         public Nullable<int> StoreID { get; set; }
+        public Nullable<int> ZoneID { get; set; }
     }
 }

@@ -72,12 +72,12 @@ namespace Inv.DAL.Domain
         public virtual DbSet<A_JOURNAL_HEADER> A_JOURNAL_HEADER { get; set; }
         public virtual DbSet<A_RecPay_Tr_ReceiptNote> A_RecPay_Tr_ReceiptNote { get; set; }
         public virtual DbSet<G_STORE> G_STORE { get; set; }
-        public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<GQ_USERS> GQ_USERS { get; set; }
         public virtual DbSet<SalesMan_Invoices> SalesMan_Invoices { get; set; }
         public virtual DbSet<Vendor_Invoices> Vendor_Invoices { get; set; }
         public virtual DbSet<Vnd_Inv_SlsMan> Vnd_Inv_SlsMan { get; set; }
+        public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {
