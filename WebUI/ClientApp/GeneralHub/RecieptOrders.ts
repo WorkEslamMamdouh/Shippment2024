@@ -28,7 +28,21 @@ namespace RecieptOrders {
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
-         
+
+
+        SetRefresh(GetModuleCode())
+    }
+    function SetRefresh(moduleCode: string) {
+        debugger
+    
+        // Event listener for dynamically generated buttons
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            if (Number($('#Txt_VendorID').val()) == 0) {
+                return;
+            }
+            GetData_Invoice()
+            // Shows an alert when a dynamically created button is clicked
+        });
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
@@ -122,14 +136,14 @@ namespace RecieptOrders {
         Table =
             [
                 { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
-        _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
 
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
 
@@ -181,6 +195,15 @@ namespace RecieptOrders {
     function ViewInvoice(InvoiceID) {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("View_Order", "Order 🧺");
+        OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+    }
+
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return
+        }
+        GetData_Invoice();
     }
 }

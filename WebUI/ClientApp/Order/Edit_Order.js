@@ -287,7 +287,6 @@ var Edit_Order;
                     var result = d;
                     if (result.IsSuccess) {
                         debugger;
-                        var res = result.Response;
                         ShowMessage("Updated 😍");
                         $("#Display_Back_Page2").click();
                         _Back();
@@ -333,6 +332,7 @@ var Edit_Order;
         $('#Txt_Name_Cust').val(_Inv.CustomerName);
         $('#Txt_Phone_Num1').val(_Inv.CustomerMobile1);
         $('#Txt_Phone_Num2').val(_Inv.CustomerMobile2);
+        $('#db_Zone').val(_Inv.ZoneID);
         $('#Txt_Address1').val(_Inv.Address);
         $('#Txt_location').val(_Inv.Location);
         $('#Txt_Remarks').val(_Inv.Remark);

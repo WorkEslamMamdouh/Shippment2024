@@ -81,6 +81,13 @@ namespace Inv.API.Controllers
                     List<Sls_InvoiceItem> UpdatedItems = obj.Sls_InvoiceItem.Where(x => x.StatusFlag == 'u').ToList();
                     List<Sls_InvoiceItem> DeletedItems = obj.Sls_InvoiceItem.Where(x => x.StatusFlag == 'd').ToList();
 
+
+                    foreach (var item in DeletedItems)
+                    {
+                        db.Database.ExecuteSqlCommand("delete from Sls_InvoiceItem where InvoiceID=" + item.InvoiceID + " and  ItemDescA=N'" + item.ItemDescA + "' and Unitprice=" + item.Unitprice + " ");
+
+                    }
+
                     foreach (var item in InsertedItems)
                     {
                         item.InvoiceID = sls.InvoiceID;
@@ -100,10 +107,8 @@ namespace Inv.API.Controllers
                         SlsInvoiceService.UpdateInvItems(item);
 
                     }
-                    if (DeletedItems.Count > 0 )
-                    {
-                        db.Database.ExecuteSqlCommand("delete from Sls_InvoiceItem where InvoiceID=" + DeletedItems[0].InvoiceID + " and  ItemDescA='N'" + DeletedItems[0].ItemDescA + "'' and Unitprice=" + DeletedItems[0].Unitprice + " ");
-                    } 
+                  
+                   
 
                     dbTransaction.Commit();
                     return Ok(new BaseResponse(true));
@@ -153,10 +158,10 @@ namespace Inv.API.Controllers
             {
                 try
                 {
-                    db.Database.ExecuteSqlCommand("Update Sls_Invoice set StoreID = " + obj[0].StoreID + ", Status =    3  where InvoiceID = " + obj[0].InvoiceID + "");
+                    db.Database.ExecuteSqlCommand("Update Sls_Invoice set StoreID = " + obj[0].StoreID + ", Status = 3  where InvoiceID = " + obj[0].InvoiceID + "");
                     for (int i = 0; i < obj.Count; i++)
                     {
-                        db.Database.ExecuteSqlCommand("update Sls_InvoiceItem set itemcode='N'" + obj[i].ItemCode + "'' , StoreID = " + obj[i].StoreID + " where InvoiceItemID = " + obj[i].InvoiceItemID +"");
+                        db.Database.ExecuteSqlCommand("update Sls_InvoiceItem set itemcode=N'" + obj[i].ItemCode + "' , StoreID = " + obj[i].StoreID + " where InvoiceItemID = " + obj[i].InvoiceItemID +"");
                     }
                     LogUser.Insert(db, obj[0].CompCode.ToString(), obj[0].BranchCode.ToString(), DateTime.Now.Year.ToString(), obj[0].UserCode, obj[0].InvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.Coding_item, true, null, null, "Coding Item");
                     dbTransaction.Commit();

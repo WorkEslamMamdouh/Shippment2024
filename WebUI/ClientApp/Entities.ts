@@ -12223,7 +12223,6 @@ class Vnd_Inv_SlsMan {
 		this.CustomerMobile2 = "";
 		this.Address = "";
 		this.Location
-		this.SalesmanId = 0;
 		this.TotalAmount = 0;
 		this.VatAmount = 0;
 		this.VatType = 0;
@@ -12252,14 +12251,16 @@ class Vnd_Inv_SlsMan {
 		this.FinYear = 0;
 		this.ItemCount = 0;
 		this.LineCount = 0;
-		this.VendorID = 0;
-		this.ZoneCode = "";
 		this.DescA = "";
-		this.Active = false;
-		this.Sls_ZoneID = 0;
-		this.Zone_Remarks = "";
-		this.Inv_SlsManID = 0;
-		this.Inv_VendorID = 0;
+		this.Active = "";
+		this.Sls_ZoneID = false;
+		this.Inv_SlsManID = "";
+		this.SalesmanId = 0;
+		this.VendorID = 0;
+		this.ZoneID = 0;
+		this.StoreId = 0;
+		this.STORE_CODE = 0;
+		this.Store_DescA = "";
 	}
 	public SalesmanCode: string;
 	public SlsMan_Name: string;
@@ -12287,7 +12288,6 @@ class Vnd_Inv_SlsMan {
 	public CustomerMobile2: string;
 	public Address: string;
 	public Location: any;
-	public SalesmanId: number;
 	public TotalAmount: number;
 	public VatAmount: number;
 	public VatType: number;
@@ -12316,15 +12316,18 @@ class Vnd_Inv_SlsMan {
 	public FinYear: number;
 	public ItemCount: number;
 	public LineCount: number;
-	public VendorID: number;
-	public ZoneCode: string;
 	public DescA: string;
-	public Active: boolean;
-	public Sls_ZoneID: number;
-	public Zone_Remarks: string;
-	public Inv_SlsManID: number;
-	public Inv_VendorID: number;
+	public Active: string;
+	public Sls_ZoneID: boolean;
+	public Inv_SlsManID: string;
+	public SalesmanId: number;
+	public VendorID: number;
+	public ZoneID: number;
+	public StoreId: number;
+	public STORE_CODE: number;
+	public Store_DescA: string;
 }
+
 
 class GQ_USERS extends SecurityClass {
 	constructor() {
@@ -12370,3 +12373,22 @@ class GQ_USERS extends SecurityClass {
 	public DescA: string;
 }
 
+
+class ItemsCodes {
+	constructor() {
+		this.CompCode = 0;
+		this.BranchCode = 0;
+		this.UserCode = "";
+		this.InvoiceID = 0;
+		this.InvoiceItemID = 0;
+		this.StoreID = 0;
+		this.ItemCode = 0;
+	}
+	public CompCode: number;
+	public BranchCode: number;
+	public UserCode: string;
+	public InvoiceID: number;
+	public InvoiceItemID: number;
+	public StoreID: number;
+	public ItemCode: number;
+}

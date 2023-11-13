@@ -21,8 +21,20 @@ var RecieptOrders;
         InitializeGrid();
         //GetData_Invoice();
         Close_Loder();
+        SetRefresh(GetModuleCode());
     }
     RecieptOrders.InitalizeComponent = InitalizeComponent;
+    function SetRefresh(moduleCode) {
+        debugger;
+        // Event listener for dynamically generated buttons
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            if (Number($('#Txt_VendorID').val()) == 0) {
+                return;
+            }
+            GetData_Invoice();
+            // Shows an alert when a dynamically created button is clicked
+        });
+    }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
@@ -111,13 +123,13 @@ var RecieptOrders;
         Table =
             [
                 { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
-        _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
         debugger;
         SetGlopelDataInvoice(_Invoices);
@@ -157,7 +169,15 @@ var RecieptOrders;
     }
     function ViewInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("View_Order", "Order 🧺");
+        OpenPagePartial("View_Order", "Order 🧺", function () { Display_Refrsh(); });
+    }
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return;
+        }
+        GetData_Invoice();
     }
 })(RecieptOrders || (RecieptOrders = {}));
 //# sourceMappingURL=RecieptOrders.js.map

@@ -254,7 +254,6 @@ var Order_Saller;
                     var result = d;
                     if (result.IsSuccess) {
                         debugger;
-                        var res = result.Response;
                         ShowMessage("Inserted 😍");
                         _Back();
                         Clear();

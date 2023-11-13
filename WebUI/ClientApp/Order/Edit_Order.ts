@@ -366,8 +366,7 @@ namespace Edit_Order {
                     debugger
                     let result = d as BaseResponse;
                     if (result.IsSuccess) {
-                        debugger
-                        let res = result.Response as Array<AProc_LnkGenerateTrans_Result>;
+                        debugger 
                         ShowMessage("Updated 😍")
                         $("#Display_Back_Page2").click();
                         _Back();
@@ -430,6 +429,7 @@ namespace Edit_Order {
         $('#Txt_Name_Cust').val(_Inv.CustomerName)
         $('#Txt_Phone_Num1').val(_Inv.CustomerMobile1)
         $('#Txt_Phone_Num2').val(_Inv.CustomerMobile2)
+        $('#db_Zone').val(_Inv.ZoneID)
         $('#Txt_Address1').val(_Inv.Address)
         $('#Txt_location').val(_Inv.Location)
         $('#Txt_Remarks').val(_Inv.Remark) 

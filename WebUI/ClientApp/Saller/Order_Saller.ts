@@ -329,8 +329,7 @@ namespace Order_Saller {
                     debugger
                     let result = d as BaseResponse;
                     if (result.IsSuccess) {
-                        debugger
-                        let res = result.Response as Array<AProc_LnkGenerateTrans_Result>;
+                        debugger 
                         ShowMessage("Inserted 😍")
                         _Back();
                         Clear();

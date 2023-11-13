@@ -11,7 +11,9 @@ var Coding_Items;
     var _InvoiceItems = new Array();
     var _Inv = new Vnd_Inv_SlsMan();
     var _InvItems = new Array();
+    var _ItemsCodes = new Array();
     var txtSearch;
+    var Coding_Confirm;
     var InvoiceID = 0;
     function InitalizeComponent() {
         InitalizeControls();
@@ -22,10 +24,12 @@ var Coding_Items;
     }
     Coding_Items.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
-        txtSearch = document.getElementById('txtSearch');
+        txtSearch = document.getElementById('txtSearchCoding');
+        Coding_Confirm = document.getElementById('Coding_Confirm');
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
+        Coding_Confirm.onclick = Coding_Confirm_onclick;
     }
     function InitializeGrid() {
         _GridItems.ElementName = "_GridItems";
@@ -47,11 +51,12 @@ var Coding_Items;
                     var txt = document.createElement("label");
                     txt.innerHTML = item.ItemDescA;
                     txt.style.textAlign = "center";
-                    txt.style.backgroundColor = "aliceblue";
+                    txt.style.backgroundColor = "#f0f8ff";
                     return txt;
                 }
             },
-            { title: "ItemCode", css: "ColumPadding", name: "TrDate", width: "100px",
+            {
+                title: "ItemCode", css: "ColumPadding", name: "ItemCode", width: "100px",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "text";
@@ -66,6 +71,7 @@ var Coding_Items;
         _GridItems.Bind();
     }
     function _SearchBox_Change() {
+        debugger;
         $("#_GridItems").jsGrid("option", "pageIndex", 1);
         if (txtSearch.value != "") {
             var search_1 = txtSearch.value.toLowerCase();
@@ -96,24 +102,79 @@ var Coding_Items;
         var _G_STORE = GetDataTable('G_STORE');
         var db_Store = document.getElementById("db_Store");
         DocumentActions.FillCombowithdefult(_G_STORE, db_Store, "StoreId", 'DescA', 'Select Store');
+        db_Store.selectedIndex = 1;
         Display_Items();
     }
     function Display_Items() {
         debugger;
         _GridItems.DataSource = _InvItems;
         _GridItems.Bind();
-        $('#Txt_Total_LineCount').val(_InvItems.length);
+        $('#Txt_Total_LineCountCoding').val(_InvItems.length);
         //$('#Txt_Total_Amount').val(SumValue(_InvItems, "NetAfterVat", 1));
     }
-    function Clear() {
-        _GridItems.DataSource = New_Item;
-        _GridItems.Bind();
-        $('#Txt_Total_LineCount').val(New_Item.length);
-        //$('#Txt_Total_Amount').val(SumValue(New_Item, "NetAfterVat", 1));
+    function Valid_Item() {
+        debugger;
+        for (var i = 0; i < _GridItems.DataSource.length; i++) {
+            debugger;
+            if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val().trim() == '') {
+                Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID), 'Please a Enter Item Code 😡');
+                return false;
+            }
+            if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val() == '0') {
+                Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID), 'Please a Enter Item Code 😡');
+                return false;
+            }
+        }
+        if ($('#db_Store').val() == 'null') {
+            Errorinput($('#db_Store'), 'Please a Select Store 😡');
+            return false;
+        }
+        return true;
     }
-    function ViewInvoice(InvoiceID) {
-        localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("View_Order", "Order 🧺");
+    function Assign() {
+        debugger;
+        _ItemsCodes = new Array();
+        for (var i = 0; i < _GridItems.DataSource.length; i++) {
+            var _Model = new ItemsCodes;
+            _Model.ItemCode = $('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val();
+            _Model.InvoiceID = _GridItems.DataSource[i].InvoiceID;
+            _Model.InvoiceItemID = _GridItems.DataSource[i].InvoiceItemID;
+            _Model.StoreID = Number($('#db_Store').val());
+            _Model.UserCode = SysSession.CurrentEnvironment.UserCode;
+            _Model.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
+            _Model.BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
+            _ItemsCodes.push(_Model);
+        }
+    }
+    function Coding_Confirm_onclick() {
+        if (!Valid_Item()) {
+            return false;
+        }
+        Assign();
+        try {
+            Ajax.CallsyncSave({
+                type: "Post",
+                url: sys.apiUrl("SlsInvoice", "Coding_Item"),
+                data: JSON.stringify(_ItemsCodes),
+                success: function (d) {
+                    debugger;
+                    var result = d;
+                    if (result.IsSuccess) {
+                        debugger;
+                        ShowMessage("Updated 😍");
+                        $("#Display_Back_Page2").click();
+                        $('#Back_Page').click();
+                        Close_Loder();
+                    }
+                    else {
+                        ShowMessage("Error 😒");
+                    }
+                }
+            });
+        }
+        catch (e) {
+            ShowMessage("Error 😒");
+        }
     }
 })(Coding_Items || (Coding_Items = {}));
 //# sourceMappingURL=Coding_Items.js.map

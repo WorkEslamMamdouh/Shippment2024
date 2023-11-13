@@ -13,7 +13,7 @@
     <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
         <div class="u-form-email u-form-group u-form-partition-factor-9">
 
-        </div> 
+        </div>
     </form>
 
     <div class="inside-table my-4">
@@ -21,11 +21,13 @@
 
         <div class="u-form-email u-form-group u-form-partition-factor-2" style="border-color: black;margin-left: 5%;width: 90%;margin-bottom: 1%;">
             <label for="Txt_Ref_No" class="u-label u-text-grey-40">_____Search 🔎</label>
-            <input type="text" placeholder="   Search : " id="txtSearch" name="email" class="Clear_Header u-input u-input-rectangle" required="">
+            <input type="text" placeholder="   Search : " id="txtSearchCoding" name="email" class="Clear_Header u-input u-input-rectangle" required="">
         </div>
 
-        <div id="_GridItems">
+        <div id="" style=" width: 95%;">
+            <div id="_GridItems" style="position: relative;height: auto;width: 95%;margin-left: 2.5%;">
 
+            </div>
         </div>
 
 
@@ -37,17 +39,17 @@
         </div>
         <div class="u-form-email u-form-group u-form-partition-factor-4">
             <label for="" class="u-label u-text-grey-40">Line Count</label>
-            <input disabled type="text" placeholder="0" id="Txt_Total_LineCount" class=" u-input u-input-rectangle">
+            <input disabled type="text" placeholder="0" id="Txt_Total_LineCountCoding" class=" u-input u-input-rectangle">
         </div>
         <div class="u-form-group u-form-name u-form-partition-factor-4">
-            <label for="" class="u-label u-text-grey-40">Select Store</label> 
+            <label for="" class="u-label u-text-grey-40">Select Store</label>
             <select id="db_Store" name="select" class="u-input u-input-rectangle">
                 <option value="2">Store 1</option>
-                <option value="3">Store 2</option> 
+                <option value="3">Store 2</option>
             </select>
         </div>
         <div class="u-form-group u-form-name u-form-partition-factor-4">
-            <label for="" class="u-label u-text-grey-40"> </label> 
+            <label for="" class="u-label u-text-grey-40"> </label>
             <a id="Coding_Confirm" style="width: 100%;" class="Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle">Confirm</a>
         </div>
     </form>
@@ -59,6 +61,6 @@
 
 <script src="~/ClientApp/JsGrid.js"></script>
 <script src="~/Scripts/jsgrid/jsgrid.js"></script>
- 
+
 <script src="~/ClientApp/GeneralHub/Coding_Items.js"></script>
 <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>

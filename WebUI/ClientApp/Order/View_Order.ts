@@ -181,7 +181,7 @@ namespace View_Order {
     }
     function btn_Receiving_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("Coding_Items", "Coding Items", null, null);
+        OpenPagePartial("Coding_Items", "Coding Items", null, () => { Display_Refrsh() });
     }
 
 
@@ -191,9 +191,7 @@ namespace View_Order {
             Run_Fun = true;
             return
         }
-
-
-
+         
         Dis_Refrsh();
     }
 

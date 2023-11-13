@@ -148,7 +148,7 @@ var View_Order;
     }
     function btn_Receiving_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("Coding_Items", "Coding Items", null, null);
+        OpenPagePartial("Coding_Items", "Coding Items", null, function () { Display_Refrsh(); });
     }
     var Run_Fun = false;
     function Display_Refrsh() {

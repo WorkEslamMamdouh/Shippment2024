@@ -7210,7 +7210,6 @@ var Vnd_Inv_SlsMan = /** @class */ (function () {
         this.CustomerMobile2 = "";
         this.Address = "";
         this.Location;
-        this.SalesmanId = 0;
         this.TotalAmount = 0;
         this.VatAmount = 0;
         this.VatType = 0;
@@ -7239,14 +7238,16 @@ var Vnd_Inv_SlsMan = /** @class */ (function () {
         this.FinYear = 0;
         this.ItemCount = 0;
         this.LineCount = 0;
-        this.VendorID = 0;
-        this.ZoneCode = "";
         this.DescA = "";
-        this.Active = false;
-        this.Sls_ZoneID = 0;
-        this.Zone_Remarks = "";
-        this.Inv_SlsManID = 0;
-        this.Inv_VendorID = 0;
+        this.Active = "";
+        this.Sls_ZoneID = false;
+        this.Inv_SlsManID = "";
+        this.SalesmanId = 0;
+        this.VendorID = 0;
+        this.ZoneID = 0;
+        this.StoreId = 0;
+        this.STORE_CODE = 0;
+        this.Store_DescA = "";
     }
     return Vnd_Inv_SlsMan;
 }());
@@ -7277,4 +7278,16 @@ var GQ_USERS = /** @class */ (function (_super) {
     }
     return GQ_USERS;
 }(SecurityClass));
+var ItemsCodes = /** @class */ (function () {
+    function ItemsCodes() {
+        this.CompCode = 0;
+        this.BranchCode = 0;
+        this.UserCode = "";
+        this.InvoiceID = 0;
+        this.InvoiceItemID = 0;
+        this.StoreID = 0;
+        this.ItemCode = 0;
+    }
+    return ItemsCodes;
+}());
 //# sourceMappingURL=Entities.js.map
