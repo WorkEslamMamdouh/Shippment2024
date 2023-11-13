@@ -1349,8 +1349,8 @@ warning 6013: The table/view 'Shippment2024.dbo.IQ_ItemCollection' does not have
         <EntityType Name="IQ_ItemCollection">
           <Property Name="InvoiceID" Type="int" />
           <Property Name="ItemDescA" Type="nvarchar" MaxLength="200" />
-          <Property Name="Expr1" Type="numeric" Precision="38" Scale="5" />
-          <Property Name="Expr2" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="Qty" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="Price" Type="numeric" Precision="38" Scale="5" />
           <Property Name="SalesManID" Type="int" />
           <Property Name="VendorID" Type="int" />
         </EntityType>-->
