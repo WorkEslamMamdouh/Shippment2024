@@ -133,6 +133,13 @@ namespace Inv.API.Controllers
             Status =" + Status + " " + Cond + " where InvoiceID = " + InvoiceID + "";
             db.Database.ExecuteSqlCommand(Qury);
 
+            if (SlsManID != 0)
+            {
+                string Query = @"UPDATE[dbo].[Sls_InvoiceItem] SET
+            SalesManID =" + SlsManID + " where InvoiceID = " + InvoiceID + "";
+                db.Database.ExecuteSqlCommand(Query);
+
+            }
 
             LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, InvoiceID, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
             return Ok(new BaseResponse(true));
