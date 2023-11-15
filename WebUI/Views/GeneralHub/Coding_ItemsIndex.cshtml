@@ -24,10 +24,13 @@
             <input type="text" placeholder="   Search : " id="txtSearchCoding" name="email" class="Clear_Header u-input u-input-rectangle" required="">
         </div>
 
-        <div id="" style=" width: 95%;">
+        <div id="_Gide_Div" style=" width: 95%;">
             <div id="_GridItems" style="position: relative;height: auto;width: 95%;margin-left: 2.5%;">
 
             </div>
+        </div>
+        <div id="_Scan_Div" style=" width: 95%;">
+         
         </div>
 
 
@@ -54,6 +57,7 @@
         </div>
     </form>
 
+    <a id="Id_ScanCodeClick" class="display_none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Next</a>
 </div>
 
 
@@ -64,3 +68,75 @@
 
 <script src="~/ClientApp/GeneralHub/Coding_Items.js"></script>
 <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+
+
+<script src="https://rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
+
+<script>
+
+
+    $("#Id_ScanCodeClick").on('click', function () {
+        debugger
+        var id_butScan = localStorage.getItem("butScan");
+        var id_txtItemCode = localStorage.getItem("id_txtItemCode");
+        const qrcodeInput = document.getElementById(id_butScan);
+
+        // Access the camera and start scanning when the input is focused
+        qrcodeInput.addEventListener("focus", async function () {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                const video = document.createElement('video');
+
+                $('#_Gide_Div').addClass("display_none");
+                $('#_Scan_Div').removeClass("display_none");
+                //$('#_Scan_Div').html(""); 
+                document.getElementById('_Scan_Div').appendChild(video);
+                //document.body.appendChild(video);
+                video.srcObject = stream;
+                await video.play();
+
+                const canvas = document.createElement('canvas');
+                //document.body.appendChild(canvas);
+                document.getElementById('_Scan_Div').appendChild(canvas);
+
+                const context = canvas.getContext('2d');
+
+                const scanQRCode = async () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        qrcodeInput.value = "Scan Camera 📷";
+                        $('#' + id_txtItemCode + '').val(code.data)
+                        //qrcodeInput.value = code.data;
+                        stream.getTracks().forEach(track => track.stop());
+                        //document.body.removeChild(video);
+                        //document.body.removeChild(canvas);
+                        document.getElementById('_Scan_Div').removeChild(video);
+                        document.getElementById('_Scan_Div').removeChild(canvas);
+                        //$('#_Scan_Div').html("");
+                        $('#_Gide_Div').removeClass("display_none");
+                        qrcodeInput.blur(); // Unfocus the input to stop continuous scanning
+                    } else {
+                        requestAnimationFrame(scanQRCode);
+                    }
+                };
+
+                scanQRCode();
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+            }
+        });
+    });
+
+    //document.addEventListener("DOMContentLoaded", function () {
+      
+    //});
+</script>
+
+

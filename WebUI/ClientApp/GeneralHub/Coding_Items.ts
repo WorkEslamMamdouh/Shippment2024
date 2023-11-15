@@ -75,6 +75,21 @@ namespace Coding_Items {
                     return txt;
                 }
             },
+            {
+                title: "Scan",
+                itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("Scan Camera 📷");
+                    txt.id = "butScan" + item.InvoiceItemID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+
+                    txt.onclick = (e) => {
+                        Scan_Camera(item.InvoiceItemID);
+                    };
+                    return txt;
+                }
+            },
 
         ];
         _GridItems.Bind();
@@ -204,6 +219,21 @@ namespace Coding_Items {
             ShowMessage("Error 😒")
         }
 
+
+    }
+
+
+    function Scan_Camera(InvoiceItemID) {
+
+        localStorage.setItem("butScan", "butScan" + InvoiceItemID.toString())
+        localStorage.setItem("id_txtItemCode", "txtItemCode" + InvoiceItemID.toString())
+
+        $('#Id_ScanCodeClick').click();
+
+        $('#_Gide_Div').addClass("display_none");
+        $('#_Scan_Div').removeClass("display_none");
+        $('#_Scan_Div').html("");
+        $('#_Gide_Div').removeClass("display_none");
 
     }
 }
