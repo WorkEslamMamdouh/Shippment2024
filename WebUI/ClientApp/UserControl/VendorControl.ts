@@ -12,8 +12,7 @@ namespace VendorControl {
 	var _UsersList: Array<GQ_USERS> = new Array<GQ_USERS>();
 	var _Usersnone: Array<GQ_USERS> = new Array<GQ_USERS>();
 
-	var txtSearch: HTMLInputElement;
-	var drpActive: HTMLSelectElement;
+	var txtSearch: HTMLInputElement;    
 	var Filter_View: HTMLButtonElement;
 	var btnDelete_Filter: HTMLButtonElement;
 
@@ -37,7 +36,7 @@ namespace VendorControl {
 		btnDelete_Filter.onclick = Clear;
 	}
 	function InitializeGrid() {
-		_Grid.ElementName = "_Grid";
+		_Grid.ElementName = "_GridVend";
 		//_Grid.OnRowDoubleClicked = GridDoubleClick;
 		_Grid.PrimaryKey = "USER_CODE";
 		_Grid.Paging = true;
@@ -46,10 +45,9 @@ namespace VendorControl {
 		_Grid.InsertionMode = JsGridInsertionMode.Binding;
 		_Grid.Editing = false;
 		_Grid.Inserting = false;
-		_Grid.SelectedIndex = 1;
-		_Grid.OnItemEditing = () => { };
+		_Grid.SelectedIndex = 1;		    
 		_Grid.Columns = [
-			{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
+			{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },						  
 			{ title: "User Name", name: "USER_NAME", type: "text", width: "100px" },
 			{
 				title: "USER_ACTIVE", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
@@ -90,7 +88,7 @@ namespace VendorControl {
 					txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 
 					txt.onclick = (e) => {
-						ViewUser(item.USER_CODE);
+						ViewUser(item);
 					};
 					return txt;
 				}
@@ -129,16 +127,16 @@ namespace VendorControl {
 		DataResult(Table);
 		//**************************************************************************************************************
 		debugger
-		_UsersList = GetDataTable('GQ_USERS');
-		_UsersList = _UsersList.sort(dynamicSort("USER_NAME"));
+		_UsersList = GetDataTable('GQ_USERS');				    
 		$('#btnDelete_Filter').removeClass('display_none');
 		_Grid.DataSource = _UsersList;
 		_Grid.Bind();
 	}
-	function ViewUser(UserCode: string) {
+	function ViewUser(item: GQ_USERS) {
 
-		localStorage.setItem("UserCode", UserCode);
-		OpenPagePartial("Profile", "Profile 👤");
+		SetGlobalDataUser(item);				  
+		localStorage.setItem("TypePage", "Vendor");
+		OpenPagePartial("Profile", "Profile 👤", () => { Display_Refrsh() });  
 
 	}
 	function Clear() {
@@ -166,5 +164,15 @@ namespace VendorControl {
 			}
 		});
 
+	}
+
+
+	var Run_Fun = false;
+	function Display_Refrsh() {
+		if (!Run_Fun) {
+			Run_Fun = true;
+			return
+		}
+		GetData_Users();
 	}
 }

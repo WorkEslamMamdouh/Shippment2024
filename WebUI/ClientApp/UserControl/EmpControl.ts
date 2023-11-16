@@ -74,7 +74,7 @@ namespace EmpControl {
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 
                     txt.onclick = (e) => {
-                        ViewUser(item.USER_CODE);
+                        ViewUser(item);
                     };
                     return txt;
                 }
@@ -110,22 +110,23 @@ namespace EmpControl {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and [USER_NAME] not in ('StockKeeper','StockMan','UserAccount','UserAdministrator') " + Con },
+                { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and USER_CODE !='" + SysSession.CurrentEnvironment.UserCode + "' and [USER_NAME] not in ('StockKeeper','SalesMan','StockMan','UserAccount','UserAdministrator') " + Con },
 
             ]       
         DataResult(Table);
         //**************************************************************************************************************
         debugger
-        _UsersList = GetDataTable('GQ_USERS');     
+        _UsersList = GetDataTable('GQ_USERS');    
         _UsersList = _UsersList.sort(dynamicSort("USER_NAME"));           
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
     }          
-    function ViewUser(UserCode:string) {
+    function ViewUser(item: GQ_USERS) {
 
-        localStorage.setItem("UserCode", UserCode);
-        OpenPagePartial("Profile", "Profile 👤");
+        SetGlobalDataUser(item);
+        localStorage.setItem("TypePage", "Vendor");
+        OpenPagePartial("Profile", "Profile 👤", () => { Display_Refrsh() });            
 
     }
     function Clear() {
@@ -135,5 +136,14 @@ namespace EmpControl {
         CleaningList_Table();
         _Grid.DataSource = _Usersnone;
         _Grid.Bind();
+    }
+
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return
+        }
+        GetData_Users();
     }
 }

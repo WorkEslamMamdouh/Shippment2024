@@ -9,7 +9,6 @@ var VendorControl;
     var _UsersList = new Array();
     var _Usersnone = new Array();
     var txtSearch;
-    var drpActive;
     var Filter_View;
     var btnDelete_Filter;
     function InitalizeComponent() {
@@ -30,7 +29,7 @@ var VendorControl;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
-        _Grid.ElementName = "_Grid";
+        _Grid.ElementName = "_GridVend";
         //_Grid.OnRowDoubleClicked = GridDoubleClick;
         _Grid.PrimaryKey = "USER_CODE";
         _Grid.Paging = true;
@@ -40,7 +39,6 @@ var VendorControl;
         _Grid.Editing = false;
         _Grid.Inserting = false;
         _Grid.SelectedIndex = 1;
-        _Grid.OnItemEditing = function () { };
         _Grid.Columns = [
             { title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
             { title: "User Name", name: "USER_NAME", type: "text", width: "100px" },
@@ -83,7 +81,7 @@ var VendorControl;
                     txt.id = "butView" + item.USER_CODE;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {
-                        ViewUser(item.USER_CODE);
+                        ViewUser(item);
                     };
                     return txt;
                 }
@@ -120,14 +118,14 @@ var VendorControl;
         //**************************************************************************************************************
         debugger;
         _UsersList = GetDataTable('GQ_USERS');
-        _UsersList = _UsersList.sort(dynamicSort("USER_NAME"));
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
     }
-    function ViewUser(UserCode) {
-        localStorage.setItem("UserCode", UserCode);
-        OpenPagePartial("Profile", "Profile 👤");
+    function ViewUser(item) {
+        SetGlobalDataUser(item);
+        localStorage.setItem("TypePage", "Vendor");
+        OpenPagePartial("Profile", "Profile 👤", function () { Display_Refrsh(); });
     }
     function Clear() {
         $('#drpActive').val("Null");
@@ -153,6 +151,14 @@ var VendorControl;
                 }
             }
         });
+    }
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return;
+        }
+        GetData_Users();
     }
 })(VendorControl || (VendorControl = {}));
 //# sourceMappingURL=VendorControl.js.map

@@ -67,7 +67,7 @@ var EmpControl;
                     txt.id = "butView" + item.USER_CODE;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {
-                        ViewUser(item.USER_CODE);
+                        ViewUser(item);
                     };
                     return txt;
                 }
@@ -101,7 +101,7 @@ var EmpControl;
         var Table;
         Table =
             [
-                { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and [USER_NAME] not in ('StockKeeper','StockMan','UserAccount','UserAdministrator') " + Con },
+                { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and USER_CODE !='" + SysSession.CurrentEnvironment.UserCode + "' and [USER_NAME] not in ('StockKeeper','SalesMan','StockMan','UserAccount','UserAdministrator') " + Con },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -112,9 +112,10 @@ var EmpControl;
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
     }
-    function ViewUser(UserCode) {
-        localStorage.setItem("UserCode", UserCode);
-        OpenPagePartial("Profile", "Profile 👤");
+    function ViewUser(item) {
+        SetGlobalDataUser(item);
+        localStorage.setItem("TypePage", "Vendor");
+        OpenPagePartial("Profile", "Profile 👤", function () { Display_Refrsh(); });
     }
     function Clear() {
         $('#drpActive').val("Null");
@@ -123,6 +124,14 @@ var EmpControl;
         CleaningList_Table();
         _Grid.DataSource = _Usersnone;
         _Grid.Bind();
+    }
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return;
+        }
+        GetData_Users();
     }
 })(EmpControl || (EmpControl = {}));
 //# sourceMappingURL=EmpControl.js.map

@@ -93,7 +93,8 @@ var SearchModulesNames = {
     TrReceipt: "TrReceipt",
     types: "types",
     uoms: "uoms",
-    store: "store"
+    store: "store",
+    View_Deleted_Orders: "View_Deleted_Orders"
 };
 function Numeric(value) {
     var result = 0;
@@ -2670,7 +2671,7 @@ function BuildAllFild(dataSource, cnt, NameRow) {
     for (var _i = 0, properties_3 = properties; _i < properties_3.length; _i++) {
         var property = properties_3[_i];
         if (document.getElementById(property + cnt) == null) {
-            html += "<input id=\"" + (property + cnt) + "\" type=\"hidden\" value=\"\" class=\"form-control \"/>";
+            html += "<input id=\"".concat(property + cnt, "\" type=\"hidden\" value=\"\" class=\"form-control \"/>");
         }
         else {
             $("#" + property + cnt).on('change', function () {
@@ -2887,12 +2888,13 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
     }
 }
 function Set_Refresh(moduleCode) {
-    var btnhtml = "   <a id=\"Refresh_" + moduleCode + "\" style=\"\" class=\"Refresh_" + moduleCode + "\">Refresh</a>";
+    var btnhtml = "   <a id=\"Refresh_".concat(moduleCode, "\" style=\"\" class=\"Refresh_").concat(moduleCode, "\">Refresh</a>");
     $("#Div_Refresh").html(btnhtml);
     setInterval(function () { $(".Refresh_" + moduleCode).click(); }, 12000);
 }
 function Back_Page_Partial() {
     debugger;
+    localStorage.setItem("TypePage", "");
     if (CounterPage == 0) {
         return;
     }
@@ -2946,10 +2948,17 @@ function Digits(_number, FractionDigits) {
     }
 }
 var GlopelUSERS = new Array();
+var GlobalUSERS = new GQ_USERS();
 var GlopelInvoices = new Array();
 var GlopelInvoiceItems = new Array();
 function SetGlopelDataUser(Send_USERS) {
     GlopelUSERS = Send_USERS;
+}
+function SetGlobalDataUser(Send_GQUSERS) {
+    GlobalUSERS = Send_GQUSERS;
+}
+function GetGlobalDataUser() {
+    return GlobalUSERS;
 }
 function GetGlopelDataUser() {
     return GlopelUSERS;

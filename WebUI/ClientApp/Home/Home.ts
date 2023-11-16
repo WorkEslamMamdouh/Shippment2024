@@ -20,6 +20,7 @@ namespace Home {
         InitializeEvents();
         ApplyModules();
         Close_Loder();
+         localStorage.setItem("TypePage","");
     }
     function InitalizeControls() {
         btn_Logout = document.getElementById("btn_Logout") as HTMLButtonElement;  

@@ -6,17 +6,28 @@ var Profile;
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _USERS = new Array();
+    var USER = new GQ_USERS();
     var _USER = new Array();
+    var page;
     var Submit_Update_Profile;
     function InitalizeComponent() {
-        $('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
-        $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
         InitalizeControls();
         InitializeEvents();
         debugger;
-        _USERS = GetGlopelDataUser();
-        _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
-        Display_Data();
+        page = localStorage.getItem("TypePage");
+        if (page == "Vendor") {
+            USER = GetGlobalDataUser();
+            $('#Profile_UserName').html(USER.USER_CODE);
+            $('#Profile_JobTitle').html(USER.JobTitle);
+            Display_DataVew();
+        }
+        else {
+            $('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
+            $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
+            _USERS = GetGlopelDataUser();
+            _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
+            Display_Data();
+        }
         Close_Loder();
     }
     Profile.InitalizeComponent = InitalizeComponent;
@@ -43,10 +54,35 @@ var Profile;
         $('#Reg_ID_Num').val(_USER[0].Fax);
         $('#Reg_Password').val(_USER[0].USER_PASSWORD);
     }
+    function Display_DataVew() {
+        debugger;
+        if (USER.USER_TYPE == 10) {
+            $('#div_CompName').removeClass('display_none');
+            $('#Reg_Comp_Name').val(USER.Vnd_CompName);
+        }
+        else {
+            $('#div_CompName').addClass('display_none');
+            $('#Reg_Comp_Name').val("");
+        }
+        $('#Reg_Full_Name').val(USER.USER_NAME);
+        $('#Reg_Address').val(USER.Address);
+        $('#Reg_Mobile').val(USER.Mobile);
+        $('#Reg_Mail').val(USER.Email);
+        $('#Reg_ID_Num').val(USER.Fax);
+        $('#Reg_Password').val(USER.USER_PASSWORD);
+    }
     function SubmitUpdate() {
-        if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
-            Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
-            return;
+        if (page == "Vendor") {
+            if ($('#Reg_Comp_Name').val().trim() == "" && USER.USER_TYPE == 10) {
+                Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
+                return;
+            }
+        }
+        else {
+            if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
+                Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
+                return;
+            }
         }
         if ($('#Reg_Full_Name').val().trim() == "") {
             Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name 🤨");
@@ -79,15 +115,27 @@ var Profile;
         }
         debugger;
         var Name = $('#Reg_Full_Name').val().trim();
-        var CompName = $('#Reg_Comp_Name').val().trim();
         var address = $('#Reg_Address').val().trim();
         var Mobile = $('#Reg_Mobile').val().trim();
         var IDNO = $('#Reg_ID_Num').val().trim();
         var Email = $('#Reg_Mail').val().trim();
-        var UserName = SysSession.CurrentEnvironment.UserCode;
         var Password = $('#Reg_Password').val().trim();
-        var Idven = Number(_USER[0].SalesManID);
-        var NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
+        var UserName;
+        var Idven;
+        var CompName;
+        var NameFun;
+        if (page == "Vendor") {
+            UserName = USER.USER_CODE;
+            Idven = Number(USER.VendorID);
+            NameFun = USER.USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
+            CompName = $('#Reg_Comp_Name').val().trim();
+        }
+        else {
+            UserName = SysSession.CurrentEnvironment.UserCode;
+            Idven = Number(_USER[0].SalesManID);
+            NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
+            CompName = "";
+        }
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun),
@@ -96,6 +144,8 @@ var Profile;
                 var result = d;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
+                    $('#Back_Page').click();
+                    $("#Display_Back_Page").click();
                     Close_Loder();
                 }
                 else {

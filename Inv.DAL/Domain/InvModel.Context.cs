@@ -65,7 +65,6 @@ namespace Inv.DAL.Domain
         public virtual DbSet<A_Pay_D_Vendor> A_Pay_D_Vendor { get; set; }
         public virtual DbSet<I_Sls_D_Salesman> I_Sls_D_Salesman { get; set; }
         public virtual DbSet<Zones> Zones { get; set; }
-        public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
         public virtual DbSet<A_ACCOUNT> A_ACCOUNT { get; set; }
         public virtual DbSet<A_ACCOUNT_YEAR> A_ACCOUNT_YEAR { get; set; }
         public virtual DbSet<A_JOURNAL_DETAIL> A_JOURNAL_DETAIL { get; set; }
@@ -78,6 +77,7 @@ namespace Inv.DAL.Domain
         public virtual DbSet<Vendor_Invoices> Vendor_Invoices { get; set; }
         public virtual DbSet<Vnd_Inv_SlsMan> Vnd_Inv_SlsMan { get; set; }
         public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
+        public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
         public virtual DbSet<IQ_ItemCollect> IQ_ItemCollect { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)

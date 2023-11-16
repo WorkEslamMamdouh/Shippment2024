@@ -6,25 +6,33 @@ $(document).ready(() => {
 
 namespace Profile {
 	var sys: SystemTools = new SystemTools();
-	var SysSession: SystemSession = GetSystemSession();
-
+	var SysSession: SystemSession = GetSystemSession();	 
 	var _USERS: Array<G_USERS> = new Array<G_USERS>();
+	var USER: GQ_USERS = new GQ_USERS();
 	var _USER: Array<G_USERS> = new Array<G_USERS>();
-
+	var page;
 	var Submit_Update_Profile: HTMLButtonElement;
 
 	export function InitalizeComponent() {
 
-		$('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
-		$('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
+		
 
 		InitalizeControls();
 		InitializeEvents();
 		debugger
-
-		_USERS = GetGlopelDataUser()
-		_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase());
-		Display_Data();
+		page = localStorage.getItem("TypePage");
+		if (page == "Vendor") {
+			USER = GetGlobalDataUser()
+			$('#Profile_UserName').html(USER.USER_CODE);
+			$('#Profile_JobTitle').html(USER.JobTitle);
+			Display_DataVew();
+		} else {
+			$('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
+			$('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
+			_USERS = GetGlopelDataUser()
+			_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase());
+			Display_Data();
+		}
 
 		Close_Loder();
 	}
@@ -54,12 +62,36 @@ namespace Profile {
 		$('#Reg_ID_Num').val(_USER[0].Fax);
 		$('#Reg_Password').val(_USER[0].USER_PASSWORD);
 	}
-	function SubmitUpdate() {
-
-		if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
-			Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
-			return
+	function Display_DataVew() {
+		debugger
+		if (USER.USER_TYPE == 10) {
+			$('#div_CompName').removeClass('display_none');
+			$('#Reg_Comp_Name').val(USER.Vnd_CompName);
+		} else {
+			$('#div_CompName').addClass('display_none');
+			$('#Reg_Comp_Name').val("");
 		}
+
+		$('#Reg_Full_Name').val(USER.USER_NAME);
+		$('#Reg_Address').val(USER.Address);
+		$('#Reg_Mobile').val(USER.Mobile);
+		$('#Reg_Mail').val(USER.Email);
+		$('#Reg_ID_Num').val(USER.Fax);
+		$('#Reg_Password').val(USER.USER_PASSWORD);
+	}
+	function SubmitUpdate() {
+		if (page == "Vendor") {
+			if ($('#Reg_Comp_Name').val().trim() == "" && USER.USER_TYPE == 10) {
+				Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
+				return
+			}
+		} else {
+			if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
+				Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
+				return
+			}
+		}
+
 		if ($('#Reg_Full_Name').val().trim() == "") {
 			Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name 🤨");
 			return
@@ -92,16 +124,27 @@ namespace Profile {
 		}
 		debugger
 		let Name = $('#Reg_Full_Name').val().trim();
-		let CompName = $('#Reg_Comp_Name').val().trim();
 		let address = $('#Reg_Address').val().trim();
 		let Mobile = $('#Reg_Mobile').val().trim();
 		let IDNO = $('#Reg_ID_Num').val().trim();
-		let Email = $('#Reg_Mail').val().trim();
-		let UserName = SysSession.CurrentEnvironment.UserCode;
+		let Email = $('#Reg_Mail').val().trim();   
 		let Password = $('#Reg_Password').val().trim();
-		let Idven = Number(_USER[0].SalesManID);
+		let UserName;
+		let Idven;
+		let CompName;
+		let NameFun;
+		if (page == "Vendor") {
+			UserName = USER.USER_CODE;
+			Idven = Number(USER.VendorID);
+			NameFun = USER.USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"   
+			  CompName = $('#Reg_Comp_Name').val().trim();
+		} else {
+			UserName = SysSession.CurrentEnvironment.UserCode;
+			Idven = Number(_USER[0].SalesManID);
+			NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
+			CompName = "";
+		}
 
-		let NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
 
 		Ajax.CallsyncSave({
 			type: "Get",
@@ -111,8 +154,10 @@ namespace Profile {
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {
 					GetUSERSByCodeUser(UserName);
-
+					$('#Back_Page').click();
+					$("#Display_Back_Page").click();
 					Close_Loder();
+
 				} else {
 
 				}
@@ -140,5 +185,5 @@ namespace Profile {
 		ShowMessage("Updated 🤞😉")
 	}
 
-
+	
 }

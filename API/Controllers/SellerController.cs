@@ -116,7 +116,7 @@ namespace Inv.API.Controllers
 
         }
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateProfile(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId)
+        public IHttpActionResult UpdateProfile(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int VendorId,string CompName)
         { 
             string Qury = @"UPDATE[dbo].[G_USERS] SET
             [USER_PASSWORD] = N'" + Password + "',[USER_NAME] = N'" + Name + "',[fax] = N'" + IDNO + "',[Address] = N'" + address + "',[Mobile] = N'" + Mobile + "',[Email] = N'" + Email + "' where USER_CODE = N'" + UserName + "' ";

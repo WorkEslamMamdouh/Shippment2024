@@ -34,7 +34,7 @@ var UserDef;
         debugger;
         $('#DivContainer :input').val("");
         $('#Usr_Gender').val("1");
-        $('#Submit_Update_Profile').val("Update");
+        $('#Submit_Update_Profile').val("Add");
         var Table;
         Table =
             [
@@ -124,7 +124,7 @@ var UserDef;
         _USERS = _USERS.filter(function (x) { return x.USER_CODE != User_Code; });
         _USERS.push(_USER[0]);
         SetGlopelDataUser(_USERS);
-        ShowMessage("Updated 🤞😉");
+        ShowMessage("Done 🤞😉");
     }
 })(UserDef || (UserDef = {}));
 //# sourceMappingURL=UserDef.js.map

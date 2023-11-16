@@ -51,6 +51,8 @@ namespace Inv.WebUI.Controllers
          "~/Views/Accountant/PaymentNoteIndex.cshtml",
          "~/Views/UserControl/VendorControlIndex.cshtml",
          "~/Views/UserControl/EmpControlIndex.cshtml",
+         "~/Views/GeneralHub/View_Deleted_OrdersIndex.cshtml", 
+         "~/Views/UserControl/EmpControlIndex.cshtml",
          "~/Views/GeneralHub/Return_ItemsIndex.cshtml", 
 
                       };

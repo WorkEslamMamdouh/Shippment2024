@@ -104,7 +104,8 @@ var SearchModulesNames = {
     TrReceipt: "TrReceipt",
     types: "types",
     uoms: "uoms",
-    store: "store"
+    store: "store" ,
+    View_Deleted_Orders: "View_Deleted_Orders"
 };
 
 function Numeric(value: number): number {
@@ -3764,6 +3765,7 @@ function Set_Refresh(moduleCode: string) {
 function Back_Page_Partial() {
     debugger
 
+    localStorage.setItem("TypePage", "");
 
     if (CounterPage == 0) {
         return
@@ -3809,7 +3811,6 @@ function Back_Page_Partial() {
 
 
 
-
 }
 
 function Close_Loder() {
@@ -3843,13 +3844,20 @@ function Digits(_number: number, FractionDigits?: number): string {
 }
 
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
+var GlobalUSERS: GQ_USERS = new GQ_USERS();
 var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;
 }
+function SetGlobalDataUser(Send_GQUSERS: GQ_USERS) {
+    GlobalUSERS = Send_GQUSERS;
+}
 
+function GetGlobalDataUser(): GQ_USERS {
+    return GlobalUSERS;
+}
 function GetGlopelDataUser(): Array<G_USERS> {
     return GlopelUSERS;
 }

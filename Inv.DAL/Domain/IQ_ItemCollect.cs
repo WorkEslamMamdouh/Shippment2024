@@ -20,5 +20,6 @@ namespace Inv.DAL.Domain
         public Nullable<int> SalesManID { get; set; }
         public Nullable<int> VendorID { get; set; }
         public int InvoiceID { get; set; }
+        public string Remark { get; set; }
     }
 }
