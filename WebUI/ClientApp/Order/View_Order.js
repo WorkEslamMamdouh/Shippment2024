@@ -20,6 +20,7 @@ var View_Order;
     var btn_Deliver_Customer;
     var btn_Receiving_Order;
     var btn_Active;
+    var btn_Return;
     var InvoiceID = 0;
     function InitalizeComponent() {
         var _USERS = GetGlopelDataUser();
@@ -54,6 +55,7 @@ var View_Order;
         btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer');
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order');
         btn_Active = document.getElementById('btn_Active');
+        btn_Return = document.getElementById('btn_Return');
     }
     function InitializeEvents() {
         btn_Delete.onclick = btn_Delete_onclick;
@@ -67,6 +69,7 @@ var View_Order;
         btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick;
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick;
         btn_Active.onclick = btn_Active_onclick;
+        btn_Return.onclick = btn_Return_onclick;
     }
     function Display_information_Inv() {
         $("._clearSta").removeClass("is-active");
@@ -136,19 +139,35 @@ var View_Order;
             $("#Display_Back_Page").click();
         });
     }
-    function btn_Open_Location_onclick() {
+    function btn_Receiving_Order_onclick() {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        OpenPagePartial("Coding_Items", "Coding Items", null, function () { Display_Refrsh(); });
     }
     function btn_Print_onclick() {
     }
     function btn_Delivery_Order_onclick() {
     }
     function btn_Deliver_shipment_onclick() {
+        sys.FindKey("Deliver", "btnDeliver", " Isactive = 1 and ZoneID =" + _Inv.ZoneID, function () {
+            debugger;
+            var id = SearchGrid.SearchDataGrid.SelectedKey;
+            UpdateInvStatus(InvoiceID, id, 4, 'Deliver Shipment ( ' + _Inv.RefNO + ' )', function () {
+                $('#Back_Page').click();
+                $("#Display_Back_Page").click();
+            });
+        });
+    }
+    function btn_Open_Location_onclick() {
     }
     function btn_Deliver_Customer_onclick() {
+        UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.RefNO + ' )', function () {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click();
+        });
     }
-    function btn_Receiving_Order_onclick() {
+    function btn_Return_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("Coding_Items", "Coding Items", null, function () { Display_Refrsh(); });
+        OpenPagePartial("Return_Items", "Return Items", null, function () { Display_Refrsh(); });
     }
     var Run_Fun = false;
     function Display_Refrsh() {
@@ -160,7 +179,6 @@ var View_Order;
     }
     function Dis_Refrsh() {
         $("#Display_Back_Page").click();
-        debugger;
         _Inv = new Vnd_Inv_SlsMan();
         _Invoices = new Array();
         _Invoices = GetGlopelDataInvoice();

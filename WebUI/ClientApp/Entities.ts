@@ -12141,6 +12141,7 @@ class Sls_InvoiceItem extends SecurityClass {
 		this.ItemNetAmount = 0;
 		this.StoreID = 0;
 		this.StatusFlag = "";
+		this.Chack_Item = false;
 	}
 	public InvoiceItemID: number;
 	public InvoiceID: number;
@@ -12163,6 +12164,7 @@ class Sls_InvoiceItem extends SecurityClass {
 	public ItemNetAmount: number;
 	public StoreID: number;
 	public StatusFlag: string;
+	public Chack_Item: boolean;
 }
 
 class Zones extends SecurityClass {

@@ -17,8 +17,7 @@ namespace View_delivery_Orders {
 
         InitalizeControls();
         InitializeEvents();
-        GetData_Invoice();
-        Display_Orders();
+        GetData_Invoice(); 
         Close_Loder();
          
     }
@@ -38,18 +37,18 @@ namespace View_delivery_Orders {
         Table =
             [
             { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+"" },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+") " },
+            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 4 and ISNULL(SalesmanId,0) = " + SysSession.CurrentEnvironment.SalesManID+") " },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
-        _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
 
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
-        
+        Display_Orders();
     }
 
     function Display_Orders() {
@@ -97,11 +96,18 @@ namespace View_delivery_Orders {
 
         $("#Btn_ViewOrder" + cnt).on('click', function () {
 
-            localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
-            OpenPagePartial("View_Order", "Order 🧺");
+            localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString()) 
+            OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
         });
     }
 
      
-    
+    var Run_Fun = false;
+    function Display_Refrsh() {
+        if (!Run_Fun) {
+            Run_Fun = true;
+            return
+        }
+        GetData_Invoice();
+    }
 }

@@ -10,7 +10,7 @@ var ShipOrder;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var txtSearch;
-    var Filter_Select_Seller;
+    var db_Zone;
     var Filter_View;
     var btnDelete_Filter;
     function InitalizeComponent() {
@@ -20,18 +20,30 @@ var ShipOrder;
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
         //GetData_Invoice();
+        GetData_Zones();
         Close_Loder();
+        SetRefresh(GetModuleCode());
     }
     ShipOrder.InitalizeComponent = InitalizeComponent;
+    function SetRefresh(moduleCode) {
+        debugger;
+        // Event listener for dynamically generated buttons
+        $(document).on('click', '.Refresh_' + moduleCode, function () {
+            if ($('#db_Zone').val() == 'null') {
+                return;
+            }
+            GetData_Invoice();
+            // Shows an alert when a dynamically created button is clicked
+        });
+    }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
-        Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
+        db_Zone = document.getElementById('db_Zone');
         Filter_View = document.getElementById('Filter_View');
         btnDelete_Filter = document.getElementById('btnDelete_Filter');
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
-        Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
         Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
@@ -59,11 +71,18 @@ var ShipOrder;
                     return txt;
                 }
             },
-            { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
-            { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
-            { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
+            {
+                title: "Receive Date", css: "ColumPadding", name: "DeliveryDate", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    txt.innerHTML = DateFormat(item.DeliveryDate);
+                    return txt;
+                }
+            },
+            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
+            { title: "CustomerMobile1", name: "Vnd_Name", type: "text", width: "100px" },
+            { title: "Address", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
-            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
@@ -94,17 +113,31 @@ var ShipOrder;
             _Grid.Bind();
         }
     }
+    function GetData_Zones() {
+        debugger;
+        var Table;
+        Table =
+            [
+                { NameTable: 'Zones', Condition: "" },
+            ];
+        DataResult(Table);
+        //**************************************************************************************************************
+        debugger;
+        var _Zones = GetDataTable('Zones');
+        var db_Zone = document.getElementById("db_Zone");
+        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+    }
     function GetData_Invoice() {
         CleaningList_Table();
         debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
         var EndDate = DateFormat($('#Txt_To_Date').val());
         var Con = "";
-        if (Number($('#Txt_VendorID').val()) != 0) {
-            Con = " and VendorID =" + Number($('#Txt_VendorID').val());
+        if ($('#db_Zone').val() != 'null') {
+            Con = " and ZoneID =" + Number($('#db_Zone').val());
         }
         else {
-            Errorinput($('#Filter_Select_Seller'), "Must Select Seller");
+            Errorinput($('#db_Zone'), "Must Select Zone");
             return;
         }
         var Table;
@@ -132,21 +165,10 @@ var ShipOrder;
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
-    function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 3", function () {
-            debugger;
-            var dataScr = SearchGrid.SearchDataGrid.dataScr;
-            var id = SearchGrid.SearchDataGrid.SelectedKey;
-            dataScr = dataScr.filter(function (x) { return x.VendorID == id; });
-            $('#Txt_VendorID').val(id);
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
-        });
-    }
     function Clear() {
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
-        $('#Txt_VendorID').val('');
-        Filter_Select_Seller.innerHTML = 'Select Seller';
+        $('#db_Zone').val('null');
         $('#btnDelete_Filter').addClass('display_none');
         _Grid.DataSource = New_Invoices;
         _Grid.Bind();

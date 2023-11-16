@@ -1,9 +1,9 @@
 ﻿
 $(document).ready(() => {
-    Coding_Items.InitalizeComponent();
+    Return_Items.InitalizeComponent();
 });
 
-namespace Coding_Items {
+namespace Return_Items {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
     var _GridItems: JsGrid = new JsGrid();
@@ -25,7 +25,7 @@ namespace Coding_Items {
         InitalizeControls();
         InitializeEvents();
         InitializeGrid();
-        GetData_ItemsAndStore();
+        Display_Items();
         Close_Loder();
 
     }
@@ -51,7 +51,7 @@ namespace Coding_Items {
         _GridItems.SelectedIndex = 1;
         _GridItems.OnItemEditing = () => { };
         _GridItems.Columns = [
-            { title: "Num", name: "InvoiceItemID", type: "number", width: "10px" },
+            { title: "Code", name: "ItemCode", type: "text", width: "100px" },
             {
                 title: "ItemDesc", css: "ColumPadding", name: "ItemDescA", width: "100px",
                 itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLLabelElement => {
@@ -63,41 +63,35 @@ namespace Coding_Items {
                 }
             },
             {
-                title: "ItemCode", css: "ColumPadding", name: "ItemCode", width: "100px",
+                title: "Chack Item",
+                itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "checkbox";
+                    txt.id = "ChkView" + item.InvoiceItemID;
+                    txt.className = "checkbox";
+                    txt.checked = true;
+                    txt.style.width = "20px"
+                    txt.style.height = "35px"
+                    txt.onclick = (e) => {
+
+                    };
+                    return txt;
+                }
+            },
+            {
+                title: "Remark", css: "ColumPadding", name: "Remark", width: "100px",
                 itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "text";
                     txt.style.width = "100%";
                     txt.className = "Clear_Header u-input u-input-rectangle";
                     txt.style.textAlign = "center";
-                    txt.id = "txtItemCode" + item.InvoiceItemID;
+                    txt.id = "txtItemRemark" + item.InvoiceItemID;
 
                     txt.onchange = (e) => {
-                        if (!CheckItemCode(txt.value.trim(), item.InvoiceItemID)) {
-                            Errorinput(txt, 'Code is duplicated 😡')
-                            txt.value = '';
-                        }
-                        else if (!CheckItemCodeInStock(txt.value.trim(), item.InvoiceItemID)) {
-                            Errorinput(txt, 'Code is duplicated in Stock 😡')
-                            txt.value = '';
-                        }
+                       
                     };
 
-                    return txt;
-                }
-            },
-            {
-                title: "Scan", visible: false,
-                itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLInputElement => {
-                    let txt: HTMLInputElement = document.createElement("input");
-                    txt.type = "button";
-                    txt.value = ("Scan Camera 📷");
-                    txt.id = "butScan" + item.InvoiceItemID;
-                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
-
-                    txt.onclick = (e) => {
-                        Scan_Camera(item.InvoiceItemID);
-                    };
                     return txt;
                 }
             },
@@ -121,36 +115,15 @@ namespace Coding_Items {
             _GridItems.Bind();
         }
     }
-    function GetData_ItemsAndStore() {
-        debugger
+   
+    function Display_Items() {
+
+
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
         _InvItems = _InvoiceItems.filter(x => x.InvoiceID == InvoiceID)
-
-
-
-
-        var Table: Array<Table>;
-        Table =
-            [
-                { NameTable: 'G_STORE', Condition: "" },
-            ]
-        DataResult(Table);
-        //**************************************************************************************************************
-        debugger
-        let _G_STORE = GetDataTable('G_STORE');
-
-        let db_Store = document.getElementById("db_Store") as HTMLSelectElement;
-        DocumentActions.FillCombowithdefult(_G_STORE, db_Store, "StoreId", 'DescA', 'Select Store');
-
-        db_Store.selectedIndex = 1;
-
-        Display_Items();
-
-    }
-    function Display_Items() {
 
         debugger
         _GridItems.DataSource = _InvItems;
@@ -182,42 +155,7 @@ namespace Coding_Items {
   
         return true;
     }
-    function CheckItemCode(ItemCode: string, InvoiceItemID: number): boolean {
-
-        for (var i = 0; i < _GridItems.DataSource.length; i++) {
-            if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val().trim() == ItemCode && InvoiceItemID != _GridItems.DataSource[i].InvoiceItemID) {
-
-                Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID))
-                
-                return false;
-            }
-        }
-        return true;
-    }
-    function CheckItemCodeInStock(ItemCode: string, InvoiceItemID: number): boolean {
-
-        CleaningList_Table();
-        
-        var Table: Array<Table>;
-        Table =
-            [
-                { NameTable: 'Sls_InvoiceItem', Condition: " ItemCode = N'" + ItemCode.trim() +"' " },
-            ]
-
-        DataResult(Table);
-        //**************************************************************************************************************
-        
-        let _ListItem = GetDataTable('Sls_InvoiceItem');
-
-        if (_ListItem.length > 0) { 
-            return false;
-        }
-
-        return true;
-
-    }
-
-
+    
     function Assign() {
         debugger
         _ItemsCodes = new Array<ItemsCodes>();
@@ -269,17 +207,5 @@ namespace Coding_Items {
 
 
     } 
-    function Scan_Camera(InvoiceItemID) {
-
-        localStorage.setItem("butScan", "butScan" + InvoiceItemID.toString())
-        localStorage.setItem("id_txtItemCode", "txtItemCode" + InvoiceItemID.toString())
-
-        $('#Id_ScanCodeClick').click();
-
-        $('#_Gide_Div').addClass("display_none");
-        $('#_Scan_Div').removeClass("display_none");
-        $('#_Scan_Div').html("");
-        $('#_Gide_Div').removeClass("display_none");
-
-    }
+ 
 }

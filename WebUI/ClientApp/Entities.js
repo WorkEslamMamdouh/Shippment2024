@@ -7154,6 +7154,7 @@ var Sls_InvoiceItem = /** @class */ (function (_super) {
         _this.ItemNetAmount = 0;
         _this.StoreID = 0;
         _this.StatusFlag = "";
+        _this.Chack_Item = false;
         return _this;
     }
     return Sls_InvoiceItem;
