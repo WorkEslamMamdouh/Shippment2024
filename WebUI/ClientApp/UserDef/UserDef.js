@@ -16,9 +16,23 @@ var UserDef;
         $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
         InitalizeControls();
         InitializeEvents();
-        _USERS = GetGlopelDataUser();
-        _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
+        var User = SysSession.CurrentEnvironment.UserCode;
+        $('#Submit_Update_Profile').html('Add');
+        $('#Usr_UserCode').removeAttr('disabled');
         Display_Data();
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            User = localStorage.getItem("UserControl");
+            $('#Submit_Update_Profile').html('Update');
+            $('#Usr_UserCode').attr('disabled', 'disabled');
+        }
+        _USERS = GetGlopelDataUser();
+        _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == User.toLowerCase(); });
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            Display_User();
+            if (Number(_USER[0].SalesManID) != 0) {
+                $('#Usr_UserType').attr('disabled', 'disabled');
+            }
+        }
         Close_Loder();
     }
     UserDef.InitalizeComponent = InitalizeComponent;
@@ -29,6 +43,25 @@ var UserDef;
     function InitializeEvents() {
         Submit_Update_Profile.onclick = SubmitUpdate;
         Usr_UserType.onchange = UserType_Change;
+    }
+    function Display_User() {
+        debugger;
+        $('#Usr_Full_Name').val(_USER[0].USER_NAME);
+        $('#Usr_Address').val(_USER[0].Address);
+        $('#Usr_Mobile').val(_USER[0].Mobile);
+        $('#Usr_ID_Num').val(_USER[0].Fax);
+        $('#Usr_Mail').val(_USER[0].Email);
+        $('#Usr_Gender').val(_USER[0].REGION_CODE);
+        $('#Usr_UserCode').val(_USER[0].USER_CODE);
+        $('#Usr_UserType').val(_USER[0].USER_TYPE);
+        if (Number(_USER[0].CashBoxID) != 0) {
+            $('#Usr_Zone').val(_USER[0].CashBoxID);
+        }
+        else {
+            $('#Usr_Zone').prop('selectedIndex', 0);
+        }
+        $('#Usr_Password').val(_USER[0].USER_PASSWORD);
+        UserType_Change();
     }
     function Display_Data() {
         debugger;
@@ -50,7 +83,7 @@ var UserDef;
         FillDropwithAttr(_Zones, "Usr_Zone", "ZoneID", "DescA", "No", "", "");
     }
     function UserType_Change() {
-        if (Usr_UserType.value == "3") {
+        if (Usr_UserType.value == "11") {
             $('#div_zone').removeClass('display_none');
         }
         else {
@@ -58,6 +91,7 @@ var UserDef;
         }
     }
     function SubmitUpdate() {
+        debugger;
         if ($('#Usr_Full_Name').val().trim() == "") {
             Errorinput($('#Usr_Full_Name'), "Please a Enter Name 🤨");
             return;
@@ -86,25 +120,44 @@ var UserDef;
             Errorinput($('#Usr_Password'), "Please a Enter User Password 🤨");
             return;
         }
+        debugger;
         var Name = $('#Usr_Full_Name').val();
         var address = $('#Usr_Address').val();
         var Mobile = $('#Usr_Mobile').val();
         var IDNO = $('#Usr_ID_Num').val();
         var Email = $('#Usr_Mail').val();
+        var Gender = $('#Usr_Gender').val();
         var UserName = $('#Usr_UserCode').val();
         var Password = $('#Usr_Password').val();
-        var ZoneID = Usr_UserType.value == "3" ? Number($('#Usr_Zone').val()) : Number($('#Usr_UserType').val());
-        var NameFun = Usr_UserType.value == "3" ? "InsertSalesMan" : "InsertUser";
+        var ZoneID = Number($('#Usr_Zone').val());
+        var UserType = Number(Usr_UserType.value);
+        var SalesManID = Number(_USER[0].SalesManID);
+        var NameFun;
+        debugger;
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            if (SalesManID == 0) {
+                NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
+            }
+            else {
+                NameFun = Usr_UserType.value == "11" ? "UpdateSalesMan" : "InsertUser";
+            }
+        }
+        else {
+            NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
+        }
+        debugger;
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("SalesMan", NameFun),
-            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, ZoneID: ZoneID },
+            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
                     Display_Data();
                     UserType_Change();
+                    $('#Back_Page').click();
+                    $("#Display_Back_Page").click();
                     Close_Loder();
                 }
                 else {

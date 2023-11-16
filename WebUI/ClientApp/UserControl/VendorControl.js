@@ -123,8 +123,8 @@ var VendorControl;
         _Grid.Bind();
     }
     function ViewUser(item) {
-        SetGlobalDataUser(item);
-        localStorage.setItem("TypePage", "Vendor");
+        localStorage.setItem("TypePage", "UserControl");
+        localStorage.setItem("UserControl", item.USER_CODE);
         OpenPagePartial("Profile", "Profile 👤", function () { Display_Refrsh(); });
     }
     function Clear() {

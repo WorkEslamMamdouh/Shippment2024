@@ -30,7 +30,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult InsertSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password,int ZoneID)
+        public IHttpActionResult InsertSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID , int UserType, string Gender)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -38,17 +38,22 @@ namespace Inv.API.Controllers
                 try
                 {
                     Random random = new Random();
+                    string deleteQuery = @"delete G_USERS where USER_CODE='" + UserName + @"'
+                                          delete G_USER_COMPANY where USER_CODE = '" + UserName + @"'
+                                          delete G_USER_BRANCH where USER_CODE = '" + UserName + @"'
+                                          delete G_RoleUsers  where USER_CODE = '" + UserName + "'";
+                    db.Database.ExecuteSqlCommand(deleteQuery);
 
                     // Generate a random integer between 1 and 100
                     int randomNumber = random.Next(1, 10000);
                     string Qury = @"declare @LASTID int 
                         INSERT INTO [dbo].[I_Sls_D_Salesman]
                     ([CompCode],[SalesmanCode],[NAMEA],[NAMEE],[IDNo],[MOBILE],[EMAIL],[Isactive],[CREATED_AT],[WebUserName],[WebPassword]
-                    ,[ADDRESS],ZoneID)VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + ")  SET @LASTID = @@IDENTITY select @LASTID";
+                    ,[ADDRESS],ZoneID,CC_Code)VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + ",'"+Gender+"')  SET @LASTID = @@IDENTITY select @LASTID";
 
-                    int SalesManID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
+                    int SalnID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
 
-                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, SalesManID, "DefSalesMan", "Add", db);
+                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, SalnID, "DefSalesMan", "Add", db);
                     if (res.ResponseState == true)
                     {
                         dbTransaction.Commit();
@@ -76,7 +81,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID,int ZoneID)
+        public IHttpActionResult UpdateSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID,int ZoneID, int UserType, string Gender)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -88,7 +93,7 @@ namespace Inv.API.Controllers
                     // Generate a random integer between 1 and 100
                     int randomNumber = random.Next(1, 10000);
                     string Qury = @"UPDATE[dbo].[I_Sls_D_Salesman] SET
-                    [SalesmanCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + "',[NAMEE] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',[WebPassword] = N'" + Password + "',[ADDRESS] =N'" + address + "',ZoneID = " + ZoneID + " where SalesManID = " + SalesManID + " ";
+                    [SalesmanCode] = N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "', [NAMEA]= N'" + Name + "',[NAMEE] = N'" + Name + "', [IDNo] = N'" + IDNO + "',[MOBILE] = N'" + Mobile + "',[EMAIL] = N'" + Email + "',[Isactive] = 1,[CREATED_AT] = N'" + DateTime.Now + "',[WebUserName] = N'" + UserName + "',CC_Code ='" + Gender + "',[WebPassword] = N'" + Password + "',[ADDRESS] =N'" + address + "',ZoneID = " + ZoneID + " where SalesManID = " + SalesManID + " ";
                     db.Database.ExecuteSqlCommand(Qury);
                     ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), BranchCode, SalesManID, "DefSalesMan", "Update", db);
                     if (res.ResponseState == true)
@@ -163,31 +168,34 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int ZoneID)
+        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID ,int ZoneID, int UserType, string Gender)
         { 
             using (var dbTransaction = db.Database.BeginTransaction())
             {
                 try
                 {
                     Random random = new Random();
-
-                    // Generate a random integer between 1 and 100
-                    int randomNumber = random.Next(1, 10000);
+                    string deleteQuery= @"delete G_USERS where USER_CODE='"+ UserName + @"'
+                                          delete G_USER_COMPANY where USER_CODE = '"+ UserName + @"'
+                                          delete G_USER_BRANCH where USER_CODE = '"+ UserName + @"'
+                                          delete G_RoleUsers  where USER_CODE = '"+ UserName + "'";
+                    db.Database.ExecuteSqlCommand(deleteQuery);
+                   
                     string Qury = @"INSERT INTO [dbo].[G_USERS]
                     ([CompCode],[USER_NAME],[Fax],[MOBILE],[EMAIL],[USER_ACTIVE],[CreatedAt],[USER_CODE],[USER_PASSWORD]
-                    ,[ADDRESS],USER_TYPE)VALUES(N'" + CompCode + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + ")";
+                    ,[ADDRESS],CashBoxID,USER_TYPE,REGION_CODE)VALUES(N'" + CompCode + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + "," + UserType + ",'" + Gender + "')";
 
                     db.Database.ExecuteSqlCommand(Qury);
                     var User = "UserAdministrator";
-                    if (ZoneID == 6)
+                    if (UserType == 5)
                     {
                         User = "UserAccount"; 
                     }
-                    if (ZoneID == 4)
+                    if (UserType == 3)
                     {
                         User = "StockKeeper";
                     }
-                    if (ZoneID ==5)
+                    if (UserType == 4)
                     {
                         User = "StockMan";
                     }
@@ -209,7 +217,7 @@ namespace Inv.API.Controllers
 
         }
 
-
+ 
         [HttpPost, AllowAnonymous]
         public IHttpActionResult UpdateStores([FromBody] List<G_STORE> obj)
         {

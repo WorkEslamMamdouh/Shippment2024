@@ -133,9 +133,9 @@ namespace VendorControl {
 		_Grid.Bind();
 	}
 	function ViewUser(item: GQ_USERS) {
-
-		SetGlobalDataUser(item);				  
-		localStorage.setItem("TypePage", "Vendor");
+		 
+		localStorage.setItem("TypePage", "UserControl");
+		localStorage.setItem("UserControl", item.USER_CODE);
 		OpenPagePartial("Profile", "Profile 👤", () => { Display_Refrsh() });  
 
 	}

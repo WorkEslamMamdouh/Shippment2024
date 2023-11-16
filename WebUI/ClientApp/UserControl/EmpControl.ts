@@ -123,11 +123,11 @@ namespace EmpControl {
         _Grid.Bind();
     }          
     function ViewUser(item: GQ_USERS) {
-
-        SetGlobalDataUser(item);
-        localStorage.setItem("TypePage", "Vendor");
-        OpenPagePartial("Profile", "Profile 👤", () => { Display_Refrsh() });            
-
+        debugger
+       
+        localStorage.setItem("TypePage", "UserControl");
+        localStorage.setItem("UserControl", item.USER_CODE);
+        OpenPagePartial("UserDef", "UserDef 👤", () => { Display_Refrsh() }); 
     }
     function Clear() {
         $('#drpActive').val("Null");

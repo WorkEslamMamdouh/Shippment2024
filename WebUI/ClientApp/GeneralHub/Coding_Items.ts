@@ -255,7 +255,7 @@ namespace Coding_Items {
                         ShowMessage("Updated 😍")
                         $("#Display_Back_Page2").click();
 
-                        $('#Back_Page').click();
+                        //$('#Back_Page').click();
                         Close_Loder();
                     } else {
                         ShowMessage("Error 😒")

@@ -116,6 +116,10 @@ namespace Order_Saller {
             return
         }
 
+        if ($('#Txt_Name_Item').val().trim() != '') {
+            Errorinput($('#Txt_Name_Item'), "Please Save Item 😡");
+            return
+        }
         Create_Invoice_Print();
         $('#Id_Div_Next_Step2').addClass('display_none')
         $('#Id_Div_Back').addClass('display_none')

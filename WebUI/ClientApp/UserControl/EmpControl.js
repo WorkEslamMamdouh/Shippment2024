@@ -113,9 +113,10 @@ var EmpControl;
         _Grid.Bind();
     }
     function ViewUser(item) {
-        SetGlobalDataUser(item);
-        localStorage.setItem("TypePage", "Vendor");
-        OpenPagePartial("Profile", "Profile 👤", function () { Display_Refrsh(); });
+        debugger;
+        localStorage.setItem("TypePage", "UserControl");
+        localStorage.setItem("UserControl", item.USER_CODE);
+        OpenPagePartial("UserDef", "UserDef 👤", function () { Display_Refrsh(); });
     }
     function Clear() {
         $('#drpActive').val("Null");

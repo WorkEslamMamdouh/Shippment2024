@@ -1355,7 +1355,7 @@ function FillDropwithAttr(Datasource: Array<any>, InputID: string, Value: string
     $('#' + InputID + '').empty();
     if (DefaultText != "No") {
         if (DefaultText != "") {
-            $('#' + InputID + '').append("<option value=Null>" + DefaultText + "</option>");
+            $('#' + InputID + '').append("<option value=null>" + DefaultText + "</option>");
         }
     }
     if (Attrname != "") {
@@ -3843,21 +3843,14 @@ function Digits(_number: number, FractionDigits?: number): string {
     }
 }
 
-var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
-var GlobalUSERS: GQ_USERS = new GQ_USERS();
+var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>(); 
 var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;
 }
-function SetGlobalDataUser(Send_GQUSERS: GQ_USERS) {
-    GlobalUSERS = Send_GQUSERS;
-}
-
-function GetGlobalDataUser(): GQ_USERS {
-    return GlobalUSERS;
-}
+ 
 function GetGlopelDataUser(): Array<G_USERS> {
     return GlopelUSERS;
 }

@@ -7,32 +7,34 @@ $(document).ready(() => {
 namespace Profile {
 	var sys: SystemTools = new SystemTools();
 	var SysSession: SystemSession = GetSystemSession();	 
-	var _USERS: Array<G_USERS> = new Array<G_USERS>();
-	var USER: GQ_USERS = new GQ_USERS();
+	var _USERS: Array<G_USERS> = new Array<G_USERS>(); 
 	var _USER: Array<G_USERS> = new Array<G_USERS>();
-	var page;
+	 
 	var Submit_Update_Profile: HTMLButtonElement;
 
 	export function InitalizeComponent() {
-
-		
-
+	 
 		InitalizeControls();
 		InitializeEvents();
-		debugger
-		page = localStorage.getItem("TypePage");
-		if (page == "Vendor") {
-			USER = GetGlobalDataUser()
-			$('#Profile_UserName').html(USER.USER_CODE);
-			$('#Profile_JobTitle').html(USER.JobTitle);
-			Display_DataVew();
-		} else {
-			$('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
-			$('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
-			_USERS = GetGlopelDataUser()
-			_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase());
-			Display_Data();
-		}
+
+		let User = SysSession.CurrentEnvironment.UserCode;
+
+		if (localStorage.getItem("TypePage") == "UserControl") {
+			User = localStorage.getItem("UserControl");
+        }
+
+
+
+		_USERS = GetGlopelDataUser()
+		_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == User.toLowerCase());
+		Display_Data();
+
+		$('#Profile_UserName').html(_USER[0].USER_CODE);
+		$('#Profile_JobTitle').html(_USER[0].JobTitle);
+
+
+
+		Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
 
 		Close_Loder();
 	}
@@ -43,8 +45,7 @@ namespace Profile {
 
 		Submit_Update_Profile.onclick = SubmitUpdate;
 
-	}
-
+	} 
 	function Display_Data() {
 		debugger
 		if (_USER[0].USER_TYPE == 10) {
@@ -61,37 +62,13 @@ namespace Profile {
 		$('#Reg_Mail').val(_USER[0].Email);
 		$('#Reg_ID_Num').val(_USER[0].Fax);
 		$('#Reg_Password').val(_USER[0].USER_PASSWORD);
-	}
-	function Display_DataVew() {
-		debugger
-		if (USER.USER_TYPE == 10) {
-			$('#div_CompName').removeClass('display_none');
-			$('#Reg_Comp_Name').val(USER.Vnd_CompName);
-		} else {
-			$('#div_CompName').addClass('display_none');
-			$('#Reg_Comp_Name').val("");
-		}
-
-		$('#Reg_Full_Name').val(USER.USER_NAME);
-		$('#Reg_Address').val(USER.Address);
-		$('#Reg_Mobile').val(USER.Mobile);
-		$('#Reg_Mail').val(USER.Email);
-		$('#Reg_ID_Num').val(USER.Fax);
-		$('#Reg_Password').val(USER.USER_PASSWORD);
-	}
+	} 
 	function SubmitUpdate() {
-		if (page == "Vendor") {
-			if ($('#Reg_Comp_Name').val().trim() == "" && USER.USER_TYPE == 10) {
-				Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
-				return
-			}
-		} else {
-			if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
-				Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
-				return
-			}
+		 
+		if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
+			Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
+			return
 		}
-
 		if ($('#Reg_Full_Name').val().trim() == "") {
 			Errorinput($('#Reg_Full_Name'), "Please a Enter Full Name 🤨");
 			return
@@ -129,22 +106,18 @@ namespace Profile {
 		let IDNO = $('#Reg_ID_Num').val().trim();
 		let Email = $('#Reg_Mail').val().trim();   
 		let Password = $('#Reg_Password').val().trim();
-		let UserName;
-		let Idven;
-		let CompName;
-		let NameFun;
-		if (page == "Vendor") {
-			UserName = USER.USER_CODE;
-			Idven = Number(USER.VendorID);
-			NameFun = USER.USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"   
-			  CompName = $('#Reg_Comp_Name').val().trim();
-		} else {
-			UserName = SysSession.CurrentEnvironment.UserCode;
+		let CompName = $('#Reg_Comp_Name').val().trim();
+		let UserName = _USER[0].USER_CODE;
+		let Idven=0
+		   
+		if (_USER[0].SalesManID != null) {
 			Idven = Number(_USER[0].SalesManID);
-			NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile"
-			CompName = "";
 		}
-
+		if (_USER[0].VendorID != null) {
+			Idven = Number(_USER[0].VendorID);
+		} 
+		let NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
+		debugger
 
 		Ajax.CallsyncSave({
 			type: "Get",
