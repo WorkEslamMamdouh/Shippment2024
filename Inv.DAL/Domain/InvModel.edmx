@@ -938,6 +938,7 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="VendorID" Type="int" />
           <Property Name="ItemNetAmount" Type="numeric" Precision="19" Scale="2" />
           <Property Name="StoreID" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1352,10 +1353,11 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_ItemCollect' does not have a 
           </Key>
           <Property Name="ItemDescA" Type="nvarchar" MaxLength="200" />
           <Property Name="SoldQty" Type="numeric" Precision="38" Scale="5" />
-          <Property Name="Unitprice" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="Unitprice" Type="numeric" Precision="18" Scale="5" />
           <Property Name="SalesManID" Type="int" />
           <Property Name="VendorID" Type="int" />
           <Property Name="InvoiceID" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.SalesMan_Invoices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1453,10 +1455,10 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="Inv_SlsManID" Type="nvarchar" MaxLength="4000" />
           <Property Name="SalesmanId" Type="int" />
           <Property Name="VendorID" Type="int" Nullable="false" />
-          <Property Name="ZoneID" Type="int" />
           <Property Name="StoreId" Type="int" />
           <Property Name="STORE_CODE" Type="int" />
           <Property Name="Store_DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZoneID" Type="int" />
         </EntityType>
         <Function Name="G_ProcessTransVer2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Comp" Type="int" Mode="In" />
@@ -2036,7 +2038,8 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
     [IQ_ItemCollect].[Unitprice] AS [Unitprice], 
     [IQ_ItemCollect].[SalesManID] AS [SalesManID], 
     [IQ_ItemCollect].[VendorID] AS [VendorID], 
-    [IQ_ItemCollect].[InvoiceID] AS [InvoiceID]
+    [IQ_ItemCollect].[InvoiceID] AS [InvoiceID], 
+    [IQ_ItemCollect].[Remark] AS [Remark]
     FROM [dbo].[IQ_ItemCollect] AS [IQ_ItemCollect]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SalesMan_Invoices" EntityType="Self.SalesMan_Invoices" store:Type="Views" store:Schema="dbo">
@@ -2122,10 +2125,10 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
     [Vnd_Inv_SlsMan].[Inv_SlsManID] AS [Inv_SlsManID], 
     [Vnd_Inv_SlsMan].[SalesmanId] AS [SalesmanId], 
     [Vnd_Inv_SlsMan].[VendorID] AS [VendorID], 
-    [Vnd_Inv_SlsMan].[ZoneID] AS [ZoneID], 
     [Vnd_Inv_SlsMan].[StoreId] AS [StoreId], 
     [Vnd_Inv_SlsMan].[STORE_CODE] AS [STORE_CODE], 
-    [Vnd_Inv_SlsMan].[Store_DescA] AS [Store_DescA]
+    [Vnd_Inv_SlsMan].[Store_DescA] AS [Store_DescA], 
+    [Vnd_Inv_SlsMan].[ZoneID] AS [ZoneID]
     FROM [dbo].[Vnd_Inv_SlsMan] AS [Vnd_Inv_SlsMan]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -2256,7 +2259,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="A_Pay_D_Vendor" EntityType="InvModel.A_Pay_D_Vendor" />
           <EntitySet Name="I_Sls_D_Salesman" EntityType="InvModel.I_Sls_D_Salesman" />
           <EntitySet Name="Zones" EntityType="InvModel.Zones" />
-          <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
           <EntitySet Name="A_ACCOUNT" EntityType="InvModel.A_ACCOUNT" />
           <EntitySet Name="A_ACCOUNT_YEAR" EntityType="InvModel.A_ACCOUNT_YEAR" />
           <EntitySet Name="A_JOURNAL_DETAIL" EntityType="InvModel.A_JOURNAL_DETAIL" />
@@ -2269,6 +2271,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="Vendor_Invoices" EntityType="InvModel.Vendor_Invoices" />
           <EntitySet Name="Vnd_Inv_SlsMan" EntityType="InvModel.Vnd_Inv_SlsMan" />
           <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
+          <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
           <EntitySet Name="IQ_ItemCollect" EntityType="InvModel.IQ_ItemCollect" />
         </EntityContainer>
         <EntityType Name="A_Pay_D_VendorDoc">
@@ -3390,31 +3393,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="Active" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Sls_InvoiceItem">
-          <Key>
-            <PropertyRef Name="InvoiceItemID" />
-          </Key>
-          <Property Name="InvoiceItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceID" Type="Int32" />
-          <Property Name="ItemCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SoldQty" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="DiscountPrc" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="NetUnitPrice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="ItemTotal" Type="Decimal" Precision="37" Scale="10" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="VatPrc" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="VatAmount" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="NetAfterVat" Type="Decimal" Precision="38" Scale="10" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="VatApplied" Type="Int32" />
-          <Property Name="TotRetQty" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="Serial" Type="Int32" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="ItemNetAmount" Type="Decimal" Precision="19" Scale="2" />
-          <Property Name="StoreID" Type="Int32" />
-        </EntityType>
         <EntityType Name="A_ACCOUNT">
           <Key>
             <PropertyRef Name="COMP_CODE" />
@@ -3766,16 +3744,43 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="StoreID" Type="Int32" />
           <Property Name="ZoneID" Type="Int32" />
         </EntityType>
+        <EntityType Name="Sls_InvoiceItem">
+          <Key>
+            <PropertyRef Name="InvoiceItemID" />
+          </Key>
+          <Property Name="InvoiceItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceID" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoldQty" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="DiscountPrc" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="NetUnitPrice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="ItemTotal" Type="Decimal" Precision="37" Scale="10" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="VatPrc" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="VatAmount" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="NetAfterVat" Type="Decimal" Precision="38" Scale="10" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="VatApplied" Type="Int32" />
+          <Property Name="TotRetQty" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Serial" Type="Int32" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="ItemNetAmount" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="IQ_ItemCollect">
           <Key>
             <PropertyRef Name="InvoiceID" />
           </Key>
           <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
-          <Property Name="Unitprice" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
           <Property Name="SalesManID" Type="Int32" />
           <Property Name="VendorID" Type="Int32" />
           <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4916,32 +4921,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sls_InvoiceItem">
-            <EntityTypeMapping TypeName="InvModel.Sls_InvoiceItem">
-              <MappingFragment StoreEntitySet="Sls_InvoiceItem">
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="ItemNetAmount" ColumnName="ItemNetAmount" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
-                <ScalarProperty Name="Serial" ColumnName="Serial" />
-                <ScalarProperty Name="TotRetQty" ColumnName="TotRetQty" />
-                <ScalarProperty Name="VatApplied" ColumnName="VatApplied" />
-                <ScalarProperty Name="NetAfterVat" ColumnName="NetAfterVat" />
-                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
-                <ScalarProperty Name="VatPrc" ColumnName="VatPrc" />
-                <ScalarProperty Name="ItemTotal" ColumnName="ItemTotal" />
-                <ScalarProperty Name="NetUnitPrice" ColumnName="NetUnitPrice" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="DiscountPrc" ColumnName="DiscountPrc" />
-                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
-                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
-                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="InvoiceItemID" ColumnName="InvoiceItemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="A_ACCOUNT">
             <EntityTypeMapping TypeName="InvModel.A_ACCOUNT">
               <MappingFragment StoreEntitySet="A_ACCOUNT">
@@ -5298,9 +5277,37 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sls_InvoiceItem">
+            <EntityTypeMapping TypeName="InvModel.Sls_InvoiceItem">
+              <MappingFragment StoreEntitySet="Sls_InvoiceItem">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ItemNetAmount" ColumnName="ItemNetAmount" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="TotRetQty" ColumnName="TotRetQty" />
+                <ScalarProperty Name="VatApplied" ColumnName="VatApplied" />
+                <ScalarProperty Name="NetAfterVat" ColumnName="NetAfterVat" />
+                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
+                <ScalarProperty Name="VatPrc" ColumnName="VatPrc" />
+                <ScalarProperty Name="ItemTotal" ColumnName="ItemTotal" />
+                <ScalarProperty Name="NetUnitPrice" ColumnName="NetUnitPrice" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="DiscountPrc" ColumnName="DiscountPrc" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
+                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="InvoiceItemID" ColumnName="InvoiceItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="IQ_ItemCollect">
             <EntityTypeMapping TypeName="InvModel.IQ_ItemCollect">
               <MappingFragment StoreEntitySet="IQ_ItemCollect">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
