@@ -44,7 +44,7 @@ namespace UserDef {
 		debugger
 		$('#DivContainer :input').val("");
 		$('#Usr_Gender').val("1");
-		$('#Submit_Update_Profile').val("Update");
+		$('#Submit_Update_Profile').val("Add");
 
 		var Table: Array<Table>;
 		Table =
@@ -147,6 +147,6 @@ namespace UserDef {
 		_USERS.push(_USER[0]);
 
 		SetGlopelDataUser(_USERS);
-		ShowMessage("Updated 🤞😉")
+		ShowMessage("Done 🤞😉")
 	}	   
 }

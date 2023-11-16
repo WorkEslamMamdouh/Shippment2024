@@ -35,8 +35,8 @@ namespace Inv.WebUI.Controllers
                     NewData = ConvertDateStr(NewData);
                 }
 
-                url = url + "" + NewData + "";
-                string res = httpClient.GetStringAsync(url).Result;
+                    url = url + "" + NewData + "";
+                    string res = httpClient.GetStringAsync(url).Result;
                 return res;
             }
             else

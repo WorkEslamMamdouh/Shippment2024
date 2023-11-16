@@ -14,6 +14,7 @@ var Home;
         InitializeEvents();
         ApplyModules();
         Close_Loder();
+        localStorage.setItem("TypePage", "");
     }
     Home.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

@@ -107,11 +107,7 @@ namespace Zone {
 	function BuildGrid(cnt: number) {
 		let html = '<tr id="Row' + cnt + '" style="height: 51px; ">' +
 			'<input id="Txt_ZoneID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
-			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
-
-			'<td class="btn_minus" style = "width: 2%;" > ' + 
-			'<input type="button" id="btn_minus' + cnt + '" value="❌" class="Style_Add_Item u-input u-input-rectangle" style="width: 100%;background-color: #ffdddd;color: white;">' +
-			'</td>' +
+			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +	 
 
 			'<td class="u-table-cell" > ' +
 			'<input type="text" id="Txt_ZoneCode' + cnt + '" maxlength="50" class="Clear_Header  u-input u-input-rectangle">' +
