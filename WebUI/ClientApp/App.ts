@@ -3670,7 +3670,7 @@ function OpenPage(moduleCode: string) {
     Show_Loder();
 
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
-    if (Page.length > 0) {
+    if (Page.length > 0) { 
         $('#htmlContainer').html(Page[0].Page_Html);
         $('._Loding').removeClass('Btn_Loder');
 
