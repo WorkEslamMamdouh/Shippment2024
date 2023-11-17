@@ -104,7 +104,7 @@ var SearchModulesNames = {
     TrReceipt: "TrReceipt",
     types: "types",
     uoms: "uoms",
-    store: "store" ,
+    store: "store",
     View_Deleted_Orders: "View_Deleted_Orders"
 };
 
@@ -834,7 +834,7 @@ var Ajax = {
         AD.url = URL;
         AD.data = settings.data;
         Show_Loder();
-        setTimeout(function () { 
+        setTimeout(function () {
             try {
                 $.ajax({
                     url: Url.Action("AccessApi", "GeneralAPI"),
@@ -1671,7 +1671,7 @@ function DateStartYear() {
 }
 
 function DateStartMonth() {
-     
+
     var dateString = GetDate();
     var yyyy = dateString.substring(0, 4);
     var mm = dateString.substring(5, 7);
@@ -1998,7 +1998,7 @@ function Errorinput(input: any, TxtMessage?: string) {
     } catch (e) {
 
     }
-   
+
 
     var id = '';
     if (input.selector != null) {
@@ -2023,7 +2023,7 @@ function Errorinput(input: any, TxtMessage?: string) {
         $('#' + id + '').addClass('text_Mandatory');
         $('#' + id + '').addClass('animate__animated animate__shakeX');
         $('#' + id + '').focus();
-        setTimeout(function () { $('#' + id + '').removeClass('animate__shakeX');  $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
+        setTimeout(function () { $('#' + id + '').removeClass('animate__shakeX'); $('#' + id + '').removeClass('text_Mandatory'); }, 5000);
 
         $('#select2-' + id + '-container').addClass('text_Mandatory');
         $('#select2-' + id + '-container').focus();
@@ -3406,8 +3406,8 @@ var List_Table: Array<Table_Result> = new Array<Table_Result>();
 var globle_Table: Array<Table> = new Array<Table>();
 
 function CleaningList_Table() {
-      List_Table = new Array<Table_Result>();
-      globle_Table = new Array<Table>();
+    List_Table = new Array<Table_Result>();
+    globle_Table = new Array<Table>();
 }
 function DataResult(Table: Array<Table>): Array<Table_Result> {
     debugger
@@ -3634,7 +3634,7 @@ function getClass(className) {
 var _AllPages: Array<AllPages> = new Array<AllPages>();
 var ModulesOpenPages: Array<OpenPages> = new Array<OpenPages>();
 
-var CounterPage = 0; 
+var CounterPage = 0;
 
 function GetModuleCode(): string {
     debugger
@@ -3693,68 +3693,70 @@ function OpenPage(moduleCode: string) {
 function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
     debugger
     Show_Loder();
-    let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
-    if (Page.length > 0) {
-        CounterPage++;
-         
-        let _OpenPages: OpenPages = new OpenPages();
-        _OpenPages.ModuleCode = moduleCode;
-        ModulesOpenPages.push(_OpenPages);
+    setTimeout(function () {
+        let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
+        if (Page.length > 0) {
+            CounterPage++;
 
-        debugger
-        Set_Refresh(moduleCode);
+            let _OpenPages: OpenPages = new OpenPages();
+            _OpenPages.ModuleCode = moduleCode;
+            ModulesOpenPages.push(_OpenPages);
 
-        //*************************************************************************
+            debugger
+            Set_Refresh(moduleCode);
 
-        //$('#btn_Logout').addClass("display_none");
-        $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
-        $('#htmlContainer').addClass("display_none");
-        $('.Page_Partial').addClass("display_none");
-        $('#Partial_' + CounterPage).html(Page[0].Page_Html);
-        $('#Partial_' + CounterPage).removeClass("display_none");
-        //$('#Partial_' + CounterPage).addClass('animate__animated animate__pulse');
-        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__pulse'); }, 800);
-        $('#Back_Page').removeClass("display_none");
+            //*************************************************************************
 
-        $('#Lab_NamePage').html(`` + NamePage + `<span style="font-weight: 700;">
+            //$('#btn_Logout').addClass("display_none");
+            $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
+            $('#htmlContainer').addClass("display_none");
+            $('.Page_Partial').addClass("display_none");
+            $('#Partial_' + CounterPage).html(Page[0].Page_Html);
+            $('#Partial_' + CounterPage).removeClass("display_none");
+            //$('#Partial_' + CounterPage).addClass('animate__animated animate__pulse');
+            setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__pulse'); }, 800);
+            $('#Back_Page').removeClass("display_none");
+
+            $('#Lab_NamePage').html(`` + NamePage + `<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
 
-        localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
+            localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage)
 
-        $(window).scrollTop(0);
+            $(window).scrollTop(0);
 
-        debugger
-        if (OnDisplay_Back1 != null) {
+            debugger
+            if (OnDisplay_Back1 != null) {
 
-            OnDisplay_Back1();
+                OnDisplay_Back1();
 
 
 
-            $("#Display_Back_Page").on('click', function () {
-                debugger
-                OnDisplay_Back1()
-            });
+                $("#Display_Back_Page").on('click', function () {
+                    debugger
+                    OnDisplay_Back1()
+                });
+            }
+
+            if (OnDisplay_Back2 != null) {
+
+                OnDisplay_Back2();
+
+
+
+                $("#Display_Back_Page2").on('click', function () {
+                    debugger
+                    OnDisplay_Back2()
+                });
+            }
+
+
         }
-
-        if (OnDisplay_Back2 != null) {
-
-            OnDisplay_Back2();
-
-
-
-            $("#Display_Back_Page2").on('click', function () {
-                debugger
-                OnDisplay_Back2()
-            });
+        else {
+            Close_Loder();
+            ShowMessage("No Privilage");
         }
-
- 
-    }
-    else {
-        Close_Loder();
-        ShowMessage("No Privilage");
-    }
+    }, 50);
 }
 
 function Set_Refresh(moduleCode: string) {
@@ -3791,7 +3793,7 @@ function Back_Page_Partial() {
         $('#Lab_NamePage').html(`Home<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
-         
+
     }
     else {
 
@@ -3800,12 +3802,12 @@ function Back_Page_Partial() {
         $('#Lab_NamePage').html(`` + _NamePage + `<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
-         
+
         $('#Partial_' + CounterPage).removeClass("display_none");
 
         let _Mod = GetModuleCode();
         ModulesOpenPages = ModulesOpenPages.filter(x => x.ModuleCode != _Mod)
-          _Mod = GetModuleCode();
+        _Mod = GetModuleCode();
         Set_Refresh(_Mod);
     }
 
@@ -3843,14 +3845,14 @@ function Digits(_number: number, FractionDigits?: number): string {
     }
 }
 
-var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>(); 
+var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
 var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;
 }
- 
+
 function GetGlopelDataUser(): Array<G_USERS> {
     return GlopelUSERS;
 }
@@ -3859,7 +3861,7 @@ function GetGlopelDataUser(): Array<G_USERS> {
 function SetGlopelDataInvoice(Send_Invoices: Array<Vnd_Inv_SlsMan>) {
     GlopelInvoices = Send_Invoices;
 }
- 
+
 function SetGlopelDataInvoiceItems(Send_InvoiceItems: Array<Sls_InvoiceItem>) {
     GlopelInvoiceItems = Send_InvoiceItems;
 }
@@ -3874,11 +3876,11 @@ function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
 
 function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, StatusDesc: string, OnSuccess?: () => void) {
     let sys = new SystemTools;
-    var Env = GetSystemEnvironment(); 
+    var Env = GetSystemEnvironment();
     Ajax.CallsyncSave({
         type: "Get",
         url: sys.apiUrl("SlsInvoice", "UpdateInvStatus"),
-        data: { CompCode: Env.CompCode, BranchCode: Env.BranchCode, InvoiceID: _InvoiceID, SlsManID: SlsManID, Status: Status, UserCode: Env.UserCode ,StatusDesc: StatusDesc },
+        data: { CompCode: Env.CompCode, BranchCode: Env.BranchCode, InvoiceID: _InvoiceID, SlsManID: SlsManID, Status: Status, UserCode: Env.UserCode, StatusDesc: StatusDesc },
         success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess == true) {
@@ -3890,13 +3892,12 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
                 $("#View_Status" + Status).addClass("is-active");
                 ShowMessage('Done ✅')
                 OnSuccess();
-                Close_Loder(); 
+                Close_Loder();
             } else {
-                Close_Loder(); 
+                Close_Loder();
             }
         }
     });
-     
+
 }
 
- 

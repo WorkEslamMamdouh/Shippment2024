@@ -2845,47 +2845,49 @@ function OpenPage(moduleCode) {
 function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2) {
     debugger;
     Show_Loder();
-    var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
-    if (Page.length > 0) {
-        CounterPage++;
-        var _OpenPages = new OpenPages();
-        _OpenPages.ModuleCode = moduleCode;
-        ModulesOpenPages.push(_OpenPages);
-        debugger;
-        Set_Refresh(moduleCode);
-        //*************************************************************************
-        //$('#btn_Logout').addClass("display_none");
-        $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
-        $('#htmlContainer').addClass("display_none");
-        $('.Page_Partial').addClass("display_none");
-        $('#Partial_' + CounterPage).html(Page[0].Page_Html);
-        $('#Partial_' + CounterPage).removeClass("display_none");
-        //$('#Partial_' + CounterPage).addClass('animate__animated animate__pulse');
-        setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__pulse'); }, 800);
-        $('#Back_Page').removeClass("display_none");
-        $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
-        localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
-        $(window).scrollTop(0);
-        debugger;
-        if (OnDisplay_Back1 != null) {
-            OnDisplay_Back1();
-            $("#Display_Back_Page").on('click', function () {
-                debugger;
+    setTimeout(function () {
+        var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
+        if (Page.length > 0) {
+            CounterPage++;
+            var _OpenPages = new OpenPages();
+            _OpenPages.ModuleCode = moduleCode;
+            ModulesOpenPages.push(_OpenPages);
+            debugger;
+            Set_Refresh(moduleCode);
+            //*************************************************************************
+            //$('#btn_Logout').addClass("display_none");
+            $('#btn_Logout').attr("style", "will-change: transform, opacity;animation-duration: 1000ms;visibility: hidden;");
+            $('#htmlContainer').addClass("display_none");
+            $('.Page_Partial').addClass("display_none");
+            $('#Partial_' + CounterPage).html(Page[0].Page_Html);
+            $('#Partial_' + CounterPage).removeClass("display_none");
+            //$('#Partial_' + CounterPage).addClass('animate__animated animate__pulse');
+            setTimeout(function () { $('#Partial_' + CounterPage).removeClass('animate__animated animate__pulse'); }, 800);
+            $('#Back_Page').removeClass("display_none");
+            $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
+            localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
+            $(window).scrollTop(0);
+            debugger;
+            if (OnDisplay_Back1 != null) {
                 OnDisplay_Back1();
-            });
-        }
-        if (OnDisplay_Back2 != null) {
-            OnDisplay_Back2();
-            $("#Display_Back_Page2").on('click', function () {
-                debugger;
+                $("#Display_Back_Page").on('click', function () {
+                    debugger;
+                    OnDisplay_Back1();
+                });
+            }
+            if (OnDisplay_Back2 != null) {
                 OnDisplay_Back2();
-            });
+                $("#Display_Back_Page2").on('click', function () {
+                    debugger;
+                    OnDisplay_Back2();
+                });
+            }
         }
-    }
-    else {
-        Close_Loder();
-        ShowMessage("No Privilage");
-    }
+        else {
+            Close_Loder();
+            ShowMessage("No Privilage");
+        }
+    }, 50);
 }
 function Set_Refresh(moduleCode) {
     var btnhtml = "   <a id=\"Refresh_" + moduleCode + "\" style=\"\" class=\"Refresh_" + moduleCode + "\">Refresh</a>";

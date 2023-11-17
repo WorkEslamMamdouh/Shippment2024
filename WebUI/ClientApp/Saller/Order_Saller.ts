@@ -305,6 +305,7 @@ namespace Order_Saller {
         Header.TotalAmount = Number(ItemTotal.toFixed(2));
         Header.NetAfterVat = Number(ItemTotal.toFixed(2));
         Header.ItemCount = Number(ItemCount);
+        Header.Remark = $('#Txt_Remarks').val().trim();
         Header.TrType = 0;
         Header.CompCode = 1;
         Header.BranchCode = 1;

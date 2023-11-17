@@ -26,11 +26,11 @@ var Login;
         Event_key('Enter', 'txtUsername', 'Submit_Login');
         Event_key('Enter', 'txtPassword', 'Submit_Login');
         Event_key('Enter', 'Reg_Password', 'Submit_Register');
-        setTimeout(function () {
-            USERS = GetGlopelDataUser();
-            USERS.length == 0 ? GetData_Header() : null;
-            Close_Loder();
-        }, 300);
+        //setTimeout(function () {
+        USERS = GetGlopelDataUser();
+        USERS.length == 0 ? GetData_Header() : null;
+        Close_Loder();
+        //}, 300);
         $('#bodyLogin').removeClass('hidden_Control');
     }
     Login.InitalizeComponent = InitalizeComponent;
