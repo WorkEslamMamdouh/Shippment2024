@@ -24,15 +24,15 @@ namespace UserDef {
         InitalizeControls();
         InitializeEvents();
 
-        let User = SysSession.CurrentEnvironment.UserCode;
-        $('#Submit_Update_Profile').html('Add')
+        let User = SysSession.CurrentEnvironment.UserCode; 
+        $('#Submit_Update_Profile').val('Add')
         $('#Usr_UserCode').removeAttr('disabled')
 
         Display_Data();
 
         if (localStorage.getItem("TypePage") == "UserControl") {
             User = localStorage.getItem("UserControl");
-            $('#Submit_Update_Profile').html('Update')
+            $('#Submit_Update_Profile').val('Update')
             $('#Usr_UserCode').attr('disabled', 'disabled')
         }
         _USERS = GetGlopelDataUser()

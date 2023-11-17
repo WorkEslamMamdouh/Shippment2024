@@ -135,7 +135,7 @@ namespace Coding_Items {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'G_STORE', Condition: "" },
+            { NameTable: 'G_STORE', Condition: " IsActive = 1" },
             ]
         DataResult(Table);
         //**************************************************************************************************************
