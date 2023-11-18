@@ -150,6 +150,20 @@ namespace Inv.API.Controllers
             return Ok(new BaseResponse(true));
         }
 
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult UpdateInvTrType(int CompCode, int BranchCode, int InvoiceID , int TrType, string UserCode, string StatusDesc)
+        {
+            
+            string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+            TrType =" + TrType + "  where InvoiceID = " + InvoiceID + "";
+            db.Database.ExecuteSqlCommand(Qury);
+              
+            LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, InvoiceID, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
+            return Ok(new BaseResponse(true));
+        }
+
+
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Coding_Item([FromBody] List<CustomCoding> obj)
         {
@@ -181,7 +195,7 @@ namespace Inv.API.Controllers
         }
 
 
-        [HttpGet, AllowAnonymous]
+        [HttpPost, AllowAnonymous]
         public IHttpActionResult ReturnInvoice([FromBody] CustomCoding obj)
         {
 
@@ -197,9 +211,9 @@ namespace Inv.API.Controllers
                     CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status, CreatedAt, CreatedBy, UpdatedAt,
                     UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
                     ChargeAmount, ItemCount, LineCount, VendorID)
-                    select  TrNo, RefNO, " + obj.InvoiceID + @", " + DateTime.Now.ToString() + @", TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
+                    select  TrNo, RefNO, " + obj.InvoiceID + @", '" + DateTime.Now.ToString() + @"', TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
                     Location, SalesmanId, TotalAmount, VatAmount, VatType, DiscountAmount, DiscountPrc, NetAfterVat, 
-                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  " + DateTime.Now.ToString() + @", " + obj.UserCode + @", UpdatedAt,
+                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  '" + DateTime.Now.ToString() + @"', '" + obj.UserCode + @"', UpdatedAt,
                     UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
                     ChargeAmount, ItemCount, LineCount, VendorID
                     from Sls_Invoice where InvoiceID = " + obj.InvoiceID + " SET @LASTID = @@IDENTITY select @LASTID";
@@ -208,6 +222,7 @@ namespace Inv.API.Controllers
 
                     string Query = @"Update Sls_InvoiceItem set InvoiceID = "+ RetIvoiceID + @" where InvoiceItemID in ("+obj.ItemCode+") ";
 
+                    db.Database.ExecuteSqlCommand(Query);
 
                     ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.CompCode), obj.BranchCode, RetIvoiceID, "InvRet", "Add", db);
                     if (res.ResponseState == true)

@@ -11,7 +11,7 @@ var Return_Items;
     var _InvoiceItems = new Array();
     var _Inv = new Vnd_Inv_SlsMan();
     var _InvItems = new Array();
-    var _ItemsCodes = new Array();
+    var _Model = new ItemsCodes();
     var txtSearch;
     var Coding_Confirm;
     var InvoiceID = 0;
@@ -29,7 +29,7 @@ var Return_Items;
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
-        Coding_Confirm.onclick = Coding_Confirm_onclick;
+        Coding_Confirm.onclick = Confirm_onclick;
     }
     function InitializeGrid() {
         _GridItems.ElementName = "_GridItems";
@@ -55,6 +55,15 @@ var Return_Items;
                     return txt;
                 }
             },
+            { title: "Price", css: "ColumPadding", name: "Unitprice", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    txt.innerHTML = item.Unitprice.toString();
+                    txt.style.textAlign = "center";
+                    txt.style.backgroundColor = "#f0f8ff";
+                    return txt;
+                }
+            },
             {
                 title: "Chack Item",
                 itemTemplate: function (s, item) {
@@ -66,12 +75,22 @@ var Return_Items;
                     txt.style.width = "20px";
                     txt.style.height = "35px";
                     txt.onclick = function (e) {
+                        if (txt.checked == true) {
+                            $('#txtItemRemark' + item.InvoiceItemID).attr('disabled', 'disabled');
+                            $('#txtItemRemark' + item.InvoiceItemID).val('');
+                        }
+                        else {
+                            $('#txtItemRemark' + item.InvoiceItemID).removeAttr('disabled');
+                            $('#txtItemRemark' + item.InvoiceItemID).val('');
+                            $('#txtItemRemark' + item.InvoiceItemID).focus();
+                        }
+                        CompletTotalGrid();
                     };
                     return txt;
                 }
             },
             {
-                title: "Remark", css: "ColumPadding", name: "Remark", width: "100px",
+                title: "Remark", css: "ColumPadding", name: "Remark", width: "100px", visible: false,
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "text";
@@ -79,6 +98,7 @@ var Return_Items;
                     txt.className = "Clear_Header u-input u-input-rectangle";
                     txt.style.textAlign = "center";
                     txt.id = "txtItemRemark" + item.InvoiceItemID;
+                    txt.disabled = true;
                     txt.onchange = function (e) {
                     };
                     return txt;
@@ -110,60 +130,65 @@ var Return_Items;
         debugger;
         _GridItems.DataSource = _InvItems;
         _GridItems.Bind();
-        $('#Txt_Total_LineCountCoding').val(_InvItems.length);
-        //$('#Txt_Total_Amount').val(SumValue(_InvItems, "NetAfterVat", 1));
+        CompletTotalGrid();
     }
-    //**************************************************Valid*******************************************
-    function Valid_Item() {
-        debugger;
-        for (var i = 0; i < _GridItems.DataSource.length; i++) {
-            debugger;
-            if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val().trim() == '') {
-                Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID), 'Please a Enter Item Code 😡');
-                return false;
+    function CompletTotalGrid() {
+        var Txt_Item_Total = 0;
+        var Net_Total = 0;
+        var Net_TotalReturn = 0;
+        for (var i = 0; i < _InvItems.length; i++) {
+            var ChkView = document.getElementById("ChkView" + _InvItems[i].InvoiceItemID);
+            if (ChkView.checked == true) {
+                Txt_Item_Total = Txt_Item_Total + (_InvItems[i].SoldQty * _InvItems[i].Unitprice);
             }
-            if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val() == '0') {
-                Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID), 'Please a Enter Item Code 😡');
-                return false;
+            else {
+                Net_TotalReturn = Net_TotalReturn + (_InvItems[i].SoldQty * _InvItems[i].Unitprice);
             }
         }
-        if ($('#db_Store').val() == 'null') {
-            Errorinput($('#db_Store'), 'Please a Select Store 😡');
-            return false;
-        }
-        return true;
+        $('#Txt_Total_LineCountCoding').val(_InvItems.length);
+        $('#Txt_Net_TotalRet').val(Digits(Net_TotalReturn, 1));
+        $('#Txt_Item_Total').val(Digits(Txt_Item_Total, 1));
+        $('#Txt_VatAmount').val(_Inv.VatAmount);
+        $('#Txt_CommitionAmount').val(_Inv.CommitionAmount);
+        $('#Txt_Net_Total').val(Digits(Number((Txt_Item_Total + _Inv.CommitionAmount + _Inv.VatAmount).toFixed(2)), 1));
     }
     function Assign() {
         debugger;
-        _ItemsCodes = new Array();
+        _Model = new ItemsCodes;
+        _Model.InvoiceID = _Inv.InvoiceID;
+        _Model.UserCode = SysSession.CurrentEnvironment.UserCode;
+        _Model.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
+        _Model.BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
+        var IDItems = '';
+        var Frist = true;
         for (var i = 0; i < _GridItems.DataSource.length; i++) {
-            var _Model = new ItemsCodes;
-            _Model.ItemCode = $('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val();
-            _Model.InvoiceID = _GridItems.DataSource[i].InvoiceID;
-            _Model.InvoiceItemID = _GridItems.DataSource[i].InvoiceItemID;
-            _Model.StoreID = Number($('#db_Store').val());
-            _Model.UserCode = SysSession.CurrentEnvironment.UserCode;
-            _Model.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
-            _Model.BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
-            _ItemsCodes.push(_Model);
+            var ChkView = document.getElementById("ChkView" + _InvItems[i].InvoiceItemID);
+            if (ChkView.checked == false) {
+                _InvItems[i].InvoiceItemID;
+                if (Frist == true) {
+                    IDItems = IDItems + _InvItems[i].InvoiceItemID.toString();
+                    Frist = false;
+                }
+                else {
+                    IDItems = IDItems + ',' + _InvItems[i].InvoiceItemID.toString();
+                }
+            }
         }
+        _Model.ItemCode = IDItems;
     }
-    function Coding_Confirm_onclick() {
-        if (!Valid_Item()) {
-            return false;
-        }
+    function Confirm_onclick() {
         Assign();
         try {
             Ajax.CallsyncSave({
                 type: "Post",
-                url: sys.apiUrl("SlsInvoice", "Coding_Item"),
-                data: JSON.stringify(_ItemsCodes),
+                url: sys.apiUrl("SlsInvoice", "ReturnInvoice"),
+                data: JSON.stringify(_Model),
                 success: function (d) {
                     debugger;
                     var result = d;
                     if (result.IsSuccess) {
                         debugger;
-                        ShowMessage("Updated 😍");
+                        ShowMessage("Done 😍");
                         $("#Display_Back_Page2").click();
                         $('#Back_Page').click();
                         Close_Loder();

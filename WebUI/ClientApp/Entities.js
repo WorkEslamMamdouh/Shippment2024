@@ -7288,7 +7288,7 @@ var ItemsCodes = /** @class */ (function () {
         this.InvoiceID = 0;
         this.InvoiceItemID = 0;
         this.StoreID = 0;
-        this.ItemCode = 0;
+        this.ItemCode = '';
     }
     return ItemsCodes;
 }());

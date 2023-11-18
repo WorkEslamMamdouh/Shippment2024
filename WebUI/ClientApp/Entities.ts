@@ -12386,7 +12386,7 @@ class ItemsCodes {
 		this.InvoiceID = 0;
 		this.InvoiceItemID = 0;
 		this.StoreID = 0;
-		this.ItemCode = 0;
+		this.ItemCode = '';
 	}
 	public CompCode: number;
 	public BranchCode: number;
@@ -12394,5 +12394,5 @@ class ItemsCodes {
 	public InvoiceID: number;
 	public InvoiceItemID: number;
 	public StoreID: number;
-	public ItemCode: number;
+	public ItemCode: string;
 }

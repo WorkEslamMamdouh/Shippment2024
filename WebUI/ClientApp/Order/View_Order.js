@@ -21,6 +21,7 @@ var View_Order;
     var btn_Receiving_Order;
     var btn_Active;
     var btn_Return;
+    var btn_Return_All_Order;
     var InvoiceID = 0;
     function InitalizeComponent() {
         var _USERS = GetGlopelDataUser();
@@ -56,6 +57,7 @@ var View_Order;
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order');
         btn_Active = document.getElementById('btn_Active');
         btn_Return = document.getElementById('btn_Return');
+        btn_Return_All_Order = document.getElementById('btn_Return_All_Order');
     }
     function InitializeEvents() {
         btn_Delete.onclick = btn_Delete_onclick;
@@ -70,6 +72,7 @@ var View_Order;
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick;
         btn_Active.onclick = btn_Active_onclick;
         btn_Return.onclick = btn_Return_onclick;
+        btn_Return_All_Order.onclick = btn_Return_All_Order_onclick;
     }
     function Display_information_Inv() {
         $("._clearSta").removeClass("is-active");
@@ -168,6 +171,26 @@ var View_Order;
     function btn_Return_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
         OpenPagePartial("Return_Items", "Return Items", null, function () { Display_Refrsh(); });
+    }
+    function btn_Return_All_Order_onclick() {
+        var StatusDesc = 'Return All Order ( ' + _Inv.RefNO + ' )';
+        Ajax.CallsyncSave({
+            type: "Get",
+            url: sys.apiUrl("SlsInvoice", "UpdateInvTrType"),
+            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), InvoiceID: InvoiceID, TrType: 1, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess == true) {
+                    ShowMessage('Done ✅');
+                    $('#Back_Page').click();
+                    $("#Display_Back_Page").click();
+                    Close_Loder();
+                }
+                else {
+                    Close_Loder();
+                }
+            }
+        });
     }
     var Run_Fun = false;
     function Display_Refrsh() {

@@ -24,6 +24,7 @@ namespace View_Order {
     var btn_Receiving_Order: HTMLButtonElement;
     var btn_Active: HTMLButtonElement;
     var btn_Return: HTMLButtonElement;
+    var btn_Return_All_Order: HTMLButtonElement;
 
 
     var InvoiceID = 0;
@@ -68,6 +69,7 @@ namespace View_Order {
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order') as HTMLButtonElement;
         btn_Active = document.getElementById('btn_Active') as HTMLButtonElement;
         btn_Return = document.getElementById('btn_Return') as HTMLButtonElement;
+        btn_Return_All_Order = document.getElementById('btn_Return_All_Order') as HTMLButtonElement;
     }
     function InitializeEvents() {
         btn_Delete.onclick = btn_Delete_onclick
@@ -82,6 +84,7 @@ namespace View_Order {
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick
         btn_Active.onclick = btn_Active_onclick
         btn_Return.onclick = btn_Return_onclick
+        btn_Return_All_Order.onclick = btn_Return_All_Order_onclick
     }
 
     function Display_information_Inv() {
@@ -203,7 +206,28 @@ namespace View_Order {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
         OpenPagePartial("Return_Items", "Return Items", null, () => { Display_Refrsh() });
     }
-     
+    function btn_Return_All_Order_onclick() {
+  
+        let StatusDesc = 'Return All Order ( ' + _Inv.RefNO + ' )';
+        Ajax.CallsyncSave({
+            type: "Get",
+            url: sys.apiUrl("SlsInvoice", "UpdateInvTrType"),
+            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), InvoiceID: InvoiceID, TrType: 1, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+
+               
+                    ShowMessage('Done ✅')
+                    $('#Back_Page').click();
+                    $("#Display_Back_Page").click();
+                    Close_Loder();
+                } else {
+                    Close_Loder();
+                }
+            }
+        });
+    }
     var Run_Fun = false;
     function Display_Refrsh() {
         if (!Run_Fun) {
