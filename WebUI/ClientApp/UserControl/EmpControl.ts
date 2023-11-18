@@ -124,7 +124,7 @@ namespace EmpControl {
     }          
     function ViewUser(item: GQ_USERS) {
         debugger
-       
+        $("#Open").focus();
         localStorage.setItem("TypePage", "UserControl");
         localStorage.setItem("UserControl", item.USER_CODE);
         OpenPagePartial("UserDef", "UserDef 👤", () => { Display_Refrsh() }); 

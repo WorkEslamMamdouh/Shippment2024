@@ -13,6 +13,7 @@ var Login;
     var txtUsername;
     var txtPassword;
     function InitalizeComponent() {
+        localStorage.setItem("TypeUser", "2");
         $('#bodyLogin').addClass('hidden_Control');
         var today = new Date();
         var yyyy = today.getFullYear();
@@ -32,6 +33,15 @@ var Login;
         Close_Loder();
         //}, 300);
         $('#bodyLogin').removeClass('hidden_Control');
+        var TypeUser = localStorage.getItem("TypeUser");
+        if (TypeUser == '2') {
+            $('._rgstr').removeClass('hidden_Control');
+            $('._ready').addClass('hidden_Control');
+        }
+        else {
+            $('._ready').removeClass('hidden_Control');
+            $('._rgstr').addClass('hidden_Control');
+        }
     }
     Login.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

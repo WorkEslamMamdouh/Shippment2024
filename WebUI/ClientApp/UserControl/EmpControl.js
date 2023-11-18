@@ -114,6 +114,7 @@ var EmpControl;
     }
     function ViewUser(item) {
         debugger;
+        $("#Open").focus();
         localStorage.setItem("TypePage", "UserControl");
         localStorage.setItem("UserControl", item.USER_CODE);
         OpenPagePartial("UserDef", "UserDef 👤", function () { Display_Refrsh(); });

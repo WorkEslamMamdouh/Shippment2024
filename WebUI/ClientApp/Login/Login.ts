@@ -19,6 +19,8 @@ namespace Login {
     var txtPassword: HTMLInputElement;
 
     export function InitalizeComponent() {
+        localStorage.setItem("TypeUser", "2")
+
         $('#bodyLogin').addClass('hidden_Control');
         var today: Date = new Date();
         var yyyy = today.getFullYear();
@@ -27,28 +29,33 @@ namespace Login {
         SystemEnv.CompCode = $('#CompCode').val();
         SystemEnv.BranchCode = $('#BranchCode').val();
         SystemEnv.CompanyName = $('#CompanyName').val();
-       
-
-
+        
         InitalizeControls();
         InitializeEvents();
-
-
-        Event_key('Enter', 'txtUsername', 'Submit_Login');
-
-        Event_key('Enter', 'txtPassword', 'Submit_Login');
-
-        Event_key('Enter', 'Reg_Password', 'Submit_Register');
+         
+        Event_key('Enter' , 'txtUsername' , 'Submit_Login'); 
+        Event_key('Enter' , 'txtPassword' , 'Submit_Login'); 
+        Event_key('Enter' , 'Reg_Password', 'Submit_Register');
 
         //setTimeout(function () {
             USERS = GetGlopelDataUser();
             USERS.length == 0 ? GetData_Header() : null
             Close_Loder();
         //}, 300);
-      
-
+       
         $('#bodyLogin').removeClass('hidden_Control');
-
+         
+        let TypeUser = localStorage.getItem("TypeUser");
+        if (TypeUser == '2')
+        {
+            $('._rgstr').removeClass('hidden_Control')
+            $('._ready').addClass('hidden_Control')
+        }
+        else
+        {
+            $('._ready').removeClass('hidden_Control')
+            $('._rgstr').addClass('hidden_Control')
+        } 
     }
     function InitalizeControls() {
         rgstr_button = document.getElementById("rgstr_button") as HTMLButtonElement;
