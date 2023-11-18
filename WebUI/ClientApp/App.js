@@ -498,7 +498,6 @@ var Ajax = {
             cache: false,
             async: false,
             success: function (d) {
-                debugger;
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -556,7 +555,6 @@ var Ajax = {
             cache: false,
             async: false,
             success: function (d) {
-                debugger;
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -617,7 +615,6 @@ var Ajax = {
                     cache: false,
                     async: false,
                     success: function (d) {
-                        debugger;
                         var result = JSON.parse(d);
                         settings.success(result, "", null);
                         $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -683,7 +680,6 @@ var Ajax = {
             cache: false,
             async: false,
             success: function (d) {
-                debugger;
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -1030,7 +1026,6 @@ var DocumentActions = {
 };
 function FillDropwithAttr(Datasource, InputID, Value, TextField, DefaultText, Attrname, AttrValue) {
     if (DefaultText === void 0) { DefaultText = ""; }
-    debugger;
     $('#' + InputID + '').empty();
     if (DefaultText != "No") {
         if (DefaultText != "") {
@@ -1450,7 +1445,6 @@ var CodeDesciptionModel = /** @class */ (function () {
 function WorningMessage(msg_Ar, msg_En, tit_ar, tit_en, OnOk) {
     if (tit_ar === void 0) { tit_ar = "تنبيه"; }
     if (tit_en === void 0) { tit_en = "Worning"; }
-    debugger;
     var Env = GetSystemEnvironment();
     switch (Env.ScreenLanguage) {
         case "ar":
@@ -1592,7 +1586,6 @@ function Errorinput(input, TxtMessage) {
     }
 }
 function fractionInput(input) {
-    debugger;
     var id = '';
     if (input.selector != null) {
         id = input.selector;
@@ -2405,7 +2398,6 @@ function GetSerialNumber() {
     return "";
 }
 function isDateValidInYear(dateString, year) {
-    debugger;
     var date = new Date(dateString);
     // Check if the date is valid
     var isValidDate = /*!isNaN(date) &&*/ date.toString() !== "Invalid Date" && date.toISOString().slice(0, 10) === dateString;
@@ -2554,7 +2546,6 @@ function OpenScreen(UserCode, compcode, BranchCode, ModuleCode, FinYear) {
     });
 }
 function LoginOpen(UserCode, compcode, BranchCode, ModuleCode, FinYear, InOrOut) {
-    debugger;
     var sys = new SystemTools();
     Ajax.CallAsync({
         type: "GET",
@@ -2584,12 +2575,11 @@ function Event_key(key, Nameinput, NameBtnEvent) {
     });
 }
 function CopyRowGrid(DataList, Key, value) {
-    debugger;
     var flagNewH;
     flagNewH = false;
     var NewModel = new Array();
     for (var i = 0; i < DataList.length; i++) {
-        debugger;
+        ;
         NewModel.push(DataList[i]);
         if (flagNewH == true) {
             if (NewModel[i].StatusFlag != 'i' && NewModel[i].StatusFlag != 'd' && NewModel[i].StatusFlag != 'm') {
@@ -2614,7 +2604,6 @@ function CleaningList_Table() {
     globle_Table = new Array();
 }
 function DataResult(Table) {
-    debugger;
     CleaningList_Table();
     var sys = new SystemTools;
     globle_Table = Table;
@@ -2625,7 +2614,6 @@ function DataResult(Table) {
         success: function (d) {
             var result = d;
             if (result.IsSuccess) {
-                debugger;
                 List_Table = result.Response;
                 return List_Table;
             }
@@ -2634,7 +2622,6 @@ function DataResult(Table) {
     return List_Table;
 }
 function GetDataTable(NameTable) {
-    debugger;
     var table;
     for (var i = 0; i < globle_Table.length; i++) {
         if (globle_Table[i].NameTable == NameTable) {
@@ -2645,7 +2632,6 @@ function GetDataTable(NameTable) {
     return table;
 }
 function GetAllData(Table) {
-    debugger;
     var sys = new SystemTools;
     var List_Table = new Array();
     Ajax.Callsync({
@@ -2664,7 +2650,6 @@ function GetAllData(Table) {
     return List_Table;
 }
 function BuildAllFild(dataSource, cnt, NameRow) {
-    debugger;
     dataSource = getClass(dataSource.name);
     var properties = Object.getOwnPropertyNames(dataSource);
     var html = "";
@@ -2709,11 +2694,8 @@ function hideToast(toastElement) {
     });
 }
 function CheckDuplicateGrid(Cnt, CountGrid, inputName, StatusInput) {
-    debugger;
     for (var i = 0; i < CountGrid; i++) {
-        debugger;
         if ($('#' + inputName + '' + i + '').val().trim() == $('#' + inputName + '' + Cnt + '').val().trim() && ($('#' + StatusInput + '' + i + '').val() != "m" && $('#' + StatusInput + '' + i + '').val() != "d") && Cnt != i) {
-            debugger;
             $('#' + inputName + '' + Cnt + '').val("");
             $('#' + inputName + '' + i + '').addClass('text_Mandatory');
             $('#' + inputName + '' + Cnt + '').addClass('text_Mandatory');
@@ -2737,7 +2719,6 @@ function DisplayBuildControls(dataSource, cnt) {
     }
 }
 function AssignBuildControls(dataSource, CountGrid) {
-    debugger;
     var dataSourceName = getClass(dataSource.name);
     var DetailsModel = new Array();
     var StatusFlag = "StatusFlag";
@@ -2802,16 +2783,13 @@ var _AllPages = new Array();
 var ModulesOpenPages = new Array();
 var CounterPage = 0;
 function GetModuleCode() {
-    debugger;
     return ModulesOpenPages[ModulesOpenPages.length - 1].ModuleCode.toString();
 }
 function GetAllPages() {
-    debugger;
     $.ajax({
         url: Url.Action("GetAllView", "Home"),
         type: 'GET',
         success: function (htmlContent) {
-            debugger;
             _AllPages = new Array();
             _AllPages = JSON.parse(htmlContent);
             // Display the HTML content in a container element
@@ -2843,7 +2821,6 @@ function OpenPage(moduleCode) {
     }
 }
 function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2) {
-    debugger;
     Show_Loder();
     setTimeout(function () {
         var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
@@ -2852,7 +2829,6 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
             var _OpenPages = new OpenPages();
             _OpenPages.ModuleCode = moduleCode;
             ModulesOpenPages.push(_OpenPages);
-            debugger;
             Set_Refresh(moduleCode);
             //*************************************************************************
             //$('#btn_Logout').addClass("display_none");
@@ -2867,18 +2843,15 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
             $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
             localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
             $(window).scrollTop(0);
-            debugger;
             if (OnDisplay_Back1 != null) {
                 OnDisplay_Back1();
                 $("#Display_Back_Page").on('click', function () {
-                    debugger;
                     OnDisplay_Back1();
                 });
             }
             if (OnDisplay_Back2 != null) {
                 OnDisplay_Back2();
                 $("#Display_Back_Page2").on('click', function () {
-                    debugger;
                     OnDisplay_Back2();
                 });
             }
@@ -2895,7 +2868,6 @@ function Set_Refresh(moduleCode) {
     setInterval(function () { $(".Refresh_" + moduleCode).click(); }, 12000);
 }
 function Back_Page_Partial() {
-    debugger;
     localStorage.setItem("TypePage", "");
     if (CounterPage == 0) {
         return;
@@ -2980,7 +2952,6 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
         success: function (d) {
             var result = d;
             if (result.IsSuccess == true) {
-                debugger;
                 if (Status < 0) {
                     Status = 0;
                 }

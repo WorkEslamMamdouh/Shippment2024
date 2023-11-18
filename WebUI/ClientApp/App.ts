@@ -692,7 +692,7 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                debugger
+                
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -768,7 +768,7 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                debugger
+                
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -846,7 +846,7 @@ var Ajax = {
                     cache: false,
                     async: false,
                     success: (d) => {
-                        debugger
+                        
                         var result = JSON.parse(d);
                         settings.success(result, "", null);
                         $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -929,7 +929,7 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                debugger
+                
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -1351,7 +1351,7 @@ var DocumentActions = {
 };
 
 function FillDropwithAttr(Datasource: Array<any>, InputID: string, Value: string, TextField, DefaultText = "", Attrname: string, AttrValue: string) {
-    debugger
+    
     $('#' + InputID + '').empty();
     if (DefaultText != "No") {
         if (DefaultText != "") {
@@ -1870,7 +1870,7 @@ class CodeDesciptionModel {
 }
 
 function WorningMessage(msg_Ar: string, msg_En: string, tit_ar: string = "تنبيه", tit_en: string = "Worning", OnOk?: () => void) {
-    debugger
+    
     var Env = GetSystemEnvironment();
     switch (Env.ScreenLanguage) {
 
@@ -2037,7 +2037,7 @@ function Errorinput(input: any, TxtMessage?: string) {
 
 function fractionInput(input: any) {
 
-    debugger
+    
 
     var id = '';
     if (input.selector != null) {
@@ -3122,7 +3122,7 @@ function GetSerialNumber(): string {
 }
 
 function isDateValidInYear(dateString, year) {
-    debugger
+    
     const date = new Date(dateString);
 
     // Check if the date is valid
@@ -3330,7 +3330,7 @@ function OpenScreen(UserCode: string, compcode: string, BranchCode: string, Modu
     });
 }
 function LoginOpen(UserCode: string, compcode: string, BranchCode: string, ModuleCode: string, FinYear: string, InOrOut: number) {
-    debugger
+    
     var sys: SystemTools = new SystemTools();
     Ajax.CallAsync({
         type: "GET",
@@ -3368,13 +3368,13 @@ function Event_key(key: string, Nameinput: string, NameBtnEvent: string) {
 
 function CopyRowGrid(DataList: Array<any>, Key: string, value: any): Array<any> {
 
-    debugger
+    
 
     let flagNewH;
     flagNewH = false
     let NewModel = new Array<any>();
     for (var i = 0; i < DataList.length; i++) {
-        debugger;
+        ;
         NewModel.push(DataList[i])
         if (flagNewH == true) {
             if (NewModel[i].StatusFlag != 'i' && NewModel[i].StatusFlag != 'd' && NewModel[i].StatusFlag != 'm') {
@@ -3410,7 +3410,7 @@ function CleaningList_Table() {
     globle_Table = new Array<Table>();
 }
 function DataResult(Table: Array<Table>): Array<Table_Result> {
-    debugger
+    
     CleaningList_Table();
     let sys = new SystemTools;
     globle_Table = Table;
@@ -3421,7 +3421,7 @@ function DataResult(Table: Array<Table>): Array<Table_Result> {
         success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess) {
-                debugger
+                
                 List_Table = result.Response as Array<Table_Result>;
                 return List_Table;
             }
@@ -3432,7 +3432,7 @@ function DataResult(Table: Array<Table>): Array<Table_Result> {
 }
 
 function GetDataTable(NameTable: string): Array<any> {
-    debugger
+    
     let table;
     for (var i = 0; i < globle_Table.length; i++) {
 
@@ -3448,7 +3448,7 @@ function GetDataTable(NameTable: string): Array<any> {
 
 
 function GetAllData(Table: Array<Table>): Array<Table_Result> {
-    debugger
+    
     let sys = new SystemTools;
     let List_Table: Array<Table_Result> = new Array<Table_Result>();
     Ajax.Callsync({
@@ -3471,7 +3471,7 @@ function GetAllData(Table: Array<Table>): Array<Table_Result> {
 
 
 function BuildAllFild(dataSource: any, cnt: number, NameRow: string) {
-    debugger
+    
     dataSource = getClass(dataSource.name);
     let properties = Object.getOwnPropertyNames(dataSource);
     let html = ``;
@@ -3526,11 +3526,11 @@ function hideToast(toastElement) {
 
 
 function CheckDuplicateGrid(Cnt: number, CountGrid: number, inputName: string, StatusInput: string): boolean {
-    debugger
+    
     for (var i = 0; i < CountGrid; i++) {
-        debugger
+        
         if ($('#' + inputName + '' + i + '').val().trim() == $('#' + inputName + '' + Cnt + '').val().trim() && ($('#' + StatusInput + '' + i + '').val() != "m" && $('#' + StatusInput + '' + i + '').val() != "d") && Cnt != i) {
-            debugger
+            
             $('#' + inputName + '' + Cnt + '').val("")
             $('#' + inputName + '' + i + '').addClass('text_Mandatory');
             $('#' + inputName + '' + Cnt + '').addClass('text_Mandatory');
@@ -3558,7 +3558,7 @@ function DisplayBuildControls(dataSource: any, cnt: number) {
 }
 
 function AssignBuildControls(dataSource: any, CountGrid: number) {
-    debugger
+    
     let dataSourceName = getClass(dataSource.name);
     let DetailsModel = new Array<any>();
     let StatusFlag = "StatusFlag";
@@ -3637,17 +3637,17 @@ var ModulesOpenPages: Array<OpenPages> = new Array<OpenPages>();
 var CounterPage = 0;
 
 function GetModuleCode(): string {
-    debugger
+    
     return ModulesOpenPages[ModulesOpenPages.length - 1].ModuleCode.toString();
 }
 function GetAllPages() {
 
-    debugger
+    
     $.ajax({
         url: Url.Action("GetAllView", "Home"),
         type: 'GET',
         success: function (htmlContent) {
-            debugger
+            
             _AllPages = new Array<AllPages>();
             _AllPages = JSON.parse(htmlContent) as Array<AllPages>;
             // Display the HTML content in a container element
@@ -3691,7 +3691,7 @@ function OpenPage(moduleCode: string) {
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
-    debugger
+    
     Show_Loder();
     setTimeout(function () {
         let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
@@ -3702,7 +3702,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
             _OpenPages.ModuleCode = moduleCode;
             ModulesOpenPages.push(_OpenPages);
 
-            debugger
+            
             Set_Refresh(moduleCode);
 
             //*************************************************************************
@@ -3725,7 +3725,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
 
             $(window).scrollTop(0);
 
-            debugger
+            
             if (OnDisplay_Back1 != null) {
 
                 OnDisplay_Back1();
@@ -3733,7 +3733,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
 
 
                 $("#Display_Back_Page").on('click', function () {
-                    debugger
+                    
                     OnDisplay_Back1()
                 });
             }
@@ -3745,7 +3745,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
 
 
                 $("#Display_Back_Page2").on('click', function () {
-                    debugger
+                    
                     OnDisplay_Back2()
                 });
             }
@@ -3765,7 +3765,7 @@ function Set_Refresh(moduleCode: string) {
     setInterval(() => { $(".Refresh_" + moduleCode).click() }, 12000)
 }
 function Back_Page_Partial() {
-    debugger
+    
 
     localStorage.setItem("TypePage", "");
 
@@ -3884,7 +3884,7 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
         success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess == true) {
-                debugger
+                
                 if (Status < 0) {
                     Status = 0;
                 }
