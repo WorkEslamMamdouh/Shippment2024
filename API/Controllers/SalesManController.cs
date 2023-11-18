@@ -10,7 +10,7 @@ using Inv.DAL.Domain;
 using System.Net;
 using System.Web.Http;
 using System.Web.ModelBinding;
-using System.Data.Common; 
+using System.Data.Common;
 using System.Security.Principal;
 using System.ServiceModel;
 
@@ -30,7 +30,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult InsertSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID , int UserType, string Gender)
+        public IHttpActionResult InsertSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -49,7 +49,7 @@ namespace Inv.API.Controllers
                     string Qury = @"declare @LASTID int 
                         INSERT INTO [dbo].[I_Sls_D_Salesman]
                     ([CompCode],[SalesmanCode],[NAMEA],[NAMEE],[IDNo],[MOBILE],[EMAIL],[Isactive],[CREATED_AT],[WebUserName],[WebPassword]
-                    ,[ADDRESS],ZoneID,CC_Code)VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + ",'"+Gender+"')  SET @LASTID = @@IDENTITY select @LASTID";
+                    ,[ADDRESS],ZoneID,CC_Code)VALUES(N'" + CompCode + "',N'" + randomNumber + Convert.ToInt32(IDNO.Substring(IDNO.Length / 2)) + "',N'" + Name + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + ",'" + Gender + "')  SET @LASTID = @@IDENTITY select @LASTID";
 
                     int SalnID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
 
@@ -81,7 +81,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID,int ZoneID, int UserType, string Gender)
+        public IHttpActionResult UpdateSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -141,7 +141,7 @@ namespace Inv.API.Controllers
 
                     }
                     foreach (var item in UpdatedItems)
-                    { 
+                    {
                         SalesManService.UpdateZone(item);
 
                     }
@@ -168,19 +168,19 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID ,int ZoneID, int UserType, string Gender)
-        { 
+        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender)
+        {
             using (var dbTransaction = db.Database.BeginTransaction())
             {
                 try
                 {
                     Random random = new Random();
-                    string deleteQuery= @"delete G_USERS where USER_CODE='"+ UserName + @"'
-                                          delete G_USER_COMPANY where USER_CODE = '"+ UserName + @"'
-                                          delete G_USER_BRANCH where USER_CODE = '"+ UserName + @"'
-                                          delete G_RoleUsers  where USER_CODE = '"+ UserName + "'";
+                    string deleteQuery = @"delete G_USERS where USER_CODE='" + UserName + @"'
+                                          delete G_USER_COMPANY where USER_CODE = '" + UserName + @"'
+                                          delete G_USER_BRANCH where USER_CODE = '" + UserName + @"'
+                                          delete G_RoleUsers  where USER_CODE = '" + UserName + "'";
                     db.Database.ExecuteSqlCommand(deleteQuery);
-                   
+
                     string Qury = @"INSERT INTO [dbo].[G_USERS]
                     ([CompCode],[USER_NAME],[Fax],[MOBILE],[EMAIL],[USER_ACTIVE],[CreatedAt],[USER_CODE],[USER_PASSWORD]
                     ,[ADDRESS],CashBoxID,USER_TYPE,REGION_CODE)VALUES(N'" + CompCode + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + "," + UserType + ",'" + Gender + "')";
@@ -189,7 +189,7 @@ namespace Inv.API.Controllers
                     var User = "UserAdministrator";
                     if (UserType == 5)
                     {
-                        User = "UserAccount"; 
+                        User = "UserAccount";
                     }
                     if (UserType == 3)
                     {
@@ -200,10 +200,10 @@ namespace Inv.API.Controllers
                         User = "StockMan";
                     }
                     db.GProc_CreateUser(UserName, User);
-                    db.GProc_GenerateUserPrivilage(CompCode, BranchCode, UserName); 
+                    db.GProc_GenerateUserPrivilage(CompCode, BranchCode, UserName);
 
                     dbTransaction.Commit();
-                    return Ok(new BaseResponse(true)); 
+                    return Ok(new BaseResponse(true));
                 }
                 catch (Exception ex)
                 {
@@ -217,7 +217,7 @@ namespace Inv.API.Controllers
 
         }
 
- 
+
         [HttpPost, AllowAnonymous]
         public IHttpActionResult UpdateStores([FromBody] List<G_STORE> obj)
         {
@@ -240,7 +240,33 @@ namespace Inv.API.Controllers
                     {
                         SalesManService.UpdateStore(item);
 
-                    } 
+                    }
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
+
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
+
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult InsertVoucher([FromBody] Voucher_Receipt obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    SalesManService.InsertVoucher(obj);
 
                     dbTransaction.Commit();
                     return Ok(new BaseResponse(true));

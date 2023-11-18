@@ -65,6 +65,22 @@ namespace EmpControl {
             },
             { title: "Job Title", name: "DescA", type: "text", width: "100px" },    
             {
+                title: "Block",
+                itemTemplate: (s: string, item: GQ_USERS): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "checkbox";
+                    txt.id = "ChkView" + item.USER_CODE;
+                    txt.className = "checkbox";
+                    txt.checked = !item.USER_ACTIVE;
+                    txt.style.width = "50px"
+                    txt.style.height = "35px"
+                    txt.onclick = (e) => {
+                        BlockEmp(item.USER_CODE, txt.checked == true ? 0 : 1);
+                    };
+                    return txt;
+                }
+            },
+            {
                 title: "View",
                 itemTemplate: (s: string, item: GQ_USERS): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
@@ -145,5 +161,23 @@ namespace EmpControl {
             return
         }
         GetData_Users();
+    }
+    function BlockEmp(UserCode: string, Active: number) {
+        Ajax.CallsyncSave({
+            type: "Get",
+            url: sys.apiUrl("Seller", "Blockseller"),
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, SellerCode: UserCode, USER_CODE: SysSession.CurrentEnvironment.UserCode, Active: Active },
+            success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    GetData_Users();
+                    Close_Loder();
+                    Active == 0 ? ShowMessage("User Blocked 🤦‍ ") : ShowMessage("User Un Blocked 👍")
+                } else {
+
+                }
+            }
+        });
+
     }
 }

@@ -7291,4 +7291,25 @@ var ItemsCodes = /** @class */ (function () {
     }
     return ItemsCodes;
 }());
+var Voucher_Receipt = /** @class */ (function () {
+    function Voucher_Receipt() {
+        this.ReceiptID = 0;
+        this.CompCode = 0;
+        this.BraCode = 0;
+        this.TrType = 0;
+        this.RefNO = "";
+        this.TrDate = "";
+        this.NameRecipient = "";
+        this.IsCash = false;
+        this.Amount = 0;
+        this.TransferNo = "";
+        this.Status = false;
+        this.Remark = "";
+        this.CreatedAt = "";
+        this.CreatedBy = "";
+        this.UpdatedAt = "";
+        this.UpdatedBy = "";
+    }
+    return Voucher_Receipt;
+}());
 //# sourceMappingURL=Entities.js.map

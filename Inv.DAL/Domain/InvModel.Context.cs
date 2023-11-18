@@ -79,6 +79,7 @@ namespace Inv.DAL.Domain
         public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
         public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
         public virtual DbSet<IQ_ItemCollect> IQ_ItemCollect { get; set; }
+        public virtual DbSet<Voucher_Receipt> Voucher_Receipt { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {

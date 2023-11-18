@@ -10,7 +10,10 @@ namespace Inv.BLL.Services.SalesMan
         Zones UpdateZone(Zones entity);
         void DeleteZone(int id);
         G_STORE InsertStore(G_STORE entity);
-        G_STORE UpdateStore(G_STORE entity); 
+        G_STORE UpdateStore(G_STORE entity);
+
+        Voucher_Receipt InsertVoucher(Voucher_Receipt entity);
+        Voucher_Receipt UpdateVoucher(Voucher_Receipt entity);
 
     }
 }
