@@ -73,6 +73,7 @@ var VoucherPayment;
                 if (result.IsSuccess == true) {
                     $('#Div_Header :Input').val('');
                     $('#Txt_TrData').val(GetDate());
+                    $('#btnAdd').val('Finish');
                     ShowMessage("Done Payment 🤞😉");
                     Close_Loder();
                 }
