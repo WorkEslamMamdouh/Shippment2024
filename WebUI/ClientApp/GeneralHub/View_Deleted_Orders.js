@@ -10,7 +10,6 @@ var View_Deleted_Orders;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var txtSearch;
-    var Filter_Select_Seller;
     var Filter_View;
     var btnDelete_Filter;
     function InitalizeComponent() {
@@ -19,37 +18,25 @@ var View_Deleted_Orders;
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
-        //GetData_Invoice();
+        GetData_Invoice();
         Close_Loder();
         SetRefresh(GetModuleCode());
     }
     View_Deleted_Orders.InitalizeComponent = InitalizeComponent;
     function SetRefresh(moduleCode) {
-        debugger;
-        //$("#Refresh_" + moduleCode).on('click', function () {
-        //    if (Number($('#Txt_VendorID').val()) == 0) {
-        //        return;
-        //    }
-        //    GetData_Invoice()
-        //});
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
-            if (Number($('#Txt_VendorID').val()) == 0) {
-                return;
-            }
             GetData_Invoice();
             // Shows an alert when a dynamically created button is clicked
         });
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
-        Filter_Select_Seller = document.getElementById('Filter_Select_Seller');
         Filter_View = document.getElementById('Filter_View');
         btnDelete_Filter = document.getElementById('btnDelete_Filter');
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
-        Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
         Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
     }
@@ -87,7 +74,7 @@ var View_Deleted_Orders;
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("Recover Invoice 🔁");
+                    txt.value = ("Recover 🔁");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {
@@ -117,19 +104,11 @@ var View_Deleted_Orders;
         debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
         var EndDate = DateFormat($('#Txt_To_Date').val());
-        var Con = "";
-        if (Number($('#Txt_VendorID').val()) != 0) {
-            Con = " and VendorID =" + Number($('#Txt_VendorID').val());
-        }
-        else {
-            Errorinput($('#Filter_Select_Seller'), "Must Select Seller");
-            return;
-        }
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = -1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = -1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = -1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = -1 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "')" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -150,21 +129,9 @@ var View_Deleted_Orders;
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
     }
-    function Filter_Select_Seller_onclick() {
-        sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = -1", function () {
-            debugger;
-            var dataScr = SearchGrid.SearchDataGrid.dataScr;
-            var id = SearchGrid.SearchDataGrid.SelectedKey;
-            dataScr = dataScr.filter(function (x) { return x.VendorID == id; });
-            $('#Txt_VendorID').val(id);
-            Filter_Select_Seller.innerHTML = "( " + dataScr[0].Vnd_Name + " )";
-        });
-    }
     function Clear() {
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
-        $('#Txt_VendorID').val('');
-        Filter_Select_Seller.innerHTML = 'Select Seller';
         $('#btnDelete_Filter').addClass('display_none');
         _Grid.DataSource = New_Invoices;
         _Grid.Bind();
@@ -174,17 +141,8 @@ var View_Deleted_Orders;
     }
     function ViewInvoice(InvoiceID, RefNO) {
         UpdateInvStatus(InvoiceID, 0, 1, 'Recover Invoice ( ' + RefNO + ' )', function () {
-            $('#Back_Page').click();
-            $("#Display_Back_Page").click();
+            GetData_Invoice();
         });
-    }
-    var Run_Fun = false;
-    function Display_Refrsh() {
-        if (!Run_Fun) {
-            Run_Fun = true;
-            return;
-        }
-        GetData_Invoice();
     }
 })(View_Deleted_Orders || (View_Deleted_Orders = {}));
 //# sourceMappingURL=View_Deleted_Orders.js.map

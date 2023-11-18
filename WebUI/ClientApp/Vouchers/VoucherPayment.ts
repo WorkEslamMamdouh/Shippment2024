@@ -36,6 +36,14 @@ namespace VoucherPayment {
         }
     }
     function Add_Reciept() {
+        if ($('#Txt_Ref_No').val().trim() == "") {
+            Errorinput($('#Txt_Ref_No'), "Please Enter Ref No 🤨");
+            return
+        }
+        if ($('#Txt_nameRecipient').val().trim() == "") {
+            Errorinput($('#Txt_nameRecipient'), "Please Enter Name of Recipient 🤨");
+            return
+        }
         if (db_Type.value == "0" && $('#Txt_TransNO').val().trim() == "") {
             Errorinput($('#Txt_TransNO'), "Please Enter Transfer No 🤨");
             return
@@ -44,10 +52,8 @@ namespace VoucherPayment {
             Errorinput($('#Txt_Amount'), "Please Enter Amount 🤨");
             return
         }
-        if ($('#Txt_nameRecipient').val().trim() == "") {
-            Errorinput($('#Txt_nameRecipient'), "Please Enter Name of Recipient 🤨");
-            return
-        }
+        
+       
         Model = new Voucher_Receipt();
         Model.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
         Model.BraCode = Number(SysSession.CurrentEnvironment.BranchCode);
@@ -72,6 +78,7 @@ namespace VoucherPayment {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     $('#Div_Header :Input').val('');
+                    ShowMessage("Insert 🤞😉")
                     Close_Loder();
                 } else {
 
