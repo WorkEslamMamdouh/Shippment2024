@@ -72,6 +72,8 @@ var VoucherReceipt;
                 var result = d;
                 if (result.IsSuccess == true) {
                     $('#Div_Header :Input').val('');
+                    $('#Txt_TrData').val(GetDate());
+                    ShowMessage("Done Receipt 🤞😉");
                     Close_Loder();
                 }
                 else {

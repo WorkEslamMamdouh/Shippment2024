@@ -89,7 +89,7 @@ namespace Edit_Order {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Zones', Condition: "" },
+            { NameTable: 'Zones', Condition: " Active = 1" },
 
             ]
 
