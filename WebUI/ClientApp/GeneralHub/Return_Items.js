@@ -15,6 +15,7 @@ var Return_Items;
     var txtSearch;
     var Coding_Confirm;
     var InvoiceID = 0;
+    var Valid_Ret = 0;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
@@ -161,7 +162,8 @@ var Return_Items;
         _Model.BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         var IDItems = '';
         var Frist = true;
-        for (var i = 0; i < _GridItems.DataSource.length; i++) {
+        Valid_Ret = 0;
+        for (var i = 0; i < _InvItems.length; i++) {
             var ChkView = document.getElementById("ChkView" + _InvItems[i].InvoiceItemID);
             if (ChkView.checked == false) {
                 _InvItems[i].InvoiceItemID;
@@ -172,12 +174,21 @@ var Return_Items;
                 else {
                     IDItems = IDItems + ',' + _InvItems[i].InvoiceItemID.toString();
                 }
+                Valid_Ret++;
             }
         }
         _Model.ItemCode = IDItems;
     }
     function Confirm_onclick() {
         Assign();
+        if (Valid_Ret == _InvItems.length) {
+            ShowMessage("At least one Item must be selected 🤨");
+            return;
+        }
+        if (Valid_Ret == 0) {
+            ShowMessage("At least one Item must be cancelled 🤨");
+            return;
+        }
         try {
             Ajax.CallsyncSave({
                 type: "Post",

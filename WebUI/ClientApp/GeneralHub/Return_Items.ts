@@ -19,6 +19,7 @@ namespace Return_Items {
     var Coding_Confirm: HTMLButtonElement;
 
     var InvoiceID = 0;
+    var Valid_Ret = 0;
     export function InitalizeComponent() {
 
 
@@ -187,7 +188,8 @@ namespace Return_Items {
         _Model.BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         let IDItems = ''
         let Frist = true;
-        for (var i = 0; i < _GridItems.DataSource.length; i++) {
+        Valid_Ret = 0;
+        for (var i = 0; i < _InvItems.length; i++) {
 
             let ChkView = document.getElementById("ChkView" + _InvItems[i].InvoiceItemID) as HTMLInputElement;
             if (ChkView.checked == false) {
@@ -199,13 +201,22 @@ namespace Return_Items {
                 else {
                     IDItems = IDItems +','+ _InvItems[i].InvoiceItemID.toString();
                 }
+                Valid_Ret++;
             }
         } 
         _Model.ItemCode = IDItems; 
     }
-    function  Confirm_onclick() {
-     
+    function  Confirm_onclick() { 
         Assign();
+        if (Valid_Ret == _InvItems.length) {
+            ShowMessage("At least one Item must be selected 🤨");
+            return
+        }
+        if (Valid_Ret == 0) {
+            ShowMessage("At least one Item must be cancelled 🤨");
+            return
+        }
+
         try {
             Ajax.CallsyncSave({
                 type: "Post",
