@@ -222,7 +222,7 @@ namespace Edit_Order {
         $('#Txt_Ref_No').focus()
     }
     //****************************************************** BuildBox and Add Items *****************************************
-    function BuildBox(cnt: number, Name_Item: string, UnitPrice: number, Quantity: number, InvoiceItemID: number, InvoiceID: number, VendorID: number) {
+    function BuildBox(cnt: number, Name_Item: string, UnitPrice: number, Quantity: number, Remark_Item: string, InvoiceItemID: number, InvoiceID: number, VendorID: number) {
         let html = ` <div id="Box_No${cnt}" class="u-container-align-center u-container-style u-list-item u-repeater-item">
                                         <div class="u-container-layout u-similar-container u-container-layout-1">
                                             <div class="u-align-center u-container-style u-products-item u-repeater-item u-white u-repeater-item-1" data-product-id="3">
@@ -254,6 +254,7 @@ namespace Edit_Order {
         $("#ItemTotal" + cnt).val((UnitPrice * Quantity).toFixed(2))
         $("#NetAfterVat" + cnt).val((UnitPrice * Quantity).toFixed(2))
         $("#ItemDescA" + cnt).val(Name_Item)
+        $("#Remark" + cnt).val(Remark_Item)
         $("#InvoiceID" + cnt).val(InvoiceID)
         $("#InvoiceItemID" + cnt).val(InvoiceItemID)
         
@@ -269,7 +270,7 @@ namespace Edit_Order {
             return
         }
 
-        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val(), 0, 0, _Inv.VendorID);
+        BuildBox(CountGrid, $('#Txt_Name_Item').val(), $('#Txt_UnitPrice').val(), $('#Txt_Quantity').val(), $('#Txt_Remarks_Item').val() , 0, 0, _Inv.VendorID);
         $('#StatusFlag' + CountGrid).val("i");
         CountGrid++;
         NumItems++;
@@ -453,7 +454,7 @@ namespace Edit_Order {
     function Display_BuildBox() {
 
         for (var i = 0; i < _InvItems.length; i++) { 
-            BuildBox(CountGrid, _InvItems[i].ItemDescA, _InvItems[i].Unitprice, _InvItems[i].SoldQty, _InvItems[i].InvoiceItemID, _InvItems[i].InvoiceID, Number(_Inv.VendorID));
+            BuildBox(CountGrid, _InvItems[i].ItemDescA, _InvItems[i].Unitprice, _InvItems[i].SoldQty,_InvItems[i].Remark, _InvItems[i].InvoiceItemID, _InvItems[i].InvoiceID, Number(_Inv.VendorID));
             $('#StatusFlag' + CountGrid).val("");
             CountGrid++;
             NumItems++; 
