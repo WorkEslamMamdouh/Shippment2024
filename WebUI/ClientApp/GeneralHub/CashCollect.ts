@@ -8,16 +8,20 @@ namespace CashCollect {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
     var _Grid: JsGrid = new JsGrid();
+    var _Grid_Ret: JsGrid = new JsGrid();
 
     var New_Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
-
+    var _Invs;
+    var _Invs_Ret;
     var txtSearch: HTMLInputElement;
+    var txtSearchRet: HTMLInputElement;
     var Filter_Select_Delivery: HTMLButtonElement;
     var Filter_View: HTMLButtonElement;
     var btnDelete_Filter: HTMLButtonElement;
-
+    var Inv_Confirm: HTMLButtonElement;
+    var SalesmanId = 0;
     export function InitalizeComponent() {
 
 
@@ -26,21 +30,26 @@ namespace CashCollect {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
+        InitializeGrid_Ret();
         //GetData_Invoice();
         Close_Loder();
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
+        txtSearchRet = document.getElementById('txtSearchRet') as HTMLInputElement;
         Filter_Select_Delivery = document.getElementById('Filter_Select_Delivery') as HTMLButtonElement;
         Filter_View = document.getElementById('Filter_View') as HTMLButtonElement;
         btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement;
+        Inv_Confirm = document.getElementById('Inv_Confirm') as HTMLButtonElement;
     }
     function InitializeEvents() {
 
         txtSearch.onkeyup = _SearchBox_Change;
+        txtSearchRet.onkeyup = _SearchBoxRet_Change;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_Invoice;
         btnDelete_Filter.onclick = Clear;
+        Inv_Confirm.onclick = Inv_Confirm_Onclick;
     }
     function InitializeGrid() {
         _Grid.ElementName = "_Grid";
@@ -65,10 +74,10 @@ namespace CashCollect {
                     txt.innerHTML = DateFormat(item.TrDate);
                     return txt;
                 }
-            },
-            { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
-            { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
-            { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
+            }, 
+            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
+            { title: "CustomerMobile1", name: "Vnd_Name", type: "text", width: "100px" },
+            { title: "Address", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
@@ -76,7 +85,7 @@ namespace CashCollect {
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("Review");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 
@@ -88,6 +97,53 @@ namespace CashCollect {
             },
         ];
         _Grid.Bind();
+
+    }
+    function InitializeGrid_Ret() {
+        _Grid_Ret.ElementName = "_Grid_Ret";
+        _Grid_Ret.PrimaryKey = "TRID";
+        _Grid_Ret.Paging = true;
+        _Grid_Ret.PageSize = 15;
+        _Grid_Ret.Sorting = true;
+        _Grid_Ret.InsertionMode = JsGridInsertionMode.Binding;
+        _Grid_Ret.Editing = false;
+        _Grid_Ret.Inserting = false;
+        _Grid_Ret.SelectedIndex = 1;
+        _Grid_Ret.OnItemEditing = () => { };
+        _Grid_Ret.Columns = [
+            { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
+            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
+            {
+                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
+                    let txt: HTMLLabelElement = document.createElement("label");
+                    txt.innerHTML = DateFormat(item.TrDate);
+                    return txt;
+                }
+            },
+            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
+            { title: "CustomerMobile1", name: "Vnd_Name", type: "text", width: "100px" },
+            { title: "Address", name: "Vnd_Mobile", type: "text", width: "100px" },
+            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
+            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            {
+                title: "View",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("Review");
+                    txt.id = "butView" + item.InvoiceID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+
+                    txt.onclick = (e) => {
+                        ViewInvoice(item.InvoiceID);
+                    };
+                    return txt;
+                }
+            },
+        ];
+        _Grid_Ret.Bind();
 
     }
     function _SearchBox_Change() {
@@ -104,6 +160,20 @@ namespace CashCollect {
             _Grid.Bind();
         }
     }
+    function _SearchBoxRet_Change() {
+        $("#_Grid_Ret").jsGrid("option", "pageIndex", 1);
+
+        if (txtSearch.value != "") {
+            let search: string = txtSearch.value.toLowerCase();
+            let SearchDetails = _Invoices.filter(x => x.InvoiceID.toString().search(search) >= 0 || x.CustomerName.toLowerCase().search(search) >= 0 || x.RefNO.toLowerCase().search(search) >= 0 || x.CustomerMobile1.toLowerCase().search(search) >= 0 || x.NetAfterVat.toString().search(search) >= 0);
+
+            _Grid_Ret.DataSource = SearchDetails;
+            _Grid_Ret.Bind();
+        } else {
+            _Grid_Ret.DataSource = _Invoices;
+            _Grid_Ret.Bind();
+        }
+    }
     function GetData_Invoice() {
         CleaningList_Table();
         debugger
@@ -111,17 +181,17 @@ namespace CashCollect {
         let EndDate = DateFormat($('#Txt_To_Date').val());
         let Con = "";
         if (Number($('#Txt_SalesmanId').val()) != 0) {
-            Con = " and SalesmanId =" + Number($('#Txt_SalesmanId').val());
+            Con = " and ( SalesmanId =" + Number($('#Txt_SalesmanId').val()) + " )";
         }
         else {
-            Errorinput($('#Filter_Select_Delivery'), "Must Select Seller")
+            Errorinput($('#Filter_Select_Delivery'), "Must Select Delivery")
             return
         }
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 5 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ""},
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
             ]
 
         DataResult(Table);
@@ -141,22 +211,26 @@ namespace CashCollect {
     }
     function Display_Orders() {
 
-        let _Invs = _Invoices
+         _Invs = _Invoices.filter(x => x.TrType == 0)
         _Grid.DataSource = _Invs;
         _Grid.Bind();
+        debugger
+         _Invs_Ret = _Invoices.filter(x => x.TrType == 1)
+        _Grid_Ret.DataSource = _Invs_Ret;
+        _Grid_Ret.Bind();
 
-
-        $('#Txt_Total_LineCount').val(_Invoices.length);
-        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_LineCount').val(_Invs_Ret.length);
+        $('#Txt_Total_ItemsCount').val(SumValue(_Invs_Ret, "ItemCount"));
+        $('#Txt_Total_Amount_Return').val(SumValue(_Invs_Ret, "NetAfterVat", 1));
+        $('#Txt_Total_Amount').val(SumValue(_Invs, "NetAfterVat", 1));
     }
     function Filter_Select_Delivery_onclick() {
         sys.FindKey("Salesman", "btnSalesman", " Status = 5", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
-            let id = SearchGrid.SearchDataGrid.SelectedKey
-            dataScr = dataScr.filter(x => x.SalesmanId == id);
-            $('#Txt_SalesmanId').val(id)
+            SalesmanId = SearchGrid.SearchDataGrid.SelectedKey
+            dataScr = dataScr.filter(x => x.SalesmanId == SalesmanId);
+            $('#Txt_SalesmanId').val(SalesmanId)
             Filter_Select_Delivery.innerHTML = "( " + dataScr[0].SlsMan_Name + " )";
         });
     }
@@ -166,19 +240,50 @@ namespace CashCollect {
         $('#Txt_SalesmanId').val('')
         Filter_Select_Delivery.innerHTML = 'Select Delivery'
         $('#btnDelete_Filter').addClass('display_none')
-
+        SalesmanId = 0; 
         _Grid.DataSource = New_Invoices;
         _Grid.Bind();
 
+        _Grid_Ret.DataSource = New_Invoices;
+        _Grid_Ret.Bind();
 
         $('#Txt_Total_LineCount').val(New_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_Amount_Return').val(SumValue(New_Invoices, "NetAfterVat", 1));
     }
 
     function ViewInvoice(InvoiceID) {
 
-        localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("View_Order", "Order 🧺");
+        alert('It is being worked on')
     }
+
+
+    function Inv_Confirm_Onclick() {
+        if (SalesmanId == 0 ) {
+            Errorinput($('#Filter_Select_Delivery'), "Must Select Delivery")
+            return
+        }
+        Ajax.CallsyncSave({
+            type: "Post",
+            url: sys.apiUrl("SlsInvoice", "UdateInvoiceby_SalesmanId"),
+            data: { SalesmanId: SalesmanId},
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    debugger
+                    ShowMessage("Done 😍")
+                    $("#Display_Back_Page2").click();
+
+                    $('#Back_Page').click();
+                    Close_Loder();
+                } else {
+                    ShowMessage("Error 😒")
+                }
+            }
+        });
+    }
+
+
 }
