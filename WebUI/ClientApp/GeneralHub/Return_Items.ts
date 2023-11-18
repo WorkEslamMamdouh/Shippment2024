@@ -31,7 +31,7 @@ namespace Return_Items {
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearchCoding') as HTMLInputElement;
-        Coding_Confirm = document.getElementById('Coding_Confirm') as HTMLInputElement;
+        Coding_Confirm = document.getElementById('Coding_Confirm') as HTMLButtonElement;
     }
     function InitializeEvents() {
 
