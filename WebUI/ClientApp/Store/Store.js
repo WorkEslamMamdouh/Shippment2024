@@ -38,7 +38,7 @@ var Store;
     }
     function AddRow() {
         BuildGrid(CountGrid);
-        $("#txtStatusFlag" + CountGrid).val('i');
+        $("#txtStatusFlag".concat(CountGrid)).val('i');
         CountGrid++;
     }
     function Display_Data() {
@@ -56,12 +56,12 @@ var Store;
         CountGrid = 0;
         for (var i = 0; i < _STORE.length; i++) {
             BuildGrid(i);
-            $("#Txt_StoreID" + i).val(_STORE[i].StoreId);
-            $("#Txt_StoreCode" + i).val(_STORE[i].STORE_CODE);
-            $("#Txt_DescA" + i).val(_STORE[i].DescA);
-            $("#chk_Active" + i).prop('checked', _STORE[i].IsActive);
-            $("#Txt_Remarks" + i).val(_STORE[i].Remarks);
-            $("#txtStatusFlag" + i).val('');
+            $("#Txt_StoreID".concat(i)).val(_STORE[i].StoreId);
+            $("#Txt_StoreCode".concat(i)).val(_STORE[i].STORE_CODE);
+            $("#Txt_DescA".concat(i)).val(_STORE[i].DescA);
+            $("#chk_Active".concat(i)).prop('checked', _STORE[i].IsActive);
+            $("#Txt_Remarks".concat(i)).val(_STORE[i].Remarks);
+            $("#txtStatusFlag".concat(i)).val('');
             CountGrid++;
         }
     }
@@ -110,19 +110,19 @@ var Store;
             '</td>' +
             '</tr>';
         $('#Zone_Grid').append(html);
-        $("#Txt_StoreCode" + cnt).on('change', function () {
+        $("#Txt_StoreCode".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_DescA" + cnt).on('change', function () {
+        $("#Txt_DescA".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_Remarks" + cnt).on('change', function () {
+        $("#Txt_Remarks".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#chk_Active" + cnt).on('click', function () {
+        $("#chk_Active".concat(cnt)).on('click', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
@@ -130,14 +130,14 @@ var Store;
     function Assign() {
         _STOREModel = new Array();
         for (var i = 0; i < CountGrid; i++) {
-            if ($("#txtStatusFlag" + i).val() != 'm' && $("#txtStatusFlag" + i).val() != '') {
+            if ($("#txtStatusFlag".concat(i)).val() != 'm' && $("#txtStatusFlag".concat(i)).val() != '') {
                 _STOREObj = new G_STORE();
-                _STOREObj.StoreId = Number($("#Txt_StoreID" + i).val());
-                _STOREObj.STORE_CODE = $("#Txt_StoreCode" + i).val();
-                _STOREObj.DescA = $("#Txt_DescA" + i).val();
-                _STOREObj.IsActive = $("#chk_Active" + i).is(":checked");
-                _STOREObj.Remarks = $("#Txt_Remarks" + i).val();
-                _STOREObj.StatusFlag = $("#txtStatusFlag" + i).val();
+                _STOREObj.StoreId = Number($("#Txt_StoreID".concat(i)).val());
+                _STOREObj.STORE_CODE = $("#Txt_StoreCode".concat(i)).val();
+                _STOREObj.DescA = $("#Txt_DescA".concat(i)).val();
+                _STOREObj.IsActive = $("#chk_Active".concat(i)).is(":checked");
+                _STOREObj.Remarks = $("#Txt_Remarks".concat(i)).val();
+                _STOREObj.StatusFlag = $("#txtStatusFlag".concat(i)).val();
                 _STOREModel.push(_STOREObj);
             }
         }

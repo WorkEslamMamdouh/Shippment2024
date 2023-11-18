@@ -12396,3 +12396,42 @@ class ItemsCodes {
 	public StoreID: number;
 	public ItemCode: string;
 }
+	public ItemCode: number;
+}			  
+class Voucher_Receipt {
+	constructor() {
+		this.ReceiptID = 0;
+		this.CompCode = 0;
+		this.BraCode = 0;
+		this.TrType = 0;
+		this.RefNO = "";
+		this.TrDate = "";
+		this.NameRecipient = "";
+		this.IsCash = false;
+		this.Amount = 0;
+		this.TransferNo = "";
+		this.Status = false;
+		this.Remark = "";
+		this.CreatedAt = "";
+		this.CreatedBy = "";
+		this.UpdatedAt = "";
+		this.UpdatedBy = "";
+	}
+	public ReceiptID: number;
+	public CompCode: number;
+	public BraCode: number;
+	public TrType: number;
+	public RefNO: string;
+	public TrDate: string;
+	public NameRecipient: string;
+	public IsCash: boolean;
+	public Amount: number;
+	public TransferNo: string;
+	public Status: boolean;
+	public Remark: string;
+	public CreatedAt: string;
+	public CreatedBy: string;
+	public UpdatedAt: string;
+	public UpdatedBy: string;
+}
+

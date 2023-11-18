@@ -162,8 +162,7 @@ namespace VendorControl {
 
 				}
 			}
-		});
-
+		});		 
 	}
 
 

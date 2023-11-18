@@ -54,6 +54,18 @@ namespace Inv.BLL.Services.SalesMan
             var Item = unitOfWork.Repository<G_STORE>().Update(entity);
             unitOfWork.Save();
             return Item;
+        }  
+        public Voucher_Receipt InsertVoucher(Voucher_Receipt entity)
+        {
+            var Item = unitOfWork.Repository<Voucher_Receipt>().Insert(entity);
+            unitOfWork.Save();
+            return Item;
+        }
+        public Voucher_Receipt UpdateVoucher(Voucher_Receipt entity)
+        {
+            var Item = unitOfWork.Repository<Voucher_Receipt>().Update(entity);
+            unitOfWork.Save();
+            return Item;
         }
         #endregion
     }

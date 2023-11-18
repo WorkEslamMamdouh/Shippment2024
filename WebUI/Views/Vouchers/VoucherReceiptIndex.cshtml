@@ -1,0 +1,58 @@
+﻿<section class="u-align-left u-clearfix u-section-9 " id="carousel_c35d">
+	<div class="u-clearfix u-sheet u-sheet-1">
+		<div class="u-container-style u-group u-group-1">
+			<div class="u-container-layout u-container-layout-1">
+				<h2 class="u-align-center u-text u-text-1">Make a Invoice</h2>
+			</div>
+		</div>
+		@************************************************Header****************************************************************@
+		<div id="Div_Header" class="u-form u-form-1">
+			<form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+				<div class="u-form-email u-form-group u-form-partition-factor-2">
+					<label for="Txt_Ref_No" class="u-label u-text-grey-40">Ref No</label>
+					<input type="text" placeholder="Enter a Refrence Number" id="Txt_Ref_No" name="email" class="Clear_Header u-input u-input-rectangle" required="">
+				</div>
+
+				<div class="u-form-date u-form-group u-form-partition-factor-2 u-form-group-3">
+					<label for="Txt_Receive_TrData" class="u-label u-text-grey-40"> Date</label>
+					<input type="date" placeholder="MM/DD/YYYY" id="Txt_TrData" name="date" class="u-input u-input-rectangle" required="" data-date-format="mm/dd/yyyy">
+				</div>
+				<div class="u-form-group u-form-partition-factor-3 u-form-phone u-form-group-4">
+					<label for="db_Type" class="u-label u-text-grey-40">Type</label>
+					<select id="db_Type" name="select" class="u-input u-input-rectangle">
+						<option value="1">Cash</option>
+						<option value="0">Transfer</option>
+					</select>
+				</div>
+				<div id="Trans" class="u-form-group u-form-partition-factor-3 u-form-phone u-form-group-4 display_none">
+					<label for="Txt_TransNO" class="u-label u-text-grey-40">Transfer No</label>
+					<input type="text" id="Txt_TransNO" placeholder="Enter Transfer Number" name="phone" class="Clear_Header u-input u-input-rectangle" required="">
+				</div>
+				<div class="u-form-group u-form-partition-factor-3 u-form-phone u-form-group-4">
+					<label for="Txt_Amount" class="u-label u-text-grey-40">Amount</label>
+					<input type="number" id="Txt_Amount" placeholder="Enter Amount" name="Amount" class="Clear_Header u-input u-input-rectangle" required="">
+				</div>
+
+				<div class="u-form-group u-form-partition-factor-1 u-form-phone u-form-group-4">
+					<label for="Txt_nameRecipient" class="u-label u-text-grey-40">Name Recipient</label>
+					<input type="text" placeholder="Name Of Recipient" id="Txt_nameRecipient" name="text" class="Clear_Header u-input u-input-rectangle">
+				</div>
+
+				<div class="u-form-group u-form-message u-form-group-7">
+					<label for="Txt_Remarks" class="u-label u-text-grey-40">Remarks</label>
+					<textarea placeholder="Enter your Remarks" rows="4" cols="50" id="Txt_Remarks" name="Remarks" class="Clear_Header u-input u-input-rectangle" required=""></textarea>
+				</div>
+
+
+				<div class="u-form-group u-form-group-5">
+					<input type="button" id="btnAdd" value="Add Zone" class="Style_Add_Item u-input u-input-rectangle" required="">
+				</div>
+
+			</form>
+		</div>
+	</div>
+	 
+</section>
+ 
+ 
+<script src="~/ClientApp/Vouchers/VoucherReceipt.js"></script> 

@@ -240,6 +240,9 @@
     <Compile Include="Domain\Vnd_Inv_SlsMan.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Voucher_Receipt.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Zones.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
