@@ -286,7 +286,7 @@ var Order_Saller;
         ItemCount = 0;
         for (var i = 0; i < CountGrid; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
-                var Row = "    <tr>\n                            <td>".concat($("#ItemDescA" + i).val(), "</td>\n                            <td>").concat($("#SoldQty" + i).val(), "</td>\n                            <td>").concat($("#Unitprice" + i).val(), "</td>\n                            <td>").concat($("#ItemTotal" + i).val(), "</td>\n                        </tr>");
+                var Row = "    <tr>\n                            <td>" + $("#ItemDescA" + i).val() + "</td>\n                            <td>" + $("#SoldQty" + i).val() + "</td>\n                            <td>" + $("#Unitprice" + i).val() + "</td>\n                            <td>" + $("#ItemTotal" + i).val() + "</td>\n                        </tr>";
                 ItemTotal = ItemTotal + Number($("#ItemTotal" + i).val());
                 ItemCount = ItemCount + Number($("#SoldQty" + i).val());
                 $('#Body_Inv_Print').append(Row);

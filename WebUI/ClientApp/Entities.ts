@@ -12394,9 +12394,7 @@ class ItemsCodes {
 	public InvoiceID: number;
 	public InvoiceItemID: number;
 	public StoreID: number;
-	public ItemCode: string;
-}
-	public ItemCode: number;
+	public ItemCode: string; 
 }			  
 class Voucher_Receipt {
 	constructor() {
