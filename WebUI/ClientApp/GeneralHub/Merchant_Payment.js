@@ -69,11 +69,11 @@ var Merchant_Payment;
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("View ✅");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {
-                        ViewInvoice(item.InvoiceID);
+                        PrintInvoice(item.InvoiceID);
                     };
                     return txt;
                 }
@@ -154,9 +154,9 @@ var Merchant_Payment;
         $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
         $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
     }
-    function ViewInvoice(InvoiceID) {
+    function PrintInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
-        OpenPagePartial("View_Order", "Order 🧺");
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
 })(Merchant_Payment || (Merchant_Payment = {}));
 //# sourceMappingURL=Merchant_Payment.js.map

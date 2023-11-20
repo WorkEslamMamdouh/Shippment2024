@@ -77,12 +77,12 @@ namespace Merchant_Payment {
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("View ✅");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 
                     txt.onclick = (e) => {
-                        ViewInvoice(item.InvoiceID);
+                        PrintInvoice(item.InvoiceID);
                     };
                     return txt;
                 }
@@ -177,9 +177,9 @@ namespace Merchant_Payment {
         $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
     }
 
-    function ViewInvoice(InvoiceID) {
+    function PrintInvoice(InvoiceID) {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("View_Order", "Order 🧺");
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
 }

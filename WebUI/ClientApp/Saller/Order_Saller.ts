@@ -360,7 +360,7 @@ namespace Order_Saller {
         $('#Print_Name_Phone').html("<strong>Phone:</strong> " + $('#Txt_Phone_Num1').val());
         $('#Print_Name_Address').html("<strong>Address:</strong> " + $('#Txt_Address1').val());
 
-        $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + $('#Txt_Ref_No').val());
+        $('#Tran_ID_Print').html("<strong>RefNO :</strong> " + $('#Txt_Ref_No').val());
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + $('#Txt_Receive_TrData').val());
 
         $('#Body_Inv_Print').html('');

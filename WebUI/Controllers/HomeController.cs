@@ -55,7 +55,8 @@ namespace Inv.WebUI.Controllers
          "~/Views/UserControl/EmpControlIndex.cshtml",
          "~/Views/GeneralHub/Return_ItemsIndex.cshtml",
          "~/Views/Vouchers/VoucherPaymentIndex.cshtml",
-         "~/Views/Vouchers/VoucherReceiptIndex.cshtml", 
+         "~/Views/Vouchers/VoucherReceiptIndex.cshtml",
+         "~/Views/Order/Print_OrderIndex.cshtml", 
 
                       };
 
