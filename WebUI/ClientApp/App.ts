@@ -2015,7 +2015,7 @@ function Errorinput(input: any, TxtMessage?: string) {
 
             id = input.getAttribute('id');
         } catch (e) {
-
+  
             id = input[0].id;
         }
 
@@ -3691,9 +3691,12 @@ function OpenPage(moduleCode: string) {
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
-    
+    debugger
     Show_Loder();
+
+  
     setTimeout(function () {
+        debugger
         let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
         if (Page.length > 0) {
             CounterPage++;
@@ -3725,27 +3728,53 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
 
             $(window).scrollTop(0);
 
-            
+            debugger
+
+
+
+            if (OnDisplay_Back1 == null && OnDisplay_Back2 == null) {
+                $('#_Btn_Back').html('')
+
+                $('#_Btn_Back').append(`<a id="Display_Back_Page"  class="display_none">
+
+                </a>
+                <a id="Display_Back_Page2" class="display_none">
+                </a>`);
+
+            }
+
+
             if (OnDisplay_Back1 != null) {
+
+                $('#_Btn_Back').html('')
+                
+                $('#_Btn_Back').append(`<a id="Display_Back_Page"  class="display_none">
+
+                </a>
+                <a id="Display_Back_Page2" class="display_none">
+                </a>`);
 
                 OnDisplay_Back1();
 
 
+                debugger
 
                 $("#Display_Back_Page").on('click', function () {
-                    
+                    debugger
                     OnDisplay_Back1()
                 });
             }
+
+            debugger
 
             if (OnDisplay_Back2 != null) {
 
                 OnDisplay_Back2();
 
-
+                debugger
 
                 $("#Display_Back_Page2").on('click', function () {
-                    
+                    debugger
                     OnDisplay_Back2()
                 });
             }
@@ -3773,7 +3802,12 @@ function Back_Page_Partial() {
         return
     }
 
+  
+    // Clear the content of the element with ID "Partial_2" 
     $('#Partial_' + CounterPage).html("");
+    // Remove all script elements within the element with ID "Partial_2"
+    $('#Partial_' + CounterPage+' script').remove();
+
     $('.Page_Partial').addClass("display_none");
     $('#htmlContainer').addClass("display_none");
     //$('#btn_Logout').addClass("display_none");

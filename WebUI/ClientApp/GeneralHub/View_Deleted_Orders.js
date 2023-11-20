@@ -18,7 +18,7 @@ var View_Deleted_Orders;
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
-        GetData_Invoice();
+        GetData_InvoiceDeleted();
         Close_Loder();
         SetRefresh(GetModuleCode());
     }
@@ -26,7 +26,7 @@ var View_Deleted_Orders;
     function SetRefresh(moduleCode) {
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
-            GetData_Invoice();
+            GetData_InvoiceDeleted();
             // Shows an alert when a dynamically created button is clicked
         });
     }
@@ -37,7 +37,7 @@ var View_Deleted_Orders;
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
-        Filter_View.onclick = GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceDeleted;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -99,7 +99,7 @@ var View_Deleted_Orders;
             _Grid.Bind();
         }
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceDeleted() {
         CleaningList_Table();
         debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
@@ -141,7 +141,7 @@ var View_Deleted_Orders;
     }
     function ViewInvoice(InvoiceID, RefNO) {
         UpdateInvStatus(InvoiceID, 0, 1, 'Recover Invoice ( ' + InvoiceID + ' )', function () {
-            GetData_Invoice();
+            GetData_InvoiceDeleted();
         });
     }
 })(View_Deleted_Orders || (View_Deleted_Orders = {}));

@@ -25,7 +25,7 @@ namespace View_Deleted_Orders {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
-        GetData_Invoice();
+        GetData_InvoiceDeleted();
         Close_Loder();
 
         SetRefresh(GetModuleCode())
@@ -35,7 +35,7 @@ namespace View_Deleted_Orders {
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
       
-            GetData_Invoice()
+            GetData_InvoiceDeleted()
             // Shows an alert when a dynamically created button is clicked
         });
     }
@@ -47,7 +47,7 @@ namespace View_Deleted_Orders {
     function InitializeEvents() {
 
         txtSearch.onkeyup = _SearchBox_Change; 
-        Filter_View.onclick =  GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceDeleted;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -112,7 +112,7 @@ namespace View_Deleted_Orders {
             _Grid.Bind();
         }
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceDeleted() {
         CleaningList_Table();
         debugger
         let StartDate = DateFormat($('#Txt_From_Date').val());
@@ -170,7 +170,7 @@ namespace View_Deleted_Orders {
 
         UpdateInvStatus(InvoiceID, 0, 1, 'Recover Invoice ( ' + InvoiceID + ' )', () => {
           
-            GetData_Invoice();
+            GetData_InvoiceDeleted();
         })
     }
      

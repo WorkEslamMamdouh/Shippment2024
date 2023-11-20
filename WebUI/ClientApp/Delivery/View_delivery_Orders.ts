@@ -17,7 +17,7 @@ namespace View_delivery_Orders {
 
         InitalizeControls();
         InitializeEvents();
-        GetData_Invoice(); 
+        GetData_InvoiceDeliv(); 
         Close_Loder();
          
     }
@@ -30,7 +30,7 @@ namespace View_delivery_Orders {
          
     }
 
-    function GetData_Invoice() {
+    function GetData_InvoiceDeliv() {
         debugger
 
         var Table: Array<Table>;
@@ -108,6 +108,6 @@ namespace View_delivery_Orders {
             Run_Fun = true;
             return
         }
-        GetData_Invoice();
+        GetData_InvoiceDeliv();
     }
 }

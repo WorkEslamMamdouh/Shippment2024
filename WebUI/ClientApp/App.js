@@ -2821,8 +2821,10 @@ function OpenPage(moduleCode) {
     }
 }
 function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2) {
+    debugger;
     Show_Loder();
     setTimeout(function () {
+        debugger;
         var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
         if (Page.length > 0) {
             CounterPage++;
@@ -2843,15 +2845,27 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
             $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
             localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
             $(window).scrollTop(0);
+            debugger;
+            if (OnDisplay_Back1 == null && OnDisplay_Back2 == null) {
+                $('#_Btn_Back').html('');
+                $('#_Btn_Back').append("<a id=\"Display_Back_Page\"  class=\"display_none\">\n\n                </a>\n                <a id=\"Display_Back_Page2\" class=\"display_none\">\n                </a>");
+            }
             if (OnDisplay_Back1 != null) {
+                $('#_Btn_Back').html('');
+                $('#_Btn_Back').append("<a id=\"Display_Back_Page\"  class=\"display_none\">\n\n                </a>\n                <a id=\"Display_Back_Page2\" class=\"display_none\">\n                </a>");
                 OnDisplay_Back1();
+                debugger;
                 $("#Display_Back_Page").on('click', function () {
+                    debugger;
                     OnDisplay_Back1();
                 });
             }
+            debugger;
             if (OnDisplay_Back2 != null) {
                 OnDisplay_Back2();
+                debugger;
                 $("#Display_Back_Page2").on('click', function () {
+                    debugger;
                     OnDisplay_Back2();
                 });
             }
@@ -2872,7 +2886,10 @@ function Back_Page_Partial() {
     if (CounterPage == 0) {
         return;
     }
+    // Clear the content of the element with ID "Partial_2" 
     $('#Partial_' + CounterPage).html("");
+    // Remove all script elements within the element with ID "Partial_2"
+    $('#Partial_' + CounterPage + ' script').remove();
     $('.Page_Partial').addClass("display_none");
     $('#htmlContainer').addClass("display_none");
     //$('#btn_Logout').addClass("display_none");

@@ -16,7 +16,7 @@ namespace View_Seller_Orders {
 
         InitalizeControls();
         InitializeEvents();
-        GetData_Invoice();
+        GetData_InvoiceSeller();
         
         Close_Loder();
           
@@ -30,7 +30,7 @@ namespace View_Seller_Orders {
 
     }
 
-    function GetData_Invoice() {
+    function GetData_InvoiceSeller() {
         debugger
 
         var Table: Array<Table>;
@@ -117,7 +117,7 @@ namespace View_Seller_Orders {
             Run_Fun = true;
             return
         }
-        GetData_Invoice();
+        GetData_InvoiceSeller();
     }
 
 }

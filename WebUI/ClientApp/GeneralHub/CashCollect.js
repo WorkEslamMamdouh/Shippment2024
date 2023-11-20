@@ -48,7 +48,7 @@ var CashCollect;
         txtSearch.onkeyup = _SearchBox_Change;
         txtSearchRet.onkeyup = _SearchBoxRet_Change;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
-        Filter_View.onclick = GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear;
         Inv_Confirm.onclick = Inv_Confirm_Onclick;
         View_Invoices.onclick = function () { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none'); };
@@ -171,7 +171,7 @@ var CashCollect;
             _Grid_Ret.Bind();
         }
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());

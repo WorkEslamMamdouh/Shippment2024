@@ -53,7 +53,7 @@ namespace CashCollect {
         txtSearch.onkeyup = _SearchBox_Change;
         txtSearchRet.onkeyup = _SearchBoxRet_Change;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
-        Filter_View.onclick = GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear;
         Inv_Confirm.onclick = Inv_Confirm_Onclick;
 
@@ -183,7 +183,7 @@ namespace CashCollect {
             _Grid_Ret.Bind();
         }
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger
         let StartDate = DateFormat($('#Txt_From_Date').val());

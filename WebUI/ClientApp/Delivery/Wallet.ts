@@ -25,7 +25,7 @@ namespace Wallet {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
-        GetData_Invoice();
+        GetData_InvoiceWallet();
         Close_Loder();
     }
     function InitalizeControls() {
@@ -38,7 +38,7 @@ namespace Wallet {
 
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = () => { $('#btnDelete_Filter').removeClass('display_none'); GetData_Invoice() };
+        Filter_View.onclick = () => { $('#btnDelete_Filter').removeClass('display_none'); GetData_InvoiceWallet() };
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -103,7 +103,7 @@ namespace Wallet {
             _Grid.Bind();
         }
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceWallet() {
         CleaningList_Table();
         debugger
         let StartDate = DateFormat($('#Txt_From_Date').val());
@@ -160,7 +160,7 @@ namespace Wallet {
         $('#Txt_VendorID').val('')
         Filter_Select_Seller.innerHTML = 'Select Seller'
         $('#btnDelete_Filter').addClass('display_none')
-        GetData_Invoice();
+        GetData_InvoiceWallet();
     }
 
     function ViewInvoice(InvoiceID) {

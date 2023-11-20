@@ -10,7 +10,7 @@ var View_Seller_Orders;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
-        GetData_Invoice();
+        GetData_InvoiceSeller();
         Close_Loder();
     }
     View_Seller_Orders.InitalizeComponent = InitalizeComponent;
@@ -18,7 +18,7 @@ var View_Seller_Orders;
     }
     function InitializeEvents() {
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceSeller() {
         debugger;
         var Table;
         Table =
@@ -66,7 +66,7 @@ var View_Seller_Orders;
             Run_Fun = true;
             return;
         }
-        GetData_Invoice();
+        GetData_InvoiceSeller();
     }
 })(View_Seller_Orders || (View_Seller_Orders = {}));
 //# sourceMappingURL=View_Seller_Orders.js.map

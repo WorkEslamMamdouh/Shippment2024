@@ -10,7 +10,7 @@ var View_delivery_Orders;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
-        GetData_Invoice();
+        GetData_InvoiceDeliv();
         Close_Loder();
     }
     View_delivery_Orders.InitalizeComponent = InitalizeComponent;
@@ -18,7 +18,7 @@ var View_delivery_Orders;
     }
     function InitializeEvents() {
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceDeliv() {
         debugger;
         var Table;
         Table =
@@ -60,7 +60,7 @@ var View_delivery_Orders;
             Run_Fun = true;
             return;
         }
-        GetData_Invoice();
+        GetData_InvoiceDeliv();
     }
 })(View_delivery_Orders || (View_delivery_Orders = {}));
 //# sourceMappingURL=View_delivery_Orders.js.map

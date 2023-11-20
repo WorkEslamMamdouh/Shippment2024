@@ -19,7 +19,6 @@ var View_Validate_Orders;
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
-        //GetData_Invoice();
         Close_Loder();
         SetRefresh(GetModuleCode());
     }
@@ -37,7 +36,7 @@ var View_Validate_Orders;
             if (Number($('#Txt_VendorID').val()) == 0) {
                 return;
             }
-            GetData_Invoice();
+            GetData_InvoiceVaild();
             // Shows an alert when a dynamically created button is clicked
         });
     }
@@ -50,7 +49,7 @@ var View_Validate_Orders;
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_Select_Seller.onclick = Filter_Select_Seller_onclick;
-        Filter_View.onclick = GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceVaild;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -112,7 +111,7 @@ var View_Validate_Orders;
             _Grid.Bind();
         }
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceVaild() {
         CleaningList_Table();
         debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
@@ -182,7 +181,7 @@ var View_Validate_Orders;
             Run_Fun = true;
             return;
         }
-        GetData_Invoice();
+        GetData_InvoiceVaild();
     }
 })(View_Validate_Orders || (View_Validate_Orders = {}));
 //# sourceMappingURL=View_Validate_Orders.js.map

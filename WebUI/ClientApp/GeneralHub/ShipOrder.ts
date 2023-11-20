@@ -25,8 +25,7 @@ namespace ShipOrder {
         InitializeEvents();
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
-        InitializeGrid();
-        //GetData_Invoice();
+        InitializeGrid(); 
         GetData_Zones();
         Close_Loder();
 
@@ -40,7 +39,7 @@ namespace ShipOrder {
             if ($('#db_Zone').val() == 'null') {
                 return;
             }
-            GetData_Invoice()
+            GetData_InvoiceShip()
             // Shows an alert when a dynamically created button is clicked
         });
     }
@@ -53,7 +52,7 @@ namespace ShipOrder {
     function InitializeEvents() {
 
         txtSearch.onkeyup = _SearchBox_Change; 
-        Filter_View.onclick = GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceShip;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -143,7 +142,7 @@ namespace ShipOrder {
         DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
 
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceShip() {
         CleaningList_Table();
         debugger
         let StartDate = DateFormat($('#Txt_From_Date').val());
@@ -216,6 +215,6 @@ namespace ShipOrder {
             Run_Fun = true;
             return
         }
-        GetData_Invoice();
+        GetData_InvoiceShip();
     }
 }

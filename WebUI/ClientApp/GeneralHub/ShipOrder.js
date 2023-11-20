@@ -19,7 +19,6 @@ var ShipOrder;
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
-        //GetData_Invoice();
         GetData_Zones();
         Close_Loder();
         SetRefresh(GetModuleCode());
@@ -32,7 +31,7 @@ var ShipOrder;
             if ($('#db_Zone').val() == 'null') {
                 return;
             }
-            GetData_Invoice();
+            GetData_InvoiceShip();
             // Shows an alert when a dynamically created button is clicked
         });
     }
@@ -44,7 +43,7 @@ var ShipOrder;
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
-        Filter_View.onclick = GetData_Invoice;
+        Filter_View.onclick = GetData_InvoiceShip;
         btnDelete_Filter.onclick = Clear;
     }
     function InitializeGrid() {
@@ -127,7 +126,7 @@ var ShipOrder;
         var db_Zone = document.getElementById("db_Zone");
         DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
     }
-    function GetData_Invoice() {
+    function GetData_InvoiceShip() {
         CleaningList_Table();
         debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
@@ -186,7 +185,7 @@ var ShipOrder;
             Run_Fun = true;
             return;
         }
-        GetData_Invoice();
+        GetData_InvoiceShip();
     }
 })(ShipOrder || (ShipOrder = {}));
 //# sourceMappingURL=ShipOrder.js.map
