@@ -150,6 +150,37 @@ namespace Inv.API.Controllers
             return Ok(new BaseResponse(true));
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult CashCollectFrom_Delivery(int CompCode, int BranchCode, string ListInvoiceID,string ListInvoiceIDRet, int SlsManID, string UserCode, string StatusDesc)
+        {
+
+
+            string Cond = "";
+
+            Cond = ", SalesmanId = " + SlsManID + "";
+
+            if (ListInvoiceID.Trim() != "")
+            {
+    
+
+                string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+                 Status =6 " + Cond + " where InvoiceID in ( " + ListInvoiceID + ")";
+                db.Database.ExecuteSqlCommand(Qury);
+            }
+
+            if (ListInvoiceIDRet.Trim() != "")
+            {
+
+                string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+                 Status =3 " + Cond + " where InvoiceID in ( " + ListInvoiceIDRet + ")";
+                db.Database.ExecuteSqlCommand(Qury);
+            }
+
+
+            LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, 0, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
+            return Ok(new BaseResponse(true));
+        }
+
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult UpdateInvTrType(int CompCode, int BranchCode, int InvoiceID , int TrType, string UserCode, string StatusDesc)

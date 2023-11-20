@@ -62,7 +62,7 @@ namespace Inv.API.Controllers
             {
                 
 
-                string dateValue = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+                string dateValue = DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss");
 
                 string sql = @"INSERT INTO  G_USER_LOG( USER_CODE, SYSTEM_CODE, COMP_CODE, BranchCode, FinYear, TimeStamp, MODULE_CODE, OperationId, DataID, ISSucceed, ErrorMessage, ExtraData) 
                             VALUES ('" + USER_CODE + "','I' ," + Convert.ToInt32(COMP_CODE) + "," + Convert.ToInt32(BranchCode) + ", " + short.Parse(FinYear) + ",'" + dateValue + "' ," + @"
@@ -109,7 +109,7 @@ namespace Inv.API.Controllers
                     ErrorNo = TrNo;
                 }
 
-                string dateValue = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+                string dateValue = DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss");
 
                 string sql = @"INSERT INTO  G_USER_LOG( USER_CODE, SYSTEM_CODE, COMP_CODE, BranchCode, FinYear, TimeStamp, MODULE_CODE, OperationId, DataID, ISSucceed, ErrorMessage, ExtraData) 
                             VALUES ('" + USER_CODE + "','I' ," + Convert.ToInt32(COMP_CODE) + "," + Convert.ToInt32(BranchCode) + ", " + short.Parse(FinYear) + ",'" + dateValue + "' ," + @"

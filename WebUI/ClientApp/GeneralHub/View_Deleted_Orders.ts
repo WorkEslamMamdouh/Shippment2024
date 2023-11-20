@@ -168,7 +168,7 @@ namespace View_Deleted_Orders {
 
     function ViewInvoice(InvoiceID, RefNO) {
 
-        UpdateInvStatus(InvoiceID, 0,1, 'Recover Invoice ( ' + RefNO + ' )', () => {
+        UpdateInvStatus(InvoiceID, 0, 1, 'Recover Invoice ( ' + InvoiceID + ' )', () => {
           
             GetData_Invoice();
         })

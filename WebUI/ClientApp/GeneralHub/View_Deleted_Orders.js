@@ -140,7 +140,7 @@ var View_Deleted_Orders;
         $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
     }
     function ViewInvoice(InvoiceID, RefNO) {
-        UpdateInvStatus(InvoiceID, 0, 1, 'Recover Invoice ( ' + RefNO + ' )', function () {
+        UpdateInvStatus(InvoiceID, 0, 1, 'Recover Invoice ( ' + InvoiceID + ' )', function () {
             GetData_Invoice();
         });
     }

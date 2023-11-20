@@ -107,13 +107,13 @@ var View_Order;
     }
     //******************************************************* Events Buttons ************************************
     function btn_Delete_onclick() {
-        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.RefNO + ' )', function () {
+        UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.InvoiceID + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
         });
     }
     function btn_freeze_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.RefNO + ' )', function () {
+        UpdateInvStatus(InvoiceID, 0, 0, 'Freeze Invoice ( ' + _Inv.InvoiceID + ' )', function () {
             $("#btn_Active").removeClass("display_none");
             $("#btn_Edit_Order").removeClass("display_none");
             $("#btn_freeze").addClass("display_none");
@@ -121,7 +121,7 @@ var View_Order;
         });
     }
     function btn_Active_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.RefNO + ' )', function () {
+        UpdateInvStatus(InvoiceID, 0, 1, 'Active Invoice ( ' + _Inv.InvoiceID + ' )', function () {
             $("#btn_Active").addClass("display_none");
             $("#btn_Edit_Order").addClass("display_none");
             $("#btn_freeze").removeClass("display_none");
@@ -137,7 +137,7 @@ var View_Order;
             Errorinput($('#btn_Edit_Order'), 'Please a Review Order 😒 ');
             return;
         }
-        UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.RefNO + ' )', function () {
+        UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.InvoiceID + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
         });
@@ -154,7 +154,7 @@ var View_Order;
         sys.FindKey("Deliver", "btnDeliver", " Isactive = 1 and ZoneID =" + _Inv.ZoneID, function () {
             debugger;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
-            UpdateInvStatus(InvoiceID, id, 4, 'Deliver Shipment ( ' + _Inv.RefNO + ' )', function () {
+            UpdateInvStatus(InvoiceID, id, 4, 'Deliver Shipment ( ' + _Inv.InvoiceID + ' )', function () {
                 $('#Back_Page').click();
                 $("#Display_Back_Page").click();
             });
@@ -163,7 +163,7 @@ var View_Order;
     function btn_Open_Location_onclick() {
     }
     function btn_Deliver_Customer_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.RefNO + ' )', function () {
+        UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', function () {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
         });
@@ -173,7 +173,7 @@ var View_Order;
         OpenPagePartial("Return_Items", "Return Items", null, function () { Display_Refrsh(); });
     }
     function btn_Return_All_Order_onclick() {
-        var StatusDesc = 'Return All Order ( ' + _Inv.RefNO + ' )';
+        var StatusDesc = 'Return All Order ( ' + _Inv.InvoiceID + ' )';
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("SlsInvoice", "UpdateInvTrType"),
