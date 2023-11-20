@@ -2821,10 +2821,8 @@ function OpenPage(moduleCode) {
     }
 }
 function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2) {
-    debugger;
     Show_Loder();
     setTimeout(function () {
-        debugger;
         var Page = _AllPages.filter(function (x) { return x.ModuleCode == moduleCode; });
         if (Page.length > 0) {
             CounterPage++;
@@ -2845,7 +2843,6 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
             $('#Lab_NamePage').html("" + NamePage + "<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
             localStorage.setItem("Partial_NamePage_" + CounterPage, NamePage);
             $(window).scrollTop(0);
-            debugger;
             if (OnDisplay_Back1 == null && OnDisplay_Back2 == null) {
                 $('#_Btn_Back').html('');
                 $('#_Btn_Back').append("<a id=\"Display_Back_Page\"  class=\"display_none\">\n\n                </a>\n                <a id=\"Display_Back_Page2\" class=\"display_none\">\n                </a>");
@@ -2854,18 +2851,13 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
                 $('#_Btn_Back').html('');
                 $('#_Btn_Back').append("<a id=\"Display_Back_Page\"  class=\"display_none\">\n\n                </a>\n                <a id=\"Display_Back_Page2\" class=\"display_none\">\n                </a>");
                 OnDisplay_Back1();
-                debugger;
                 $("#Display_Back_Page").on('click', function () {
-                    debugger;
                     OnDisplay_Back1();
                 });
             }
-            debugger;
             if (OnDisplay_Back2 != null) {
                 OnDisplay_Back2();
-                debugger;
                 $("#Display_Back_Page2").on('click', function () {
-                    debugger;
                     OnDisplay_Back2();
                 });
             }
@@ -2902,6 +2894,9 @@ function Back_Page_Partial() {
         $('#htmlContainer').removeClass("display_none");
         $('#Back_Page').addClass("display_none");
         $('#Lab_NamePage').html("Home<span style=\"font-weight: 700;\">\n                    <span style=\"font-weight: 400;\"></span>\n                </span>");
+        //********************************************************************
+        $('#_Btn_Back').html('');
+        $('#_Btn_Back').append("<a id=\"Display_Back_Page\"  class=\"display_none\">\n\n                </a>\n                <a id=\"Display_Back_Page2\" class=\"display_none\">\n                </a>");
     }
     else {
         var _NamePage = localStorage.getItem("Partial_NamePage_" + CounterPage);
@@ -2941,6 +2936,7 @@ function Digits(_number, FractionDigits) {
 var GlopelUSERS = new Array();
 var GlopelInvoices = new Array();
 var GlopelInvoiceItems = new Array();
+var GlopelIQ_ItemCollect = new Array();
 function SetGlopelDataUser(Send_USERS) {
     GlopelUSERS = Send_USERS;
 }
@@ -2953,11 +2949,17 @@ function SetGlopelDataInvoice(Send_Invoices) {
 function SetGlopelDataInvoiceItems(Send_InvoiceItems) {
     GlopelInvoiceItems = Send_InvoiceItems;
 }
+function SetGlopelDataIQ_ItemCollect(Send_IQ_ItemCollect) {
+    GlopelIQ_ItemCollect = Send_IQ_ItemCollect;
+}
 function GetGlopelDataInvoice() {
     return GlopelInvoices;
 }
 function GetGlopelDataInvoiceItems() {
     return GlopelInvoiceItems;
+}
+function GetGlopelDataIQ_ItemCollect() {
+    return GlopelIQ_ItemCollect;
 }
 function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
     var sys = new SystemTools;

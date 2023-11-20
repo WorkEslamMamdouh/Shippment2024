@@ -9,6 +9,7 @@ var ShipOrder;
     var New_Invoices = new Array();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
+    var _IQ_ItemCollect = new Array();
     var txtSearch;
     var db_Zone;
     var Filter_View;
@@ -25,7 +26,6 @@ var ShipOrder;
     }
     ShipOrder.InitalizeComponent = InitalizeComponent;
     function SetRefresh(moduleCode) {
-        debugger;
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
             if ($('#db_Zone').val() == 'null') {
@@ -113,7 +113,6 @@ var ShipOrder;
         }
     }
     function GetData_Zones() {
-        debugger;
         var Table;
         Table =
             [
@@ -121,14 +120,12 @@ var ShipOrder;
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        debugger;
         var _Zones = GetDataTable('Zones');
         var db_Zone = document.getElementById("db_Zone");
         DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
     }
     function GetData_InvoiceShip() {
         CleaningList_Table();
-        debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
         var EndDate = DateFormat($('#Txt_To_Date').val());
         var Con = "";
@@ -143,16 +140,18 @@ var ShipOrder;
         Table =
             [
                 { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
                 { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        debugger;
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
-        _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
+        _IQ_ItemCollect = GetDataTable('IQ_ItemCollect');
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
+        SetGlopelDataIQ_ItemCollect(_IQ_ItemCollect);
         Display_Orders();
         $('#btnDelete_Filter').removeClass('display_none');
     }

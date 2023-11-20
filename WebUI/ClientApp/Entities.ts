@@ -12168,6 +12168,57 @@ class Sls_InvoiceItem extends SecurityClass {
 	public StatusFlag: string;
 	public Chack_Item: boolean;
 }
+class IQ_ItemCollect extends SecurityClass {
+	constructor() {
+		super();
+		this.InvoiceItemID = 0;
+		this.InvoiceID = 0;
+		this.ItemCode = "";
+		this.ItemDescA = "";
+		this.SoldQty = 0;
+		this.Unitprice = 0;
+		this.DiscountPrc = 0;
+		this.DiscountAmount = 0;
+		this.NetUnitPrice = 0;
+		this.ItemTotal = 0;
+		this.VatPrc = 0;
+		this.VatAmount = 0;
+		this.NetAfterVat = 0;
+		this.VatApplied = 0;
+		this.TotRetQty = 0;
+		this.Serial = 0;
+		this.SalesManID = 0;
+		this.VendorID = 0;
+		this.ItemNetAmount = 0;
+		this.StoreID = 0;
+		this.Remark = "";
+		this.StatusFlag = "";
+		this.Chack_Item = false;
+	}
+	public InvoiceItemID: number;
+	public InvoiceID: number;
+	public ItemCode: string;
+	public ItemDescA: string;
+	public SoldQty: number;
+	public Unitprice: number;
+	public DiscountPrc: number;
+	public DiscountAmount: number;
+	public NetUnitPrice: number;
+	public ItemTotal: number;
+	public VatPrc: number;
+	public VatAmount: number;
+	public NetAfterVat: number;
+	public VatApplied: number;
+	public TotRetQty: number;
+	public Serial: number;
+	public SalesManID: number;
+	public VendorID: number;
+	public ItemNetAmount: number;
+	public StoreID: number;
+	public Remark: string;
+	public StatusFlag: string;
+	public Chack_Item: boolean;
+}
 
 class Zones extends SecurityClass {
 	constructor() {

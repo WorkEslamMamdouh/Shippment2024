@@ -12,6 +12,7 @@ namespace ShipOrder {
     var New_Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
+    var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
 
     var txtSearch: HTMLInputElement;
     var db_Zone: HTMLSelectElement;
@@ -32,7 +33,7 @@ namespace ShipOrder {
         SetRefresh(GetModuleCode())
     }
     function SetRefresh(moduleCode: string) {
-        debugger
+        
 
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
@@ -125,7 +126,7 @@ namespace ShipOrder {
         }
     } 
     function GetData_Zones() {
-        debugger
+        
 
         var Table: Array<Table>;
         Table =
@@ -135,7 +136,7 @@ namespace ShipOrder {
 
         DataResult(Table);
         //**************************************************************************************************************
-        debugger
+        
         let _Zones = GetDataTable('Zones');
 
         let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
@@ -144,7 +145,7 @@ namespace ShipOrder {
     }
     function GetData_InvoiceShip() {
         CleaningList_Table();
-        debugger
+        
         let StartDate = DateFormat($('#Txt_From_Date').val());
         let EndDate = DateFormat($('#Txt_To_Date').val());
         let Con = "";
@@ -159,19 +160,22 @@ namespace ShipOrder {
         Table =
             [
                 { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+            { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
-        debugger
+        
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
-        _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _InvoiceItems = GetDataTable('Sls_InvoiceItem');
+        _IQ_ItemCollect = GetDataTable('IQ_ItemCollect');
 
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
 
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
+        SetGlopelDataIQ_ItemCollect(_IQ_ItemCollect);
 
         Display_Orders();
 

@@ -10,20 +10,30 @@ var Print_Order;
     var _InvoiceItems = new Array();
     var _Inv = new Vnd_Inv_SlsMan();
     var _InvItems = new Array();
+    var _IQ_ItemCollect = new Array();
     var _Print_Invoice;
     var ItemTotal = 0;
     var ItemCount = 0;
     var InvoiceID = 0;
+    var InvoiceNote = 0;
     function InitalizeComponent() {
+        debugger;
         var _USERS = GetGlopelDataUser();
         _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
         InitalizeControls();
         InitializeEvents();
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
+        _IQ_ItemCollect = GetGlopelDataIQ_ItemCollect();
         InvoiceID = Number(localStorage.getItem("InvoiceID"));
+        InvoiceNote = Number(localStorage.getItem("InvoiceNote"));
         _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
-        _InvItems = _InvoiceItems.filter(function (x) { return x.InvoiceID == InvoiceID; });
+        if (InvoiceNote == 1) {
+            _InvItems = _InvoiceItems.filter(function (x) { return x.InvoiceID == InvoiceID; });
+        }
+        else {
+            _InvItems = _IQ_ItemCollect.filter(function (x) { return x.InvoiceID == InvoiceID; });
+        }
         $(".User" + _USER[0].USER_TYPE).removeClass('display_none');
         Display_Inv();
         Close_Loder();
@@ -38,6 +48,10 @@ var Print_Order;
     function Display_Inv() {
         Create_Invoice_Print();
         TotalComplet();
+        if (InvoiceNote == 1) {
+            $('.Type_Invoice').addClass('display_none');
+            $('.Type_Note').removeClass('display_none');
+        }
     }
     function Create_Invoice_Print() {
         $('#Print_Name_Cust').html("<strong>Name:</strong> " + _Inv.CustomerName);
@@ -50,7 +64,7 @@ var Print_Order;
         ItemCount = 0;
         for (var i = 0; i < _InvItems.length; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
-                var Row = "    <tr>\n                            <td>" + _InvItems[i].ItemDescA + " </td>\n                            <td>" + _InvItems[i].SoldQty + "</td>\n                            <td>" + _InvItems[i].Unitprice + "</td>\n                            <td>" + (_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2) + "</td>\n                        </tr>";
+                var Row = "<tr>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].ItemCode + " </td>\n                           <td>" + _InvItems[i].ItemDescA + " </td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].SoldQty + "</td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].Unitprice + "</td>\n                           <td Class=\"Type_Invoice\">" + (_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2) + "</td>\n                        </tr>";
                 ItemTotal = ItemTotal + _InvItems[i].ItemTotal;
                 ItemCount = ItemCount + _InvItems[i].SoldQty;
                 $('#Body_Inv_Print').append(Row);

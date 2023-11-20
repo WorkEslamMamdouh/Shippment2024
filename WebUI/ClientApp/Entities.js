@@ -7160,6 +7160,37 @@ var Sls_InvoiceItem = /** @class */ (function (_super) {
     }
     return Sls_InvoiceItem;
 }(SecurityClass));
+var IQ_ItemCollect = /** @class */ (function (_super) {
+    __extends(IQ_ItemCollect, _super);
+    function IQ_ItemCollect() {
+        var _this = _super.call(this) || this;
+        _this.InvoiceItemID = 0;
+        _this.InvoiceID = 0;
+        _this.ItemCode = "";
+        _this.ItemDescA = "";
+        _this.SoldQty = 0;
+        _this.Unitprice = 0;
+        _this.DiscountPrc = 0;
+        _this.DiscountAmount = 0;
+        _this.NetUnitPrice = 0;
+        _this.ItemTotal = 0;
+        _this.VatPrc = 0;
+        _this.VatAmount = 0;
+        _this.NetAfterVat = 0;
+        _this.VatApplied = 0;
+        _this.TotRetQty = 0;
+        _this.Serial = 0;
+        _this.SalesManID = 0;
+        _this.VendorID = 0;
+        _this.ItemNetAmount = 0;
+        _this.StoreID = 0;
+        _this.Remark = "";
+        _this.StatusFlag = "";
+        _this.Chack_Item = false;
+        return _this;
+    }
+    return IQ_ItemCollect;
+}(SecurityClass));
 var Zones = /** @class */ (function (_super) {
     __extends(Zones, _super);
     function Zones() {

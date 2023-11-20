@@ -156,6 +156,7 @@ var Merchant_Payment;
     }
     function PrintInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
+        localStorage.setItem("InvoiceNote", "0");
         OpenPagePartial("Print_Order", "Print Order 🧺");
     }
 })(Merchant_Payment || (Merchant_Payment = {}));

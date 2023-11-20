@@ -177,6 +177,7 @@ var RecieptOrders;
             Run_Fun = true;
             return;
         }
+        debugger;
         GetData_Invoice();
     }
 })(RecieptOrders || (RecieptOrders = {}));

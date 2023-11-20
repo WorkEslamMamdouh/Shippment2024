@@ -176,9 +176,16 @@ namespace View_Order {
     } 
     function btn_Print_onclick() {
 
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        localStorage.setItem("InvoiceNote", "0")
+        OpenPagePartial("Print_Order", "Print Order 🧺");
+
     }
     function btn_Delivery_Order_onclick() {
 
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        localStorage.setItem("InvoiceNote", "1")
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
     function btn_Deliver_shipment_onclick() {
         sys.FindKey("Deliver", "btnDeliver", " Isactive = 1 and ZoneID =" + _Inv.ZoneID, () => {
@@ -238,6 +245,7 @@ namespace View_Order {
         Dis_Refrsh();
     }
     function Dis_Refrsh() {
+        debugger
         $("#Display_Back_Page").click();
          
         _Inv = new Vnd_Inv_SlsMan();
@@ -253,6 +261,7 @@ namespace View_Order {
            
             return;
         }
+        debugger
         Display_information_Inv();
     }
 }

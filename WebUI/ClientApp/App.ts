@@ -3691,12 +3691,12 @@ function OpenPage(moduleCode: string) {
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
-    debugger
+    
     Show_Loder();
 
   
     setTimeout(function () {
-        debugger
+        
         let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
         if (Page.length > 0) {
             CounterPage++;
@@ -3728,7 +3728,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
 
             $(window).scrollTop(0);
 
-            debugger
+            
 
 
 
@@ -3757,24 +3757,24 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
                 OnDisplay_Back1();
 
 
-                debugger
+                
 
                 $("#Display_Back_Page").on('click', function () {
-                    debugger
+                    
                     OnDisplay_Back1()
                 });
             }
 
-            debugger
+            
 
             if (OnDisplay_Back2 != null) {
 
                 OnDisplay_Back2();
 
-                debugger
+                
 
                 $("#Display_Back_Page2").on('click', function () {
-                    debugger
+                    
                     OnDisplay_Back2()
                 });
             }
@@ -3827,6 +3827,16 @@ function Back_Page_Partial() {
         $('#Lab_NamePage').html(`Home<span style="font-weight: 700;">
                     <span style="font-weight: 400;"></span>
                 </span>`);
+
+        //********************************************************************
+
+        $('#_Btn_Back').html('')
+
+        $('#_Btn_Back').append(`<a id="Display_Back_Page"  class="display_none">
+
+                </a>
+                <a id="Display_Back_Page2" class="display_none">
+                </a>`);
 
     }
     else {
@@ -3882,6 +3892,7 @@ function Digits(_number: number, FractionDigits?: number): string {
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
 var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
+var GlopelIQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;
@@ -3900,11 +3911,19 @@ function SetGlopelDataInvoiceItems(Send_InvoiceItems: Array<Sls_InvoiceItem>) {
     GlopelInvoiceItems = Send_InvoiceItems;
 }
 
+function SetGlopelDataIQ_ItemCollect(Send_IQ_ItemCollect: Array<IQ_ItemCollect>) {
+    GlopelIQ_ItemCollect = Send_IQ_ItemCollect;
+}
+
 function GetGlopelDataInvoice(): Array<Vnd_Inv_SlsMan> {
     return GlopelInvoices;
 }
 function GetGlopelDataInvoiceItems(): Array<Sls_InvoiceItem> {
     return GlopelInvoiceItems;
+}
+
+function GetGlopelDataIQ_ItemCollect(): Array<IQ_ItemCollect> {
+    return GlopelIQ_ItemCollect;
 }
 
 

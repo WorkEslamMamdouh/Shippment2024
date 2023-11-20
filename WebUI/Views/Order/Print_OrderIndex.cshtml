@@ -2,7 +2,7 @@
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-container-style u-group u-group-1">
             <div class="u-container-layout u-container-layout-1">
-                <h2 class="u-align-center u-text u-text-1">Print Invoice</h2>
+                <h2 class=" Type_Invoice u-align-center u-text u-text-1">Print Invoice</h2>
             </div>
         </div>
        
@@ -71,23 +71,24 @@
 
             <div id="Body_Print_Inv" class="container">
                 <div class="header">
-                    <h1>Invoice</h1>
+                    <h1 class="Type_Invoice">Invoice</h1>
+                    <h1 class="Type_Note display_none">Delivery Note</h1>
                 </div>
-                <div class="customer-info">
+                <div class="Type_Invoice customer-info">
                     <h2>Customer Information</h2>
                     <p id="Print_Name_Cust"><strong>Name:</strong> John Doe</p>
                     <p id="Print_Name_Phone"><strong>Phone:</strong> (555) 555-5555</p>
                     <p id="Print_Name_Address"><strong>Address:</strong> 123 Main St, City, Country</p>
                 </div>
-                <div class="invoice">
-                    <h2>Invoice</h2>
+                <div class="invoice"> 
                     <table class="table">
                         <thead>
                             <tr>
+                                <th class="Type_Note display_none">Code</th>
                                 <th>Item</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Total</th>
+                                <th Class="Type_Invoice">Qty</th>
+                                <th class="Type_Invoice">Price</th>
+                                <th class="Type_Invoice">Total</th>
                             </tr>
                         </thead>
                         <tbody id="Body_Inv_Print">
@@ -105,11 +106,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="User10 total display_none">
+                    <div class="Type_Invoice User10 total display_none">
                         <p><span class="total-label">Total:</span> <span id="Total_inv_Print" class="total-amount">$35.00</span></p>
                     </div>
                     <br />
-                    <table class="User1 User2 table display_none">
+                    <table class="Type_Invoice User1 User2 table display_none">
                         <thead> 
                             <tr>
                                 <th>Prc Vat :</th>
@@ -134,7 +135,7 @@
                 </div>
                 <div class="receipt"> 
                     <p id="Tran_ID_Print"><strong>Transaction ID:</strong> 123456789</p>
-                    <p id="Tran_Date_Print"><strong>Date:</strong> October 28, 2023</p>
+                    <p class="Type_Invoice" id="Tran_Date_Print"><strong>Date:</strong> October 28, 2023</p>
                 </div>
             </div>
         </div>
