@@ -178,6 +178,7 @@ namespace Items_In_Stores {
             _Grid.PageSize = 15;
             let _IInvs = _InvoiceItems
             _Grid.DataSource = _IInvs;
+
             _Grid.Bind();
         }, 100);
         
