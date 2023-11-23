@@ -2986,4 +2986,17 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
         }
     });
 }
+function PrintTable(ID_Table) {
+    var table = document.getElementById(ID_Table);
+    var newWin = window.open('', '_blank');
+    // Build the HTML content for the new window
+    newWin.document.write('<html><head><title>Print Table</title></head><body>');
+    newWin.document.write('<h1>Table Content</h1>');
+    newWin.document.write(table.outerHTML);
+    newWin.document.write('</body></html>');
+    // Close the document
+    newWin.document.close();
+    // Print the new window
+    newWin.print();
+}
 //# sourceMappingURL=App.js.map

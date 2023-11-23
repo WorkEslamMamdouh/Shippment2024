@@ -44,8 +44,9 @@ var EmpControl;
         _Grid.Columns = [
             { title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
             { title: "User Name", name: "USER_NAME", type: "text", width: "100px" },
+            { title: "Job Title", name: "DescA", type: "text", width: "100px" },
             {
-                title: "USER_ACTIVE", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
+                title: "Active", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("label");
                     if (item.USER_ACTIVE == true) {
@@ -57,7 +58,6 @@ var EmpControl;
                     return txt;
                 }
             },
-            { title: "Job Title", name: "DescA", type: "text", width: "100px" },
             {
                 title: "Block",
                 itemTemplate: function (s, item) {
@@ -79,7 +79,7 @@ var EmpControl;
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("Edit ⚙️");
                     txt.id = "butView" + item.USER_CODE;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {
@@ -112,7 +112,7 @@ var EmpControl;
             Con = " and USER_ACTIVE =" + Number($('#drpActive').val());
         }
         if ($('#drpUserType').val() != "Null") {
-            Con = " and USER_TYPE =" + Number($('#drpUserType').val());
+            Con = Con + " and USER_TYPE =" + Number($('#drpUserType').val());
         }
         var Table;
         Table =
