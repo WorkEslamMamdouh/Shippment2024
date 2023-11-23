@@ -174,6 +174,13 @@ namespace Items_In_Stores {
         printDiv(_Grid.ElementName)
         //PrintTable(_Grid.ElementName)
 
+        setTimeout(function () {
+            _Grid.PageSize = 15;
+            let _IInvs = _InvoiceItems
+            _Grid.DataSource = _IInvs;
+            _Grid.Bind();
+        }, 100);
+        
     }
 
  

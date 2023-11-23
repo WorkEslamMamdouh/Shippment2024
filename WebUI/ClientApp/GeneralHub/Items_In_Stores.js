@@ -148,6 +148,12 @@ var Items_In_Stores;
         debugger;
         printDiv(_Grid.ElementName);
         //PrintTable(_Grid.ElementName)
+        setTimeout(function () {
+            _Grid.PageSize = 15;
+            var _IInvs = _InvoiceItems;
+            _Grid.DataSource = _IInvs;
+            _Grid.Bind();
+        }, 100);
     }
 })(Items_In_Stores || (Items_In_Stores = {}));
 //# sourceMappingURL=Items_In_Stores.js.map
