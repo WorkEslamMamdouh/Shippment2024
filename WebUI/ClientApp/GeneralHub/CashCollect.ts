@@ -24,6 +24,8 @@ namespace CashCollect {
     var Inv_Confirm: HTMLButtonElement;
     var View_Invoices: HTMLButtonElement;
     var View_Return: HTMLButtonElement;
+    var db_Zone: HTMLSelectElement;
+
     var SalesmanId = 0;
     export function InitalizeComponent() {
 
@@ -35,6 +37,7 @@ namespace CashCollect {
         $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
         InitializeGrid_Ret();
+        GetData_Zones();
         //GetData_Invoice();
         Close_Loder();
 
@@ -48,6 +51,7 @@ namespace CashCollect {
         Inv_Confirm = document.getElementById('Inv_Confirm') as HTMLButtonElement;
         View_Invoices = document.getElementById('View_Invoices') as HTMLButtonElement;
         View_Return = document.getElementById('View_Return') as HTMLButtonElement;
+        db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
     }
     function InitializeEvents() {
 
@@ -184,6 +188,24 @@ namespace CashCollect {
             _Grid_Ret.Bind();
         }
     }
+    function GetData_Zones() {
+
+
+        var Table: Array<Table>;
+        Table =
+            [
+                { NameTable: 'Zones', Condition: " Active = 1" },
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+
+        let _Zones = GetDataTable('Zones');
+
+        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
+        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+
+    }
     function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger
@@ -252,7 +274,14 @@ namespace CashCollect {
 
     }
     function Filter_Select_Delivery_onclick() {
-        sys.FindKey("Salesman", "btnSalesman", " Status = 5", () => {
+        if (db_Zone.value == 'null') {
+            Errorinput($('#db_Zone'), "Must Select Zone")
+            return;
+        }
+
+        debugger
+        let Con = " and ZoneID = " + db_Zone.value + ""; 
+            sys.FindKey("Salesman", "btnSalesman", " Status = 5 " + Con + "", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey
