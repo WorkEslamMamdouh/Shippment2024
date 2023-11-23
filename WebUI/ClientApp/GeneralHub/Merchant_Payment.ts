@@ -13,6 +13,7 @@ namespace Merchant_Payment {
     var New_Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
+    var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
 
     var txtSearch: HTMLInputElement;
     var Filter_Select_Seller: HTMLButtonElement;
@@ -130,11 +131,14 @@ namespace Merchant_Payment {
         debugger
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
         _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _IQ_ItemCollect = GetDataTable('IQ_ItemCollect');
 
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
 
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
+        SetGlopelDataIQ_ItemCollect(_IQ_ItemCollect);
+            
 
         Display_Orders();
 

@@ -273,6 +273,15 @@ var CashCollect;
                 ListInvoiceID = ListInvoiceID + ',' + _Invs[i].InvoiceID.toString();
             }
         }
+        if (ListInvoiceID.trim() != "") {
+            if (Number($('#Txt_Transfer_No').val()) <= 0) {
+                $('#Tap_View_Inv').click();
+                $('#Tap_View_Inv').addClass('active');
+                $('#Tap_View_Ret').removeClass('active');
+                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No");
+                return;
+            }
+        }
         var ListInvoiceIDRet = '';
         Frist = true;
         for (var i = 0; i < _Invs_Ret.length; i++) {

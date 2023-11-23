@@ -79,8 +79,8 @@ var ShipOrder;
                 }
             },
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "CustomerMobile1", name: "Vnd_Name", type: "text", width: "100px" },
-            { title: "Address", name: "Vnd_Mobile", type: "text", width: "100px" },
+            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
+            { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             {
                 title: "View",

@@ -299,6 +299,7 @@ namespace CashCollect {
 
 
 
+
         let ListInvoiceID = ''; 
         let Frist = true;
         for (var i = 0; i < _Invs.length; i++) {
@@ -312,6 +313,17 @@ namespace CashCollect {
             }
 
         }
+
+        if (ListInvoiceID.trim() != "") {
+            if (Number($('#Txt_Transfer_No').val()) <= 0) {
+                $('#Tap_View_Inv').click()
+                $('#Tap_View_Inv').addClass('active');
+                $('#Tap_View_Ret').removeClass('active');
+                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No")
+                return
+            } 
+        }
+
 
         let ListInvoiceIDRet = '';
           Frist = true;
