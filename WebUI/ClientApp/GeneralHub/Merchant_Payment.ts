@@ -78,7 +78,7 @@ namespace Merchant_Payment {
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View ✅");
+                    txt.value = ("Review");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 

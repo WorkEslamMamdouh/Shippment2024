@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    CashCollect.InitalizeComponent();
+    Chase_Delivery.InitalizeComponent();
 });
-var CashCollect;
-(function (CashCollect) {
+var Chase_Delivery;
+(function (Chase_Delivery) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Grid = new JsGrid();
@@ -18,7 +18,6 @@ var CashCollect;
     var Filter_Select_Delivery;
     var Filter_View;
     var btnDelete_Filter;
-    var Inv_Confirm;
     var View_Invoices;
     var View_Return;
     var SalesmanId = 0;
@@ -34,14 +33,13 @@ var CashCollect;
         //GetData_Invoice();
         Close_Loder();
     }
-    CashCollect.InitalizeComponent = InitalizeComponent;
+    Chase_Delivery.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
         txtSearchRet = document.getElementById('txtSearchRet');
         Filter_Select_Delivery = document.getElementById('Filter_Select_Delivery');
         Filter_View = document.getElementById('Filter_View');
         btnDelete_Filter = document.getElementById('btnDelete_Filter');
-        Inv_Confirm = document.getElementById('Inv_Confirm');
         View_Invoices = document.getElementById('View_Invoices');
         View_Return = document.getElementById('View_Return');
     }
@@ -51,7 +49,6 @@ var CashCollect;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear;
-        Inv_Confirm.onclick = Inv_Confirm_Onclick;
         View_Invoices.onclick = function () { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none'); };
         View_Return.onclick = function () { $('.Txt_Ret_Tot').removeClass('display_none'); $('.Txt_Inv_Tot').addClass('display_none'); };
     }
@@ -84,6 +81,23 @@ var CashCollect;
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            {
+                title: "Status", css: "ColumPadding", name: "Status", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    if (item.Status == 4) {
+                        txt.innerHTML = 'Not Deliver';
+                        txt.style.color = 'red';
+                        txt.style.fontWeight = 'bold';
+                    }
+                    else {
+                        txt.innerHTML = 'Done Deliver';
+                        txt.style.color = '#00dd40';
+                        txt.style.fontWeight = 'bold';
+                    }
+                    return txt;
+                }
+            },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
@@ -188,8 +202,8 @@ var CashCollect;
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -228,7 +242,7 @@ var CashCollect;
         }
     }
     function Filter_Select_Delivery_onclick() {
-        sys.FindKey("Salesman", "btnSalesman", " Status = 5", function () {
+        sys.FindKey("Salesman", "btnSalesman", "  Status = 5 or Status = 4 ", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey;
@@ -262,62 +276,5 @@ var CashCollect;
         localStorage.setItem("InvoiceNote", "0");
         OpenPagePartial("Print_Order", "Print Order 🧺");
     }
-    function Inv_Confirm_Onclick() {
-        if (SalesmanId == 0) {
-            Errorinput($('#Filter_Select_Delivery'), "Must Select Delivery");
-            return;
-        }
-        var ListInvoiceID = '';
-        var Frist = true;
-        for (var i = 0; i < _Invs.length; i++) {
-            if (Frist == true) {
-                ListInvoiceID = ListInvoiceID + _Invs[i].InvoiceID.toString();
-                Frist = false;
-            }
-            else {
-                ListInvoiceID = ListInvoiceID + ',' + _Invs[i].InvoiceID.toString();
-            }
-        }
-        if (ListInvoiceID.trim() != "") {
-            if (Number($('#Txt_Transfer_No').val()) <= 0) {
-                $('#Tap_View_Inv').click();
-                $('#Tap_View_Inv').addClass('active');
-                $('#Tap_View_Ret').removeClass('active');
-                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No");
-                return;
-            }
-        }
-        var ListInvoiceIDRet = '';
-        Frist = true;
-        for (var i = 0; i < _Invs_Ret.length; i++) {
-            if (Frist == true) {
-                ListInvoiceIDRet = ListInvoiceIDRet + _Invs_Ret[i].InvoiceID.toString();
-                Frist = false;
-            }
-            else {
-                ListInvoiceIDRet = ListInvoiceIDRet + ' , ' + _Invs_Ret[i].InvoiceID.toString();
-            }
-        }
-        var StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ';
-        Ajax.CallsyncSave({
-            type: "Post",
-            url: sys.apiUrl("SlsInvoice", "CashCollectFrom_Delivery"),
-            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc },
-            success: function (d) {
-                debugger;
-                var result = d;
-                if (result.IsSuccess) {
-                    debugger;
-                    ShowMessage("Done 😍");
-                    $("#Display_Back_Page2").click();
-                    $('#Back_Page').click();
-                    Close_Loder();
-                }
-                else {
-                    ShowMessage("Error 😒");
-                }
-            }
-        });
-    }
-})(CashCollect || (CashCollect = {}));
-//# sourceMappingURL=CashCollect.js.map
+})(Chase_Delivery || (Chase_Delivery = {}));
+//# sourceMappingURL=Chase_Delivery.js.map

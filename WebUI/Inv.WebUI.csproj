@@ -1118,6 +1118,7 @@
     <Content Include="Views\Vouchers\VoucherReceiptIndex.cshtml" />
     <Content Include="Views\Vouchers\VoucherPaymentIndex.cshtml" />
     <Content Include="Views\Order\Print_OrderIndex.cshtml" />
+    <Content Include="Views\GeneralHub\Chase_DeliveryIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1148,6 +1149,7 @@
     <TypeScriptCompile Include="ClientApp\AjaxCaller.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
+    <TypeScriptCompile Include="ClientApp\GeneralHub\Chase_Delivery.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\CashCollect.ts" />
     <TypeScriptCompile Include="ClientApp\Delivery\Wallet.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\Return_Items.ts" />

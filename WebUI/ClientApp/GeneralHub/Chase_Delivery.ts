@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(() => {
-    CashCollect.InitalizeComponent();
+    Chase_Delivery.InitalizeComponent();
 
 });
 
-namespace CashCollect {
+namespace Chase_Delivery {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
     var _Grid: JsGrid = new JsGrid();
@@ -20,8 +20,7 @@ namespace CashCollect {
     var txtSearchRet: HTMLInputElement;
     var Filter_Select_Delivery: HTMLButtonElement;
     var Filter_View: HTMLButtonElement;
-    var btnDelete_Filter: HTMLButtonElement;
-    var Inv_Confirm: HTMLButtonElement;
+    var btnDelete_Filter: HTMLButtonElement; 
     var View_Invoices: HTMLButtonElement;
     var View_Return: HTMLButtonElement;
     var SalesmanId = 0;
@@ -44,8 +43,7 @@ namespace CashCollect {
         txtSearchRet = document.getElementById('txtSearchRet') as HTMLInputElement;
         Filter_Select_Delivery = document.getElementById('Filter_Select_Delivery') as HTMLButtonElement;
         Filter_View = document.getElementById('Filter_View') as HTMLButtonElement;
-        btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement;
-        Inv_Confirm = document.getElementById('Inv_Confirm') as HTMLButtonElement;
+        btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement; 
         View_Invoices = document.getElementById('View_Invoices') as HTMLButtonElement;
         View_Return = document.getElementById('View_Return') as HTMLButtonElement;
     }
@@ -55,8 +53,7 @@ namespace CashCollect {
         txtSearchRet.onkeyup = _SearchBoxRet_Change;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_InvoiceCollect;
-        btnDelete_Filter.onclick = Clear;
-        Inv_Confirm.onclick = Inv_Confirm_Onclick;
+        btnDelete_Filter.onclick = Clear; 
 
         View_Invoices.onclick = () => { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none') }
         View_Return.onclick = () => { $('.Txt_Ret_Tot').removeClass('display_none'); $('.Txt_Inv_Tot').addClass('display_none') }
@@ -90,6 +87,23 @@ namespace CashCollect {
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            {
+                title: "Status", css: "ColumPadding", name: "Status", width: "100px",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
+                    let txt: HTMLLabelElement = document.createElement("label");
+                    if (item.Status == 4) {
+                        txt.innerHTML = 'Not Deliver'
+                        txt.style.color = 'red'
+                        txt.style.fontWeight = 'bold'
+                    }
+                    else {
+                        txt.innerHTML = 'Done Deliver'
+                        txt.style.color = '#00dd40'
+                        txt.style.fontWeight = 'bold'
+                    }
+                    return txt;
+                }
+            },
             {
                 title: "View",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
@@ -200,8 +214,8 @@ namespace CashCollect {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
             ]
 
         DataResult(Table);
@@ -252,7 +266,7 @@ namespace CashCollect {
 
     }
     function Filter_Select_Delivery_onclick() {
-        sys.FindKey("Salesman", "btnSalesman", " Status = 5", () => {
+        sys.FindKey("Salesman", "btnSalesman", "  Status = 5 or Status = 4 ", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey
@@ -288,86 +302,11 @@ namespace CashCollect {
 
     }
 
-    function ViewInvoice(InvoiceID) {
-
+    function ViewInvoice(InvoiceID) { 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
         localStorage.setItem("InvoiceNote", "0")
-        OpenPagePartial("Print_Order", "Print Order 🧺");
+        OpenPagePartial("Print_Order", "Print Order 🧺"); 
     }
-
-
-    function Inv_Confirm_Onclick() {
-        if (SalesmanId == 0) {
-            Errorinput($('#Filter_Select_Delivery'), "Must Select Delivery")
-            return
-        }
-
-
-
-
-        let ListInvoiceID = ''; 
-        let Frist = true;
-        for (var i = 0; i < _Invs.length; i++) {
-             
-            if (Frist == true) {
-                ListInvoiceID = ListInvoiceID + _Invs[i].InvoiceID.toString();
-                Frist = false;
-            }
-            else {
-                ListInvoiceID = ListInvoiceID + ',' + _Invs[i].InvoiceID.toString();
-            }
-
-        }
-
-        if (ListInvoiceID.trim() != "") {
-            if (Number($('#Txt_Transfer_No').val()) <= 0) {
-                $('#Tap_View_Inv').click()
-                $('#Tap_View_Inv').addClass('active');
-                $('#Tap_View_Ret').removeClass('active');
-                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No")
-                return
-            } 
-        }
-
-
-        let ListInvoiceIDRet = '';
-          Frist = true;
-        for (var i = 0; i < _Invs_Ret.length; i++) {
-
-            if (Frist == true) {
-                ListInvoiceIDRet = ListInvoiceIDRet + _Invs_Ret[i].InvoiceID.toString();
-                Frist = false;
-            }
-            else {
-                ListInvoiceIDRet = ListInvoiceIDRet + ' , ' + _Invs_Ret[i].InvoiceID.toString();
-            }
-
-        }
-
-
-
-        let StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ' ;
-
-        Ajax.CallsyncSave({
-            type: "Post",
-            url: sys.apiUrl("SlsInvoice", "CashCollectFrom_Delivery"), 
-            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc },
-            success: (d) => {
-                debugger
-                let result = d as BaseResponse;
-                if (result.IsSuccess) {
-                    debugger
-                    ShowMessage("Done 😍")
-                    $("#Display_Back_Page2").click();
-
-                    $('#Back_Page').click();
-                    Close_Loder();
-                } else {
-                    ShowMessage("Error 😒")
-                }
-            }
-        });
-    }
-
+     
 
 }
