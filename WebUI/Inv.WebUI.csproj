@@ -198,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientApp\uploadFile.js" />
     <Content Include="css\select2.min.css" />
     <Content Include="css\UnderConstruction\css\animate.css" />
     <Content Include="css\UnderConstruction\css\bootstrap.min.css" />
@@ -1042,6 +1043,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientToolsController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GeneralAPIController.cs" />
     <Compile Include="Controllers\HController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

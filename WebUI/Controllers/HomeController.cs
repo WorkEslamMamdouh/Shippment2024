@@ -173,8 +173,32 @@ namespace Inv.WebUI.Controllers
 
             return RedirectToAction("Loginindex", "Login");
         }
-         
-          
+
+        public ActionResult OpenImg(string path)
+        {
+            // Combine the path to the file with the root directory of your application
+            string fullPath = path;
+
+            // Check if the file exists before returning it
+            if (System.IO.File.Exists(fullPath))
+            {
+                // Determine the content type based on the file extension
+                string contentType = "application/octet-stream"; // Default content type
+                if (Path.GetExtension(fullPath) == ".jpg")
+                {
+                    contentType = "image/jpeg";
+                }
+
+                // Return the file using FileContentResult
+                byte[] fileBytes = System.IO.File.ReadAllBytes(fullPath);
+                return File(fileBytes, contentType);
+            }
+            else
+            {
+                // If the file doesn't exist, return an error or handle it accordingly
+                return HttpNotFound("File not found");
+            }
+        }
 
 
     }

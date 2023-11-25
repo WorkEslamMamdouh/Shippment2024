@@ -3970,3 +3970,31 @@ function PrintTable(ID_Table: string) {
     // Print the new window
     newWin.print();
 }
+
+
+function GenerateUUID() {
+    return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+
+function GetOpenImg(Name_Folder: string, Name_Img: string): string{
+    let x = Url.Action("OpenImg", "Home");
+    let path = ""
+    if (Name_Folder.trim() == "") {
+      path = $('#Path_Save').val() + '/' + Name_Img            
+    }
+    else {
+      path = $('#Path_Save').val() + '/' + Name_Folder + '/' + Name_Img            
+    }
+
+    let UrlImg = x + "/" + "?" + "path=" + path + ".jpg";
+
+    return UrlImg
+}
+
+
+ 
