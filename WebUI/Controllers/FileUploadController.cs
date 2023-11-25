@@ -78,10 +78,10 @@ public class FileUploadController : Controller
         if (fileUpload != null && fileUpload.ContentLength > 0)
         {
             //string fileName = Path.GetFileName(fileUpload.FileName);
-            //string serverPath = Server.MapPath("/FileUpload/"); // Specify the server location to save the file
-            //string serverPath =   System.Web.HttpContext.Current.Server.UrlPathEncode(@"/SavePath/Dropbox/FileUpload/");
-             
-            string serverPath =  System.Web.HttpContext.Current.Server.UrlPathEncode(@"" + Path_Url + "");
+            string serverPath = Server.MapPath(Path_Url); // Specify the server location to save the file
+                                                                //string serverPath =   System.Web.HttpContext.Current.Server.UrlPathEncode(@"/SavePath/Dropbox/FileUpload/");
+
+            //string serverPath =  System.Web.HttpContext.Current.Server.UrlPathEncode(@"" + Path_Url + "");
 
             // Create the directory if it doesn't exist
             Directory.CreateDirectory(serverPath);

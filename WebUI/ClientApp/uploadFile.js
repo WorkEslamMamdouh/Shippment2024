@@ -11,11 +11,12 @@ function onchangeFile() {
 
         $("#BtnUpload").removeClass("display_none"); 
         $("#fileUploadInput").attr("style", "background: #0ea300;color: aliceblue;font-weight: bold;");
-         
 
+
+        $("#" + $("#IdName_View_Img").val() + "").attr('src', '/images/Loder.gif');
         setTimeout(function () {
             $('#BtnUpload').click();
-        }, 1000);
+        }, 100);
     }
     else {
         $("#BtnUpload").addClass("display_none");
@@ -26,19 +27,13 @@ function onchangeFile() {
    
 }
 
-
-function GenerateUUID() {
-    return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0,
-            v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
+ 
 
 
 function uploadImg() {
-    debugger
-    $("#fileName").val(GenerateUUID());
+
+  
+
     var fileInput = document.getElementById("fileUploadInput");
     var file = fileInput.files[0];
     debugger 
@@ -50,10 +45,17 @@ function uploadImg() {
         debugger
   
         //path = 'D:/Ahmed_Work/Kids4/WebUI/Upload_Img/';
-        path = $('#Path_Save').val();
+        if ($('#Name_Folder').val().trim() == '') {
+            path = $('#Path_Save').val();
+        }
+        else {
+            path = $('#Path_Save').val() + '/' + $('#Name_Folder').val().trim() + '/';
+        }
+      
         formData.append("Path_Url", path);
 
         formData.append("fileName", $('#fileName').val() + fileInput.accept);
+
 
          
         var xhr = new XMLHttpRequest();
@@ -64,6 +66,9 @@ function uploadImg() {
                 console.log("File uploaded!");
                 //alert("File uploaded!")
                 $('#Btn_fileUpload').click();
+
+                debugger
+                $("#" + $("#IdName_View_Img").val() + "").attr('src', $("#UrlImg").val());
 
                 //$("#_ImageUpload").html('<img id="" class="w-100" src="/Upload_Img/' + $('#fileName').val() + fileInput.accept + '" />');
                 //$("#_ImageUpload").html('<img id="" class="w-100" src="' + $('#Path_Upload').val()+ $('#fileName').val() + fileInput.accept + '" />');

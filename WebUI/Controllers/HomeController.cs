@@ -177,7 +177,8 @@ namespace Inv.WebUI.Controllers
         public ActionResult OpenImg(string path)
         {
             // Combine the path to the file with the root directory of your application
-            string fullPath = path;
+            
+            string fullPath = Server.MapPath(path);
 
             // Check if the file exists before returning it
             if (System.IO.File.Exists(fullPath))

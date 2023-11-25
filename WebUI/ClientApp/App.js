@@ -3005,8 +3005,24 @@ function GenerateUUID() {
         return v.toString(16);
     });
 }
-function GetOpenImg(Name_Folder, Name_Img) {
-    var x = Url.Action("OpenImg", "Home");
+function Upload_image(IdName_View_Img, Name_Folder, Name_Img) {
+    debugger;
+    $('#Name_Folder').val(Name_Folder);
+    if (Name_Img.trim() == "") {
+        $("#fileName").val(GenerateUUID());
+    }
+    else {
+        $("#fileName").val(Name_Img);
+    }
+    debugger;
+    var UrlImg = GetUrlImg(Name_Folder, $("#fileName").val());
+    $("#UrlImg").val(UrlImg);
+    $("#IdName_View_Img").val(IdName_View_Img);
+    $('#fileUploadInput').click();
+    return $("#fileName").val().trim();
+}
+function GetUrlImg(Name_Folder, Name_Img) {
+    //let x = Url.Action("OpenImg", "Home");
     var path = "";
     if (Name_Folder.trim() == "") {
         path = $('#Path_Save').val() + '/' + Name_Img;
@@ -3014,7 +3030,8 @@ function GetOpenImg(Name_Folder, Name_Img) {
     else {
         path = $('#Path_Save').val() + '/' + Name_Folder + '/' + Name_Img;
     }
-    var UrlImg = x + "/" + "?" + "path=" + path + ".jpg";
+    //let UrlImg = x + "/" + "?" + "path=" + path + ".jpg";
+    var UrlImg = path + ".jpg";
     return UrlImg;
 }
 //# sourceMappingURL=App.js.map

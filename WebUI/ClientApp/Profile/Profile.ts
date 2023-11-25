@@ -11,6 +11,7 @@ namespace Profile {
 	var _USER: Array<G_USERS> = new Array<G_USERS>();
 	 
 	var Submit_Update_Profile: HTMLButtonElement;
+	var img_Profile: HTMLButtonElement;
 
 	export function InitalizeComponent() {
 	 
@@ -40,12 +41,19 @@ namespace Profile {
 	}
 	function InitalizeControls() {
 		Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
+		img_Profile = document.getElementById("img_Profile") as HTMLButtonElement;
 	}
 	function InitializeEvents() {
 
 		Submit_Update_Profile.onclick = SubmitUpdate;
+		img_Profile.onclick = img_Profile_onclick;
 
-	} 
+	}
+	function img_Profile_onclick() {
+		Upload_image('img_Profile','', '');
+	}
+
+
 	function Display_Data() {
 		debugger
 		if (_USER[0].USER_TYPE == 10) {

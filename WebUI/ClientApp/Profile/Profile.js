@@ -8,6 +8,7 @@ var Profile;
     var _USERS = new Array();
     var _USER = new Array();
     var Submit_Update_Profile;
+    var img_Profile;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
@@ -26,9 +27,14 @@ var Profile;
     Profile.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
+        img_Profile = document.getElementById("img_Profile");
     }
     function InitializeEvents() {
         Submit_Update_Profile.onclick = SubmitUpdate;
+        img_Profile.onclick = img_Profile_onclick;
+    }
+    function img_Profile_onclick() {
+        Upload_image('img_Profile', '', '');
     }
     function Display_Data() {
         debugger;
