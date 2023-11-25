@@ -3021,6 +3021,13 @@ function Upload_image(IdName_View_Img, Name_Folder, Name_Img) {
     $('#fileUploadInput').click();
     return $("#fileName").val().trim();
 }
+function Show_image(IdName_View_Img, Name_Folder, Name_Img) {
+    if (Name_Img.trim() == "") {
+        return;
+    }
+    var UrlImg = GetUrlImg(Name_Folder, Name_Img);
+    $("#" + IdName_View_Img + "").attr('src', UrlImg);
+}
 function GetUrlImg(Name_Folder, Name_Img) {
     //let x = Url.Action("OpenImg", "Home");
     var path = "";

@@ -34,7 +34,7 @@ var Profile;
         img_Profile.onclick = img_Profile_onclick;
     }
     function img_Profile_onclick() {
-        Upload_image('img_Profile', '', '');
+        Upload_image('img_Profile', 'Profile_User', '');
     }
     function Display_Data() {
         debugger;

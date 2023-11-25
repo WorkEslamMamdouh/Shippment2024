@@ -50,7 +50,7 @@ namespace Profile {
 
 	}
 	function img_Profile_onclick() {
-		Upload_image('img_Profile','', '');
+		Upload_image('img_Profile','Profile_User', '');
 	}
 
 
