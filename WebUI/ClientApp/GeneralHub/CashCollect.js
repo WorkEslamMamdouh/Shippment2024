@@ -335,6 +335,7 @@ var CashCollect;
                     Close_Loder();
                 }
                 else {
+                    Close_Loder();
                     ShowMessage("Error 😒");
                 }
             }

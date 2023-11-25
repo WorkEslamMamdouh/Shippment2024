@@ -258,12 +258,14 @@ namespace Coding_Items {
                         //$('#Back_Page').click();
                         Close_Loder();
                     } else {
+                        Close_Loder();
                         ShowMessage("Error 😒")
                     }
                 }
             });
 
         } catch (e) {
+            Close_Loder();
             ShowMessage("Error 😒")
         }
 

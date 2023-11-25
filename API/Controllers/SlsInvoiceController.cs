@@ -241,12 +241,12 @@ namespace Inv.API.Controllers
                     Location, SalesmanId, TotalAmount, VatAmount, VatType, DiscountAmount, DiscountPrc, NetAfterVat, 
                     CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status, CreatedAt, CreatedBy, UpdatedAt,
                     UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
-                    ChargeAmount, ItemCount, LineCount, VendorID)
-                    select  TrNo, RefNO, " + obj.InvoiceID + @", '" + DateTime.Now.ToString() + @"', TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
+                    ChargeAmount, ItemCount, LineCount, VendorID,StoreID,ZoneID)
+                    select  TrNo, RefNO, " + obj.InvoiceID + @", '" + DateTime.Now.ToString("yyyy-MM-dd") + @"', TrDateH, 1, CustomerName, CustomerMobile1, CustomerMobile2, Address,
                     Location, SalesmanId, TotalAmount, VatAmount, VatType, DiscountAmount, DiscountPrc, NetAfterVat, 
-                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  '" + DateTime.Now.ToString() + @"', '" + obj.UserCode + @"', UpdatedAt,
+                    CommitionAmount, CashAmount, CardAmount, RemainAmount, Remark, Status,  '" + DateTime.Now.ToString("yyyy-MM-dd") + @"', '" + obj.UserCode + @"', UpdatedAt,
                     UpdatedBy, CompCode, BranchCode, DocNo, TrTime, QRCode, DeliveryDate, DeliveryEndDate, PromoCode, 
-                    ChargeAmount, ItemCount, LineCount, VendorID
+                    ChargeAmount, ItemCount, LineCount, VendorID,StoreID,ZoneID
                     from Sls_Invoice where InvoiceID = " + obj.InvoiceID + " SET @LASTID = @@IDENTITY select @LASTID";
 
                     int RetIvoiceID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();

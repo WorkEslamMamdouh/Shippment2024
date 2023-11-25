@@ -237,8 +237,8 @@ namespace Chase_Delivery {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 1)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 1)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
             ]
 
         DataResult(Table);
@@ -296,7 +296,7 @@ namespace Chase_Delivery {
 
         debugger
         let Con = " and ZoneID = " + db_Zone.value + "";
-        sys.FindKey("Salesman", "btnSalesman", "  Status = 5 " + Con + " or Status = 4 " + Con +" ", () => {
+        sys.FindKey("Follow_UP", "btnSalesman", "  Status = 4 " + Con + "", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey

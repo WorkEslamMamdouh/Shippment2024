@@ -1120,6 +1120,9 @@
     <Content Include="Views\Order\Print_OrderIndex.cshtml" />
     <Content Include="Views\GeneralHub\Chase_DeliveryIndex.cshtml" />
     <Content Include="Views\GeneralHub\Items_In_StoresIndex.cshtml" />
+    <Content Include="Views\Saller\Seller_Order_finishIndex.cshtml" />
+    <Content Include="Views\GeneralHub\MoneyIndex.cshtml" />
+    <Content Include="Views\GeneralHub\History_OrderIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

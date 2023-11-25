@@ -33,6 +33,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/Home/HomeIndex.cshtml",
          "~/Views/Saller/Order_SallerIndex.cshtml",
          "~/Views/Saller/View_Seller_OrdersIndex.cshtml",
+         "~/Views/Saller/Seller_Order_finishIndex.cshtml",
          "~/Views/Delivery/View_delivery_OrdersIndex.cshtml",
          "~/Views/GeneralHub/View_Validate_OrdersIndex.cshtml",
          "~/Views/Order/View_OrderIndex.cshtml",
@@ -58,7 +59,9 @@ namespace Inv.WebUI.Controllers
          "~/Views/Vouchers/VoucherReceiptIndex.cshtml",
          "~/Views/Order/Print_OrderIndex.cshtml",
          "~/Views/GeneralHub/Chase_DeliveryIndex.cshtml",
-         "~/Views/GeneralHub/Items_In_StoresIndex.cshtml", 
+         "~/Views/GeneralHub/Items_In_StoresIndex.cshtml",
+         "~/Views/GeneralHub/History_OrderIndex.cshtml",
+         "~/Views/GeneralHub/MoneyIndex.cshtml", 
 
                       };
 

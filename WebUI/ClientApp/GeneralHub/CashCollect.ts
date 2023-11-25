@@ -392,6 +392,7 @@ namespace CashCollect {
                     $('#Back_Page').click();
                     Close_Loder();
                 } else {
+                    Close_Loder();
                     ShowMessage("Error 😒")
                 }
             }
