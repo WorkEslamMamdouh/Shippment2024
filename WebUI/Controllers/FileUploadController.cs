@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
 using System;
@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Linq;
+using ImageResizer;
+using System.IO;
 
 public class FileUploadController : Controller
 {
@@ -62,8 +64,8 @@ public class FileUploadController : Controller
     //[HttpGet]
     //public string GetUrlPathSaveFile(int CompCode, string FormCode)
     //{
-        
-          
+
+
     //        var G_Excel =  db.G_ExcelLoader.Where(x => x.CompCode == CompCode && x.FormCode == FormCode).FirstOrDefault();
 
     //    string Path = "" + G_Excel.TemplateExcelFolder + "=";
@@ -73,13 +75,13 @@ public class FileUploadController : Controller
     //}
 
     [HttpPost]
-    public ActionResult Upload(HttpPostedFileBase fileUpload , string Path_Url , string fileName)
+    public ActionResult Upload(HttpPostedFileBase fileUpload, string Path_Url, string fileName)
     {
         if (fileUpload != null && fileUpload.ContentLength > 0)
         {
             //string fileName = Path.GetFileName(fileUpload.FileName);
             string serverPath = Server.MapPath(Path_Url); // Specify the server location to save the file
-                                                                //string serverPath =   System.Web.HttpContext.Current.Server.UrlPathEncode(@"/SavePath/Dropbox/FileUpload/");
+                                                          //string serverPath =   System.Web.HttpContext.Current.Server.UrlPathEncode(@"/SavePath/Dropbox/FileUpload/");
 
             //string serverPath =  System.Web.HttpContext.Current.Server.UrlPathEncode(@"" + Path_Url + "");
 
@@ -92,6 +94,8 @@ public class FileUploadController : Controller
 
         return RedirectToAction("Index", "Home"); // Redirect to another page after successful upload
     }
-     
+ 
+
+
 
 }

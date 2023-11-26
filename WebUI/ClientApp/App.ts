@@ -4002,7 +4002,7 @@ function Upload_image(IdName_View_Img: string,Name_Folder: string, Name_Img: str
 }
 
 
-function Show_image(IdName_View_Img: string, Name_Folder: string, Name_Img: string){
+function Display_image(IdName_View_Img: string, Name_Folder: string, Name_Img: string){
      
 
     if (Name_Img.trim() == "") {
@@ -4012,6 +4012,7 @@ function Show_image(IdName_View_Img: string, Name_Folder: string, Name_Img: stri
     let UrlImg = GetUrlImg(Name_Folder, Name_Img)
 
     $("#" + IdName_View_Img + "").attr('src', UrlImg);
+    debugger
      
 }
 

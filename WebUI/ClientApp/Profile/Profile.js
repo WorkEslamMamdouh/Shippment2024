@@ -22,6 +22,7 @@ var Profile;
         $('#Profile_UserName').html(_USER[0].USER_CODE);
         $('#Profile_JobTitle').html(_USER[0].JobTitle);
         Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
+        Display_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
         Close_Loder();
     }
     Profile.InitalizeComponent = InitalizeComponent;
@@ -34,7 +35,7 @@ var Profile;
         img_Profile.onclick = img_Profile_onclick;
     }
     function img_Profile_onclick() {
-        Upload_image('img_Profile', 'Profile_User', '');
+        Upload_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
     }
     function Display_Data() {
         debugger;

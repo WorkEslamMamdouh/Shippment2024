@@ -37,6 +37,8 @@ namespace Profile {
 
 		Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
 
+		Display_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
+
 		Close_Loder();
 	}
 	function InitalizeControls() {
@@ -50,7 +52,7 @@ namespace Profile {
 
 	}
 	function img_Profile_onclick() {
-		Upload_image('img_Profile','Profile_User', '');
+		Upload_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
 	}
 
 
