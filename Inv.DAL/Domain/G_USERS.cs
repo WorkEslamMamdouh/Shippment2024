@@ -47,5 +47,8 @@ namespace Inv.DAL.Domain
         public Nullable<int> StoreID { get; set; }
         public Nullable<int> VendorID { get; set; }
         public string Vnd_CompName { get; set; }
+        public string Profile_Img { get; set; }
+        public string FrontID_Img { get; set; }
+        public string BackID_Img { get; set; }
     }
 }

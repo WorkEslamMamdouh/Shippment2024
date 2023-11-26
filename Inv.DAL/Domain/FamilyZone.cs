@@ -12,10 +12,9 @@ namespace Inv.DAL.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Zones
+    public partial class FamilyZone
     {
-        public int ZoneID { get; set; }
-        public Nullable<int> FamilyZoneID { get; set; }
+        public int FamilyZoneID { get; set; }
         public string ZoneCode { get; set; }
         public string DescA { get; set; }
         public Nullable<bool> Active { get; set; }

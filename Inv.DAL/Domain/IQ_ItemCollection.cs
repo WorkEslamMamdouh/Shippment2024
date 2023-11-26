@@ -12,13 +12,13 @@ namespace Inv.DAL.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Zones
+    public partial class IQ_ItemCollection
     {
-        public int ZoneID { get; set; }
-        public Nullable<int> FamilyZoneID { get; set; }
-        public string ZoneCode { get; set; }
-        public string DescA { get; set; }
-        public Nullable<bool> Active { get; set; }
-        public string Remarks { get; set; }
+        public string ItemDescA { get; set; }
+        public Nullable<decimal> SoldQty { get; set; }
+        public Nullable<decimal> Unitprice { get; set; }
+        public Nullable<int> SalesManID { get; set; }
+        public Nullable<int> VendorID { get; set; }
+        public int InvoiceID { get; set; }
     }
 }
