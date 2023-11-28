@@ -6,6 +6,9 @@ namespace Inv.BLL.Services.SalesMan
     {
         I_Sls_D_Salesman Insert(I_Sls_D_Salesman entity);
         I_Sls_D_Salesman Update(I_Sls_D_Salesman entity);
+        FamilyZone InsertFamilyZone(FamilyZone entity);
+        FamilyZone UpdateFamilyZone(FamilyZone entity);
+        void DeleteFamilyZone(int id);
         Zones InsertZone(Zones entity);
         Zones UpdateZone(Zones entity);
         void DeleteZone(int id);

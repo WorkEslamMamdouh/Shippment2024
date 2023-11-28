@@ -1135,6 +1135,7 @@
     <Content Include="Views\Saller\Seller_Order_finishIndex.cshtml" />
     <Content Include="Views\GeneralHub\MoneyIndex.cshtml" />
     <Content Include="Views\GeneralHub\History_OrderIndex.cshtml" />
+    <Content Include="Views\Zone\FamilyZonesIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1187,6 +1188,7 @@
     <TypeScriptCompile Include="ClientApp\Store\Store.ts" />
     <TypeScriptCompile Include="ClientApp\UserDef\UserDef.ts" />
     <TypeScriptCompile Include="ClientApp\PromoCode\PromoCode.ts" />
+    <TypeScriptCompile Include="ClientApp\Zone\FamilyZones.ts" />
     <TypeScriptCompile Include="ClientApp\Zone\Zone.ts" />
     <TypeScriptCompile Include="ClientApp\Profile\Profile.ts" />
     <TypeScriptCompile Include="ClientApp\Login\Login.ts" />

@@ -9,6 +9,9 @@ var UserDef;
     var _USER = new Array();
     var _G_Code = new Array();
     var _Zones = new Array();
+    var _ZonesFltr = new Array();
+    var Usr_Zone;
+    var FamilyZone;
     var Submit_Update_Profile;
     var Usr_UserType;
     function InitalizeComponent() {
@@ -39,10 +42,13 @@ var UserDef;
     function InitalizeControls() {
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
         Usr_UserType = document.getElementById("Usr_UserType");
+        Usr_Zone = document.getElementById('Usr_Zone');
+        FamilyZone = document.getElementById('FamilyZone');
     }
     function InitializeEvents() {
         Submit_Update_Profile.onclick = SubmitUpdate;
         Usr_UserType.onchange = UserType_Change;
+        FamilyZone.onchange = FltrZones;
     }
     function Display_User() {
         debugger;
@@ -54,7 +60,12 @@ var UserDef;
         $('#Usr_Gender').val(_USER[0].REGION_CODE);
         $('#Usr_UserCode').val(_USER[0].USER_CODE);
         $('#Usr_UserType').val(_USER[0].USER_TYPE);
+        debugger;
         if (Number(_USER[0].CashBoxID) != 0) {
+            $('#drp_Zone').val(_USER[0].CashBoxID);
+            var FamilyzoneID = $('option:selected', $('#drp_Zone')).attr("data-FamilyZoneID");
+            $('#FamilyZone').val(FamilyzoneID);
+            FltrZones();
             $('#Usr_Zone').val(_USER[0].CashBoxID);
         }
         else {
@@ -72,22 +83,30 @@ var UserDef;
         Table =
             [
                 { NameTable: 'G_Codes', Condition: "CodeType= 'UserType' and CodeValue not in (1,10)" },
-                { NameTable: 'Zones', Condition: "" },
+                { NameTable: 'Zones', Condition: "Active =1" },
+                { NameTable: 'FamilyZone', Condition: "Active =1" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
         _G_Code = GetDataTable('G_Codes');
         _Zones = GetDataTable('Zones');
+        var _FamilyZones = GetDataTable('FamilyZone');
         FillDropwithAttr(_G_Code, "Usr_UserType", "CodeValue", "DescA", "No", "", "");
-        FillDropwithAttr(_Zones, "Usr_Zone", "ZoneID", "DescA", "No", "", "");
+        DocumentActions.FillCombowithdefult(_FamilyZones, FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(function (x) { return x.FamilyZoneID == Number(FamilyZone.value); });
+        FillDropwithAttr(_Zones, "drp_Zone", "ZoneID", 'DescA', "No", "FamilyZoneID", "FamilyZoneID");
+        DocumentActions.FillCombowithdefult(_ZonesFltr, Usr_Zone, "ZoneID", 'DescA', 'Select Zone');
     }
     function UserType_Change() {
         if (Usr_UserType.value == "11") {
-            $('#div_zone').removeClass('display_none');
+            $('.div_zone').removeClass('display_none');
         }
         else {
-            $('#div_zone').addClass('display_none');
+            $('.div_zone').addClass('display_none');
         }
     }
     function SubmitUpdate() {

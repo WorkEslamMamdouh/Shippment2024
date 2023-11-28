@@ -26,6 +26,23 @@ namespace Inv.BLL.Services.SalesMan
             unitOfWork.Save();
             return Item;
         }
+        public FamilyZone InsertFamilyZone(FamilyZone entity)
+        {
+            var Item = unitOfWork.Repository<FamilyZone>().Insert(entity);
+            unitOfWork.Save();
+            return Item;
+        }
+        public FamilyZone UpdateFamilyZone(FamilyZone entity)
+        {
+            var Item = unitOfWork.Repository<FamilyZone>().Update(entity);
+            unitOfWork.Save();
+            return Item;
+        }
+        public void DeleteFamilyZone(int id)
+        {
+            unitOfWork.Repository<FamilyZone>().Delete(id);
+            unitOfWork.Save();
+        }
         public Zones InsertZone(Zones entity)
         {
             var Item = unitOfWork.Repository<Zones>().Insert(entity);

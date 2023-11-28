@@ -10,6 +10,7 @@ namespace Zone {
 
 	var _USERS: Array<G_USERS> = new Array<G_USERS>();
 	var _USER: Array<G_USERS> = new Array<G_USERS>();
+	var _FamilyZones: Array<FamilyZone> = new Array<FamilyZone>();
 	var _Zones: Array<Zones> = new Array<Zones>();
 	var _ZonesObj: Zones = new Zones();
 	var _ZonesModel: Array<Zones> = new Array<Zones>();
@@ -45,7 +46,7 @@ namespace Zone {
 		Submit_Backdown_Profile.onclick = Display_Data;
 
 	}
-	  
+
 	function AddRow() {
 		BuildGrid(CountGrid);
 		$(`#txtStatusFlag${CountGrid}`).val('i');
@@ -57,18 +58,20 @@ namespace Zone {
 		Table =
 			[
 				{ NameTable: 'Zones', Condition: "" },
+				{ NameTable: 'FamilyZone', Condition: "" },
 			]
 
 		DataResult(Table);
 		//**************************************************************************************************************
 		debugger
+		_FamilyZones = GetDataTable('FamilyZone');
 		_Zones = GetDataTable('Zones');
 		$('#Zone_Grid').html("");
 		CountGrid = 0;
 		for (var i = 0; i < _Zones.length; i++) {
 			BuildGrid(i);
 			$(`#Txt_ZoneID${i}`).val(_Zones[i].ZoneID);
-			$(`#Txt_ZoneCode${i}`).val(_Zones[i].ZoneCode);
+			$(`#Txt_FamilyZone${i}`).val(_Zones[i].FamilyZoneID); 
 			$(`#Txt_DescA${i}`).val(_Zones[i].DescA);
 			$(`#chk_Active${i}`).prop('checked', _Zones[i].Active);
 			$(`#Txt_Remarks${i}`).val(_Zones[i].Remarks);
@@ -77,16 +80,12 @@ namespace Zone {
 		}
 	}
 	function SubmitUpdate() {
-		for (var i = 0; i < CountGrid; i++) {
-			if ($('#Txt_ZoneCode'+i).val().trim() == "") {
-				Errorinput($('#Txt_ZoneCode' + i), "Please a Enter Zone Code 🤨");
-				return
-			}	 
+		for (var i = 0; i < CountGrid; i++) {	 
 			if ($('#Txt_DescA' + i).val().trim() == "") {
 				Errorinput($('#Txt_DescA' + i), "Please a Enter Zone Describition 🤨");
 				return
-			}   
-		}		
+			}
+		}
 		Assign();
 		Ajax.CallsyncSave({
 			type: "Post",
@@ -94,7 +93,7 @@ namespace Zone {
 			data: JSON.stringify(_ZonesModel),
 			success: (d) => {
 				let result = d as BaseResponse;
-				if (result.IsSuccess == true) {		
+				if (result.IsSuccess == true) {
 					Display_Data();
 					Close_Loder();
 				} else {
@@ -107,11 +106,11 @@ namespace Zone {
 	function BuildGrid(cnt: number) {
 		let html = '<tr id="Row' + cnt + '" style="height: 51px; ">' +
 			'<input id="Txt_ZoneID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
-			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +	 
+			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
 
-			'<td class="u-table-cell" > ' +
-			'<input type="text" id="Txt_ZoneCode' + cnt + '" maxlength="50" class="Clear_Header  u-input u-input-rectangle">' +
-			'</td>' +
+			'<td class="u-table-cell" > ' +																			  
+			'<select id="Txt_FamilyZone' + cnt + '" name = "select" class="u-input u-input-rectangle" >< /select>'+
+			'</td>' +   
 
 			'<td class="u-table-cell" > ' +
 			'<input type="text" id="Txt_DescA' + cnt + '" maxlength="200" class="Clear_Header  u-input u-input-rectangle">' +
@@ -126,12 +125,16 @@ namespace Zone {
 			'</td>' +
 
 			'</tr>';
+		debugger
 		$('#Zone_Grid').append(html);
 
-		$(`#Txt_ZoneCode${cnt}`).on('change', function () {
+		FillDropwithAttr(_FamilyZones,`Txt_FamilyZone${cnt}`, "FamilyZoneID", "DescA", "No", "", "");
+
+		$(`#Txt_FamilyZone${cnt}`).on('change', function () {
 			if ($("#txtStatusFlag" + cnt).val() != "i")
 				$("#txtStatusFlag" + cnt).val("u");
 		});
+		 
 		$(`#Txt_DescA${cnt}`).on('change', function () {
 			if ($("#txtStatusFlag" + cnt).val() != "i")
 				$("#txtStatusFlag" + cnt).val("u");
@@ -159,8 +162,9 @@ namespace Zone {
 		for (var i = 0; i < CountGrid; i++) {
 			if ($(`#txtStatusFlag${i}`).val() != 'm' && $(`#txtStatusFlag${i}`).val() != '') {
 				_ZonesObj = new Zones();
-				_ZonesObj.ZoneID = Number($(`#Txt_ZoneID${i}`).val());
-				_ZonesObj.ZoneCode = $(`#Txt_ZoneCode${i}`).val();
+				_ZonesObj.FamilyZoneID = Number($(`#Txt_FamilyZone${i}`).val());
+				_ZonesObj.ZoneID = Number($(`#Txt_ZoneID${i}`).val()); 
+				_ZonesObj.ZoneCode = "";
 				_ZonesObj.DescA = $(`#Txt_DescA${i}`).val();
 				_ZonesObj.Active = $(`#chk_Active${i}`).is(":checked");
 				_ZonesObj.Remarks = $(`#Txt_Remarks${i}`).val();

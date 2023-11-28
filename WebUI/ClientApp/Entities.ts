@@ -29,12 +29,12 @@ class SystemParameters {
 }
 
 class AllPages {
-	public ModuleCode: string; 
+	public ModuleCode: string;
 	public Page_Html: string;
 }
 
 class OpenPages {
-	public ModuleCode: string; 
+	public ModuleCode: string;
 }
 
 class APISessionRecord {
@@ -268,7 +268,7 @@ class ReportParameters {
 	public ItemFamId: number;
 	public ItemID: number;
 	public cc_code: string;
-    public GroupCode: string;
+	public GroupCode: string;
 	public AccCode: string;
 	public exzero: number;
 	public IsAuthVchr: number;
@@ -4150,20 +4150,20 @@ class I_Sls_TR_InvoiceItems extends SecurityClass {
 	constructor() {
 		super();
 		this.InvoiceItemID = 0;
-		this.InvoiceID = 0; 
-		this.NameItem = ""; 
+		this.InvoiceID = 0;
+		this.NameItem = "";
 		this.SoldQty = 0;
-		this.Unitprice = 0;  
-		this.ItemTotal = 0; 
-		this.StatusFlag = ""; 
+		this.Unitprice = 0;
+		this.ItemTotal = 0;
+		this.StatusFlag = "";
 	}
 	public InvoiceItemID: number;
-	public InvoiceID: number; 
+	public InvoiceID: number;
 	public NameItem: string;
 	public SoldQty: number;
-	public Unitprice: number;  
-	public ItemTotal: number; 
-	public StatusFlag: string; 
+	public Unitprice: number;
+	public ItemTotal: number;
+	public StatusFlag: string;
 
 }
 
@@ -6117,23 +6117,23 @@ class I_Pur_Tr_ReceiveCharges extends SecurityClass {
 }
 
 class A_Voucher_Types extends SecurityClass {
-    constructor() {
-        super();
-        this.COMP_CODE = 0;
-        this.VoucherType = 0;
-        this.TYPE_CODE = 0;
-        this.TYPE_DESCA = "";
-        this.TYPE_DESCE = "";
-        this.Remarks = "";
-        this.StatusFlag = "";
-    }
-    public COMP_CODE: number;
-    public VoucherType: number;
-    public TYPE_CODE: number;
-    public TYPE_DESCA: string;
-    public TYPE_DESCE: string;
-    public Remarks: string;
-    public StatusFlag: string;
+	constructor() {
+		super();
+		this.COMP_CODE = 0;
+		this.VoucherType = 0;
+		this.TYPE_CODE = 0;
+		this.TYPE_DESCA = "";
+		this.TYPE_DESCE = "";
+		this.Remarks = "";
+		this.StatusFlag = "";
+	}
+	public COMP_CODE: number;
+	public VoucherType: number;
+	public TYPE_CODE: number;
+	public TYPE_DESCA: string;
+	public TYPE_DESCE: string;
+	public Remarks: string;
+	public StatusFlag: string;
 }
 
 class G_COST_CENTER extends SecurityClass {
@@ -6189,13 +6189,13 @@ class LnkVoucherlMasterDetails extends SecurityClass {
 
 
 class AccGroupMasterDetails extends SecurityClass {
-    constructor() {
-        super();
-        this.A_ACCOUNT_GROUP = new A_ACCOUNT_GROUP();
-        this.A_ACCOUNT_GROUP_DETAIL = new Array<A_ACCOUNT_GROUP_DETAIL>();
-    }
-    public A_ACCOUNT_GROUP: A_ACCOUNT_GROUP;
-    public A_ACCOUNT_GROUP_DETAIL: Array<A_ACCOUNT_GROUP_DETAIL>;
+	constructor() {
+		super();
+		this.A_ACCOUNT_GROUP = new A_ACCOUNT_GROUP();
+		this.A_ACCOUNT_GROUP_DETAIL = new Array<A_ACCOUNT_GROUP_DETAIL>();
+	}
+	public A_ACCOUNT_GROUP: A_ACCOUNT_GROUP;
+	public A_ACCOUNT_GROUP_DETAIL: Array<A_ACCOUNT_GROUP_DETAIL>;
 }
 
 
@@ -6611,7 +6611,7 @@ class G_USERS extends SecurityClass {
 	public Tokenid: string;
 	public Flag_Mastr: string;
 	public StoreID: number;
-	public VendorID: number; 
+	public VendorID: number;
 	public Vnd_CompName: string;
 	public Profile_Img: string;
 	public FrontID_Img: string;
@@ -6627,7 +6627,7 @@ class ModelUserMasterDetail extends SecurityClass {
 	}
 	public G_USERS: G_USERS;
 	public G_USER_BRANCH: Array<G_USER_BRANCH>;
-	public G_RoleUsers: Array<G_RoleUsers>;		  
+	public G_RoleUsers: Array<G_RoleUsers>;
 }
 
 class GQ_GetUsers extends SecurityClass {
@@ -11986,46 +11986,46 @@ class GQ_GetRoleModule {
 
 
 class A_ACCOUNT_GROUP {
-    constructor() {
-        this.COMP_CODE = 0;
-        this.GROUP_CODE = "";
-        this.DESCL = "";
-        this.DESCA = "";
-        this.REMARKS = "";
-    }
-    public COMP_CODE: number;
-    public GROUP_CODE: string;
-    public DESCL: string;
-    public DESCA: string;
-    public REMARKS: string;
+	constructor() {
+		this.COMP_CODE = 0;
+		this.GROUP_CODE = "";
+		this.DESCL = "";
+		this.DESCA = "";
+		this.REMARKS = "";
+	}
+	public COMP_CODE: number;
+	public GROUP_CODE: string;
+	public DESCL: string;
+	public DESCA: string;
+	public REMARKS: string;
 }
 
 class A_ACCOUNT_GROUP_DETAIL {
-    constructor() {
-        this.COMP_CODE = 0;
-        this.GROUP_CODE = "";
-        this.ACC_CODE = "";
-    }
-    public COMP_CODE: number;
-    public GROUP_CODE: string;
-    public ACC_CODE: string;
+	constructor() {
+		this.COMP_CODE = 0;
+		this.GROUP_CODE = "";
+		this.ACC_CODE = "";
+	}
+	public COMP_CODE: number;
+	public GROUP_CODE: string;
+	public ACC_CODE: string;
 }
 
 class AQ_GetAccountGroupDetail {
-    constructor() {
-        this.COMP_CODE = 0;
-        this.GROUP_CODE = "";
-        this.ACC_CODE = "";
-        this.ACC_DESCA = "";
-        this.ACC_DESCL = "";
-        this.StatusFlag = "";
-    }
-    public COMP_CODE: number;
-    public GROUP_CODE: string;
-    public ACC_CODE: string;
-    public ACC_DESCA: string;
-    public ACC_DESCL: string;
-    public StatusFlag: string;
+	constructor() {
+		this.COMP_CODE = 0;
+		this.GROUP_CODE = "";
+		this.ACC_CODE = "";
+		this.ACC_DESCA = "";
+		this.ACC_DESCL = "";
+		this.StatusFlag = "";
+	}
+	public COMP_CODE: number;
+	public GROUP_CODE: string;
+	public ACC_CODE: string;
+	public ACC_DESCA: string;
+	public ACC_DESCL: string;
+	public StatusFlag: string;
 }
 
 
@@ -12230,13 +12230,15 @@ class Zones extends SecurityClass {
 	constructor() {
 		super();
 		this.ZoneID = 0;
+		this.FamilyZoneID = 0;
 		this.ZoneCode = "";
 		this.DescA = "";
 		this.Active = false;
 		this.Remarks = "";
 		this.StatusFlag = "";
 	}
-	public ZoneID: number;	 
+	public ZoneID: number;
+	public FamilyZoneID: number;
 	public ZoneCode: string;
 	public DescA: string;
 	public Active: boolean;
@@ -12451,8 +12453,8 @@ class ItemsCodes {
 	public InvoiceID: number;
 	public InvoiceItemID: number;
 	public StoreID: number;
-	public ItemCode: string; 
-}			  
+	public ItemCode: string;
+}
 class Voucher_Receipt {
 	constructor() {
 		this.ReceiptID = 0;
@@ -12488,5 +12490,23 @@ class Voucher_Receipt {
 	public CreatedBy: string;
 	public UpdatedAt: string;
 	public UpdatedBy: string;
+}
+
+class FamilyZone extends SecurityClass {
+	constructor() {
+		super();
+		this.FamilyZoneID = 0;
+		this.ZoneCode = "";
+		this.DescA = "";
+		this.Active = false;
+		this.Remarks = "";
+		this.StatusFlag = "";
+	}
+	public FamilyZoneID: number;
+	public ZoneCode: string;
+	public DescA: string;
+	public Active: boolean;
+	public Remarks: string;
+	public StatusFlag: string;
 }
 

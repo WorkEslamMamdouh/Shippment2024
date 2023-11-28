@@ -15,6 +15,9 @@ namespace Edit_Order {
     var _Inv: Vnd_Inv_SlsMan = new Vnd_Inv_SlsMan();
     var _InvItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
+    var _Zones: Array<Zones> = new Array<Zones>();
+    var _ZonesFltr: Array<Zones> = new Array<Zones>();
+
     var Id_Back: HTMLButtonElement;
     var Id_Next: HTMLButtonElement;
     var Id_Back_Step2: HTMLButtonElement;
@@ -28,6 +31,8 @@ namespace Edit_Order {
     var Txt_PrcVatAmount: HTMLInputElement;
     var Txt_CommitionAmount: HTMLInputElement;
 
+    var db_Zone: HTMLSelectElement;
+    var db_FamilyZone: HTMLSelectElement;
     var CountGrid = 0;
     var NumItems = 0;
     var ItemTotal = 0;
@@ -67,6 +72,8 @@ namespace Edit_Order {
         Txt_PrcVatAmount = document.getElementById("Txt_PrcVatAmount") as HTMLInputElement;
         Txt_CommitionAmount = document.getElementById("Txt_CommitionAmount") as HTMLInputElement;
 
+        db_FamilyZone = document.getElementById('db_FamilyZone') as HTMLSelectElement;
+        db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
     }
     function InitializeEvents() {
 
@@ -76,6 +83,8 @@ namespace Edit_Order {
         Id_Next_Step2.onclick = _Next_Step2;
         Id_Finish.onclick = _Finish;
         Btn_AddItem.onclick = AddItemBox;
+
+        db_FamilyZone.onchange = FltrZones;
 
         Txt_UnitPrice.onkeyup = BoxTotal;
         Txt_Quantity.onkeyup = BoxTotal;
@@ -90,16 +99,24 @@ namespace Edit_Order {
         Table =
             [
             { NameTable: 'Zones', Condition: " Active = 1" },
+            { NameTable: 'FamilyZone', Condition: " Active = 1" },
 
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
-        let _Zones = GetDataTable('Zones');
+        _Zones = GetDataTable('Zones');
+        let _FamilyZones = GetDataTable('FamilyZone');
 
-        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(x => x.FamilyZoneID == Number(db_FamilyZone.value));
+        FillDropwithAttr(_Zones, "db_AllZone", "ZoneID", 'DescA', "No", "FamilyZoneID", "FamilyZoneID");     
+        FillDropwithAttr(_ZonesFltr, "db_Zone", "ZoneID", 'DescA', "Select Zone", "", "");     
 
     }
     function _Next() {
@@ -433,7 +450,12 @@ namespace Edit_Order {
         $('#Txt_Name_Cust').val(_Inv.CustomerName)
         $('#Txt_Phone_Num1').val(_Inv.CustomerMobile1)
         $('#Txt_Phone_Num2').val(_Inv.CustomerMobile2)
-        $('#db_Zone').val(_Inv.ZoneID)
+        $('#db_AllZone').val(_Inv.ZoneID)  
+        let FamilyzoneID = $('option:selected', $('#db_AllZone')).attr("data-FamilyZoneID");
+
+        $('#db_FamilyZone').val(FamilyzoneID);
+        FltrZones();
+        $('#db_Zone').val(_Inv.ZoneID)      
         $('#Txt_Address1').val(_Inv.Address)
         $('#Txt_location').val(_Inv.Location)
         $('#Txt_Remarks').val(_Inv.Remark) 

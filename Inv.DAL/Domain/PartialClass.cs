@@ -91,6 +91,10 @@ namespace Inv.DAL.Domain
     {
 
     }
+    public partial class FamilyZone : SecurityandUpdateFlagClass
+    {
+
+    }
     public partial class Zones : SecurityandUpdateFlagClass
     {
 

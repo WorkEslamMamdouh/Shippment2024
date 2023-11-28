@@ -7,6 +7,7 @@ var Zone;
     var SysSession = GetSystemSession();
     var _USERS = new Array();
     var _USER = new Array();
+    var _FamilyZones = new Array();
     var _Zones = new Array();
     var _ZonesObj = new Zones();
     var _ZonesModel = new Array();
@@ -38,7 +39,7 @@ var Zone;
     }
     function AddRow() {
         BuildGrid(CountGrid);
-        $("#txtStatusFlag" + CountGrid).val('i');
+        $("#txtStatusFlag".concat(CountGrid)).val('i');
         CountGrid++;
     }
     function Display_Data() {
@@ -47,30 +48,28 @@ var Zone;
         Table =
             [
                 { NameTable: 'Zones', Condition: "" },
+                { NameTable: 'FamilyZone', Condition: "" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
+        _FamilyZones = GetDataTable('FamilyZone');
         _Zones = GetDataTable('Zones');
         $('#Zone_Grid').html("");
         CountGrid = 0;
         for (var i = 0; i < _Zones.length; i++) {
             BuildGrid(i);
-            $("#Txt_ZoneID" + i).val(_Zones[i].ZoneID);
-            $("#Txt_ZoneCode" + i).val(_Zones[i].ZoneCode);
-            $("#Txt_DescA" + i).val(_Zones[i].DescA);
-            $("#chk_Active" + i).prop('checked', _Zones[i].Active);
-            $("#Txt_Remarks" + i).val(_Zones[i].Remarks);
-            $("#txtStatusFlag" + i).val('');
+            $("#Txt_ZoneID".concat(i)).val(_Zones[i].ZoneID);
+            $("#Txt_FamilyZone".concat(i)).val(_Zones[i].FamilyZoneID);
+            $("#Txt_DescA".concat(i)).val(_Zones[i].DescA);
+            $("#chk_Active".concat(i)).prop('checked', _Zones[i].Active);
+            $("#Txt_Remarks".concat(i)).val(_Zones[i].Remarks);
+            $("#txtStatusFlag".concat(i)).val('');
             CountGrid++;
         }
     }
     function SubmitUpdate() {
         for (var i = 0; i < CountGrid; i++) {
-            if ($('#Txt_ZoneCode' + i).val().trim() == "") {
-                Errorinput($('#Txt_ZoneCode' + i), "Please a Enter Zone Code 🤨");
-                return;
-            }
             if ($('#Txt_DescA' + i).val().trim() == "") {
                 Errorinput($('#Txt_DescA' + i), "Please a Enter Zone Describition 🤨");
                 return;
@@ -97,7 +96,7 @@ var Zone;
             '<input id="Txt_ZoneID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
             '<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
             '<td class="u-table-cell" > ' +
-            '<input type="text" id="Txt_ZoneCode' + cnt + '" maxlength="50" class="Clear_Header  u-input u-input-rectangle">' +
+            '<select id="Txt_FamilyZone' + cnt + '" name = "select" class="u-input u-input-rectangle" >< /select>' +
             '</td>' +
             '<td class="u-table-cell" > ' +
             '<input type="text" id="Txt_DescA' + cnt + '" maxlength="200" class="Clear_Header  u-input u-input-rectangle">' +
@@ -109,24 +108,26 @@ var Zone;
             '<input type="text" id="Txt_Remarks' + cnt + '" maxlength="500" class="Clear_Header  u-input u-input-rectangle">' +
             '</td>' +
             '</tr>';
+        debugger;
         $('#Zone_Grid').append(html);
-        $("#Txt_ZoneCode" + cnt).on('change', function () {
+        FillDropwithAttr(_FamilyZones, "Txt_FamilyZone".concat(cnt), "FamilyZoneID", "DescA", "No", "", "");
+        $("#Txt_FamilyZone".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_DescA" + cnt).on('change', function () {
+        $("#Txt_DescA".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_Remarks" + cnt).on('change', function () {
+        $("#Txt_Remarks".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#chk_Active" + cnt).on('click', function () {
+        $("#chk_Active".concat(cnt)).on('click', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#btn_minus" + cnt).on('click', function () {
+        $("#btn_minus".concat(cnt)).on('click', function () {
             DeleteRow(cnt);
         });
     }
@@ -137,14 +138,15 @@ var Zone;
     function Assign() {
         _ZonesModel = new Array();
         for (var i = 0; i < CountGrid; i++) {
-            if ($("#txtStatusFlag" + i).val() != 'm' && $("#txtStatusFlag" + i).val() != '') {
+            if ($("#txtStatusFlag".concat(i)).val() != 'm' && $("#txtStatusFlag".concat(i)).val() != '') {
                 _ZonesObj = new Zones();
-                _ZonesObj.ZoneID = Number($("#Txt_ZoneID" + i).val());
-                _ZonesObj.ZoneCode = $("#Txt_ZoneCode" + i).val();
-                _ZonesObj.DescA = $("#Txt_DescA" + i).val();
-                _ZonesObj.Active = $("#chk_Active" + i).is(":checked");
-                _ZonesObj.Remarks = $("#Txt_Remarks" + i).val();
-                _ZonesObj.StatusFlag = $("#txtStatusFlag" + i).val();
+                _ZonesObj.FamilyZoneID = Number($("#Txt_FamilyZone".concat(i)).val());
+                _ZonesObj.ZoneID = Number($("#Txt_ZoneID".concat(i)).val());
+                _ZonesObj.ZoneCode = "";
+                _ZonesObj.DescA = $("#Txt_DescA".concat(i)).val();
+                _ZonesObj.Active = $("#chk_Active".concat(i)).is(":checked");
+                _ZonesObj.Remarks = $("#Txt_Remarks".concat(i)).val();
+                _ZonesObj.StatusFlag = $("#txtStatusFlag".concat(i)).val();
                 _ZonesModel.push(_ZonesObj);
             }
         }

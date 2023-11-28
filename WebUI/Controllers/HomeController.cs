@@ -39,6 +39,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/Order/View_OrderIndex.cshtml",
          "~/Views/Order/Edit_OrderIndex.cshtml",
          "~/Views/Zone/ZoneIndex.cshtml",
+         "~/Views/Zone/FamilyZonesIndex.cshtml",
          "~/Views/UserDef/UserDefIndex.cshtml",
          "~/Views/PromoCode/PromoCodeIndex.cshtml",
          "~/Views/GeneralHub/RecieptOrdersIndex.cshtml",
