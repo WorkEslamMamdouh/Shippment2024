@@ -21,6 +21,7 @@ var CashCollect;
     var Inv_Confirm;
     var View_Invoices;
     var View_Return;
+    var db_Zone;
     var SalesmanId = 0;
     function InitalizeComponent() {
         $('.Txt_Ret_Tot').addClass('display_none');
@@ -31,6 +32,7 @@ var CashCollect;
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
         InitializeGrid_Ret();
+        GetData_Zones();
         //GetData_Invoice();
         Close_Loder();
     }
@@ -44,6 +46,7 @@ var CashCollect;
         Inv_Confirm = document.getElementById('Inv_Confirm');
         View_Invoices = document.getElementById('View_Invoices');
         View_Return = document.getElementById('View_Return');
+        db_Zone = document.getElementById('db_Zone');
     }
     function InitializeEvents() {
         txtSearch.onkeyup = _SearchBox_Change;
@@ -172,6 +175,18 @@ var CashCollect;
             _Grid_Ret.Bind();
         }
     }
+    function GetData_Zones() {
+        var Table;
+        Table =
+            [
+                { NameTable: 'Zones', Condition: " Active = 1" },
+            ];
+        DataResult(Table);
+        //**************************************************************************************************************
+        var _Zones = GetDataTable('Zones');
+        var db_Zone = document.getElementById("db_Zone");
+        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+    }
     function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger;
@@ -228,7 +243,13 @@ var CashCollect;
         }
     }
     function Filter_Select_Delivery_onclick() {
-        sys.FindKey("Salesman", "btnSalesman", " Status = 5", function () {
+        if (db_Zone.value == 'null') {
+            Errorinput($('#db_Zone'), "Must Select Zone");
+            return;
+        }
+        debugger;
+        var Con = " and ZoneID = " + db_Zone.value + "";
+        sys.FindKey("Salesman", "btnSalesman", " Status = 5 " + Con + "", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey;
@@ -314,6 +335,7 @@ var CashCollect;
                     Close_Loder();
                 }
                 else {
+                    Close_Loder();
                     ShowMessage("Error 😒");
                 }
             }

@@ -23,6 +23,8 @@ namespace Chase_Delivery {
     var btnDelete_Filter: HTMLButtonElement; 
     var View_Invoices: HTMLButtonElement;
     var View_Return: HTMLButtonElement;
+    var db_Zone: HTMLSelectElement;
+
     var SalesmanId = 0;
     export function InitalizeComponent() {
 
@@ -34,6 +36,7 @@ namespace Chase_Delivery {
         $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
         InitializeGrid_Ret();
+        GetData_Zones();
         //GetData_Invoice();
         Close_Loder();
 
@@ -46,6 +49,8 @@ namespace Chase_Delivery {
         btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement; 
         View_Invoices = document.getElementById('View_Invoices') as HTMLButtonElement;
         View_Return = document.getElementById('View_Return') as HTMLButtonElement;
+        db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
+
     }
     function InitializeEvents() {
 
@@ -198,6 +203,24 @@ namespace Chase_Delivery {
             _Grid_Ret.Bind();
         }
     }
+    function GetData_Zones() {
+
+
+        var Table: Array<Table>;
+        Table =
+            [
+                { NameTable: 'Zones', Condition: " Active = 1" },
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+
+        let _Zones = GetDataTable('Zones');
+
+        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
+        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+
+    }
     function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger
@@ -214,8 +237,8 @@ namespace Chase_Delivery {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 1)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 1)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
             ]
 
         DataResult(Table);
@@ -266,7 +289,14 @@ namespace Chase_Delivery {
 
     }
     function Filter_Select_Delivery_onclick() {
-        sys.FindKey("Salesman", "btnSalesman", "  Status = 5 or Status = 4 ", () => {
+        if (db_Zone.value == 'null') {
+            Errorinput($('#db_Zone'), "Must Select Zone")
+            return;
+        } 
+
+        debugger
+        let Con = " and ZoneID = " + db_Zone.value + "";
+        sys.FindKey("Follow_UP", "btnSalesman", "  Status = 4 " + Con + "", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey
@@ -281,6 +311,7 @@ namespace Chase_Delivery {
         $('#Txt_SalesmanId').val('')
         Filter_Select_Delivery.innerHTML = 'Select Delivery'
         $('#btnDelete_Filter').addClass('display_none')
+        $('#db_Zone').val('null')
         SalesmanId = 0;
         _Grid.DataSource = New_Invoices;
         _Grid.Bind();

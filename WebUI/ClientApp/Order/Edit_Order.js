@@ -311,12 +311,14 @@ var Edit_Order;
                         Close_Loder();
                     }
                     else {
+                        Close_Loder();
                         ShowMessage("Error 😒");
                     }
                 }
             });
         }
         catch (e) {
+            Close_Loder();
             ShowMessage("Error 😒");
         }
     }

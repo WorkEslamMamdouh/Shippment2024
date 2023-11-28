@@ -2986,4 +2986,60 @@ function UpdateInvStatus(_InvoiceID, SlsManID, Status, StatusDesc, OnSuccess) {
         }
     });
 }
+function PrintTable(ID_Table) {
+    var table = document.getElementById(ID_Table);
+    var newWin = window.open('', '_blank');
+    // Build the HTML content for the new window
+    newWin.document.write('<html><head><title>Print Table</title></head><body>');
+    newWin.document.write('<h1>Table Content</h1>');
+    newWin.document.write(table.outerHTML);
+    newWin.document.write('</body></html>');
+    // Close the document
+    newWin.document.close();
+    // Print the new window
+    newWin.print();
+}
+function GenerateUUID() {
+    return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+function Upload_image(IdName_View_Img, Name_Folder, Name_Img) {
+    debugger;
+    $('#Name_Folder').val(Name_Folder);
+    if (Name_Img.trim() == "") {
+        $("#fileName").val(GenerateUUID());
+    }
+    else {
+        $("#fileName").val(Name_Img);
+    }
+    debugger;
+    var UrlImg = GetUrlImg(Name_Folder, $("#fileName").val());
+    $("#UrlImg").val(UrlImg);
+    $("#IdName_View_Img").val(IdName_View_Img);
+    $('#fileUploadInput').click();
+    return $("#fileName").val().trim();
+}
+function Display_image(IdName_View_Img, Name_Folder, Name_Img) {
+    if (Name_Img.trim() == "") {
+        return;
+    }
+    var UrlImg = GetUrlImg(Name_Folder, Name_Img);
+    $("#" + IdName_View_Img + "").attr('src', UrlImg);
+    debugger;
+}
+function GetUrlImg(Name_Folder, Name_Img) {
+    //let x = Url.Action("OpenImg", "Home");
+    var path = "";
+    if (Name_Folder.trim() == "") {
+        path = $('#Path_Save').val() + '/' + Name_Img;
+    }
+    else {
+        path = $('#Path_Save').val() + '/' + Name_Folder + '/' + Name_Img;
+    }
+    //let UrlImg = x + "/" + "?" + "path=" + path + ".jpg";
+    var UrlImg = path + ".jpg";
+    return UrlImg;
+}
 //# sourceMappingURL=App.js.map

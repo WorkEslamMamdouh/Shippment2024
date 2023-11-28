@@ -692,7 +692,7 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                
+
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -768,7 +768,7 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                
+
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -846,7 +846,7 @@ var Ajax = {
                     cache: false,
                     async: false,
                     success: (d) => {
-                        
+
                         var result = JSON.parse(d);
                         settings.success(result, "", null);
                         $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -929,7 +929,7 @@ var Ajax = {
             cache: false,
             async: false,
             success: (d) => {
-                
+
                 var result = JSON.parse(d);
                 settings.success(result, "", null);
                 $(".waitMe").removeAttr("style").fadeOut(2500);
@@ -1351,7 +1351,7 @@ var DocumentActions = {
 };
 
 function FillDropwithAttr(Datasource: Array<any>, InputID: string, Value: string, TextField, DefaultText = "", Attrname: string, AttrValue: string) {
-    
+
     $('#' + InputID + '').empty();
     if (DefaultText != "No") {
         if (DefaultText != "") {
@@ -1870,7 +1870,7 @@ class CodeDesciptionModel {
 }
 
 function WorningMessage(msg_Ar: string, msg_En: string, tit_ar: string = "تنبيه", tit_en: string = "Worning", OnOk?: () => void) {
-    
+
     var Env = GetSystemEnvironment();
     switch (Env.ScreenLanguage) {
 
@@ -2015,7 +2015,7 @@ function Errorinput(input: any, TxtMessage?: string) {
 
             id = input.getAttribute('id');
         } catch (e) {
-  
+
             id = input[0].id;
         }
 
@@ -2037,7 +2037,7 @@ function Errorinput(input: any, TxtMessage?: string) {
 
 function fractionInput(input: any) {
 
-    
+
 
     var id = '';
     if (input.selector != null) {
@@ -3122,7 +3122,7 @@ function GetSerialNumber(): string {
 }
 
 function isDateValidInYear(dateString, year) {
-    
+
     const date = new Date(dateString);
 
     // Check if the date is valid
@@ -3330,7 +3330,7 @@ function OpenScreen(UserCode: string, compcode: string, BranchCode: string, Modu
     });
 }
 function LoginOpen(UserCode: string, compcode: string, BranchCode: string, ModuleCode: string, FinYear: string, InOrOut: number) {
-    
+
     var sys: SystemTools = new SystemTools();
     Ajax.CallAsync({
         type: "GET",
@@ -3368,7 +3368,7 @@ function Event_key(key: string, Nameinput: string, NameBtnEvent: string) {
 
 function CopyRowGrid(DataList: Array<any>, Key: string, value: any): Array<any> {
 
-    
+
 
     let flagNewH;
     flagNewH = false
@@ -3410,7 +3410,7 @@ function CleaningList_Table() {
     globle_Table = new Array<Table>();
 }
 function DataResult(Table: Array<Table>): Array<Table_Result> {
-    
+
     CleaningList_Table();
     let sys = new SystemTools;
     globle_Table = Table;
@@ -3421,7 +3421,7 @@ function DataResult(Table: Array<Table>): Array<Table_Result> {
         success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess) {
-                
+
                 List_Table = result.Response as Array<Table_Result>;
                 return List_Table;
             }
@@ -3432,7 +3432,7 @@ function DataResult(Table: Array<Table>): Array<Table_Result> {
 }
 
 function GetDataTable(NameTable: string): Array<any> {
-    
+
     let table;
     for (var i = 0; i < globle_Table.length; i++) {
 
@@ -3448,7 +3448,7 @@ function GetDataTable(NameTable: string): Array<any> {
 
 
 function GetAllData(Table: Array<Table>): Array<Table_Result> {
-    
+
     let sys = new SystemTools;
     let List_Table: Array<Table_Result> = new Array<Table_Result>();
     Ajax.Callsync({
@@ -3471,7 +3471,7 @@ function GetAllData(Table: Array<Table>): Array<Table_Result> {
 
 
 function BuildAllFild(dataSource: any, cnt: number, NameRow: string) {
-    
+
     dataSource = getClass(dataSource.name);
     let properties = Object.getOwnPropertyNames(dataSource);
     let html = ``;
@@ -3526,11 +3526,11 @@ function hideToast(toastElement) {
 
 
 function CheckDuplicateGrid(Cnt: number, CountGrid: number, inputName: string, StatusInput: string): boolean {
-    
+
     for (var i = 0; i < CountGrid; i++) {
-        
+
         if ($('#' + inputName + '' + i + '').val().trim() == $('#' + inputName + '' + Cnt + '').val().trim() && ($('#' + StatusInput + '' + i + '').val() != "m" && $('#' + StatusInput + '' + i + '').val() != "d") && Cnt != i) {
-            
+
             $('#' + inputName + '' + Cnt + '').val("")
             $('#' + inputName + '' + i + '').addClass('text_Mandatory');
             $('#' + inputName + '' + Cnt + '').addClass('text_Mandatory');
@@ -3558,7 +3558,7 @@ function DisplayBuildControls(dataSource: any, cnt: number) {
 }
 
 function AssignBuildControls(dataSource: any, CountGrid: number) {
-    
+
     let dataSourceName = getClass(dataSource.name);
     let DetailsModel = new Array<any>();
     let StatusFlag = "StatusFlag";
@@ -3637,17 +3637,17 @@ var ModulesOpenPages: Array<OpenPages> = new Array<OpenPages>();
 var CounterPage = 0;
 
 function GetModuleCode(): string {
-    
+
     return ModulesOpenPages[ModulesOpenPages.length - 1].ModuleCode.toString();
 }
 function GetAllPages() {
 
-    
+
     $.ajax({
         url: Url.Action("GetAllView", "Home"),
         type: 'GET',
         success: function (htmlContent) {
-            
+
             _AllPages = new Array<AllPages>();
             _AllPages = JSON.parse(htmlContent) as Array<AllPages>;
             // Display the HTML content in a container element
@@ -3670,7 +3670,7 @@ function OpenPage(moduleCode: string) {
     Show_Loder();
 
     let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
-    if (Page.length > 0) { 
+    if (Page.length > 0) {
         $('#htmlContainer').html(Page[0].Page_Html);
         $('._Loding').removeClass('Btn_Loder');
 
@@ -3691,12 +3691,12 @@ function OpenPage(moduleCode: string) {
 }
 
 function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?: () => void, OnDisplay_Back2?: () => void) {
-    
+
     Show_Loder();
 
-  
+
     setTimeout(function () {
-        
+
         let Page = _AllPages.filter(x => x.ModuleCode == moduleCode)
         if (Page.length > 0) {
             CounterPage++;
@@ -3705,7 +3705,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
             _OpenPages.ModuleCode = moduleCode;
             ModulesOpenPages.push(_OpenPages);
 
-            
+
             Set_Refresh(moduleCode);
 
             //*************************************************************************
@@ -3728,7 +3728,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
 
             $(window).scrollTop(0);
 
-            
+
 
 
 
@@ -3747,7 +3747,7 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
             if (OnDisplay_Back1 != null) {
 
                 $('#_Btn_Back').html('')
-                
+
                 $('#_Btn_Back').append(`<a id="Display_Back_Page"  class="display_none">
 
                 </a>
@@ -3757,24 +3757,24 @@ function OpenPagePartial(moduleCode: string, NamePage: string, OnDisplay_Back1?:
                 OnDisplay_Back1();
 
 
-                
+
 
                 $("#Display_Back_Page").on('click', function () {
-                    
+
                     OnDisplay_Back1()
                 });
             }
 
-            
+
 
             if (OnDisplay_Back2 != null) {
 
                 OnDisplay_Back2();
 
-                
+
 
                 $("#Display_Back_Page2").on('click', function () {
-                    
+
                     OnDisplay_Back2()
                 });
             }
@@ -3794,7 +3794,7 @@ function Set_Refresh(moduleCode: string) {
     setInterval(() => { $(".Refresh_" + moduleCode).click() }, 12000)
 }
 function Back_Page_Partial() {
-    
+
 
     localStorage.setItem("TypePage", "");
 
@@ -3802,11 +3802,11 @@ function Back_Page_Partial() {
         return
     }
 
-  
+
     // Clear the content of the element with ID "Partial_2" 
     $('#Partial_' + CounterPage).html("");
     // Remove all script elements within the element with ID "Partial_2"
-    $('#Partial_' + CounterPage+' script').remove();
+    $('#Partial_' + CounterPage + ' script').remove();
 
     $('.Page_Partial').addClass("display_none");
     $('#htmlContainer').addClass("display_none");
@@ -3937,7 +3937,7 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
         success: (d) => {
             let result = d as BaseResponse;
             if (result.IsSuccess == true) {
-                
+
                 if (Status < 0) {
                     Status = 0;
                 }
@@ -3953,4 +3953,84 @@ function UpdateInvStatus(_InvoiceID: number, SlsManID: number, Status: number, S
     });
 
 }
+
+function PrintTable(ID_Table: string) {
+    var table = document.getElementById(ID_Table);
+    var newWin = window.open('', '_blank');
+
+    // Build the HTML content for the new window
+    newWin.document.write('<html><head><title>Print Table</title></head><body>');
+    newWin.document.write('<h1>Table Content</h1>');
+    newWin.document.write(table.outerHTML);
+    newWin.document.write('</body></html>');
+
+    // Close the document
+    newWin.document.close();
+
+    // Print the new window
+    newWin.print();
+}
+
+
+function GenerateUUID() {
+    return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+function Upload_image(IdName_View_Img: string,Name_Folder: string, Name_Img: string): string {
+    debugger
+    $('#Name_Folder').val(Name_Folder);
+
+    if (Name_Img.trim() == "") {
+        $("#fileName").val(GenerateUUID());
+    }
+    else {
+        $("#fileName").val(Name_Img);
+    }
+    debugger
+
+    let UrlImg =  GetUrlImg(Name_Folder, $("#fileName").val())
+    $("#UrlImg").val(UrlImg);
+    $("#IdName_View_Img").val(IdName_View_Img);
+
+    $('#fileUploadInput').click(); 
+      
+    return $("#fileName").val().trim();
+}
+
+
+function Display_image(IdName_View_Img: string, Name_Folder: string, Name_Img: string){
+     
+
+    if (Name_Img.trim() == "") {
+        return 
+    } 
+
+    let UrlImg = GetUrlImg(Name_Folder, Name_Img)
+
+    $("#" + IdName_View_Img + "").attr('src', UrlImg);
+    debugger
+     
+}
+
+function GetUrlImg(Name_Folder: string, Name_Img: string): string {
+    //let x = Url.Action("OpenImg", "Home");
+    let path = ""
+    if (Name_Folder.trim() == "") {
+        path = $('#Path_Save').val() + '/' + Name_Img
+    }
+    else {
+        path = $('#Path_Save').val() + '/' + Name_Folder + '/' + Name_Img
+    }
+
+    //let UrlImg = x + "/" + "?" + "path=" + path + ".jpg";
+    let UrlImg = path + ".jpg";
+
+    return UrlImg
+}
+
+
 

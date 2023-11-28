@@ -33,6 +33,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/Home/HomeIndex.cshtml",
          "~/Views/Saller/Order_SallerIndex.cshtml",
          "~/Views/Saller/View_Seller_OrdersIndex.cshtml",
+         "~/Views/Saller/Seller_Order_finishIndex.cshtml",
          "~/Views/Delivery/View_delivery_OrdersIndex.cshtml",
          "~/Views/GeneralHub/View_Validate_OrdersIndex.cshtml",
          "~/Views/Order/View_OrderIndex.cshtml",
@@ -58,7 +59,10 @@ namespace Inv.WebUI.Controllers
          "~/Views/Vouchers/VoucherPaymentIndex.cshtml",
          "~/Views/Vouchers/VoucherReceiptIndex.cshtml",
          "~/Views/Order/Print_OrderIndex.cshtml",
-         "~/Views/GeneralHub/Chase_DeliveryIndex.cshtml", 
+         "~/Views/GeneralHub/Chase_DeliveryIndex.cshtml",
+         "~/Views/GeneralHub/Items_In_StoresIndex.cshtml",
+         "~/Views/GeneralHub/History_OrderIndex.cshtml",
+         "~/Views/GeneralHub/MoneyIndex.cshtml", 
 
                       };
 
@@ -170,8 +174,33 @@ namespace Inv.WebUI.Controllers
 
             return RedirectToAction("Loginindex", "Login");
         }
-         
-          
+
+        public ActionResult OpenImg(string path)
+        {
+            // Combine the path to the file with the root directory of your application
+            
+            string fullPath = Server.MapPath(path);
+
+            // Check if the file exists before returning it
+            if (System.IO.File.Exists(fullPath))
+            {
+                // Determine the content type based on the file extension
+                string contentType = "application/octet-stream"; // Default content type
+                if (Path.GetExtension(fullPath) == ".jpg")
+                {
+                    contentType = "image/jpeg";
+                }
+
+                // Return the file using FileContentResult
+                byte[] fileBytes = System.IO.File.ReadAllBytes(fullPath);
+                return File(fileBytes, contentType);
+            }
+            else
+            {
+                // If the file doesn't exist, return an error or handle it accordingly
+                return HttpNotFound("File not found");
+            }
+        }
 
 
     }

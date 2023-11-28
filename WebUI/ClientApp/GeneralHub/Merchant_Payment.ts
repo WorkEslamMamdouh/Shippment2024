@@ -72,7 +72,7 @@ namespace Merchant_Payment {
             { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
-            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            { title: "Total", name: "TotalAmount", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
@@ -97,7 +97,7 @@ namespace Merchant_Payment {
 
         if (txtSearch.value != "") {
             let search: string = txtSearch.value.toLowerCase();
-            let SearchDetails = _Invoices.filter(x => x.InvoiceID.toString().search(search) >= 0 || x.CustomerName.toLowerCase().search(search) >= 0 || x.RefNO.toLowerCase().search(search) >= 0 || x.CustomerMobile1.toLowerCase().search(search) >= 0 || x.NetAfterVat.toString().search(search) >= 0);
+            let SearchDetails = _Invoices.filter(x => x.InvoiceID.toString().search(search) >= 0 || x.CustomerName.toLowerCase().search(search) >= 0 || x.RefNO.toLowerCase().search(search) >= 0 || x.CustomerMobile1.toLowerCase().search(search) >= 0 || x.TotalAmount.toString().search(search) >= 0);
 
             _Grid.DataSource = SearchDetails;
             _Grid.Bind();
@@ -153,7 +153,7 @@ namespace Merchant_Payment {
 
         $('#Txt_Total_LineCount').val(_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_Amount').val(SumValue(_Invoices, "TotalAmount", 1));
     }
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 6", () => {
@@ -178,7 +178,7 @@ namespace Merchant_Payment {
 
         $('#Txt_Total_LineCount').val(New_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_Amount').val(SumValue(New_Invoices, "TotalAmount", 1));
     }
 
     function PrintInvoice(InvoiceID) {

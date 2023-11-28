@@ -64,7 +64,7 @@ var Merchant_Payment;
             { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
             { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
-            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            { title: "Total", name: "TotalAmount", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
@@ -86,7 +86,7 @@ var Merchant_Payment;
         $("#_Grid").jsGrid("option", "pageIndex", 1);
         if (txtSearch.value != "") {
             var search_1 = txtSearch.value.toLowerCase();
-            var SearchDetails = _Invoices.filter(function (x) { return x.InvoiceID.toString().search(search_1) >= 0 || x.CustomerName.toLowerCase().search(search_1) >= 0 || x.RefNO.toLowerCase().search(search_1) >= 0 || x.CustomerMobile1.toLowerCase().search(search_1) >= 0 || x.NetAfterVat.toString().search(search_1) >= 0; });
+            var SearchDetails = _Invoices.filter(function (x) { return x.InvoiceID.toString().search(search_1) >= 0 || x.CustomerName.toLowerCase().search(search_1) >= 0 || x.RefNO.toLowerCase().search(search_1) >= 0 || x.CustomerMobile1.toLowerCase().search(search_1) >= 0 || x.TotalAmount.toString().search(search_1) >= 0; });
             _Grid.DataSource = SearchDetails;
             _Grid.Bind();
         }
@@ -133,7 +133,7 @@ var Merchant_Payment;
         _Grid.Bind();
         $('#Txt_Total_LineCount').val(_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_Amount').val(SumValue(_Invoices, "TotalAmount", 1));
     }
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 6", function () {
@@ -155,7 +155,7 @@ var Merchant_Payment;
         _Grid.Bind();
         $('#Txt_Total_LineCount').val(New_Invoices.length);
         $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
+        $('#Txt_Total_Amount').val(SumValue(New_Invoices, "TotalAmount", 1));
     }
     function PrintInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString());

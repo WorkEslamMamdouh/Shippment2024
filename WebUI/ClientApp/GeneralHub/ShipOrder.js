@@ -68,6 +68,19 @@ var ShipOrder;
             { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
             { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
             {
+                title: "Type", css: "ColumPadding", name: "Type", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    if (item.TrType == 0) {
+                        txt.innerHTML = "Invoice";
+                    }
+                    else {
+                        txt.innerHTML = "Return";
+                    }
+                    return txt;
+                }
+            },
+            {
                 title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("label");
@@ -150,9 +163,9 @@ var ShipOrder;
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
-                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: "  Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" + Con },
+                { NameTable: 'Sls_InvoiceItem', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where  Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where  Status = 3 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
