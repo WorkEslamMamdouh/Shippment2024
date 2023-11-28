@@ -9,7 +9,8 @@ namespace Order_Saller {
     var SysSession: SystemSession = GetSystemSession();
 
     var InvMasterDetails: InvoiceMasterDetails = new InvoiceMasterDetails();
-
+    var _Zones: Array<Zones> = new Array<Zones>();
+    var _ZonesFltr: Array<Zones> = new Array<Zones>();
 
     var Id_Back: HTMLButtonElement;
     var Id_Next: HTMLButtonElement;
@@ -21,7 +22,8 @@ namespace Order_Saller {
     var Txt_Quantity: HTMLInputElement;
     var Txt_UnitPrice: HTMLInputElement;
     var Txt_NetTotal: HTMLInputElement;
-
+    var db_Zone: HTMLSelectElement;
+    var db_FamilyZone: HTMLSelectElement;
     var CountGrid = 0;
     var NumItems = 0;
     var ItemTotal = 0;
@@ -45,7 +47,9 @@ namespace Order_Saller {
         Txt_Quantity = document.getElementById("Txt_Quantity") as HTMLInputElement;
         Txt_UnitPrice = document.getElementById("Txt_UnitPrice") as HTMLInputElement;
         Txt_NetTotal = document.getElementById("Txt_NetTotal") as HTMLInputElement;
-         
+        db_FamilyZone = document.getElementById('db_FamilyZone') as HTMLSelectElement;
+        db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
+
     }
     function InitializeEvents() {
 
@@ -55,7 +59,7 @@ namespace Order_Saller {
         Id_Next_Step2.onclick = _Next_Step2;
         Id_Finish.onclick = _Finish;
         Btn_AddItem.onclick = AddItemBox;
-
+        db_FamilyZone.onchange = FltrZones;
         Txt_UnitPrice.onkeyup = BoxTotal;
         Txt_Quantity.onkeyup = BoxTotal;
     }
@@ -66,16 +70,21 @@ namespace Order_Saller {
         Table =
             [
             { NameTable: 'Zones', Condition: " Active = 1" },
-                
+            { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         debugger
-        let _Zones = GetDataTable('Zones');
-        
-        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        _Zones = GetDataTable('Zones');
+        let _FamilyZones = GetDataTable('FamilyZone');
+
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(x => x.FamilyZoneID == Number(db_FamilyZone.value));
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
 
     }
     function _Next() {

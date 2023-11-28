@@ -1,19 +1,18 @@
 ﻿
 $(document).ready(() => {
-	Zone.InitalizeComponent();
+	FamilyZones.InitalizeComponent();
 
 });
 
-namespace Zone {
+namespace FamilyZones {
 	var sys: SystemTools = new SystemTools();
 	var SysSession: SystemSession = GetSystemSession();
 
 	var _USERS: Array<G_USERS> = new Array<G_USERS>();
 	var _USER: Array<G_USERS> = new Array<G_USERS>();
-	var _FamilyZones: Array<FamilyZone> = new Array<FamilyZone>();
-	var _Zones: Array<Zones> = new Array<Zones>();
-	var _ZonesObj: Zones = new Zones();
-	var _ZonesModel: Array<Zones> = new Array<Zones>();
+	var _Zones: Array<FamilyZone> = new Array<FamilyZone>();
+	var _ZonesObj: FamilyZone = new FamilyZone();
+	var _ZonesModel: Array<FamilyZone> = new Array<FamilyZone>();
 	var CountGrid = 0;
 	var Submit_Update_Profile: HTMLButtonElement;
 	var btnAdd: HTMLButtonElement;
@@ -46,7 +45,7 @@ namespace Zone {
 		Submit_Backdown_Profile.onclick = Display_Data;
 
 	}
-
+	  
 	function AddRow() {
 		BuildGrid(CountGrid);
 		$(`#txtStatusFlag${CountGrid}`).val('i');
@@ -57,21 +56,19 @@ namespace Zone {
 		var Table: Array<Table>;
 		Table =
 			[
-				{ NameTable: 'Zones', Condition: "" },
-				{ NameTable: 'FamilyZone', Condition: "" },
+			{ NameTable: 'FamilyZone', Condition: "" },
 			]
 
 		DataResult(Table);
 		//**************************************************************************************************************
 		debugger
-		_FamilyZones = GetDataTable('FamilyZone');
-		_Zones = GetDataTable('Zones');
+		_Zones = GetDataTable('FamilyZone');
 		$('#Zone_Grid').html("");
 		CountGrid = 0;
+		debugger
 		for (var i = 0; i < _Zones.length; i++) {
 			BuildGrid(i);
-			$(`#Txt_ZoneID${i}`).val(_Zones[i].ZoneID);
-			$(`#Txt_FamilyZone${i}`).val(_Zones[i].FamilyZoneID); 
+			$(`#Txt_ZoneID${i}`).val(_Zones[i].FamilyZoneID);	 
 			$(`#Txt_DescA${i}`).val(_Zones[i].DescA);
 			$(`#chk_Active${i}`).prop('checked', _Zones[i].Active);
 			$(`#Txt_Remarks${i}`).val(_Zones[i].Remarks);
@@ -80,20 +77,21 @@ namespace Zone {
 		}
 	}
 	function SubmitUpdate() {
-		for (var i = 0; i < CountGrid; i++) {	 
+		for (var i = 0; i < CountGrid; i++) {
+			 
 			if ($('#Txt_DescA' + i).val().trim() == "") {
 				Errorinput($('#Txt_DescA' + i), "Please a Enter Zone Describition 🤨");
 				return
-			}
-		}
+			}   
+		}		
 		Assign();
 		Ajax.CallsyncSave({
 			type: "Post",
-			url: sys.apiUrl("SalesMan", "UpdateZones"),
+			url: sys.apiUrl("SalesMan", "UpdateFamilyZones"),
 			data: JSON.stringify(_ZonesModel),
 			success: (d) => {
 				let result = d as BaseResponse;
-				if (result.IsSuccess == true) {
+				if (result.IsSuccess == true) {		
 					Display_Data();
 					Close_Loder();
 				} else {
@@ -106,11 +104,9 @@ namespace Zone {
 	function BuildGrid(cnt: number) {
 		let html = '<tr id="Row' + cnt + '" style="height: 51px; ">' +
 			'<input id="Txt_ZoneID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
-			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
+			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +	 
 
-			'<td class="u-table-cell" > ' +																			  
-			'<select id="Txt_FamilyZone' + cnt + '" name = "select" class="u-input u-input-rectangle" >< /select>'+
-			'</td>' +   
+			 
 
 			'<td class="u-table-cell" > ' +
 			'<input type="text" id="Txt_DescA' + cnt + '" maxlength="200" class="Clear_Header  u-input u-input-rectangle">' +
@@ -125,15 +121,8 @@ namespace Zone {
 			'</td>' +
 
 			'</tr>';
-		debugger
 		$('#Zone_Grid').append(html);
 
-		FillDropwithAttr(_FamilyZones,`Txt_FamilyZone${cnt}`, "FamilyZoneID", "DescA", "No", "", "");
-
-		$(`#Txt_FamilyZone${cnt}`).on('change', function () {
-			if ($("#txtStatusFlag" + cnt).val() != "i")
-				$("#txtStatusFlag" + cnt).val("u");
-		});
 		 
 		$(`#Txt_DescA${cnt}`).on('change', function () {
 			if ($("#txtStatusFlag" + cnt).val() != "i")
@@ -158,12 +147,11 @@ namespace Zone {
 		$("#Row" + RecNo).attr("hidden", "true");
 	}
 	function Assign() {
-		_ZonesModel = new Array<Zones>();
+		_ZonesModel = new Array<FamilyZone>();
 		for (var i = 0; i < CountGrid; i++) {
 			if ($(`#txtStatusFlag${i}`).val() != 'm' && $(`#txtStatusFlag${i}`).val() != '') {
-				_ZonesObj = new Zones();
-				_ZonesObj.FamilyZoneID = Number($(`#Txt_FamilyZone${i}`).val());
-				_ZonesObj.ZoneID = Number($(`#Txt_ZoneID${i}`).val()); 
+				_ZonesObj = new FamilyZone();
+				_ZonesObj.FamilyZoneID = Number($(`#Txt_ZoneID${i}`).val());
 				_ZonesObj.ZoneCode = "";
 				_ZonesObj.DescA = $(`#Txt_DescA${i}`).val();
 				_ZonesObj.Active = $(`#chk_Active${i}`).is(":checked");

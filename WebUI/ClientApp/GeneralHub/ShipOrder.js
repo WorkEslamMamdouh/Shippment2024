@@ -10,8 +10,11 @@ var ShipOrder;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var _IQ_ItemCollect = new Array();
+    var _Zones = new Array();
+    var _ZonesFltr = new Array();
     var txtSearch;
     var db_Zone;
+    var db_FamilyZone;
     var Filter_View;
     var btnDelete_Filter;
     function InitalizeComponent() {
@@ -37,6 +40,7 @@ var ShipOrder;
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch');
+        db_FamilyZone = document.getElementById('db_FamilyZone');
         db_Zone = document.getElementById('db_Zone');
         Filter_View = document.getElementById('Filter_View');
         btnDelete_Filter = document.getElementById('btnDelete_Filter');
@@ -45,6 +49,7 @@ var ShipOrder;
         txtSearch.onkeyup = _SearchBox_Change;
         Filter_View.onclick = GetData_InvoiceShip;
         btnDelete_Filter.onclick = Clear;
+        db_FamilyZone.onchange = FltrZones;
     }
     function InitializeGrid() {
         _Grid.ElementName = "_Grid";
@@ -117,12 +122,18 @@ var ShipOrder;
         Table =
             [
                 { NameTable: 'Zones', Condition: " Active = 1" },
+                { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        var _Zones = GetDataTable('Zones');
-        var db_Zone = document.getElementById("db_Zone");
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        _Zones = GetDataTable('Zones');
+        var _FamilyZones = GetDataTable('FamilyZone');
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(function (x) { return x.FamilyZoneID == Number(db_FamilyZone.value); });
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
     }
     function GetData_InvoiceShip() {
         CleaningList_Table();

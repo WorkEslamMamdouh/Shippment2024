@@ -1119,6 +1119,7 @@
     <Content Include="Views\Vouchers\VoucherPaymentIndex.cshtml" />
     <Content Include="Views\Order\Print_OrderIndex.cshtml" />
     <Content Include="Views\GeneralHub\Chase_DeliveryIndex.cshtml" />
+    <Content Include="Views\Zone\FamilyZonesIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1170,6 +1171,7 @@
     <TypeScriptCompile Include="ClientApp\Store\Store.ts" />
     <TypeScriptCompile Include="ClientApp\UserDef\UserDef.ts" />
     <TypeScriptCompile Include="ClientApp\PromoCode\PromoCode.ts" />
+    <TypeScriptCompile Include="ClientApp\Zone\FamilyZones.ts" />
     <TypeScriptCompile Include="ClientApp\Zone\Zone.ts" />
     <TypeScriptCompile Include="ClientApp\Profile\Profile.ts" />
     <TypeScriptCompile Include="ClientApp\Login\Login.ts" />

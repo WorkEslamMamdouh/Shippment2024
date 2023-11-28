@@ -7196,6 +7196,7 @@ var Zones = /** @class */ (function (_super) {
     function Zones() {
         var _this = _super.call(this) || this;
         _this.ZoneID = 0;
+        _this.FamilyZoneID = 0;
         _this.ZoneCode = "";
         _this.DescA = "";
         _this.Active = false;
@@ -7344,4 +7345,18 @@ var Voucher_Receipt = /** @class */ (function () {
     }
     return Voucher_Receipt;
 }());
+var FamilyZone = /** @class */ (function (_super) {
+    __extends(FamilyZone, _super);
+    function FamilyZone() {
+        var _this = _super.call(this) || this;
+        _this.FamilyZoneID = 0;
+        _this.ZoneCode = "";
+        _this.DescA = "";
+        _this.Active = false;
+        _this.Remarks = "";
+        _this.StatusFlag = "";
+        return _this;
+    }
+    return FamilyZone;
+}(SecurityClass));
 //# sourceMappingURL=Entities.js.map

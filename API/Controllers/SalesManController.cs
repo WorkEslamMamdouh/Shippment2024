@@ -123,6 +123,50 @@ namespace Inv.API.Controllers
         }
 
         [HttpPost, AllowAnonymous]
+        public IHttpActionResult UpdateFamilyZones([FromBody] List<FamilyZone> obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+
+                    List<FamilyZone> InsertedItems = obj.Where(x => x.StatusFlag == 'i').ToList();
+                    List<FamilyZone> UpdatedItems = obj.Where(x => x.StatusFlag == 'u').ToList();
+                    List<FamilyZone> DeletedItems = obj.Where(x => x.StatusFlag == 'd').ToList();
+
+                    foreach (var item in InsertedItems)
+                    {
+                        SalesManService.InsertFamilyZone(item);
+
+                    }
+                    foreach (var item in UpdatedItems)
+                    {
+                        SalesManService.UpdateFamilyZone(item);
+
+                    }
+                    foreach (var item in DeletedItems)
+                    {
+                        SalesManService.DeleteFamilyZone(item.FamilyZoneID);
+
+                    }
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
+
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        } 
+        [HttpPost, AllowAnonymous]
         public IHttpActionResult UpdateZones([FromBody] List<Zones> obj)
         {
 

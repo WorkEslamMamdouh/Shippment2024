@@ -1,15 +1,14 @@
 $(document).ready(function () {
-    Zone.InitalizeComponent();
+    FamilyZones.InitalizeComponent();
 });
-var Zone;
-(function (Zone) {
+var FamilyZones;
+(function (FamilyZones) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _USERS = new Array();
     var _USER = new Array();
-    var _FamilyZones = new Array();
     var _Zones = new Array();
-    var _ZonesObj = new Zones();
+    var _ZonesObj = new FamilyZone();
     var _ZonesModel = new Array();
     var CountGrid = 0;
     var Submit_Update_Profile;
@@ -26,7 +25,7 @@ var Zone;
         Display_Data();
         Close_Loder();
     }
-    Zone.InitalizeComponent = InitalizeComponent;
+    FamilyZones.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
         btnAdd = document.getElementById("btnAdd");
@@ -47,20 +46,18 @@ var Zone;
         var Table;
         Table =
             [
-                { NameTable: 'Zones', Condition: "" },
                 { NameTable: 'FamilyZone', Condition: "" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
-        _FamilyZones = GetDataTable('FamilyZone');
-        _Zones = GetDataTable('Zones');
+        _Zones = GetDataTable('FamilyZone');
         $('#Zone_Grid').html("");
         CountGrid = 0;
+        debugger;
         for (var i = 0; i < _Zones.length; i++) {
             BuildGrid(i);
-            $("#Txt_ZoneID".concat(i)).val(_Zones[i].ZoneID);
-            $("#Txt_FamilyZone".concat(i)).val(_Zones[i].FamilyZoneID);
+            $("#Txt_ZoneID".concat(i)).val(_Zones[i].FamilyZoneID);
             $("#Txt_DescA".concat(i)).val(_Zones[i].DescA);
             $("#chk_Active".concat(i)).prop('checked', _Zones[i].Active);
             $("#Txt_Remarks".concat(i)).val(_Zones[i].Remarks);
@@ -78,7 +75,7 @@ var Zone;
         Assign();
         Ajax.CallsyncSave({
             type: "Post",
-            url: sys.apiUrl("SalesMan", "UpdateZones"),
+            url: sys.apiUrl("SalesMan", "UpdateFamilyZones"),
             data: JSON.stringify(_ZonesModel),
             success: function (d) {
                 var result = d;
@@ -96,9 +93,6 @@ var Zone;
             '<input id="Txt_ZoneID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
             '<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
             '<td class="u-table-cell" > ' +
-            '<select id="Txt_FamilyZone' + cnt + '" name = "select" class="u-input u-input-rectangle" >< /select>' +
-            '</td>' +
-            '<td class="u-table-cell" > ' +
             '<input type="text" id="Txt_DescA' + cnt + '" maxlength="200" class="Clear_Header  u-input u-input-rectangle">' +
             '</td>' +
             '<td class="u-table-cell" > ' +
@@ -108,13 +102,7 @@ var Zone;
             '<input type="text" id="Txt_Remarks' + cnt + '" maxlength="500" class="Clear_Header  u-input u-input-rectangle">' +
             '</td>' +
             '</tr>';
-        debugger;
         $('#Zone_Grid').append(html);
-        FillDropwithAttr(_FamilyZones, "Txt_FamilyZone".concat(cnt), "FamilyZoneID", "DescA", "No", "", "");
-        $("#Txt_FamilyZone".concat(cnt)).on('change', function () {
-            if ($("#txtStatusFlag" + cnt).val() != "i")
-                $("#txtStatusFlag" + cnt).val("u");
-        });
         $("#Txt_DescA".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
@@ -139,9 +127,8 @@ var Zone;
         _ZonesModel = new Array();
         for (var i = 0; i < CountGrid; i++) {
             if ($("#txtStatusFlag".concat(i)).val() != 'm' && $("#txtStatusFlag".concat(i)).val() != '') {
-                _ZonesObj = new Zones();
-                _ZonesObj.FamilyZoneID = Number($("#Txt_FamilyZone".concat(i)).val());
-                _ZonesObj.ZoneID = Number($("#Txt_ZoneID".concat(i)).val());
+                _ZonesObj = new FamilyZone();
+                _ZonesObj.FamilyZoneID = Number($("#Txt_ZoneID".concat(i)).val());
                 _ZonesObj.ZoneCode = "";
                 _ZonesObj.DescA = $("#Txt_DescA".concat(i)).val();
                 _ZonesObj.Active = $("#chk_Active".concat(i)).is(":checked");
@@ -154,5 +141,5 @@ var Zone;
         _ZonesModel[0].Comp_Code = _USER[0].CompCode.toString();
         _ZonesModel[0].Branch_Code = _USER[0].Branch_Code;
     }
-})(Zone || (Zone = {}));
-//# sourceMappingURL=Zone.js.map
+})(FamilyZones || (FamilyZones = {}));
+//# sourceMappingURL=FamilyZones.js.map

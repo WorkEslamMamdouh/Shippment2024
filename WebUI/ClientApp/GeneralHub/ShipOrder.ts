@@ -13,9 +13,12 @@ namespace ShipOrder {
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
     var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
+    var _Zones: Array<Zones> = new Array<Zones>();
+    var _ZonesFltr: Array<Zones> = new Array<Zones>();
 
     var txtSearch: HTMLInputElement;
     var db_Zone: HTMLSelectElement;
+    var db_FamilyZone: HTMLSelectElement;
     var Filter_View: HTMLButtonElement;
     var btnDelete_Filter: HTMLButtonElement;
 
@@ -46,6 +49,7 @@ namespace ShipOrder {
     }
     function InitalizeControls() {
         txtSearch = document.getElementById('txtSearch') as HTMLInputElement;
+        db_FamilyZone = document.getElementById('db_FamilyZone') as HTMLSelectElement;
         db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
         Filter_View = document.getElementById('Filter_View') as HTMLButtonElement;
         btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement;
@@ -55,6 +59,7 @@ namespace ShipOrder {
         txtSearch.onkeyup = _SearchBox_Change; 
         Filter_View.onclick = GetData_InvoiceShip;
         btnDelete_Filter.onclick = Clear;
+        db_FamilyZone.onchange = FltrZones;
     }
     function InitializeGrid() {
         _Grid.ElementName = "_Grid";
@@ -132,17 +137,23 @@ namespace ShipOrder {
         Table =
             [
             { NameTable: 'Zones', Condition: " Active = 1" },
+            { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
         
-        let _Zones = GetDataTable('Zones');
+       _Zones = GetDataTable('Zones');
+        let _FamilyZones = GetDataTable('FamilyZone');                                          
 
-        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
-
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
     }
+    function FltrZones() {
+       _ZonesFltr =  _Zones.filter(x => x.FamilyZoneID == Number(db_FamilyZone.value));
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+
+	}
     function GetData_InvoiceShip() {
         CleaningList_Table();
         
