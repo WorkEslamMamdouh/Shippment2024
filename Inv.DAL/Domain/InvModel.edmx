@@ -2330,13 +2330,12 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="Vnd_Inv_SlsMan" EntityType="InvModel.Vnd_Inv_SlsMan" />
           <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
-          <EntitySet Name="IQ_ItemCollect" EntityType="InvModel.IQ_ItemCollect" />
           <EntitySet Name="Voucher_Receipt" EntityType="InvModel.Voucher_Receipt" />
           <EntitySet Name="FamilyZone" EntityType="InvModel.FamilyZone" />
           <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
           <EntitySet Name="Zones" EntityType="InvModel.Zones" />
-          <EntitySet Name="IQ_ItemCollect1Set" EntityType="InvModel.IQ_ItemCollect1" />
           <EntitySet Name="IQ_ItemCollection" EntityType="InvModel.IQ_ItemCollection" />
+          <EntitySet Name="IQ_ItemCollect" EntityType="InvModel.IQ_ItemCollect" />
         </EntityContainer>
         <EntityType Name="A_Pay_D_VendorDoc">
           <Key>
@@ -3786,18 +3785,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="StoreID" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="IQ_ItemCollect">
-          <Key>
-            <PropertyRef Name="InvoiceID" />
-          </Key>
-          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
-          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
-          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Voucher_Receipt">
           <Key>
             <PropertyRef Name="ReceiptID" />
@@ -3881,18 +3868,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="Active" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="IQ_ItemCollect1">
-          <Key>
-            <PropertyRef Name="InvoiceID" />
-          </Key>
-          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
-          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="IQ_ItemCollection">
           <Key>
             <PropertyRef Name="InvoiceID" />
@@ -3902,6 +3877,18 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
           <Property Name="SalesManID" Type="Int32" />
           <Property Name="VendorID" Type="Int32" />
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IQ_ItemCollect">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="InvoiceID" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
@@ -5463,11 +5450,10 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_ItemCollect1Set">
-            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollect1">
-              <MappingFragment StoreEntitySet="IQ_ItemCollect">
+          <EntitySetMapping Name="IQ_ItemCollection">
+            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollection">
+              <MappingFragment StoreEntitySet="IQ_ItemCollection">
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
                 <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
@@ -5476,10 +5462,11 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_ItemCollection">
-            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollection">
-              <MappingFragment StoreEntitySet="IQ_ItemCollection">
+          <EntitySetMapping Name="IQ_ItemCollect">
+            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollect">
+              <MappingFragment StoreEntitySet="IQ_ItemCollect">
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="VendorID" ColumnName="VendorID" />
                 <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
                 <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
