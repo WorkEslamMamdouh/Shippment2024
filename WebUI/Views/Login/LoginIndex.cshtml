@@ -1,7 +1,12 @@
 ﻿<link href="~/NewStyle/Login/Login_Style.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+@*<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
+
+<script src="~/NewStyle/Offline/jquery-3.1.1.min.js"></script>
+<script src="~/NewStyle/Offline/jquery-ui.min.js"></script>
+<link href="~/NewStyle/Offline/bootstrap.min.css" rel="stylesheet" />
+
 <div id="bodyLogin" class="body hidden_Control">
     <div class="veen">
         <div class="login-btn splits">
@@ -10,18 +15,18 @@
         </div>
         <div class="rgstr-btn splits">
             <p class="_rgstr">Don't have an account?</p>
-            <p class="_ready">Already an user?</p> 
+            <p class="_ready">Already an user?</p>
             <input type="button" class=" __button _rgstr " id="rgstr_button" value="Register" />
         </div>
         <div class="wrapper">
             <form id="login" tabindex="500">
                 <h3>Login</h3>
                 <div class="mail">
-                    <input id="txtUsername"  type="email" name="">
+                    <input id="txtUsername" type="email" name="">
                     <label>Username</label>
                 </div>
                 <div class="passwd">
-                    <input id="txtPassword"  type="password" name="">
+                    <input id="txtPassword" type="password" name="">
                     <label>Password</label>
                 </div>
                 <div class="submit">
@@ -31,11 +36,11 @@
             </form>
             <form id="register" tabindex="502" style="margin-top: 120px;">
                 <h3>Register</h3>
-                 
-				<div class="name">
-					<input id="Reg_Comp_Name" maxlength="250" class="_Clear_Reg" type="text" name="">
-					<label>Company Name</label>
-				</div>
+
+                <div class="name">
+                    <input id="Reg_Comp_Name" maxlength="250" class="_Clear_Reg" type="text" name="">
+                    <label>Company Name</label>
+                </div>
                 <div class="name">
                     <input id="Reg_Full_Name" maxlength="50" class="_Clear_Reg" type="text" name="">
                     <label>Full Name</label>
@@ -49,11 +54,11 @@
                     <label>Mobile Number</label>
                 </div>
                 <div class="name">
-                    <input id="Reg_ID_Num"   class="_Clear_Reg" type="number" name="">
+                    <input id="Reg_ID_Num" class="_Clear_Reg" type="number" name="">
                     <label>ID Number</label>
                 </div>
                 <div class="mail">
-                    <input  id="Reg_Mail"  class="_Clear_Reg" type="email" name="">
+                    <input id="Reg_Mail" class="_Clear_Reg" type="email" name="">
                     <label>Mail</label>
                 </div>
                 <div class="uid">

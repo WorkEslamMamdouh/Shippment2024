@@ -251,6 +251,8 @@
     <Content Include="NewStyle\blog\post.html" />
     <Content Include="NewStyle\Contact.css" />
     <Content Include="NewStyle\Contact.html" />
+    <Content Include="NewStyle\css.css" />
+    <Content Include="NewStyle\css1.css" />
     <Content Include="NewStyle\Home.css" />
     <Content Include="NewStyle\Home.html" />
     <Content Include="NewStyle\images\0fd3416c.jpeg" />
@@ -328,6 +330,9 @@
     <Content Include="NewStyle\Login\Login_Style.css" />
     <Content Include="NewStyle\nicepage.css" />
     <Content Include="NewStyle\nicepage.js" />
+    <Content Include="NewStyle\Offline\bootstrap.min.css" />
+    <Content Include="NewStyle\Offline\jquery-3.1.1.min.js" />
+    <Content Include="NewStyle\Offline\jquery-ui.min.js" />
     <Content Include="NewStyle\Post-Template.css" />
     <Content Include="NewStyle\Style.css" />
     <Content Include="NewStyle\Thank-You-Page-Template.css" />
@@ -849,6 +854,8 @@
     <Content Include="Newtemplate\template\assets\fonts\DancingScript\DancingScript-Medium.ttf" />
     <Content Include="Newtemplate\template\assets\fonts\DancingScript\DancingScript-Regular.ttf" />
     <Content Include="Newtemplate\template\assets\fonts\DancingScript\DancingScript-SemiBold.ttf" />
+    <Content Include="NewStyle\Offline\KFOmCnqEu92Fr1Mu4mxK.woff2" />
+    <Content Include="NewStyle\Offline\neILzCirqoswsqX9zoKmMw.woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="images\add.png" />
     <Content Include="images\add_icon.png" />

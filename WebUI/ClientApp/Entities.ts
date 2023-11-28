@@ -6571,6 +6571,9 @@ class G_USERS extends SecurityClass {
 		this.Vnd_CompName = "";
 		this.StoreID = 0;
 		this.VendorID = 0;
+		this.Profile_Img = "";
+		this.FrontID_Img = "";
+		this.BackID_Img = "";
 
 
 	}
@@ -6610,6 +6613,9 @@ class G_USERS extends SecurityClass {
 	public StoreID: number;
 	public VendorID: number; 
 	public Vnd_CompName: string;
+	public Profile_Img: string;
+	public FrontID_Img: string;
+	public BackID_Img: string; 
 }
 
 class ModelUserMasterDetail extends SecurityClass {

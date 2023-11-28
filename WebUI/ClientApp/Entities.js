@@ -3837,6 +3837,9 @@ var G_USERS = /** @class */ (function (_super) {
         _this.Vnd_CompName = "";
         _this.StoreID = 0;
         _this.VendorID = 0;
+        _this.Profile_Img = "";
+        _this.FrontID_Img = "";
+        _this.BackID_Img = "";
         return _this;
     }
     return G_USERS;

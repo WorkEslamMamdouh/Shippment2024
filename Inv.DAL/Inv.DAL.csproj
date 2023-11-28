@@ -212,9 +212,6 @@
     <Compile Include="Domain\IQ_ItemCollect.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Domain\IQ_ItemCollect1.cs">
-      <DependentUpon>InvModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Domain\IQ_ItemCollection.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
