@@ -65,6 +65,8 @@ function onchangeFile() {
 
     var file = fileInput.files[0];
 
+
+
     if (file != undefined && file != 'undefined') {
         //$("#fileName").val("" + file.name + "")
         $("#" + $("#IdName_View_Img").val() + "").attr('src', '/images/Loder.gif');
