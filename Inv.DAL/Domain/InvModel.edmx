@@ -235,6 +235,16 @@
           <Property Name="ProviderAmountBeforeVat" Type="numeric" Precision="18" Scale="2" />
           <Property Name="CC_Code" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="FamilyZone">
+          <Key>
+            <PropertyRef Name="FamilyZoneID" />
+          </Key>
+          <Property Name="FamilyZoneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ZoneCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="DescA" Type="nvarchar" MaxLength="200" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
         <EntityType Name="G_AlertType">
           <Key>
             <PropertyRef Name="AlertType" />
@@ -738,6 +748,9 @@
           <Property Name="StoreID" Type="int" />
           <Property Name="VendorID" Type="int" />
           <Property Name="Vnd_CompName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Profile_Img" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FrontID_Img" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BackID_Img" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -976,6 +989,7 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
             <PropertyRef Name="ZoneID" />
           </Key>
           <Property Name="ZoneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FamilyZoneID" Type="int" />
           <Property Name="ZoneCode" Type="nvarchar" MaxLength="50" />
           <Property Name="DescA" Type="nvarchar" MaxLength="200" />
           <Property Name="Active" Type="bit" />
@@ -1377,8 +1391,21 @@ warning 6002: The table/view 'Shippment2024.dbo.IQ_ItemCollect' does not have a 
           <Property Name="Unitprice" Type="numeric" Precision="18" Scale="5" />
           <Property Name="SalesManID" Type="int" />
           <Property Name="VendorID" Type="int" />
-          <Property Name="InvoiceID" Type="int" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="4000" />
+          <Property Name="InvoiceID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Shippment2024.dbo.IQ_ItemCollection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IQ_ItemCollection">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="ItemDescA" Type="nvarchar" MaxLength="200" />
+          <Property Name="SoldQty" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="Unitprice" Type="numeric" Precision="18" Scale="5" />
+          <Property Name="SalesManID" Type="int" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="InvoiceID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Shippment2024.dbo.SalesMan_Invoices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1695,6 +1722,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="A_Pay_D_Vendor" EntityType="Self.A_Pay_D_Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="A_Pay_D_VendorDoc" EntityType="Self.A_Pay_D_VendorDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="A_RecPay_Tr_ReceiptNote" EntityType="Self.A_RecPay_Tr_ReceiptNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FamilyZone" EntityType="Self.FamilyZone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_AlertType" EntityType="Self.G_AlertType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_BRANCH" EntityType="Self.G_BRANCH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_BranchModules" EntityType="Self.G_BranchModules" Schema="dbo" store:Type="Tables" />
@@ -2060,9 +2088,19 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
     [IQ_ItemCollect].[Unitprice] AS [Unitprice], 
     [IQ_ItemCollect].[SalesManID] AS [SalesManID], 
     [IQ_ItemCollect].[VendorID] AS [VendorID], 
-    [IQ_ItemCollect].[InvoiceID] AS [InvoiceID], 
-    [IQ_ItemCollect].[Remark] AS [Remark]
+    [IQ_ItemCollect].[Remark] AS [Remark], 
+    [IQ_ItemCollect].[InvoiceID] AS [InvoiceID]
     FROM [dbo].[IQ_ItemCollect] AS [IQ_ItemCollect]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="IQ_ItemCollection" EntityType="Self.IQ_ItemCollection" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IQ_ItemCollection].[ItemDescA] AS [ItemDescA], 
+    [IQ_ItemCollection].[SoldQty] AS [SoldQty], 
+    [IQ_ItemCollection].[Unitprice] AS [Unitprice], 
+    [IQ_ItemCollection].[SalesManID] AS [SalesManID], 
+    [IQ_ItemCollection].[VendorID] AS [VendorID], 
+    [IQ_ItemCollection].[InvoiceID] AS [InvoiceID]
+    FROM [dbo].[IQ_ItemCollection] AS [IQ_ItemCollection]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SalesMan_Invoices" EntityType="Self.SalesMan_Invoices" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2277,10 +2315,8 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
             <Parameter Name="BraCode" Mode="In" Type="Int32" />
             <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
           <EntitySet Name="A_Pay_D_Vendor" EntityType="InvModel.A_Pay_D_Vendor" />
           <EntitySet Name="I_Sls_D_Salesman" EntityType="InvModel.I_Sls_D_Salesman" />
-          <EntitySet Name="Zones" EntityType="InvModel.Zones" />
           <EntitySet Name="A_ACCOUNT" EntityType="InvModel.A_ACCOUNT" />
           <EntitySet Name="A_ACCOUNT_YEAR" EntityType="InvModel.A_ACCOUNT_YEAR" />
           <EntitySet Name="A_JOURNAL_DETAIL" EntityType="InvModel.A_JOURNAL_DETAIL" />
@@ -2294,8 +2330,12 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="Vnd_Inv_SlsMan" EntityType="InvModel.Vnd_Inv_SlsMan" />
           <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
-          <EntitySet Name="IQ_ItemCollect" EntityType="InvModel.IQ_ItemCollect" />
           <EntitySet Name="Voucher_Receipt" EntityType="InvModel.Voucher_Receipt" />
+          <EntitySet Name="FamilyZone" EntityType="InvModel.FamilyZone" />
+          <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
+          <EntitySet Name="Zones" EntityType="InvModel.Zones" />
+          <EntitySet Name="IQ_ItemCollection" EntityType="InvModel.IQ_ItemCollection" />
+          <EntitySet Name="IQ_ItemCollect" EntityType="InvModel.IQ_ItemCollect" />
         </EntityContainer>
         <EntityType Name="A_Pay_D_VendorDoc">
           <Key>
@@ -3265,44 +3305,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Type="Boolean" Name="EditImages" Nullable="true" />
           <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
         </ComplexType>
-        <EntityType Name="G_USERS">
-          <Key>
-            <PropertyRef Name="USER_CODE" />
-          </Key>
-          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
-          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="GRP_CODE" Type="Int32" />
-          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="USER_TYPE" Type="Byte" />
-          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LoginUrl" Type="Boolean" />
-          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LastLogin" Type="DateTime" Precision="0" />
-          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
-          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CashBoxID" Type="Int32" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="StoreID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="Vnd_CompName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="A_Pay_D_Vendor">
           <Key>
             <PropertyRef Name="VendorID" />
@@ -3405,16 +3407,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="WebPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="WebUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ZoneID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Zones">
-          <Key>
-            <PropertyRef Name="ZoneID" />
-          </Key>
-          <Property Name="ZoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="A_ACCOUNT">
           <Key>
@@ -3793,18 +3785,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="StoreID" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="IQ_ItemCollect">
-          <Key>
-            <PropertyRef Name="InvoiceID" />
-          </Key>
-          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
-          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="SalesManID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
-          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Voucher_Receipt">
           <Key>
             <PropertyRef Name="ReceiptID" />
@@ -3825,6 +3805,91 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FamilyZone">
+          <Key>
+            <PropertyRef Name="FamilyZoneID" />
+          </Key>
+          <Property Name="FamilyZoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_USERS">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+          </Key>
+          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="GRP_CODE" Type="Int32" />
+          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_TYPE" Type="Byte" />
+          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoginUrl" Type="Boolean" />
+          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Precision="0" />
+          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CashBoxID" Type="Int32" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="Vnd_CompName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Profile_Img" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FrontID_Img" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="BackID_Img" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Zones">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FamilyZoneID" Type="Int32" />
+          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="IQ_ItemCollection">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IQ_ItemCollect">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="ItemDescA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoldQty" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="SalesManID" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4810,45 +4875,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <FunctionImportMapping FunctionImportName="GProc_CreateUser" FunctionName="InvModel.Store.GProc_CreateUser" />
           <FunctionImportMapping FunctionImportName="GProc_GenerateBranchModules" FunctionName="InvModel.Store.GProc_GenerateBranchModules" />
           <FunctionImportMapping FunctionImportName="GProc_GenerateUserPrivilage" FunctionName="InvModel.Store.GProc_GenerateUserPrivilage" />
-          <EntitySetMapping Name="G_USERS">
-            <EntityTypeMapping TypeName="InvModel.G_USERS">
-              <MappingFragment StoreEntitySet="G_USERS">
-                <ScalarProperty Name="Vnd_CompName" ColumnName="Vnd_CompName" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
-                <ScalarProperty Name="CashBoxID" ColumnName="CashBoxID" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="Tokenid" ColumnName="Tokenid" />
-                <ScalarProperty Name="LoginUrl" ColumnName="LoginUrl" />
-                <ScalarProperty Name="ManagedBy" ColumnName="ManagedBy" />
-                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="CHANGE_PASS_DATE" ColumnName="CHANGE_PASS_DATE" />
-                <ScalarProperty Name="USER_PASSWORD2" ColumnName="USER_PASSWORD2" />
-                <ScalarProperty Name="GRP_CODE" ColumnName="GRP_CODE" />
-                <ScalarProperty Name="REGION_CODE" ColumnName="REGION_CODE" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-                <ScalarProperty Name="USER_ACTIVE" ColumnName="USER_ACTIVE" />
-                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
-                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="A_Pay_D_Vendor">
             <EntityTypeMapping TypeName="InvModel.A_Pay_D_Vendor">
               <MappingFragment StoreEntitySet="A_Pay_D_Vendor">
@@ -4951,17 +4977,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
                 <ScalarProperty Name="BraCode" ColumnName="BraCode" />
                 <ScalarProperty Name="CompCode" ColumnName="CompCode" />
                 <ScalarProperty Name="SalesmanId" ColumnName="SalesmanId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Zones">
-            <EntityTypeMapping TypeName="InvModel.Zones">
-              <MappingFragment StoreEntitySet="Zones">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="DescA" ColumnName="DescA" />
-                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
-                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5348,19 +5363,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_ItemCollect">
-            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollect">
-              <MappingFragment StoreEntitySet="IQ_ItemCollect">
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
-                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
-                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
-                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Voucher_Receipt">
             <EntityTypeMapping TypeName="InvModel.Voucher_Receipt">
               <MappingFragment StoreEntitySet="Voucher_Receipt">
@@ -5380,6 +5382,96 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
                 <ScalarProperty Name="BraCode" ColumnName="BraCode" />
                 <ScalarProperty Name="CompCode" ColumnName="CompCode" />
                 <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FamilyZone">
+            <EntityTypeMapping TypeName="InvModel.FamilyZone">
+              <MappingFragment StoreEntitySet="FamilyZone">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="FamilyZoneID" ColumnName="FamilyZoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_USERS">
+            <EntityTypeMapping TypeName="InvModel.G_USERS">
+              <MappingFragment StoreEntitySet="G_USERS">
+                <ScalarProperty Name="BackID_Img" ColumnName="BackID_Img" />
+                <ScalarProperty Name="FrontID_Img" ColumnName="FrontID_Img" />
+                <ScalarProperty Name="Profile_Img" ColumnName="Profile_Img" />
+                <ScalarProperty Name="Vnd_CompName" ColumnName="Vnd_CompName" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="CashBoxID" ColumnName="CashBoxID" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Tokenid" ColumnName="Tokenid" />
+                <ScalarProperty Name="LoginUrl" ColumnName="LoginUrl" />
+                <ScalarProperty Name="ManagedBy" ColumnName="ManagedBy" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CHANGE_PASS_DATE" ColumnName="CHANGE_PASS_DATE" />
+                <ScalarProperty Name="USER_PASSWORD2" ColumnName="USER_PASSWORD2" />
+                <ScalarProperty Name="GRP_CODE" ColumnName="GRP_CODE" />
+                <ScalarProperty Name="REGION_CODE" ColumnName="REGION_CODE" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ACTIVE" ColumnName="USER_ACTIVE" />
+                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="InvModel.Zones">
+              <MappingFragment StoreEntitySet="Zones">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="FamilyZoneID" ColumnName="FamilyZoneID" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_ItemCollection">
+            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollection">
+              <MappingFragment StoreEntitySet="IQ_ItemCollection">
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
+                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_ItemCollect">
+            <EntityTypeMapping TypeName="InvModel.IQ_ItemCollect">
+              <MappingFragment StoreEntitySet="IQ_ItemCollect">
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
+                <ScalarProperty Name="ItemDescA" ColumnName="ItemDescA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -61,10 +61,8 @@ namespace Inv.DAL.Domain
         public virtual DbSet<I_VW_GetCompStatus> I_VW_GetCompStatus { get; set; }
         public virtual DbSet<IQ_GetSalesMan> IQ_GetSalesMan { get; set; }
         public virtual DbSet<IQ_GetVendor> IQ_GetVendor { get; set; }
-        public virtual DbSet<G_USERS> G_USERS { get; set; }
         public virtual DbSet<A_Pay_D_Vendor> A_Pay_D_Vendor { get; set; }
         public virtual DbSet<I_Sls_D_Salesman> I_Sls_D_Salesman { get; set; }
-        public virtual DbSet<Zones> Zones { get; set; }
         public virtual DbSet<A_ACCOUNT> A_ACCOUNT { get; set; }
         public virtual DbSet<A_ACCOUNT_YEAR> A_ACCOUNT_YEAR { get; set; }
         public virtual DbSet<A_JOURNAL_DETAIL> A_JOURNAL_DETAIL { get; set; }
@@ -78,8 +76,12 @@ namespace Inv.DAL.Domain
         public virtual DbSet<Vnd_Inv_SlsMan> Vnd_Inv_SlsMan { get; set; }
         public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
         public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
-        public virtual DbSet<IQ_ItemCollect> IQ_ItemCollect { get; set; }
         public virtual DbSet<Voucher_Receipt> Voucher_Receipt { get; set; }
+        public virtual DbSet<FamilyZone> FamilyZone { get; set; }
+        public virtual DbSet<G_USERS> G_USERS { get; set; }
+        public virtual DbSet<Zones> Zones { get; set; }
+        public virtual DbSet<IQ_ItemCollection> IQ_ItemCollection { get; set; }
+        public virtual DbSet<IQ_ItemCollect> IQ_ItemCollect { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {

@@ -15,6 +15,7 @@ namespace Inv.DAL.Domain
     public partial class Zones
     {
         public int ZoneID { get; set; }
+        public Nullable<int> FamilyZoneID { get; set; }
         public string ZoneCode { get; set; }
         public string DescA { get; set; }
         public Nullable<bool> Active { get; set; }

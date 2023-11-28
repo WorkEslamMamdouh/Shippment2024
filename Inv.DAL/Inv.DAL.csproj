@@ -71,6 +71,9 @@
     <Compile Include="Domain\A_RecPay_Tr_ReceiptNote.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\FamilyZone.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\GFunc_GetPrivilageRole_Result.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
@@ -207,6 +210,12 @@
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\IQ_ItemCollect.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\IQ_ItemCollect1.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\IQ_ItemCollection.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\I_Control.cs">
