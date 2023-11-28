@@ -133,8 +133,11 @@ function uploadImg() {
                 //alert("File uploaded!")
                 $('#Btn_fileUpload').click();
 
-                debugger
+                debugger 
+                $("#" + $("#IdName_View_Img").val() + "").addClass("_backColor")
+                $("#" + $("#IdName_View_Img").val() + "").attr('Name_Img', $("#fileName").val());
                 $("#" + $("#IdName_View_Img").val() + "").attr('src', $("#UrlImg").val());
+
 
                 //$("#_ImageUpload").html('<img id="" class="w-100" src="/Upload_Img/' + $('#fileName').val() + fileInput.accept + '" />');
                 //$("#_ImageUpload").html('<img id="" class="w-100" src="' + $('#Path_Upload').val()+ $('#fileName').val() + fileInput.accept + '" />');

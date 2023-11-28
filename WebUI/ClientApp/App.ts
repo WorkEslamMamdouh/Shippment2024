@@ -3980,10 +3980,10 @@ function GenerateUUID() {
     });
 }
 
-function Upload_image(IdName_View_Img: string,Name_Folder: string, Name_Img: string): string {
+function Upload_image(IdName_View_Img: string,Name_Folder: string, Name_Img: string) {
     debugger
     $('#Name_Folder').val(Name_Folder);
-
+ 
     if (Name_Img.trim() == "") {
         $("#fileName").val(GenerateUUID());
     }
@@ -3992,13 +3992,15 @@ function Upload_image(IdName_View_Img: string,Name_Folder: string, Name_Img: str
     }
     debugger
 
+    $("#" + IdName_View_Img + "").attr("Name_Img", "")
+    $("#" + IdName_View_Img + "").removeClass("_backColor")
+
     let UrlImg =  GetUrlImg(Name_Folder, $("#fileName").val())
     $("#UrlImg").val(UrlImg);
     $("#IdName_View_Img").val(IdName_View_Img);
 
     $('#fileUploadInput').click(); 
-      
-    return $("#fileName").val().trim();
+       
 }
 
 

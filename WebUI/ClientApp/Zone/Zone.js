@@ -39,7 +39,7 @@ var Zone;
     }
     function AddRow() {
         BuildGrid(CountGrid);
-        $("#txtStatusFlag".concat(CountGrid)).val('i');
+        $("#txtStatusFlag" + CountGrid).val('i');
         CountGrid++;
     }
     function Display_Data() {
@@ -59,12 +59,12 @@ var Zone;
         CountGrid = 0;
         for (var i = 0; i < _Zones.length; i++) {
             BuildGrid(i);
-            $("#Txt_ZoneID".concat(i)).val(_Zones[i].ZoneID);
-            $("#Txt_FamilyZone".concat(i)).val(_Zones[i].FamilyZoneID);
-            $("#Txt_DescA".concat(i)).val(_Zones[i].DescA);
-            $("#chk_Active".concat(i)).prop('checked', _Zones[i].Active);
-            $("#Txt_Remarks".concat(i)).val(_Zones[i].Remarks);
-            $("#txtStatusFlag".concat(i)).val('');
+            $("#Txt_ZoneID" + i).val(_Zones[i].ZoneID);
+            $("#Txt_FamilyZone" + i).val(_Zones[i].FamilyZoneID);
+            $("#Txt_DescA" + i).val(_Zones[i].DescA);
+            $("#chk_Active" + i).prop('checked', _Zones[i].Active);
+            $("#Txt_Remarks" + i).val(_Zones[i].Remarks);
+            $("#txtStatusFlag" + i).val('');
             CountGrid++;
         }
     }
@@ -110,24 +110,24 @@ var Zone;
             '</tr>';
         debugger;
         $('#Zone_Grid').append(html);
-        FillDropwithAttr(_FamilyZones, "Txt_FamilyZone".concat(cnt), "FamilyZoneID", "DescA", "No", "", "");
-        $("#Txt_FamilyZone".concat(cnt)).on('change', function () {
+        FillDropwithAttr(_FamilyZones, "Txt_FamilyZone" + cnt, "FamilyZoneID", "DescA", "No", "", "");
+        $("#Txt_FamilyZone" + cnt).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_DescA".concat(cnt)).on('change', function () {
+        $("#Txt_DescA" + cnt).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_Remarks".concat(cnt)).on('change', function () {
+        $("#Txt_Remarks" + cnt).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#chk_Active".concat(cnt)).on('click', function () {
+        $("#chk_Active" + cnt).on('click', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#btn_minus".concat(cnt)).on('click', function () {
+        $("#btn_minus" + cnt).on('click', function () {
             DeleteRow(cnt);
         });
     }
@@ -138,15 +138,15 @@ var Zone;
     function Assign() {
         _ZonesModel = new Array();
         for (var i = 0; i < CountGrid; i++) {
-            if ($("#txtStatusFlag".concat(i)).val() != 'm' && $("#txtStatusFlag".concat(i)).val() != '') {
+            if ($("#txtStatusFlag" + i).val() != 'm' && $("#txtStatusFlag" + i).val() != '') {
                 _ZonesObj = new Zones();
-                _ZonesObj.FamilyZoneID = Number($("#Txt_FamilyZone".concat(i)).val());
-                _ZonesObj.ZoneID = Number($("#Txt_ZoneID".concat(i)).val());
+                _ZonesObj.FamilyZoneID = Number($("#Txt_FamilyZone" + i).val());
+                _ZonesObj.ZoneID = Number($("#Txt_ZoneID" + i).val());
                 _ZonesObj.ZoneCode = "";
-                _ZonesObj.DescA = $("#Txt_DescA".concat(i)).val();
-                _ZonesObj.Active = $("#chk_Active".concat(i)).is(":checked");
-                _ZonesObj.Remarks = $("#Txt_Remarks".concat(i)).val();
-                _ZonesObj.StatusFlag = $("#txtStatusFlag".concat(i)).val();
+                _ZonesObj.DescA = $("#Txt_DescA" + i).val();
+                _ZonesObj.Active = $("#chk_Active" + i).is(":checked");
+                _ZonesObj.Remarks = $("#Txt_Remarks" + i).val();
+                _ZonesObj.StatusFlag = $("#txtStatusFlag" + i).val();
                 _ZonesModel.push(_ZonesObj);
             }
         }

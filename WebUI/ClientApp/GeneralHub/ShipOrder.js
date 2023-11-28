@@ -136,14 +136,11 @@ var ShipOrder;
             [
                 { NameTable: 'Zones', Condition: " Active = 1" },
                 { NameTable: 'FamilyZone', Condition: " Active = 1" },
-                { NameTable: 'Zones', Condition: " Active = 1" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         _Zones = GetDataTable('Zones');
         var _FamilyZones = GetDataTable('FamilyZone');
-        var db_Zone = document.getElementById("db_Zone");
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
         DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
         FltrZones();
     }

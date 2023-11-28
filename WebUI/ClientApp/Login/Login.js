@@ -10,6 +10,8 @@ var Login;
     var rgstr_button;
     var Submit_Register;
     var Submit_Login;
+    var Reg_FrontID_Img;
+    var Reg_BackID_Img;
     var txtUsername;
     var txtPassword;
     function InitalizeComponent() {
@@ -47,6 +49,8 @@ var Login;
     function InitalizeControls() {
         rgstr_button = document.getElementById("rgstr_button");
         Submit_Login = document.getElementById("Submit_Login");
+        Reg_FrontID_Img = document.getElementById("Reg_FrontID_Img");
+        Reg_BackID_Img = document.getElementById("Reg_BackID_Img");
         Submit_Register = document.getElementById("Submit_Register");
         txtUsername = document.getElementById("txtUsername");
         txtPassword = document.getElementById("txtPassword");
@@ -54,7 +58,9 @@ var Login;
     function InitializeEvents() {
         Submit_Login.onclick = SubmitLogin;
         Submit_Register.onclick = SubmitRegister;
-        rgstr_button.onclick = function () { $('._Clear_Reg').val(''); };
+        rgstr_button.onclick = function () { $('._Clear_Reg').val(''); $('#Reg_Type_Payment').val('1'); $('#Reg_FrontID_Img').removeClass('_backColor'); $('#Reg_BackID_Img').removeClass('_backColor'); };
+        Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
+        Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
     }
     function GetData_Header() {
         var Table;
@@ -68,6 +74,12 @@ var Login;
         USERS = GetDataTable('G_USERS');
         Control = GetDataTable('I_Control');
         SetGlopelDataUser(USERS);
+    }
+    function Reg_FrontID_Img_onclick() {
+        Upload_image('Reg_FrontID_Img', 'Profile_Seller', '');
+    }
+    function Reg_BackID_Img_onclick() {
+        Upload_image('Reg_BackID_Img', 'Profile_Seller', '');
     }
     function SubmitLogin() {
         debugger;
@@ -119,19 +131,27 @@ var Login;
             Errorinput($('#Reg_Mobile'), "Please a Enter Mobile 😡");
             return;
         }
-        else if ($('#Reg_ID_Num').val().trim() == "") {
-            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
-            return;
-        }
-        var USERID_Num = USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim().toLowerCase(); });
-        if (USERID_Num.length > 0) {
-            Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
-            return;
-        }
         else if ($('#Reg_Mail').val().trim() == "") {
             Errorinput($('#Reg_Mail'), "Please a Enter Mail 😡");
             return;
         }
+        else if (setVal($("#Reg_FrontID_Img").attr("Name_Img")) == "") {
+            Errorinput($('#Reg_FrontID_Img'), "Please a Enter FrontID Img 😡");
+            return;
+        }
+        else if (setVal($("#Reg_BackID_Img").attr("Name_Img")) == "") {
+            Errorinput($('#Reg_BackID_Img'), "Please a Enter BackID Img 😡");
+            return;
+        }
+        //else if ($('#Reg_ID_Num').val().trim() == "") {
+        //    Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
+        //    return
+        //}
+        //let USERID_Num = USERS.filter(x => x.Fax == $('#Reg_ID_Num').val().trim().toLowerCase())
+        //if (USERID_Num.length > 0) {
+        //    Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
+        //    return
+        //}
         else if ($('#Reg_UserName').val().trim() == "") {
             Errorinput($('#Reg_UserName'), "Please a Enter User Name 😡");
             return;
@@ -141,18 +161,24 @@ var Login;
             Errorinput($('#Reg_UserName'), "This User is already used 🤣");
             return;
         }
-        if ($('#Reg_Password').val().trim() == "") {
+        else if ($('#Reg_Password').val().trim() == "") {
             Errorinput($('#Reg_Password'), "Please a Enter Password 😡");
+            return;
+        }
+        else if ($('#Reg_Validation_Code').val().trim() == "") {
+            Errorinput($('#Reg_Validation_Code'), "Please a Enter Valid Code 😡");
             return;
         }
         var Name = $('#Reg_Full_Name').val().trim();
         var address = $('#Reg_Address').val().trim();
         var Mobile = $('#Reg_Mobile').val().trim();
-        var IDNO = $('#Reg_ID_Num').val().trim();
+        var IDNO = "";
         var Email = $('#Reg_Mail').val().trim();
         var UserName = $('#Reg_UserName').val().trim();
         var Password = $('#Reg_Password').val().trim();
         var CompName = $('#Reg_Comp_Name').val().trim();
+        var FrontID_Img = $("#Reg_FrontID_Img").attr("Name_Img").trim();
+        var BackID_Img = $("#Reg_BackID_Img").attr("Name_Img").trim();
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
