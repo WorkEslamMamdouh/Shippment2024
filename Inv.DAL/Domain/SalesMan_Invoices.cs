@@ -20,5 +20,6 @@ namespace Inv.DAL.Domain
         public Nullable<decimal> CommitionAmount { get; set; }
         public Nullable<int> Status { get; set; }
         public int SalesmanId { get; set; }
+        public Nullable<int> ZoneID { get; set; }
     }
 }

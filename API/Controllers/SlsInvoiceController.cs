@@ -107,8 +107,8 @@ namespace Inv.API.Controllers
                         SlsInvoiceService.UpdateInvItems(item);
 
                     }
-                  
-                   
+
+
 
                     dbTransaction.Commit();
                     return Ok(new BaseResponse(true));
@@ -151,45 +151,70 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult CashCollectFrom_Delivery(int CompCode, int BranchCode, string ListInvoiceID,string ListInvoiceIDRet, int SlsManID, string UserCode, string StatusDesc)
+        public IHttpActionResult CashCollectFrom_Delivery(int CompCode, int BranchCode, string ListInvoiceID, string ListInvoiceIDRet, int SlsManID, string UserCode, string StatusDesc, string TrnsNo)
         {
-
-
-            string Cond = "";
-
-            Cond = ", SalesmanId = " + SlsManID + "";
-
-            if (ListInvoiceID.Trim() != "")
+            using (var dbTransaction = db.Database.BeginTransaction())
             {
-    
+                try
+                {
+                    string Cond = "";
 
-                string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
-                 Status =6 " + Cond + " where InvoiceID in ( " + ListInvoiceID + ")";
-                db.Database.ExecuteSqlCommand(Qury);
+                    Cond = ", SalesmanId = " + SlsManID + "";
+
+                    if (ListInvoiceID.Trim() != "")
+                    {
+                        string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+                         Status =6 " + Cond + " ,IsPaid = 0 where InvoiceID in ( " + ListInvoiceID + ")";
+                        db.Database.ExecuteSqlCommand(Qury);
+                    }
+
+                    if (ListInvoiceIDRet != null)
+                    {
+
+                        string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+                                     Status =3 " + Cond + " where InvoiceID in ( " + ListInvoiceIDRet + ")";
+                        db.Database.ExecuteSqlCommand(Qury);
+                    }
+                    ResponseResult res = Shared.TransactionProcess(CompCode, BranchCode, SlsManID, "CashCollect", "Add", db);
+                    if (res.ResponseState == true)
+                    {
+                        var id = res.ResponseData;
+                        string UpdQuery = " update Voucher_Receipt set TransferNo='" + TrnsNo + "' , Remark=Remark + '("+ ListInvoiceID + ") ارقام الفواتير ' , CreatedBy='" + UserCode + "' , CreatedAt ='" + DateTime.Now.ToString() + "'  where ReceiptID = " + id + "";
+                        db.Database.ExecuteSqlCommand(UpdQuery);
+
+                        string InvQury = @"UPDATE[dbo].[Sls_Invoice] SET IsPaid = 2 where InvoiceID in ( " + ListInvoiceID + ")";
+                        db.Database.ExecuteSqlCommand(InvQury);
+
+
+
+                        dbTransaction.Commit();
+                        LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, 0, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
+                        return Ok(new BaseResponse(true));
+                    }
+                    else
+                    {
+                        dbTransaction.Rollback();
+                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, "Error"));
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
             }
-
-            if (ListInvoiceIDRet.Trim() != "")
-            {
-
-                string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
-                 Status =3 " + Cond + " where InvoiceID in ( " + ListInvoiceIDRet + ")";
-                db.Database.ExecuteSqlCommand(Qury);
-            }
-
-
-            LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, 0, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
-            return Ok(new BaseResponse(true));
         }
 
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateInvTrType(int CompCode, int BranchCode, int InvoiceID , int TrType, string UserCode, string StatusDesc)
+        public IHttpActionResult UpdateInvTrType(int CompCode, int BranchCode, int InvoiceID, int TrType, string UserCode, string StatusDesc)
         {
-            
+
             string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
             TrType =" + TrType + "  where InvoiceID = " + InvoiceID + "";
             db.Database.ExecuteSqlCommand(Qury);
-              
+
             LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, InvoiceID, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
             return Ok(new BaseResponse(true));
         }
@@ -206,7 +231,7 @@ namespace Inv.API.Controllers
                     db.Database.ExecuteSqlCommand("Update Sls_Invoice set StoreID = " + obj[0].StoreID + ", Status = 3  where InvoiceID = " + obj[0].InvoiceID + "");
                     for (int i = 0; i < obj.Count; i++)
                     {
-                        db.Database.ExecuteSqlCommand("update Sls_InvoiceItem set itemcode=N'" + obj[i].ItemCode + "' , StoreID = " + obj[i].StoreID + " where InvoiceItemID = " + obj[i].InvoiceItemID +"");
+                        db.Database.ExecuteSqlCommand("update Sls_InvoiceItem set itemcode=N'" + obj[i].ItemCode + "' , StoreID = " + obj[i].StoreID + " where InvoiceItemID = " + obj[i].InvoiceItemID + "");
                     }
                     LogUser.Insert(db, obj[0].CompCode.ToString(), obj[0].BranchCode.ToString(), DateTime.Now.Year.ToString(), obj[0].UserCode, obj[0].InvoiceID, "", LogUser.UserLog.Insert, LogUser.PageName.Coding_item, true, null, null, "Coding Item");
                     dbTransaction.Commit();
@@ -233,7 +258,7 @@ namespace Inv.API.Controllers
             using (var dbTransaction = db.Database.BeginTransaction())
             {
                 try
-                { 
+                {
 
                     string Qury = @"declare @LASTID int
                     insert into Sls_Invoice
@@ -251,7 +276,7 @@ namespace Inv.API.Controllers
 
                     int RetIvoiceID = db.Database.SqlQuery<int>(Qury).FirstOrDefault();
 
-                    string Query = @"Update Sls_InvoiceItem set InvoiceID = "+ RetIvoiceID + @" where InvoiceItemID in ("+obj.ItemCode+") ";
+                    string Query = @"Update Sls_InvoiceItem set InvoiceID = " + RetIvoiceID + @" where InvoiceItemID in (" + obj.ItemCode + ") ";
 
                     db.Database.ExecuteSqlCommand(Query);
 
@@ -263,9 +288,9 @@ namespace Inv.API.Controllers
                         return Ok(new BaseResponse(true));
                     }
                     else
-                    { 
+                    {
                         dbTransaction.Rollback();
-                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed,"Error"));
+                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, "Error"));
                     }
 
                 }

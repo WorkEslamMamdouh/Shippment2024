@@ -77,7 +77,7 @@ namespace View_Seller_Orders {
         let html = `
 
              <div ${style} class="u-align-center u-container-align-center-xs u-container-style u-products-item u-repeater-item u-white u-repeater-item-2 animate__animated animate__zoomIn" data-product-id="3">
-                    <div class="u-container-layout u-similar-container u-valign-top-xs u-container-layout-2">
+                    <div id="BoxClick${cnt}" class="u-container-layout u-similar-container u-valign-top-xs u-container-layout-2">
                         <!--product_image-->
                         <a class="u-product-title-link"><img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-2" src="/NewStyle/images/istockphoto-853561716-1024x1024.jpg" style="height: 180px;" ></a><!--/product_image--><!--product_title-->
                         <h6 class="u-align-center-xs u-product-control u-text u-text-2">
@@ -103,6 +103,11 @@ namespace View_Seller_Orders {
 
 
         $("#Btn_ViewOrder" + cnt).on('click', function () {
+
+            localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
+            OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+        });
+        $("#BoxClick" + cnt).on('dblclick', function () {
 
             localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
             OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });

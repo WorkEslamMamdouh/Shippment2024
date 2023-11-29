@@ -14,6 +14,9 @@ namespace CashCollect {
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
     var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
+    var _Zones: Array<Zones> = new Array<Zones>();
+    var _ZonesFltr: Array<Zones> = new Array<Zones>();
+        
     var _Invs;
     var _Invs_Ret;
     var txtSearch: HTMLInputElement;
@@ -25,6 +28,7 @@ namespace CashCollect {
     var View_Invoices: HTMLButtonElement;
     var View_Return: HTMLButtonElement;
     var db_Zone: HTMLSelectElement;
+    var db_FamilyZone: HTMLSelectElement;
 
     var SalesmanId = 0;
     export function InitalizeComponent() {
@@ -51,6 +55,7 @@ namespace CashCollect {
         Inv_Confirm = document.getElementById('Inv_Confirm') as HTMLButtonElement;
         View_Invoices = document.getElementById('View_Invoices') as HTMLButtonElement;
         View_Return = document.getElementById('View_Return') as HTMLButtonElement;
+        db_FamilyZone = document.getElementById('db_FamilyZone') as HTMLSelectElement;
         db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
     }
     function InitializeEvents() {
@@ -61,7 +66,7 @@ namespace CashCollect {
         Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear;
         Inv_Confirm.onclick = Inv_Confirm_Onclick;
-
+        db_FamilyZone.onchange = FltrZones;
         View_Invoices.onclick = () => { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none') }
         View_Return.onclick = () => { $('.Txt_Ret_Tot').removeClass('display_none'); $('.Txt_Inv_Tot').addClass('display_none') }
     }
@@ -194,16 +199,23 @@ namespace CashCollect {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Zones', Condition: " Active = 1" },
+            { NameTable: 'Zones', Condition: " Active = 1" },
+            { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
 
-        let _Zones = GetDataTable('Zones');
+        _Zones = GetDataTable('Zones');
+        let _FamilyZones = GetDataTable('FamilyZone');
 
-        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(x => x.FamilyZoneID == Number(db_FamilyZone.value));
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
 
     }
     function GetData_InvoiceCollect() {
@@ -349,17 +361,16 @@ namespace CashCollect {
         }
 
         if (ListInvoiceID.trim() != "") {
-            if (Number($('#Txt_Transfer_No').val()) <= 0) {
+            if ($('#Txt_Transfer_No').val().trim() == "") {
                 $('#Tap_View_Inv').click()
                 $('#Tap_View_Inv').addClass('active');
                 $('#Tap_View_Ret').removeClass('active');
-                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No")
+                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No , If you will Collect Cash ,Put ( 0 ) ")
                 return
             } 
-        }
+        }           
 
-
-        let ListInvoiceIDRet = '';
+        let ListInvoiceIDRet = "";
           Frist = true;
         for (var i = 0; i < _Invs_Ret.length; i++) {
 
@@ -376,11 +387,11 @@ namespace CashCollect {
 
 
         let StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ' ;
-
+        let TrnsNo = $('#Txt_Transfer_No').val();
         Ajax.CallsyncSave({
             type: "Post",
             url: sys.apiUrl("SlsInvoice", "CashCollectFrom_Delivery"), 
-            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc },
+            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc, TrnsNo: TrnsNo },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;

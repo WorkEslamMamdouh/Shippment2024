@@ -11,6 +11,8 @@ var CashCollect;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var _IQ_ItemCollect = new Array();
+    var _Zones = new Array();
+    var _ZonesFltr = new Array();
     var _Invs;
     var _Invs_Ret;
     var txtSearch;
@@ -22,6 +24,7 @@ var CashCollect;
     var View_Invoices;
     var View_Return;
     var db_Zone;
+    var db_FamilyZone;
     var SalesmanId = 0;
     function InitalizeComponent() {
         $('.Txt_Ret_Tot').addClass('display_none');
@@ -46,6 +49,7 @@ var CashCollect;
         Inv_Confirm = document.getElementById('Inv_Confirm');
         View_Invoices = document.getElementById('View_Invoices');
         View_Return = document.getElementById('View_Return');
+        db_FamilyZone = document.getElementById('db_FamilyZone');
         db_Zone = document.getElementById('db_Zone');
     }
     function InitializeEvents() {
@@ -55,6 +59,7 @@ var CashCollect;
         Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear;
         Inv_Confirm.onclick = Inv_Confirm_Onclick;
+        db_FamilyZone.onchange = FltrZones;
         View_Invoices.onclick = function () { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none'); };
         View_Return.onclick = function () { $('.Txt_Ret_Tot').removeClass('display_none'); $('.Txt_Inv_Tot').addClass('display_none'); };
     }
@@ -180,12 +185,18 @@ var CashCollect;
         Table =
             [
                 { NameTable: 'Zones', Condition: " Active = 1" },
+                { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        var _Zones = GetDataTable('Zones');
-        var db_Zone = document.getElementById("db_Zone");
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        _Zones = GetDataTable('Zones');
+        var _FamilyZones = GetDataTable('FamilyZone');
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(function (x) { return x.FamilyZoneID == Number(db_FamilyZone.value); });
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
     }
     function GetData_InvoiceCollect() {
         CleaningList_Table();
@@ -300,15 +311,15 @@ var CashCollect;
             }
         }
         if (ListInvoiceID.trim() != "") {
-            if (Number($('#Txt_Transfer_No').val()) <= 0) {
+            if ($('#Txt_Transfer_No').val().trim() == "") {
                 $('#Tap_View_Inv').click();
                 $('#Tap_View_Inv').addClass('active');
                 $('#Tap_View_Ret').removeClass('active');
-                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No");
+                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No , If you will Collect Cash ,Put ( 0 ) ");
                 return;
             }
         }
-        var ListInvoiceIDRet = '';
+        var ListInvoiceIDRet = "";
         Frist = true;
         for (var i = 0; i < _Invs_Ret.length; i++) {
             if (Frist == true) {
@@ -320,10 +331,11 @@ var CashCollect;
             }
         }
         var StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ';
+        var TrnsNo = $('#Txt_Transfer_No').val();
         Ajax.CallsyncSave({
             type: "Post",
             url: sys.apiUrl("SlsInvoice", "CashCollectFrom_Delivery"),
-            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc },
+            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc, TrnsNo: TrnsNo },
             success: function (d) {
                 debugger;
                 var result = d;
