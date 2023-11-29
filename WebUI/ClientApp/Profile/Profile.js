@@ -22,7 +22,6 @@ var Profile;
         $('#Profile_UserName').html(_USER[0].USER_CODE);
         $('#Profile_JobTitle').html(_USER[0].JobTitle);
         Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
-        Display_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
         Close_Loder();
     }
     Profile.InitalizeComponent = InitalizeComponent;
@@ -35,7 +34,7 @@ var Profile;
         img_Profile.onclick = img_Profile_onclick;
     }
     function img_Profile_onclick() {
-        Upload_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
+        Upload_image('img_Profile', 'Profile_User', setVal(_USER[0].Profile_Img).trim());
     }
     function Display_Data() {
         debugger;
@@ -53,6 +52,9 @@ var Profile;
         $('#Reg_Mail').val(_USER[0].Email);
         $('#Reg_ID_Num').val(_USER[0].Fax);
         $('#Reg_Password').val(_USER[0].USER_PASSWORD);
+        if (setVal(_USER[0].Profile_Img).trim() != "") {
+            Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+        }
     }
     function SubmitUpdate() {
         if ($('#Reg_Comp_Name').val().trim() == "" && _USER[0].USER_TYPE == 10) {
@@ -71,15 +73,15 @@ var Profile;
             Errorinput($('#Reg_Mobile'), "Please a Enter Mobile 😏");
             return;
         }
-        else if ($('#Reg_ID_Num').val().trim() == "") {
-            Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
-            return;
-        }
-        var USERID_Num = _USERS.filter(function (x) { return x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE; });
-        if (USERID_Num.length > 0) {
-            Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
-            return;
-        }
+        //else if ($('#Reg_ID_Num').val().trim() == "") {
+        //	Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
+        //	return
+        //}
+        //let USERID_Num = _USERS.filter(x => x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE)
+        //if (USERID_Num.length > 0) {
+        //	Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
+        //	return
+        //}
         else if ($('#Reg_Mail').val().trim() == "") {
             Errorinput($('#Reg_Mail'), "Please a Enter Mail 😡");
             return;
@@ -92,11 +94,12 @@ var Profile;
         var Name = $('#Reg_Full_Name').val().trim();
         var address = $('#Reg_Address').val().trim();
         var Mobile = $('#Reg_Mobile').val().trim();
-        var IDNO = $('#Reg_ID_Num').val().trim();
+        var IDNO = "";
         var Email = $('#Reg_Mail').val().trim();
         var Password = $('#Reg_Password').val().trim();
         var CompName = $('#Reg_Comp_Name').val().trim();
         var UserName = _USER[0].USER_CODE;
+        var Profile_Img = $("#img_Profile").attr("Name_Img").trim();
         var Idven = 0;
         if (_USER[0].SalesManID != null) {
             Idven = Number(_USER[0].SalesManID);
@@ -109,7 +112,7 @@ var Profile;
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName },
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {

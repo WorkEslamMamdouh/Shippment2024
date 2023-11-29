@@ -29,6 +29,7 @@ var Login;
         Event_key('Enter', 'txtUsername', 'Submit_Login');
         Event_key('Enter', 'txtPassword', 'Submit_Login');
         Event_key('Enter', 'Reg_Password', 'Submit_Register');
+        Event_key('Enter', 'Reg_Validation_Code', 'Submit_Register');
         //setTimeout(function () {
         USERS = GetGlopelDataUser();
         USERS.length == 0 ? GetData_Header() : null;
@@ -58,7 +59,7 @@ var Login;
     function InitializeEvents() {
         Submit_Login.onclick = SubmitLogin;
         Submit_Register.onclick = SubmitRegister;
-        rgstr_button.onclick = function () { $('._Clear_Reg').val(''); $('#Reg_Type_Payment').val('1'); $('#Reg_FrontID_Img').removeClass('_backColor'); $('#Reg_BackID_Img').removeClass('_backColor'); };
+        rgstr_button.onclick = function () { $("#Reg_FrontID_Img").attr("Name_Img", ""); $("#Reg_BackID_Img").attr("Name_Img", ""); $('._Clear_Reg').val(''); $('#Reg_Type_Payment').val('1'); $('#Reg_FrontID_Img').removeClass('_backColor'); $('#Reg_BackID_Img').removeClass('_backColor'); };
         Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
         Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
     }
@@ -115,6 +116,7 @@ var Login;
         }
     }
     function SubmitRegister() {
+        debugger;
         if ($('#Reg_Comp_Name').val().trim() == "") {
             Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
             return;
@@ -169,6 +171,10 @@ var Login;
             Errorinput($('#Reg_Validation_Code'), "Please a Enter Valid Code 😡");
             return;
         }
+        else if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
+            Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
+            return;
+        }
         var Name = $('#Reg_Full_Name').val().trim();
         var address = $('#Reg_Address').val().trim();
         var Mobile = $('#Reg_Mobile').val().trim();
@@ -177,12 +183,13 @@ var Login;
         var UserName = $('#Reg_UserName').val().trim();
         var Password = $('#Reg_Password').val().trim();
         var CompName = $('#Reg_Comp_Name').val().trim();
+        var Type_Payment = $('#Reg_Type_Payment').val();
         var FrontID_Img = $("#Reg_FrontID_Img").attr("Name_Img").trim();
         var BackID_Img = $("#Reg_BackID_Img").attr("Name_Img").trim();
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
-            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName },
+            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName, Type_Payment: Type_Payment, FrontID_Img: FrontID_Img, BackID_Img: BackID_Img },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
@@ -199,6 +206,7 @@ var Login;
         Table =
             [
                 { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+                { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val() + "" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -212,6 +220,8 @@ var Login;
             $('#txtPassword').focus();
         }, 200);
         SetGlopelDataUser(USERS);
+        Control = GetDataTable('I_Control');
+        SystemEnv.I_Control = Control[0];
     }
 })(Login || (Login = {}));
 //# sourceMappingURL=Login.js.map

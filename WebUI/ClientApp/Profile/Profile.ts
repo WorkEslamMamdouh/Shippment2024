@@ -37,7 +37,7 @@ namespace Profile {
 
 		Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
 
-		Display_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
+		
 
 		Close_Loder();
 	}
@@ -52,7 +52,7 @@ namespace Profile {
 
 	}
 	function img_Profile_onclick() {
-		Upload_image('img_Profile', 'Profile_User', '154bf74f_93ee_4119_9967_3361c2934982');
+		Upload_image('img_Profile', 'Profile_User', setVal(_USER[0].Profile_Img).trim());
 	}
 
 
@@ -72,6 +72,10 @@ namespace Profile {
 		$('#Reg_Mail').val(_USER[0].Email);
 		$('#Reg_ID_Num').val(_USER[0].Fax);
 		$('#Reg_Password').val(_USER[0].USER_PASSWORD);
+
+		if (setVal(_USER[0].Profile_Img).trim() != "") {
+			Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+        }
 	} 
 	function SubmitUpdate() {
 		 
@@ -91,15 +95,15 @@ namespace Profile {
 			Errorinput($('#Reg_Mobile'), "Please a Enter Mobile 😏");
 			return
 		}
-		else if ($('#Reg_ID_Num').val().trim() == "") {
-			Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
-			return
-		}
-		let USERID_Num = _USERS.filter(x => x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE)
-		if (USERID_Num.length > 0) {
-			Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
-			return
-		}
+		//else if ($('#Reg_ID_Num').val().trim() == "") {
+		//	Errorinput($('#Reg_ID_Num'), "Please a Enter ID Number 😡");
+		//	return
+		//}
+		//let USERID_Num = _USERS.filter(x => x.Fax == $('#Reg_ID_Num').val().trim() && x.USER_CODE != _USER[0].USER_CODE)
+		//if (USERID_Num.length > 0) {
+		//	Errorinput($('#Reg_ID_Num'), "This ID Number is already used 🤣");
+		//	return
+		//}
 		else if ($('#Reg_Mail').val().trim() == "") {
 			Errorinput($('#Reg_Mail'), "Please a Enter Mail 😡");
 			return
@@ -109,15 +113,18 @@ namespace Profile {
 			Errorinput($('#Reg_Password'), "Please a Enter Password 😡");
 			return
 		}
+
+
 		debugger
 		let Name = $('#Reg_Full_Name').val().trim();
 		let address = $('#Reg_Address').val().trim();
 		let Mobile = $('#Reg_Mobile').val().trim();
-		let IDNO = $('#Reg_ID_Num').val().trim();
+		let IDNO = "";
 		let Email = $('#Reg_Mail').val().trim();   
 		let Password = $('#Reg_Password').val().trim();
 		let CompName = $('#Reg_Comp_Name').val().trim();
 		let UserName = _USER[0].USER_CODE;
+		let Profile_Img = $("#img_Profile").attr("Name_Img").trim();
 		let Idven=0
 		   
 		if (_USER[0].SalesManID != null) {
@@ -132,7 +139,7 @@ namespace Profile {
 		Ajax.CallsyncSave({
 			type: "Get",
 			url: sys.apiUrl("Seller", NameFun),
-			data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName },
+			data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img },
 			success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {

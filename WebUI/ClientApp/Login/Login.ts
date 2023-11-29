@@ -38,6 +38,7 @@ namespace Login {
         Event_key('Enter', 'txtUsername', 'Submit_Login');
         Event_key('Enter', 'txtPassword', 'Submit_Login');
         Event_key('Enter', 'Reg_Password', 'Submit_Register');
+        Event_key('Enter', 'Reg_Validation_Code', 'Submit_Register');
 
         //setTimeout(function () {
         USERS = GetGlopelDataUser();
@@ -70,7 +71,7 @@ namespace Login {
 
         Submit_Login.onclick = SubmitLogin;
         Submit_Register.onclick = SubmitRegister;
-        rgstr_button.onclick = () => { $('._Clear_Reg').val(''); $('#Reg_Type_Payment').val('1'); $('#Reg_FrontID_Img').removeClass('_backColor'); $('#Reg_BackID_Img').removeClass('_backColor') };
+        rgstr_button.onclick = () => { $("#Reg_FrontID_Img").attr("Name_Img", ""); $("#Reg_BackID_Img").attr("Name_Img", ""); $('._Clear_Reg').val(''); $('#Reg_Type_Payment').val('1'); $('#Reg_FrontID_Img').removeClass('_backColor'); $('#Reg_BackID_Img').removeClass('_backColor') };
 
         Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
         Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
@@ -146,6 +147,7 @@ namespace Login {
 
     function SubmitRegister() {
 
+        debugger 
         if ($('#Reg_Comp_Name').val().trim() == "") {
             Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
             return
@@ -203,6 +205,12 @@ namespace Login {
             return
         }
 
+        else if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
+            Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
+            return
+        }
+
+
         let Name = $('#Reg_Full_Name').val().trim();
         let address = $('#Reg_Address').val().trim();
         let Mobile = $('#Reg_Mobile').val().trim();
@@ -211,6 +219,7 @@ namespace Login {
         let UserName = $('#Reg_UserName').val().trim();
         let Password = $('#Reg_Password').val().trim();
         let CompName = $('#Reg_Comp_Name').val().trim();
+        let Type_Payment = $('#Reg_Type_Payment').val();
         let FrontID_Img = $("#Reg_FrontID_Img").attr("Name_Img").trim();
         let BackID_Img = $("#Reg_BackID_Img").attr("Name_Img").trim();
 
@@ -221,8 +230,8 @@ namespace Login {
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
-            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName },
-            success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
+            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName, Type_Payment: Type_Payment, FrontID_Img: FrontID_Img, BackID_Img: BackID_Img},
+            success: (d) => {//(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, string CompName, int Type_Payment, string FrontID_Img, string BackID_Img)
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     GetUSERSByCodeUser(UserName);
@@ -240,7 +249,8 @@ namespace Login {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val() + "" },
             ]
 
         DataResult(Table);
@@ -257,5 +267,8 @@ namespace Login {
         }, 200);
 
         SetGlopelDataUser(USERS);
+        Control = GetDataTable('I_Control');
+
+        SystemEnv.I_Control = Control[0];
     }
 }
