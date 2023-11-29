@@ -38,7 +38,7 @@ var FamilyZones;
     }
     function AddRow() {
         BuildGrid(CountGrid);
-        $("#txtStatusFlag" + CountGrid).val('i');
+        $("#txtStatusFlag".concat(CountGrid)).val('i');
         CountGrid++;
     }
     function Display_Data() {
@@ -57,11 +57,11 @@ var FamilyZones;
         debugger;
         for (var i = 0; i < _Zones.length; i++) {
             BuildGrid(i);
-            $("#Txt_ZoneID" + i).val(_Zones[i].FamilyZoneID);
-            $("#Txt_DescA" + i).val(_Zones[i].DescA);
-            $("#chk_Active" + i).prop('checked', _Zones[i].Active);
-            $("#Txt_Remarks" + i).val(_Zones[i].Remarks);
-            $("#txtStatusFlag" + i).val('');
+            $("#Txt_ZoneID".concat(i)).val(_Zones[i].FamilyZoneID);
+            $("#Txt_DescA".concat(i)).val(_Zones[i].DescA);
+            $("#chk_Active".concat(i)).prop('checked', _Zones[i].Active);
+            $("#Txt_Remarks".concat(i)).val(_Zones[i].Remarks);
+            $("#txtStatusFlag".concat(i)).val('');
             CountGrid++;
         }
     }
@@ -103,19 +103,19 @@ var FamilyZones;
             '</td>' +
             '</tr>';
         $('#Zone_Grid').append(html);
-        $("#Txt_DescA" + cnt).on('change', function () {
+        $("#Txt_DescA".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#Txt_Remarks" + cnt).on('change', function () {
+        $("#Txt_Remarks".concat(cnt)).on('change', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#chk_Active" + cnt).on('click', function () {
+        $("#chk_Active".concat(cnt)).on('click', function () {
             if ($("#txtStatusFlag" + cnt).val() != "i")
                 $("#txtStatusFlag" + cnt).val("u");
         });
-        $("#btn_minus" + cnt).on('click', function () {
+        $("#btn_minus".concat(cnt)).on('click', function () {
             DeleteRow(cnt);
         });
     }
@@ -126,14 +126,14 @@ var FamilyZones;
     function Assign() {
         _ZonesModel = new Array();
         for (var i = 0; i < CountGrid; i++) {
-            if ($("#txtStatusFlag" + i).val() != 'm' && $("#txtStatusFlag" + i).val() != '') {
+            if ($("#txtStatusFlag".concat(i)).val() != 'm' && $("#txtStatusFlag".concat(i)).val() != '') {
                 _ZonesObj = new FamilyZone();
-                _ZonesObj.FamilyZoneID = Number($("#Txt_ZoneID" + i).val());
+                _ZonesObj.FamilyZoneID = Number($("#Txt_ZoneID".concat(i)).val());
                 _ZonesObj.ZoneCode = "";
-                _ZonesObj.DescA = $("#Txt_DescA" + i).val();
-                _ZonesObj.Active = $("#chk_Active" + i).is(":checked");
-                _ZonesObj.Remarks = $("#Txt_Remarks" + i).val();
-                _ZonesObj.StatusFlag = $("#txtStatusFlag" + i).val();
+                _ZonesObj.DescA = $("#Txt_DescA".concat(i)).val();
+                _ZonesObj.Active = $("#chk_Active".concat(i)).is(":checked");
+                _ZonesObj.Remarks = $("#Txt_Remarks".concat(i)).val();
+                _ZonesObj.StatusFlag = $("#txtStatusFlag".concat(i)).val();
                 _ZonesModel.push(_ZonesObj);
             }
         }

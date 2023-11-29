@@ -125,7 +125,7 @@ var VendorControl;
     function ViewUser(item) {
         localStorage.setItem("TypePage", "UserControl");
         localStorage.setItem("UserControl", item.USER_CODE);
-        OpenPagePartial("Profile", "Profile 👤", function () { Display_Refrsh(); });
+        OpenPagePartial("Seller_Control", "Seller Control 👤", function () { Display_Refrsh(); });
     }
     function Clear() {
         $('#drpActive').val("Null");

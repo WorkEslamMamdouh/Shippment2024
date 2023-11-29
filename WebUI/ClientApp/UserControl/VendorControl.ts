@@ -136,7 +136,7 @@ namespace VendorControl {
 		 
 		localStorage.setItem("TypePage", "UserControl");
 		localStorage.setItem("UserControl", item.USER_CODE);
-		OpenPagePartial("Profile", "Profile 👤", () => { Display_Refrsh() });  
+		OpenPagePartial("Seller_Control", "Seller Control 👤", () => { Display_Refrsh() });  
 
 	}
 	function Clear() {

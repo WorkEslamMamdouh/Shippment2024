@@ -3015,11 +3015,12 @@ function Upload_image(IdName_View_Img, Name_Folder, Name_Img) {
         $("#fileName").val(Name_Img);
     }
     debugger;
+    $("#" + IdName_View_Img + "").attr("Name_Img", "");
+    $("#" + IdName_View_Img + "").removeClass("_backColor");
     var UrlImg = GetUrlImg(Name_Folder, $("#fileName").val());
     $("#UrlImg").val(UrlImg);
     $("#IdName_View_Img").val(IdName_View_Img);
     $('#fileUploadInput').click();
-    return $("#fileName").val().trim();
 }
 function Display_image(IdName_View_Img, Name_Folder, Name_Img) {
     if (Name_Img.trim() == "") {

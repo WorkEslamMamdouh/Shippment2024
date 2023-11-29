@@ -179,14 +179,13 @@ namespace Inv.API.Controllers
                     if (res.ResponseState == true)
                     {
                         var id = res.ResponseData;
-                        string UpdQuery = " update Voucher_Receipt set TransferNo='" + TrnsNo + "' , Remark=Remark + '("+ ListInvoiceID + ") ارقام الفواتير ' , CreatedBy='" + UserCode + "' , CreatedAt ='" + DateTime.Now.ToString() + "'  where ReceiptID = " + id + "";
+                        int Cash = TrnsNo == "0" ? 1 : 0;
+                        string UpdQuery = " update Voucher_Receipt set TransferNo='" + TrnsNo + "' ,IsCash=" + Cash + " Remark=Remark + '("+ ListInvoiceID + ") ارقام الفواتير ' , CreatedBy='" + UserCode + "' , CreatedAt ='" + DateTime.Now.ToString() + "'  where ReceiptID = " + id + "";
                         db.Database.ExecuteSqlCommand(UpdQuery);
 
                         string InvQury = @"UPDATE[dbo].[Sls_Invoice] SET IsPaid = 2 where InvoiceID in ( " + ListInvoiceID + ")";
                         db.Database.ExecuteSqlCommand(InvQury);
-
-
-
+                         
                         dbTransaction.Commit();
                         LogUser.Insert(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), UserCode, 0, "", LogUser.UserLog.Update, LogUser.PageName.Invoice, true, null, null, StatusDesc);
                         return Ok(new BaseResponse(true));
