@@ -34,6 +34,10 @@ namespace Profile {
 		$('#Profile_JobTitle').html(_USER[0].JobTitle);
 
 
+		if (_USER[0].USER_TYPE == 11 && localStorage.getItem("TypePage") != "UserControl" ) {
+			$('.dis').attr("disabled", "disabled");
+		}
+
 
 		Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
 
@@ -124,14 +128,19 @@ namespace Profile {
 		let Password = $('#Reg_Password').val().trim();
 		let CompName = $('#Reg_Comp_Name').val().trim();
 		let UserName = _USER[0].USER_CODE;
-		let Profile_Img = $("#img_Profile").attr("Name_Img").trim();
+		let Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
 		let Idven=0
+		let Type_Payment = -1;
 		   
 		if (_USER[0].SalesManID != null) {
 			Idven = Number(_USER[0].SalesManID);
 		}
 		if (_USER[0].VendorID != null) {
 			Idven = Number(_USER[0].VendorID);
+		}
+
+		if (_USER[0].GRP_CODE != null) {
+			Type_Payment = Number(_USER[0].GRP_CODE);
 		} 
 		let NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
 		debugger
@@ -139,7 +148,7 @@ namespace Profile {
 		Ajax.CallsyncSave({
 			type: "Get",
 			url: sys.apiUrl("Seller", NameFun),
-			data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img },
+			data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img, Type_Payment: Type_Payment },
 			success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {

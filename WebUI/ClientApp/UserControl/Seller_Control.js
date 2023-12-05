@@ -9,6 +9,8 @@ var Seller_Control;
     var _USER = new Array();
     var Submit_Update_Profile;
     var img_Profile;
+    var Reg_FrontID_Img;
+    var Reg_BackID_Img;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
@@ -28,13 +30,28 @@ var Seller_Control;
     function InitalizeControls() {
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
         img_Profile = document.getElementById("img_Profile");
+        Reg_FrontID_Img = document.getElementById("Reg_FrontID_Img");
+        Reg_BackID_Img = document.getElementById("Reg_BackID_Img");
     }
     function InitializeEvents() {
         Submit_Update_Profile.onclick = SubmitUpdate;
         img_Profile.onclick = img_Profile_onclick;
+        Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
+        Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
+    }
+    function Reg_FrontID_Img_onclick() {
+        debugger;
+        //Upload_image('Reg_FrontID_Img', 'Profile_Seller', setVal(_USER[0].FrontID_Img));
+        var UrlImg = GetUrlImg('Profile_Seller', setVal(_USER[0].FrontID_Img));
+        OpenImg(UrlImg);
+    }
+    function Reg_BackID_Img_onclick() {
+        //Upload_image('Reg_BackID_Img', 'Profile_Seller', setVal(_USER[0].BackID_Img));
+        var UrlImg = GetUrlImg('Profile_Seller', setVal(_USER[0].BackID_Img));
+        OpenImg(UrlImg);
     }
     function img_Profile_onclick() {
-        Upload_image('img_Profile', 'Profile_User', setVal(_USER[0].Profile_Img).trim());
+        Upload_image('img_Profile', 'Profile_User', setVal(_USER[0].Profile_Img));
     }
     function Display_Data() {
         debugger;
@@ -47,6 +64,7 @@ var Seller_Control;
             $('#Reg_Comp_Name').val("");
         }
         $('#Reg_Full_Name').val(_USER[0].USER_NAME);
+        $('#Reg_Type_Payment').val(_USERS[0].GRP_CODE);
         $('#Reg_Address').val(_USER[0].Address);
         $('#Reg_Mobile').val(_USER[0].Mobile);
         $('#Reg_Mail').val(_USER[0].Email);
@@ -54,6 +72,12 @@ var Seller_Control;
         $('#Reg_Password').val(_USER[0].USER_PASSWORD);
         if (setVal(_USER[0].Profile_Img).trim() != "") {
             Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+        }
+        if (setVal(_USER[0].FrontID_Img).trim() != "") {
+            Display_image('Reg_FrontID_Img', 'Profile_User', _USER[0].FrontID_Img.trim());
+        }
+        if (setVal(_USER[0].BackID_Img).trim() != "") {
+            Display_image('Reg_BackID_Img', 'Profile_User', _USER[0].BackID_Img.trim());
         }
     }
     function SubmitUpdate() {
@@ -99,7 +123,8 @@ var Seller_Control;
         var Password = $('#Reg_Password').val().trim();
         var CompName = $('#Reg_Comp_Name').val().trim();
         var UserName = _USER[0].USER_CODE;
-        var Profile_Img = $("#img_Profile").attr("Name_Img").trim();
+        var Type_Payment = Number($('#Reg_Type_Payment').val());
+        var Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
         var Idven = 0;
         if (_USER[0].SalesManID != null) {
             Idven = Number(_USER[0].SalesManID);
@@ -112,7 +137,7 @@ var Seller_Control;
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img },
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img, Type_Payment: Type_Payment },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {

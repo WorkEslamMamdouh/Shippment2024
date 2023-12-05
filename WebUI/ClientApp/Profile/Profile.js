@@ -21,6 +21,9 @@ var Profile;
         Display_Data();
         $('#Profile_UserName').html(_USER[0].USER_CODE);
         $('#Profile_JobTitle').html(_USER[0].JobTitle);
+        if (_USER[0].USER_TYPE == 11 && localStorage.getItem("TypePage") != "UserControl") {
+            $('.dis').attr("disabled", "disabled");
+        }
         Event_key('Enter', 'Reg_Password', 'Submit_Update_Profile');
         Close_Loder();
     }
@@ -99,20 +102,24 @@ var Profile;
         var Password = $('#Reg_Password').val().trim();
         var CompName = $('#Reg_Comp_Name').val().trim();
         var UserName = _USER[0].USER_CODE;
-        var Profile_Img = $("#img_Profile").attr("Name_Img").trim();
+        var Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
         var Idven = 0;
+        var Type_Payment = -1;
         if (_USER[0].SalesManID != null) {
             Idven = Number(_USER[0].SalesManID);
         }
         if (_USER[0].VendorID != null) {
             Idven = Number(_USER[0].VendorID);
         }
+        if (_USER[0].GRP_CODE != null) {
+            Type_Payment = Number(_USER[0].GRP_CODE);
+        }
         var NameFun = _USER[0].USER_TYPE == 10 ? "UpdateSeller" : "UpdateProfile";
         debugger;
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", NameFun),
-            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img },
+            data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img, Type_Payment: Type_Payment },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {

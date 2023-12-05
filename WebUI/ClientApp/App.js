@@ -3050,4 +3050,11 @@ function GetUrlImg(Name_Folder, Name_Img) {
     var UrlImg = path + ".jpg";
     return UrlImg;
 }
+function OpenImg(path) {
+    var x = Url.Action("OpenImg", "Home");
+    var UrlImg = x + "/" + "?" + "path=" + path;
+    //let UrlImg = path + ".jpg";
+    window.open(UrlImg, "_blank");
+    return UrlImg;
+}
 //# sourceMappingURL=App.js.map

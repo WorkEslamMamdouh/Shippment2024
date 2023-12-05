@@ -4046,3 +4046,15 @@ function GetUrlImg(Name_Folder: string, Name_Img: string): string {
 
 
 
+function OpenImg(path: string): string {
+    let x = Url.Action("OpenImg", "Home");
+    
+    let UrlImg = x + "/" + "?" + "path=" + path;
+    //let UrlImg = path + ".jpg";
+    
+    window.open(UrlImg, "_blank");
+    return UrlImg
+}
+
+
+

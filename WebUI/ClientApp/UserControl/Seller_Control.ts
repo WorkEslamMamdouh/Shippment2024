@@ -12,7 +12,8 @@ namespace Seller_Control {
 	 
 	var Submit_Update_Profile: HTMLButtonElement;
 	var img_Profile: HTMLButtonElement;
-
+	var Reg_FrontID_Img: HTMLButtonElement;
+	var Reg_BackID_Img: HTMLButtonElement;
 	export function InitalizeComponent() {
 	 
 		InitalizeControls();
@@ -44,15 +45,34 @@ namespace Seller_Control {
 	function InitalizeControls() {
 		Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
 		img_Profile = document.getElementById("img_Profile") as HTMLButtonElement;
+		Reg_FrontID_Img = document.getElementById("Reg_FrontID_Img") as HTMLButtonElement;
+		Reg_BackID_Img = document.getElementById("Reg_BackID_Img") as HTMLButtonElement;
 	}
 	function InitializeEvents() {
 
 		Submit_Update_Profile.onclick = SubmitUpdate;
 		img_Profile.onclick = img_Profile_onclick;
+		 
+		Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
+		Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
 
 	}
+	function Reg_FrontID_Img_onclick() {
+		debugger
+		//Upload_image('Reg_FrontID_Img', 'Profile_Seller', setVal(_USER[0].FrontID_Img));
+
+		let UrlImg = GetUrlImg('Profile_Seller', setVal(_USER[0].FrontID_Img))
+		OpenImg(UrlImg);
+	}
+	function Reg_BackID_Img_onclick() {
+		//Upload_image('Reg_BackID_Img', 'Profile_Seller', setVal(_USER[0].BackID_Img));
+		let UrlImg = GetUrlImg('Profile_Seller', setVal(_USER[0].BackID_Img))
+		OpenImg(UrlImg);
+
+	}
+
 	function img_Profile_onclick() {
-		Upload_image('img_Profile', 'Profile_User', setVal(_USER[0].Profile_Img).trim());
+		Upload_image('img_Profile', 'Profile_User', setVal(_USER[0].Profile_Img));
 	}
 
 
@@ -67,6 +87,7 @@ namespace Seller_Control {
 		}
 
 		$('#Reg_Full_Name').val(_USER[0].USER_NAME);
+		$('#Reg_Type_Payment').val(_USERS[0].GRP_CODE);	
 		$('#Reg_Address').val(_USER[0].Address);
 		$('#Reg_Mobile').val(_USER[0].Mobile);
 		$('#Reg_Mail').val(_USER[0].Email);
@@ -75,6 +96,12 @@ namespace Seller_Control {
 
 		if (setVal(_USER[0].Profile_Img).trim() != "") {
 			Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+		}
+		if (setVal(_USER[0].FrontID_Img).trim() != "") {
+			Display_image('Reg_FrontID_Img', 'Profile_User', _USER[0].FrontID_Img.trim());
+		}
+		if (setVal(_USER[0].BackID_Img).trim() != "") {
+			Display_image('Reg_BackID_Img', 'Profile_User', _USER[0].BackID_Img.trim());
         }
 	} 
 	function SubmitUpdate() {
@@ -124,7 +151,8 @@ namespace Seller_Control {
 		let Password = $('#Reg_Password').val().trim();
 		let CompName = $('#Reg_Comp_Name').val().trim();
 		let UserName = _USER[0].USER_CODE;
-		let Profile_Img = $("#img_Profile").attr("Name_Img").trim();
+		let Type_Payment = Number($('#Reg_Type_Payment').val());	
+		let Profile_Img =setVal($("#img_Profile").attr("Name_Img"));
 		let Idven=0
 		   
 		if (_USER[0].SalesManID != null) {
@@ -139,7 +167,7 @@ namespace Seller_Control {
 		Ajax.CallsyncSave({
 			type: "Get",
 			url: sys.apiUrl("Seller", NameFun),
-			data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img },
+			data: { CompCode: SysSession.CurrentEnvironment.CompCode, BranchCode: SysSession.CurrentEnvironment.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, VendorId: Idven, CompName: CompName, Profile_Img: Profile_Img, Type_Payment: Type_Payment },
 			success: (d) => {//int CompCode,int BranchCode,string Name,string address , string Mobile ,string IDNO,string Email,string UserName,string Password,string UserCode,string Token
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {
