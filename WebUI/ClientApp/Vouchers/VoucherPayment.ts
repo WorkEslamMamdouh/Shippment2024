@@ -11,11 +11,20 @@ namespace VoucherPayment {
     var btnAdd: HTMLButtonElement;
     var db_Type: HTMLSelectElement;
     var Model: Voucher_Receipt = new Voucher_Receipt();
+    var CreatedAt;
+    var Createdby;
+    var ReceiptID;
+
     export function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
         Close_Loder();
         $('#Txt_TrData').val(GetDate());
+        if (localStorage.getItem("TypePage") == "Money") {
+            Model = GetGlobalVoucher();     
+            Veiw_Data();
+		}
+        
     }
     function InitalizeControls() {
         btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
@@ -26,6 +35,21 @@ namespace VoucherPayment {
         db_Type.onchange = db_Type_Change;
 
     }
+    function Veiw_Data() {
+        $('#Txt_Ref_No').val(Model.RefNO);
+        $('#Txt_TrData').val(DateFormat(Model.TrDate));
+        $('#Txt_nameRecipient').val(Model.NameRecipient);      
+        db_Type.value = Model.IsCash == true ?"1" : "0";
+        $('#Txt_Amount').val(Model.Amount);
+        $('#Txt_TransNO').val(Model.TransferNo);
+        $('#Txt_Remarks').val(Model.Remark);
+        Model.UpdatedAt = DateFormat(GetDateAndTime());
+        Model.UpdatedBy = SysSession.CurrentEnvironment.UserCode;
+        CreatedAt = Model.CreatedAt;
+        Createdby = Model.CreatedBy;
+        ReceiptID = Model.ReceiptID;
+
+	}
     //****************************************************** Validtion and Clear *****************************************
     function db_Type_Change() {
         if (db_Type.value == "0") {
@@ -52,8 +76,8 @@ namespace VoucherPayment {
             Errorinput($('#Txt_Amount'), "Please Enter Amount 🤨");
             return
         }
-        
-       
+
+        debugger
         Model = new Voucher_Receipt();
         Model.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
         Model.BraCode = Number(SysSession.CurrentEnvironment.BranchCode);
@@ -68,25 +92,49 @@ namespace VoucherPayment {
         Model.Remark = $('#Txt_Remarks').val();
         Model.CreatedAt = DateFormat(GetDateAndTime());
         Model.CreatedBy = SysSession.CurrentEnvironment.UserCode;
+        if (ReceiptID != 0) {
+            Model.ReceiptID = ReceiptID;
+            Model.CreatedAt = CreatedAt;
+            Model.CreatedBy = Createdby;
+            Model.UpdatedAt = DateFormat(GetDateAndTime());
+            Model.UpdatedBy = SysSession.CurrentEnvironment.UserCode;
+            Ajax.CallsyncSave({
+                type: "Post",
+                url: sys.apiUrl("SalesMan", "UpdateVoucher"),
+                data: JSON.stringify(Model),
+                success: (d) => {
+                    let result = d as BaseResponse;
+                    if (result.IsSuccess == true) {
+                        ShowMessage("Payment Updated 🤞😉")
+                        Close_Loder();
+                        $('#Back_Page').click();
+                        $("#Display_Back_Page").click();
+                    } else {
 
-
-        Ajax.CallsyncSave({
-            type: "Post",
-            url: sys.apiUrl("SalesMan", "InsertVoucher"),
-            data: JSON.stringify(Model),
-            success: (d) => {
-                let result = d as BaseResponse;
-                if (result.IsSuccess == true) { 
-                    $('#Div_Header :Input').val('');
-                    $('#Txt_TrData').val(GetDate());
-                    $('#btnAdd').val('Finish');
-                    ShowMessage("Done Payment 🤞😉")
-                    Close_Loder();
-                } else {
-
+                    }
                 }
-            }
-        });
+            });
+		} else {
+            Ajax.CallsyncSave({
+                type: "Post",
+                url: sys.apiUrl("SalesMan", "InsertVoucher"),
+                data: JSON.stringify(Model),
+                success: (d) => {
+                    let result = d as BaseResponse;
+                    if (result.IsSuccess == true) {
+                        $('#Div_Header :Input').val('');
+                        $('#Txt_TrData').val(GetDate());
+                        $('#btnAdd').val('Finish');
+                        ShowMessage("Payment Inserted   🤞😉")
+                        Close_Loder();
+                    } else {
+
+                    }
+                }
+            });
+		}
+
+        
 
     }
 }

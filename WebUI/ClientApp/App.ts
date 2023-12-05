@@ -3889,10 +3889,20 @@ function Digits(_number: number, FractionDigits?: number): string {
     }
 }
 
+var GlobalVoucher: Voucher_Receipt = new Voucher_Receipt();
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
 var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 var GlopelIQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
+
+function SetGolobalVoucher(SendVoucher: Voucher_Receipt) {
+    GlobalVoucher = SendVoucher;
+}
+function GetGlobalVoucher(): Voucher_Receipt {
+    return GlobalVoucher;
+}
+
+
 
 function SetGlopelDataUser(Send_USERS: Array<G_USERS>) {
     GlopelUSERS = Send_USERS;

@@ -326,6 +326,37 @@ namespace Inv.API.Controllers
 
 
 
+        } 
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult UpdateVoucher([FromBody] Voucher_Receipt obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    SalesManService.UpdateVoucher(obj);
+
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(true));
+
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+
+
+        }
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult UpdateStatusVoucher(int ReceiptID,int Active)
+        { 
+            db.Database.ExecuteSqlCommand("Update Voucher_Receipt set Status = " + Active + " where ReceiptID = " + ReceiptID + "");
+            return Ok(new BaseResponse(true)); 
         }
     }
 }

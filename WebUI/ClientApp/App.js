@@ -2933,10 +2933,17 @@ function Digits(_number, FractionDigits) {
         return _number.toLocaleString('en-US', { maximumFractionDigits: 1 });
     }
 }
+var GlobalVoucher = new Voucher_Receipt();
 var GlopelUSERS = new Array();
 var GlopelInvoices = new Array();
 var GlopelInvoiceItems = new Array();
 var GlopelIQ_ItemCollect = new Array();
+function SetGolobalVoucher(SendVoucher) {
+    GlobalVoucher = SendVoucher;
+}
+function GetGlobalVoucher() {
+    return GlobalVoucher;
+}
 function SetGlopelDataUser(Send_USERS) {
     GlopelUSERS = Send_USERS;
 }

@@ -1167,6 +1167,7 @@
     <TypeScriptCompile Include="ClientApp\AjaxCaller.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\ClientGeneralTools.ts" />
+    <TypeScriptCompile Include="ClientApp\GeneralHub\Money.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\Items_In_Stores.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\Chase_Delivery.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\CashCollect.ts" />
