@@ -180,7 +180,7 @@ namespace Inv.API.Controllers
                     {
                         var id = res.ResponseData;
                         int Cash = TrnsNo == "0" ? 1 : 0;
-                        string UpdQuery = " update Voucher_Receipt set TransferNo='" + TrnsNo + "' ,IsCash=" + Cash + " Remark=Remark + '("+ ListInvoiceID + ") ارقام الفواتير ' , CreatedBy='" + UserCode + "' , CreatedAt ='" + DateTime.Now.ToString() + "'  where ReceiptID = " + id + "";
+                        string UpdQuery = " update Voucher_Receipt set TransferNo='" + TrnsNo + "' , InvoicesID='"+ ListInvoiceID + "' ,IsCash=" + Cash + " Remark=Remark + '("+ ListInvoiceID + ") ارقام الفواتير ' , CreatedBy='" + UserCode + "' , CreatedAt ='" + DateTime.Now.ToString() + "'  where ReceiptID = " + id + "";
                         db.Database.ExecuteSqlCommand(UpdQuery);
 
                         string InvQury = @"UPDATE[dbo].[Sls_Invoice] SET IsPaid = 2 where InvoiceID in ( " + ListInvoiceID + ")";

@@ -355,7 +355,9 @@ namespace Inv.API.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult UpdateStatusVoucher(int ReceiptID,int Active)
         { 
+
             db.Database.ExecuteSqlCommand("Update Voucher_Receipt set Status = " + Active + " where ReceiptID = " + ReceiptID + "");
+            
             return Ok(new BaseResponse(true)); 
         }
     }

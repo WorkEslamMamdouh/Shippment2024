@@ -12,7 +12,7 @@ namespace Inv.DAL.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class A_Pay_D_VendorDoc
+    public partial class x
     {
         public int VendorDocID { get; set; }
         public Nullable<int> VendorId { get; set; }

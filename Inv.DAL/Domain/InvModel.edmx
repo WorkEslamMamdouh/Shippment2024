@@ -984,6 +984,7 @@ warning 6002: The table/view 'Shippment2024.dbo.HIJRA_CONVERT' does not have a p
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="UpdatedAt" Type="smalldatetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="InvoicesID" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Zones">
           <Key>
@@ -2200,7 +2201,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
     <edmx:ConceptualModels>
       <Schema Namespace="InvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="InvEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="A_Pay_D_VendorDoc" EntityType="InvModel.A_Pay_D_VendorDoc" />
+          <EntitySet Name="A_Pay_D_VendorDoc" EntityType="InvModel.x" />
           <EntitySet Name="G_AlertType" EntityType="InvModel.G_AlertType" />
           <EntitySet Name="G_BRANCH" EntityType="InvModel.G_BRANCH" />
           <EntitySet Name="G_BranchModules" EntityType="InvModel.G_BranchModules" />
@@ -2331,7 +2332,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="Vendor_Invoices" EntityType="InvModel.Vendor_Invoices" />
           <EntitySet Name="Vnd_Inv_SlsMan" EntityType="InvModel.Vnd_Inv_SlsMan" />
           <EntitySet Name="Sls_InvoiceItem" EntityType="InvModel.Sls_InvoiceItem" />
-          <EntitySet Name="Voucher_Receipt" EntityType="InvModel.Voucher_Receipt" />
           <EntitySet Name="FamilyZone" EntityType="InvModel.FamilyZone" />
           <EntitySet Name="G_USERS" EntityType="InvModel.G_USERS" />
           <EntitySet Name="Zones" EntityType="InvModel.Zones" />
@@ -2339,8 +2339,9 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <EntitySet Name="IQ_ItemCollect" EntityType="InvModel.IQ_ItemCollect" />
           <EntitySet Name="SalesMan_Invoices" EntityType="InvModel.SalesMan_Invoices" />
           <EntitySet Name="Sls_Invoice" EntityType="InvModel.Sls_Invoice" />
+          <EntitySet Name="Voucher_Receipt" EntityType="InvModel.Voucher_Receipt" />
         </EntityContainer>
-        <EntityType Name="A_Pay_D_VendorDoc">
+        <EntityType Name="x">
           <Key>
             <PropertyRef Name="VendorDocID" />
           </Key>
@@ -3728,27 +3729,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="StoreID" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Voucher_Receipt">
-          <Key>
-            <PropertyRef Name="ReceiptID" />
-          </Key>
-          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="BraCode" Type="Int32" />
-          <Property Name="TrType" Type="Int32" />
-          <Property Name="RefNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TrDate" Type="DateTime" Precision="0" />
-          <Property Name="NameRecipient" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="IsCash" Type="Boolean" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="TransferNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" />
-          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="FamilyZone">
           <Key>
             <PropertyRef Name="FamilyZoneID" />
@@ -3896,6 +3876,28 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
           <Property Name="ZoneID" Type="Int32" />
           <Property Name="IsPaid" Type="Int32" />
         </EntityType>
+        <EntityType Name="Voucher_Receipt">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BraCode" Type="Int32" />
+          <Property Name="TrType" Type="Int32" />
+          <Property Name="RefNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrDate" Type="DateTime" Precision="0" />
+          <Property Name="NameRecipient" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IsCash" Type="Boolean" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TransferNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="InvoicesID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3903,7 +3905,7 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="InvModelStoreContainer" CdmEntityContainer="InvEntities">
           <EntitySetMapping Name="A_Pay_D_VendorDoc">
-            <EntityTypeMapping TypeName="InvModel.A_Pay_D_VendorDoc">
+            <EntityTypeMapping TypeName="InvModel.x">
               <MappingFragment StoreEntitySet="A_Pay_D_VendorDoc">
                 <ScalarProperty Name="IDExpireDateH" ColumnName="IDExpireDateH" />
                 <ScalarProperty Name="IDExpireDate" ColumnName="IDExpireDate" />
@@ -5306,28 +5308,6 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Voucher_Receipt">
-            <EntityTypeMapping TypeName="InvModel.Voucher_Receipt">
-              <MappingFragment StoreEntitySet="Voucher_Receipt">
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TransferNo" ColumnName="TransferNo" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
-                <ScalarProperty Name="NameRecipient" ColumnName="NameRecipient" />
-                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
-                <ScalarProperty Name="RefNO" ColumnName="RefNO" />
-                <ScalarProperty Name="TrType" ColumnName="TrType" />
-                <ScalarProperty Name="BraCode" ColumnName="BraCode" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FamilyZone">
             <EntityTypeMapping TypeName="InvModel.FamilyZone">
               <MappingFragment StoreEntitySet="FamilyZone">
@@ -5479,6 +5459,29 @@ warning 6002: The table/view 'Shippment2024.dbo.Vnd_Inv_SlsMan' does not have a 
                 <ScalarProperty Name="RefNO" ColumnName="RefNO" />
                 <ScalarProperty Name="TrNo" ColumnName="TrNo" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Voucher_Receipt">
+            <EntityTypeMapping TypeName="InvModel.Voucher_Receipt">
+              <MappingFragment StoreEntitySet="Voucher_Receipt">
+                <ScalarProperty Name="InvoicesID" ColumnName="InvoicesID" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TransferNo" ColumnName="TransferNo" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
+                <ScalarProperty Name="NameRecipient" ColumnName="NameRecipient" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="RefNO" ColumnName="RefNO" />
+                <ScalarProperty Name="TrType" ColumnName="TrType" />
+                <ScalarProperty Name="BraCode" ColumnName="BraCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

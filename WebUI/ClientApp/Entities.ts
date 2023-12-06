@@ -12473,6 +12473,7 @@ class Voucher_Receipt {
 		this.CreatedBy = "";
 		this.UpdatedAt = "";
 		this.UpdatedBy = "";
+		this.InvoicesID = "";
 	}
 	public ReceiptID: number;
 	public CompCode: number;
@@ -12490,6 +12491,7 @@ class Voucher_Receipt {
 	public CreatedBy: string;
 	public UpdatedAt: string;
 	public UpdatedBy: string;
+	public InvoicesID: string;
 }
 
 class FamilyZone extends SecurityClass {

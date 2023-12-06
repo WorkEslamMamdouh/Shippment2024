@@ -18,6 +18,7 @@ namespace Zone {
 	var Submit_Update_Profile: HTMLButtonElement;
 	var btnAdd: HTMLButtonElement;
 	var Submit_Backdown_Profile: HTMLButtonElement;
+	var db_FamilyZone: HTMLSelectElement;
 
 	export function InitalizeComponent() {
 		debugger
@@ -31,50 +32,56 @@ namespace Zone {
 		_USERS = GetGlopelDataUser()
 		_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase())
 		Display_Data();
-
+		
 		Close_Loder();
 	}
 	function InitalizeControls() {
 		Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
 		btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
 		Submit_Backdown_Profile = document.getElementById("Submit_Backdown_Profile") as HTMLButtonElement;
+		db_FamilyZone = document.getElementById("db_FamilyZone") as HTMLSelectElement;
 	}
 	function InitializeEvents() {
 
 		btnAdd.onclick = AddRow;
 		Submit_Update_Profile.onclick = SubmitUpdate;
 		Submit_Backdown_Profile.onclick = Display_Data;
-
+		db_FamilyZone.onchange = FamilyChange; 
 	}
 
 	function AddRow() {
 		BuildGrid(CountGrid);
 		$(`#txtStatusFlag${CountGrid}`).val('i');
 		CountGrid++;
-	}
+	}	  
 	function Display_Data() {
 		debugger
 		var Table: Array<Table>;
 		Table =
 			[
-				{ NameTable: 'Zones', Condition: "" },
-				{ NameTable: 'FamilyZone', Condition: "" },
+				{ NameTable: 'FamilyZone', Condition: "" },		  
+				{ NameTable: 'Zones', Condition: "" },		  
 			]
 
 		DataResult(Table);
 		//**************************************************************************************************************
 		debugger
-		_FamilyZones = GetDataTable('FamilyZone');
 		_Zones = GetDataTable('Zones');
+		_FamilyZones = GetDataTable('FamilyZone');
+		FillDropwithAttr(_FamilyZones, `db_FamilyZone`, "FamilyZoneID", "DescA", "No", "", "");	 
+		FamilyChange();
+	}
+	function FamilyChange() {
+		debugger
+		let FilteredZones = _Zones.filter(x => x.FamilyZoneID == Number(db_FamilyZone.value));
 		$('#Zone_Grid').html("");
 		CountGrid = 0;
-		for (var i = 0; i < _Zones.length; i++) {
+		for (var i = 0; i < FilteredZones.length; i++) {
 			BuildGrid(i);
-			$(`#Txt_ZoneID${i}`).val(_Zones[i].ZoneID);
-			$(`#Txt_FamilyZone${i}`).val(_Zones[i].FamilyZoneID); 
-			$(`#Txt_DescA${i}`).val(_Zones[i].DescA);
-			$(`#chk_Active${i}`).prop('checked', _Zones[i].Active);
-			$(`#Txt_Remarks${i}`).val(_Zones[i].Remarks);
+			$(`#Txt_ZoneID${i}`).val(FilteredZones[i].ZoneID);			   
+			$(`#Txt_DescA${i}`).val(FilteredZones[i].DescA);
+			$(`#chk_Active${i}`).prop('checked', FilteredZones[i].Active);
+			$(`#Txt_Remarks${i}`).val(FilteredZones[i].Remarks);
 			$(`#txtStatusFlag${i}`).val('');
 			CountGrid++;
 		}
@@ -107,11 +114,7 @@ namespace Zone {
 		let html = '<tr id="Row' + cnt + '" style="height: 51px; ">' +
 			'<input id="Txt_ZoneID' + cnt + '" type="hidden" class="form-control" disabled /> ' +
 			'<input id="txtStatusFlag' + cnt + '" type="hidden" class="form-control" disabled /> ' +
-
-			'<td class="u-table-cell" > ' +																			  
-			'<select id="Txt_FamilyZone' + cnt + '" name = "select" class="u-input u-input-rectangle" >< /select>'+
-			'</td>' +   
-
+					    
 			'<td class="u-table-cell" > ' +
 			'<input type="text" id="Txt_DescA' + cnt + '" maxlength="200" class="Clear_Header  u-input u-input-rectangle">' +
 			'</td>' +
@@ -128,12 +131,7 @@ namespace Zone {
 		debugger
 		$('#Zone_Grid').append(html);
 
-		FillDropwithAttr(_FamilyZones,`Txt_FamilyZone${cnt}`, "FamilyZoneID", "DescA", "No", "", "");
-
-		$(`#Txt_FamilyZone${cnt}`).on('change', function () {
-			if ($("#txtStatusFlag" + cnt).val() != "i")
-				$("#txtStatusFlag" + cnt).val("u");
-		});
+		
 		 
 		$(`#Txt_DescA${cnt}`).on('change', function () {
 			if ($("#txtStatusFlag" + cnt).val() != "i")
@@ -162,7 +160,7 @@ namespace Zone {
 		for (var i = 0; i < CountGrid; i++) {
 			if ($(`#txtStatusFlag${i}`).val() != 'm' && $(`#txtStatusFlag${i}`).val() != '') {
 				_ZonesObj = new Zones();
-				_ZonesObj.FamilyZoneID = Number($(`#Txt_FamilyZone${i}`).val());
+				_ZonesObj.FamilyZoneID = Number(db_FamilyZone.value);
 				_ZonesObj.ZoneID = Number($(`#Txt_ZoneID${i}`).val()); 
 				_ZonesObj.ZoneCode = "";
 				_ZonesObj.DescA = $(`#Txt_DescA${i}`).val();

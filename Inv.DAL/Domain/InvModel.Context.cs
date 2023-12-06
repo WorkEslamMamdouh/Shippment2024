@@ -27,7 +27,7 @@ namespace Inv.DAL.Domain
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<A_Pay_D_VendorDoc> A_Pay_D_VendorDoc { get; set; }
+        public virtual DbSet<x> A_Pay_D_VendorDoc { get; set; }
         public virtual DbSet<G_AlertType> G_AlertType { get; set; }
         public virtual DbSet<G_BRANCH> G_BRANCH { get; set; }
         public virtual DbSet<G_BranchModules> G_BranchModules { get; set; }
@@ -74,7 +74,6 @@ namespace Inv.DAL.Domain
         public virtual DbSet<Vendor_Invoices> Vendor_Invoices { get; set; }
         public virtual DbSet<Vnd_Inv_SlsMan> Vnd_Inv_SlsMan { get; set; }
         public virtual DbSet<Sls_InvoiceItem> Sls_InvoiceItem { get; set; }
-        public virtual DbSet<Voucher_Receipt> Voucher_Receipt { get; set; }
         public virtual DbSet<FamilyZone> FamilyZone { get; set; }
         public virtual DbSet<G_USERS> G_USERS { get; set; }
         public virtual DbSet<Zones> Zones { get; set; }
@@ -82,6 +81,7 @@ namespace Inv.DAL.Domain
         public virtual DbSet<IQ_ItemCollect> IQ_ItemCollect { get; set; }
         public virtual DbSet<SalesMan_Invoices> SalesMan_Invoices { get; set; }
         public virtual DbSet<Sls_Invoice> Sls_Invoice { get; set; }
+        public virtual DbSet<Voucher_Receipt> Voucher_Receipt { get; set; }
     
         public virtual int G_ProcessTransVer2(Nullable<int> comp, Nullable<int> branch, string trType, string opMode, Nullable<int> trID, ObjectParameter trNo, ObjectParameter ok)
         {

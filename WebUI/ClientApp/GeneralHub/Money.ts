@@ -58,8 +58,12 @@ namespace Money {
 					let txt: HTMLLabelElement = document.createElement("label");
 					if (item.TrType == 0) {
 						txt.innerHTML = 'Receipt'
-					} else {
+					} else if (item.TrType == 1) {
 						txt.innerHTML = 'Payment'
+					} else if (item.TrType == 2) {
+						txt.innerHTML = 'Receipt Invoice'
+					} else {
+						txt.innerHTML = 'Payment Vendor'
 					}
 					return txt;
 				}
@@ -89,11 +93,18 @@ namespace Money {
 					txt.style.width = "50px"
 					txt.style.height = "35px"
 					txt.onclick = (e) => {
-						Approve(item.ReceiptID, txt.checked == true ? 1 : 0);
+						if (item.TrType == 2 || item.TrType == 3) {
+							txt.checked = true;
+							Errorinput("ChkView" + item.ReceiptID + "", "This is Auto Receipt Invoice ,You Can't un Approve it");
+						} else {
+							Approve(item.ReceiptID, txt.checked == true ? 1 : 0);
+						}
+
 					};
+
 					return txt;
 				}
-			},  
+			},
 			{
 				title: "Edit",
 				itemTemplate: (s: string, item: Voucher_Receipt): HTMLInputElement => {
@@ -104,7 +115,7 @@ namespace Money {
 					txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 					if (item.Status == true) {
 						txt.disabled = true;
-						
+
 					} else {
 						txt.disabled = false;
 					}
@@ -115,7 +126,7 @@ namespace Money {
 				}
 			},
 		];
-		_Grid.Bind();   
+		_Grid.Bind();
 	}
 	function _SearchBox_Change() {
 		$("#_Grid").jsGrid("option", "pageIndex", 1);
@@ -135,14 +146,14 @@ namespace Money {
 		debugger
 		CleaningList_Table();
 		let Active = $('#drpActive').val() == "Null" ? "0,1" : $('#drpActive').val();
-		let Type = $('#drpType').val() == "Null" ? "0,1" : $('#drpType').val();
+		let Type = $('#drpType').val() == "Null" ? "0,1,2,3" : $('#drpType').val();
 		let From_Date = $('#Txt_From_Date').val();
 		let To_Date = $('#Txt_To_Date').val();
-		 
+
 		var Table: Array<Table>;
 		Table =
 			[
-			{ NameTable: 'Voucher_Receipt', Condition: "TrDate >= '" + From_Date + "' and TrDate <= '" + To_Date +"' and  TrType in (" + Type +" )  and Status in("+Active+")" },	 
+				{ NameTable: 'Voucher_Receipt', Condition: "TrDate >= '" + From_Date + "' and TrDate <= '" + To_Date + "' and  TrType in (" + Type + " )  and Status in(" + Active + ")" },
 			]
 		DataResult(Table);
 		//**************************************************************************************************************
@@ -153,13 +164,13 @@ namespace Money {
 		_Grid.DataSource = _VouchersList;
 		_Grid.Bind();
 		debugger
-		let RecTotal = _VouchersList.filter(x => x.TrType == 0);
-		let PayTotal = _VouchersList.filter(x => x.TrType == 1);
+		let RecTotal = _VouchersList.filter(x => x.TrType == 0 || x.TrType == 2);
+		let PayTotal = _VouchersList.filter(x => x.TrType == 1 || x.TrType == 3);
 		let Rec = Number(SumValue(RecTotal, "Amount"));
 		let Pay = Number(SumValue(PayTotal, "Amount"));
-		$('#Txt_TotalReciept').val(Digits(Rec,1));
-		$('#Txt_TotalPayment').val(Digits(Pay,1));
-		$('#Txt_Net').val(Digits((Number(Rec) - Number(Pay)),1));
+		$('#Txt_TotalReciept').val(Digits(Rec, 1));
+		$('#Txt_TotalPayment').val(Digits(Pay, 1));
+		$('#Txt_Net').val(Digits((Number(Rec) - Number(Pay)), 1));
 	}
 	function ViewUser(item: Voucher_Receipt) {
 		debugger
@@ -191,7 +202,7 @@ namespace Money {
 		Ajax.CallsyncSave({
 			type: "Get",
 			url: sys.apiUrl("SalesMan", "UpdateStatusVoucher"),
-			data: {ReceiptID: ReceiptID, Active: Active },
+			data: { ReceiptID: ReceiptID, Active: Active },
 			success: (d) => {
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {

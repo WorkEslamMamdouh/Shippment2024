@@ -7345,6 +7345,7 @@ var Voucher_Receipt = /** @class */ (function () {
         this.CreatedBy = "";
         this.UpdatedAt = "";
         this.UpdatedBy = "";
+        this.InvoicesID = "";
     }
     return Voucher_Receipt;
 }());

@@ -153,12 +153,28 @@ var ShipOrder;
         var StartDate = DateFormat($('#Txt_From_Date').val());
         var EndDate = DateFormat($('#Txt_To_Date').val());
         var Con = "";
+        if ($('#db_FamilyZone').val() == 'null') {
+            Errorinput($('#db_FamilyZone'), "Must Select Family  Zone");
+            return;
+        }
         if ($('#db_Zone').val() != 'null') {
             Con = " and ZoneID =" + Number($('#db_Zone').val());
         }
         else {
-            Errorinput($('#db_Zone'), "Must Select Zone");
-            return;
+            var zoneValues = "";
+            for (var i = 1; i < db_Zone.childElementCount; i++) {
+                db_Zone.selectedIndex = i;
+                var valu = db_Zone.value;
+                zoneValues = zoneValues + valu;
+                if (i != db_Zone.childElementCount - 1) {
+                    zoneValues = zoneValues + ",";
+                }
+            }
+            db_Zone.selectedIndex = 0;
+            Con = " and ZoneID in (" + zoneValues + ")";
+        }
+        if ($('#db_TrType').val() != '-1') {
+            Con = Con + " and TrType =" + Number($('#db_TrType').val());
         }
         var Table;
         Table =

@@ -65,9 +65,6 @@
     <Compile Include="Domain\A_Pay_D_Vendor.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Domain\A_Pay_D_VendorDoc.cs">
-      <DependentUpon>InvModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Domain\A_RecPay_Tr_ReceiptNote.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
@@ -247,6 +244,9 @@
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Voucher_Receipt.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\x.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Zones.cs">
