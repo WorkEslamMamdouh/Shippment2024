@@ -134,6 +134,15 @@ namespace Inv.API.Controllers
             {
                 Cond = ", SalesmanId = " + SlsManID + "";
             }
+            if (Status == -2)
+            {
+                Status = 0;
+                Cond = Cond + ", TrType = 0";
+            }
+            if (Status == 10)
+            { 
+                Cond = Cond + ", SalesmanId = 0 , CommitionAmount = 0";
+            }
             string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
             Status =" + Status + " " + Cond + " where InvoiceID = " + InvoiceID + "";
             db.Database.ExecuteSqlCommand(Qury);

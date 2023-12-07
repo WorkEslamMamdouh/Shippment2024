@@ -36,7 +36,7 @@ namespace Seller_Return {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: " TrType = 1 and Status =10 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
+            { NameTable: 'Sls_Invoice', Condition: " TrType = 1 and Status =10 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
             { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 1 and Status =10 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
             ]
 
