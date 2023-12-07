@@ -1139,6 +1139,7 @@
     <Content Include="Views\Saller\Seller_Coll_InvIndex.cshtml" />
     <Content Include="Views\Saller\Seller_Wait_InvIndex.cshtml" />
     <Content Include="Views\Order\Print_ReceiptIndex.cshtml" />
+    <Content Include="Views\Saller\Seller_DeletedIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1187,6 +1188,7 @@
     <TypeScriptCompile Include="ClientApp\Saller\Seller_Wait_Inv.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Seller_Coll_Inv.ts" />
     <TypeScriptCompile Include="ClientApp\Saller\Seller_Return.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\Seller_Deleted.ts" />
     <TypeScriptCompile Include="ClientApp\UserControl\Seller_Control.ts" />
     <TypeScriptCompile Include="ClientApp\Vouchers\VoucherPayment.ts" />
     <TypeScriptCompile Include="ClientApp\Vouchers\VoucherReceipt.ts" />

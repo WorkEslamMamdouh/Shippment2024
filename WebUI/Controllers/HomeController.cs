@@ -66,8 +66,9 @@ namespace Inv.WebUI.Controllers
          "~/Views/GeneralHub/MoneyIndex.cshtml",
          "~/Views/Saller/Seller_ReturnIndex.cshtml",
          "~/Views/Saller/Seller_Coll_InvIndex.cshtml",
-         "~/Views/Saller/Seller_Wait_InvIndex.cshtml", 
-
+         "~/Views/Saller/Seller_Wait_InvIndex.cshtml",
+         "~/Views/Saller/Seller_DeletedIndex.cshtml",
+        
                       };
 
         #endregion  Open Pages 
