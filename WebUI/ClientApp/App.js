@@ -2935,6 +2935,7 @@ function Digits(_number, FractionDigits) {
 }
 var GlobalVoucher = new Voucher_Receipt();
 var GlopelUSERS = new Array();
+var GlopelVoucher_Receipt = new Array();
 var GlopelInvoices = new Array();
 var GlopelInvoiceItems = new Array();
 var GlopelIQ_ItemCollect = new Array();
@@ -2950,6 +2951,9 @@ function SetGlopelDataUser(Send_USERS) {
 function GetGlopelDataUser() {
     return GlopelUSERS;
 }
+function SetGlopelVoucher_Receipt(Send_Voucher_Receipt) {
+    GlopelVoucher_Receipt = Send_Voucher_Receipt;
+}
 function SetGlopelDataInvoice(Send_Invoices) {
     GlopelInvoices = Send_Invoices;
 }
@@ -2958,6 +2962,9 @@ function SetGlopelDataInvoiceItems(Send_InvoiceItems) {
 }
 function SetGlopelDataIQ_ItemCollect(Send_IQ_ItemCollect) {
     GlopelIQ_ItemCollect = Send_IQ_ItemCollect;
+}
+function GetGlopelVoucher_Receipt() {
+    return GlopelVoucher_Receipt;
 }
 function GetGlopelDataInvoice() {
     return GlopelInvoices;
@@ -3056,5 +3063,23 @@ function OpenImg(path) {
     //let UrlImg = path + ".jpg";
     window.open(UrlImg, "_blank");
     return UrlImg;
+}
+function TafkeetArabValue(Amount) {
+    var _Amount = "";
+    $.ajax({
+        url: Url.Action("TafkeetArabValue", "Home"),
+        type: 'GET',
+        data: { Amount: Amount },
+        async: false,
+        cache: false,
+        success: function (ArabValue) {
+            _Amount = ArabValue;
+            return _Amount;
+        },
+        error: function (xhr, status, error) {
+            return _Amount;
+        }
+    });
+    return _Amount;
 }
 //# sourceMappingURL=App.js.map

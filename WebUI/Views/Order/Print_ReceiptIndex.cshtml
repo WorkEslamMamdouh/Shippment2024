@@ -1,0 +1,154 @@
+﻿<section class="u-align-left u-clearfix u-section-9 " id="carousel_c35d">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-container-style u-group u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+                <h2 class=" Type_Invoice u-align-center u-text u-text-1">Print </h2>
+            </div>
+        </div>
+       
+        @************************************************Review invoice****************************************************************@
+        <div id="Div_Review_invoice" class="   u-form u-form-1">
+
+            <style>
+                .container {
+                    max-width: 800px;
+                    background-color: #fff;
+                    margin: 0 auto;
+                    padding: 20px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+
+                .header {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+
+                    .header h1 {
+                        color: #333;
+                    }
+
+                .customer-info {
+                    margin-bottom: 20px;
+                    text-align: left !important;
+                }
+
+                .invoice {
+                    margin-bottom: 20px;
+                }
+
+                .table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                    .table th, .table td {
+                        border: 1px solid #ccc;
+                        padding: 8px;
+                        text-align: left !important;
+                    }
+
+                    .table th {
+                        background-color: #f2f2f2;
+                    }
+
+                .total {
+                    text-align: center;
+                }
+
+                .total-label {
+                    color: #555;
+                }
+
+                .total-amount {
+                    font-weight: bold;
+                    color: #333;
+                }
+
+                .receipt {
+                    text-align: left !important;
+                }
+            </style>
+
+            <div id="Body_Print_Inv" class="container">
+                <div class="header">
+                    <h1 class="Type_Invoice" id="ID_PrintType_Receipt">Receipt </h1> 
+                </div>
+                <div class="Type_Invoice customer-info">
+                    <h2></h2>
+                    <p id="Print_TransferNo"><strong>Transfer No :</strong> John Doe</p>
+                    <p id="Print_Name_TrDate"><strong>Date :</strong> John Doe</p>
+                    <p id="Print_Name_Recipient"><strong>Name Recipient :</strong> John Doe</p>
+                    <p id="Print_Type_Pay"><strong>Type Pay :</strong> (555) 555-5555</p>
+                    <p id="Print_Remark"><strong>Remark :</strong> 123 Main St, City, Country</p>
+                </div>
+                <div class="invoice">
+
+
+                    <br />
+                    <table class="Type_Invoice User1 User2 table display_none">
+                        <thead>
+                            <tr>
+                                <th> <input disabled type="text" value="0" id="Txt_TotalAmount" class=" u-input u-input-rectangle" style="text-align: center;font-size: 24px;"></th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                    <br />
+                    <div class="Type_Invoice User10 total  ">
+                        <p><span class="total-label"><strong>Amount :</strong> </span> <span id="Total_inv_Print" class="total-amount">$35.00</span></p>
+                    </div>
+                </div>
+                <div class="receipt">  
+                    <p class="Type_Invoice" id="Tran_Date_Transaction_ID"><strong>Transaction ID :</strong> 12313213212311321321</p>
+                    <p class="Type_Invoice" id="Tran_Date_CreatedAt"><strong>Created At :</strong> October 28, 2023</p>
+                    <p class="Type_Invoice" id="Tran_Date_CreatedBy"><strong>Created By :</strong> Islam</p>
+                </div>
+            </div>
+        </div>
+        @************************************************Buttons****************************************************************@
+        <div class="u-form u-form-2">
+            <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+                </div>
+                <div id="Id_Div_Back" class="u-align-left u-form-group-3 u-form-submit display_none">
+                    <a id="Id_Back" class=" u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2  " style="color: #ffffff !important; background-color: #d8b315 !important; ">Back</a>
+                    <input type="submit" value="Back" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Next" class="u-align-left u-form-group-3 u-form-submit" style="visibility: hidden;">
+                    <a id="Id_Next" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Next</a>
+                    <input type="submit" value="Next" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit"  >
+                    <a id="_Print_Recoice" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Print</a>
+
+                </div>
+                <div id="Id_Div_Next_Step2" class="u-align-left u-form-group-3 u-form-submit display_none">
+                    <a id="Id_Next_Step2" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Next</a>
+                    <input type="submit" value="Next" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Back_Step2" class="u-align-left u-form-group-3 u-form-submit display_none">
+                    <a id="Id_Back_Step2" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2  " style="color: #ffffff !important; background-color: #d8b315 !important;">Back</a>
+                    <input type="submit" value="Back" class="u-form-control-hidden">
+                </div>
+                <div class="u-align-left u-form-group-4 u-form-submit" style="visibility: hidden;">
+                    <a class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Submit</a>
+
+                </div>
+                <div id="Id_Div_Finish" class="u-align-left u-form-group-7 u-form-submit display_none">
+                    <a id="Id_Finish" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2" style="color: #ffffff !important;background-color: #049e35 !important;">Done Invoice</a>
+                    <input type="submit" value="Finish" class="u-form-control-hidden">
+                </div>
+            </form>
+        </div>
+    </div>
+</section> 
+<script src="~/ClientApp/Order/Print_Receipt.js"></script>
