@@ -61,7 +61,8 @@ namespace Inv.WebUI.Controllers
          "~/Views/GeneralHub/Chase_DeliveryIndex.cshtml",
          "~/Views/GeneralHub/Items_In_StoresIndex.cshtml",
          "~/Views/GeneralHub/History_OrderIndex.cshtml",
-         "~/Views/GeneralHub/MoneyIndex.cshtml", 
+         "~/Views/GeneralHub/MoneyIndex.cshtml",
+         "~/Views/Order/Print_ReceiptIndex.cshtml", 
 
                       };
 
@@ -201,6 +202,12 @@ namespace Inv.WebUI.Controllers
             }
         }
 
+
+        public string TafkeetArabValue(decimal? Amount)
+        {
+            TafkeetArab TafkeetArab = new TafkeetArab(); 
+            return TafkeetArab.BSE_TafkeetArab(" جـنيــه " , " قـرش ", Amount) + " فقـط لاغيـر ";
+        }
 
     }
 }

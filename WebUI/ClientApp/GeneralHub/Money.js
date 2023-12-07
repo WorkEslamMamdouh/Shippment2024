@@ -65,6 +65,7 @@ var Money;
                 }
             },
             { title: "Name Recipient", name: "NameRecipient", type: "text", width: "100px" },
+            { title: "Remark", name: "Remark", type: "text", width: "100px" },
             { title: "Amount", name: "Amount", type: "text", width: "100px" },
             {
                 title: "Cash Type", css: "ColumPadding", name: "IsCash", width: "100px",
@@ -97,6 +98,21 @@ var Money;
                         else {
                             Approve(item.ReceiptID, txt.checked == true ? 1 : 0);
                         }
+                    };
+                    return txt;
+                }
+            },
+            {
+                title: "View",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("View");
+                    txt.style.backgroundColor = "chocolate";
+                    txt.id = "butView" + item.ReceiptID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+                    txt.onclick = function (e) {
+                        ViewReceipt(item.ReceiptID);
                     };
                     return txt;
                 }
@@ -157,6 +173,7 @@ var Money;
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _VouchersList;
         _Grid.Bind();
+        SetGlopelVoucher_Receipt(_VouchersList);
         debugger;
         var RecTotal = _VouchersList.filter(function (x) { return x.TrType == 0 || x.TrType == 2; });
         var PayTotal = _VouchersList.filter(function (x) { return x.TrType == 1 || x.TrType == 3; });
@@ -182,6 +199,11 @@ var Money;
         CleaningList_Table();
         _Grid.DataSource = _Vouchersnone;
         _Grid.Bind();
+    }
+    function ViewReceipt(ReceiptID) {
+        localStorage.setItem("ReceiptID", ReceiptID.toString());
+        localStorage.setItem("ReceiptNote", "1");
+        OpenPagePartial("Print_Receipt", "Print Receipt 🧺");
     }
     var Run_Fun = false;
     function Display_Refrsh() {

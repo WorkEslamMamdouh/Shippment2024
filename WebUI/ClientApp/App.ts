@@ -3891,6 +3891,7 @@ function Digits(_number: number, FractionDigits?: number): string {
 
 var GlobalVoucher: Voucher_Receipt = new Voucher_Receipt();
 var GlopelUSERS: Array<G_USERS> = new Array<G_USERS>();
+var GlopelVoucher_Receipt: Array<Voucher_Receipt> = new Array<Voucher_Receipt>();
 var GlopelInvoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
 var GlopelInvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 var GlopelIQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
@@ -3913,6 +3914,11 @@ function GetGlopelDataUser(): Array<G_USERS> {
 }
 
 
+function SetGlopelVoucher_Receipt(Send_Voucher_Receipt: Array<Voucher_Receipt>) {
+    GlopelVoucher_Receipt = Send_Voucher_Receipt;
+}
+
+
 function SetGlopelDataInvoice(Send_Invoices: Array<Vnd_Inv_SlsMan>) {
     GlopelInvoices = Send_Invoices;
 }
@@ -3923,6 +3929,10 @@ function SetGlopelDataInvoiceItems(Send_InvoiceItems: Array<Sls_InvoiceItem>) {
 
 function SetGlopelDataIQ_ItemCollect(Send_IQ_ItemCollect: Array<IQ_ItemCollect>) {
     GlopelIQ_ItemCollect = Send_IQ_ItemCollect;
+}
+
+function GetGlopelVoucher_Receipt(): Array<Voucher_Receipt> {
+    return GlopelVoucher_Receipt;
 }
 
 function GetGlopelDataInvoice(): Array<Vnd_Inv_SlsMan> {
@@ -4057,4 +4067,22 @@ function OpenImg(path: string): string {
 }
 
 
+function TafkeetArabValue(Amount: number): string {
+    let _Amount = "";
+    $.ajax({
+        url: Url.Action("TafkeetArabValue", "Home"),
+        type: 'GET',
+        data: { Amount: Amount },
+        async: false,
+        cache: false,
+        success: function (ArabValue) { 
+            _Amount= ArabValue;
+            return _Amount;
+        },
+        error: function (xhr, status, error) {
+            return _Amount;
+        }
+    });
+    return _Amount;
+}
 

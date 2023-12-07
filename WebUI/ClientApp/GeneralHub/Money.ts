@@ -69,6 +69,7 @@ namespace Money {
 				}
 			},
 			{ title: "Name Recipient", name: "NameRecipient", type: "text", width: "100px" },
+			{ title: "Remark", name: "Remark", type: "text", width: "100px" },
 			{ title: "Amount", name: "Amount", type: "text", width: "100px" },
 			{
 				title: "Cash Type", css: "ColumPadding", name: "IsCash", width: "100px",
@@ -102,6 +103,22 @@ namespace Money {
 
 					};
 
+					return txt;
+				}
+			},
+			{
+				title: "View",
+				itemTemplate: (s: string, item: Voucher_Receipt): HTMLInputElement => {
+					let txt: HTMLInputElement = document.createElement("input");
+					txt.type = "button";
+					txt.value = ("View");
+					txt.style.backgroundColor = "chocolate";
+					txt.id = "butView" + item.ReceiptID;
+					txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+
+					txt.onclick = (e) => {
+						ViewReceipt(item.ReceiptID);
+					};
 					return txt;
 				}
 			},
@@ -163,6 +180,7 @@ namespace Money {
 		$('#btnDelete_Filter').removeClass('display_none');
 		_Grid.DataSource = _VouchersList;
 		_Grid.Bind();
+		SetGlopelVoucher_Receipt(_VouchersList);
 		debugger
 		let RecTotal = _VouchersList.filter(x => x.TrType == 0 || x.TrType == 2);
 		let PayTotal = _VouchersList.filter(x => x.TrType == 1 || x.TrType == 3);
@@ -171,6 +189,8 @@ namespace Money {
 		$('#Txt_TotalReciept').val(Digits(Rec, 1));
 		$('#Txt_TotalPayment').val(Digits(Pay, 1));
 		$('#Txt_Net').val(Digits((Number(Rec) - Number(Pay)), 1));
+
+		
 	}
 	function ViewUser(item: Voucher_Receipt) {
 		debugger
@@ -189,6 +209,12 @@ namespace Money {
 		_Grid.DataSource = _Vouchersnone;
 		_Grid.Bind();
 	}
+	function ViewReceipt(ReceiptID: number) {
+		localStorage.setItem("ReceiptID", ReceiptID.toString())
+		localStorage.setItem("ReceiptNote", "1") 
+		OpenPagePartial("Print_Receipt", "Print Receipt 🧺");
+	}
+
 
 	var Run_Fun = false;
 	function Display_Refrsh() {

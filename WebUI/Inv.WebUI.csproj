@@ -1135,6 +1135,7 @@
     <Content Include="Views\GeneralHub\History_OrderIndex.cshtml" />
     <Content Include="Views\Zone\FamilyZonesIndex.cshtml" />
     <Content Include="Views\UserControl\Seller_ControlIndex.cshtml" />
+    <Content Include="Views\Order\Print_ReceiptIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1177,6 +1178,7 @@
     <TypeScriptCompile Include="ClientApp\GeneralHub\View_Deleted_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\GeneralHub\View_Validate_Orders.ts" />
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
+    <TypeScriptCompile Include="ClientApp\Order\Print_Receipt.ts" />
     <TypeScriptCompile Include="ClientApp\Order\Print_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Order\Edit_Order.ts" />
     <TypeScriptCompile Include="ClientApp\UserControl\Seller_Control.ts" />
