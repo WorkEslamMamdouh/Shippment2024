@@ -105,7 +105,22 @@ var ShipOrder;
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("View");
+                    txt.style.backgroundColor = "chocolate";
+                    txt.id = "butView" + item.InvoiceID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+                    txt.onclick = function (e) {
+                        ViewInvoiceDetail(item.InvoiceID);
+                    };
+                    return txt;
+                }
+            },
+            {
+                title: "Control",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("Control ⚙️");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {
@@ -207,6 +222,8 @@ var ShipOrder;
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         $('#db_Zone').val('null');
+        $('#db_FamilyZone').val('null');
+        $('#db_TrType').val('-1');
         $('#btnDelete_Filter').addClass('display_none');
         _Grid.DataSource = New_Invoices;
         _Grid.Bind();
@@ -217,6 +234,11 @@ var ShipOrder;
     function ViewInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
         OpenPagePartial("View_Order", "Order 🧺", function () { Display_Refrsh(); });
+    }
+    function ViewInvoiceDetail(InvoiceID) {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        localStorage.setItem("InvoiceNote", "1");
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
     var Run_Fun = false;
     function Display_Refrsh() {

@@ -9,8 +9,8 @@ namespace VendorControl {
 	var SysSession: SystemSession = GetSystemSession();
 	var _Grid: JsGrid = new JsGrid();
 
-	var _UsersList: Array<GQ_USERS> = new Array<GQ_USERS>();
-	var _Usersnone: Array<GQ_USERS> = new Array<GQ_USERS>();
+	var _UsersList: Array<G_USERS> = new Array<G_USERS>();
+	var _Usersnone: Array<G_USERS> = new Array<G_USERS>();
 
 	var txtSearch: HTMLInputElement;    
 	var Filter_View: HTMLButtonElement;
@@ -47,12 +47,24 @@ namespace VendorControl {
 		_Grid.Inserting = false;
 		_Grid.SelectedIndex = 1;		    
 		_Grid.Columns = [
-			{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },						  
+			//{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },						  
+			{ title: "Company", name: "Vnd_CompName", type: "text", width: "100px" },
 			{ title: "Name", name: "USER_NAME", type: "text", width: "100px" }, 
-			{ title: "Job Title", name: "DescA", type: "text", width: "100px" },
+			{
+				title: "Type", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
+				itemTemplate: (s: string, item: G_USERS): HTMLLabelElement => {
+					let txt: HTMLLabelElement = document.createElement("label");
+					if (item.GRP_CODE == "1") {
+						txt.innerHTML = 'Credit'
+					} else {
+						txt.innerHTML = 'Cash'
+					}
+					return txt;
+				}
+			},
 			{
 				title: "Active", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
-				itemTemplate: (s: string, item: GQ_USERS): HTMLLabelElement => {
+				itemTemplate: (s: string, item: G_USERS): HTMLLabelElement => {
 					let txt: HTMLLabelElement = document.createElement("label");
 					if (item.USER_ACTIVE == true) {
 						txt.innerHTML = 'Active ✅'
@@ -64,7 +76,7 @@ namespace VendorControl {
 			},
 			{
 				title: "Block",  
-				itemTemplate: (s: string, item: GQ_USERS): HTMLInputElement => {
+				itemTemplate: (s: string, item: G_USERS): HTMLInputElement => {
 					let txt: HTMLInputElement = document.createElement("input");
 					txt.type = "checkbox";
 					txt.id = "ChkView" + item.USER_CODE;
@@ -80,7 +92,7 @@ namespace VendorControl {
 			},
 			{
 				title: "View",
-				itemTemplate: (s: string, item: GQ_USERS): HTMLInputElement => {
+				itemTemplate: (s: string, item: G_USERS): HTMLInputElement => {
 					let txt: HTMLInputElement = document.createElement("input");
 					txt.type = "button";
 					txt.value = ("Edit ⚙️");
@@ -102,7 +114,7 @@ namespace VendorControl {
 
 		if (txtSearch.value != "") {
 			let search: string = txtSearch.value.toLowerCase();
-			let SearchDetails = _UsersList.filter(x => x.USER_CODE.toLowerCase().search(search) >= 0 || x.USER_NAME.toLowerCase().search(search) >= 0 || x.DescA.toLowerCase().search(search) >= 0 || x.JobTitle.toLowerCase().search(search) >= 0 || x.Mobile.search(search) >= 0);
+			let SearchDetails = _UsersList.filter(x => x.USER_CODE.toLowerCase().search(search) >= 0 || x.USER_NAME.toLowerCase().search(search) >= 0 ||  x.JobTitle.toLowerCase().search(search) >= 0 || x.Mobile.search(search) >= 0);
 
 			_Grid.DataSource = SearchDetails;
 			_Grid.Bind();
@@ -118,21 +130,24 @@ namespace VendorControl {
 		if ($('#drpActive').val() != "Null") {
 			Con = " and USER_ACTIVE =" + Number($('#drpActive').val());
 		}
+		if ($('#drpType').val() != "Null") {
+			Con = Con+ " and GRP_CODE ='" + Number($('#drpType').val())+"'";
+		}
 		var Table: Array<Table>;
 		Table =
 			[
-				{ NameTable: 'GQ_USERS', Condition: " USER_TYPE = 10  and [USER_NAME] != 'SellerMan' " + Con },
+				{ NameTable: 'G_USERS', Condition: " USER_TYPE = 10  and [USER_NAME] != 'SellerMan' " + Con },
 
 			]
 		DataResult(Table);
 		//**************************************************************************************************************
 		debugger
-		_UsersList = GetDataTable('GQ_USERS');				    
+		_UsersList = GetDataTable('G_USERS');				    
 		$('#btnDelete_Filter').removeClass('display_none');
 		_Grid.DataSource = _UsersList;
 		_Grid.Bind();
 	}
-	function ViewUser(item: GQ_USERS) {
+	function ViewUser(item: G_USERS) {
 		 
 		localStorage.setItem("TypePage", "UserControl");
 		localStorage.setItem("UserControl", item.USER_CODE);
@@ -141,6 +156,7 @@ namespace VendorControl {
 	}
 	function Clear() {
 		$('#drpActive').val("Null");
+		$('#drpType').val("Null");
 		$('#drpUserType').val("Null");
 		$('#btnDelete_Filter').addClass('display_none');
 		CleaningList_Table();

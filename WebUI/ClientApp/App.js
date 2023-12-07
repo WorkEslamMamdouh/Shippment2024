@@ -2656,7 +2656,7 @@ function BuildAllFild(dataSource, cnt, NameRow) {
     for (var _i = 0, properties_3 = properties; _i < properties_3.length; _i++) {
         var property = properties_3[_i];
         if (document.getElementById(property + cnt) == null) {
-            html += "<input id=\"".concat(property + cnt, "\" type=\"hidden\" value=\"\" class=\"form-control \"/>");
+            html += "<input id=\"" + (property + cnt) + "\" type=\"hidden\" value=\"\" class=\"form-control \"/>";
         }
         else {
             $("#" + property + cnt).on('change', function () {
@@ -2869,7 +2869,7 @@ function OpenPagePartial(moduleCode, NamePage, OnDisplay_Back1, OnDisplay_Back2)
     }, 50);
 }
 function Set_Refresh(moduleCode) {
-    var btnhtml = "   <a id=\"Refresh_".concat(moduleCode, "\" style=\"\" class=\"Refresh_").concat(moduleCode, "\">Refresh</a>");
+    var btnhtml = "   <a id=\"Refresh_" + moduleCode + "\" style=\"\" class=\"Refresh_" + moduleCode + "\">Refresh</a>";
     $("#Div_Refresh").html(btnhtml);
     setInterval(function () { $(".Refresh_" + moduleCode).click(); }, 12000);
 }

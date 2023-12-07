@@ -90,6 +90,7 @@ namespace Login {
 
         USERS = GetDataTable('G_USERS');
         Control = GetDataTable('I_Control');
+        console.log(Control);
         SetGlopelDataUser(USERS);
     }
 

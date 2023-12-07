@@ -77,11 +77,11 @@ var RecieptOrders;
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
-                title: "View",
+                title: "Control",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("Control ⚙️");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
                     txt.onclick = function (e) {

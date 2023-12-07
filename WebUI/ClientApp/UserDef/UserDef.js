@@ -14,6 +14,7 @@ var UserDef;
     var FamilyZone;
     var Submit_Update_Profile;
     var Usr_UserType;
+    var img_Profile;
     function InitalizeComponent() {
         $('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
         $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
@@ -41,6 +42,7 @@ var UserDef;
     UserDef.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         Submit_Update_Profile = document.getElementById("Submit_Update_Profile");
+        img_Profile = document.getElementById("img_Profile");
         Usr_UserType = document.getElementById("Usr_UserType");
         Usr_Zone = document.getElementById('Usr_Zone');
         FamilyZone = document.getElementById('FamilyZone');
@@ -49,6 +51,10 @@ var UserDef;
         Submit_Update_Profile.onclick = SubmitUpdate;
         Usr_UserType.onchange = UserType_Change;
         FamilyZone.onchange = FltrZones;
+        img_Profile.onclick = img_Profile_onclick;
+    }
+    function img_Profile_onclick() {
+        Upload_image('img_Profile', 'Profile_User', "");
     }
     function Display_User() {
         debugger;
@@ -73,6 +79,9 @@ var UserDef;
         }
         $('#Usr_Password').val(_USER[0].USER_PASSWORD);
         UserType_Change();
+        if (setVal(_USER[0].Profile_Img).trim() != "") {
+            Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+        }
     }
     function Display_Data() {
         debugger;
@@ -151,6 +160,7 @@ var UserDef;
         var ZoneID = Number($('#Usr_Zone').val());
         var UserType = Number(Usr_UserType.value);
         var SalesManID = Number(_USER[0].SalesManID);
+        var Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
         var NameFun;
         debugger;
         if (localStorage.getItem("TypePage") == "UserControl") {
@@ -164,11 +174,14 @@ var UserDef;
         else {
             NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
         }
+        if (NameFun == "InsertUser") {
+            ZoneID = 0;
+        }
         debugger;
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("SalesMan", NameFun),
-            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender },
+            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender, Profile_Img: Profile_Img },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {

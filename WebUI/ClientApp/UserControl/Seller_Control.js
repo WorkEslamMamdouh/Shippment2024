@@ -64,7 +64,7 @@ var Seller_Control;
             $('#Reg_Comp_Name').val("");
         }
         $('#Reg_Full_Name').val(_USER[0].USER_NAME);
-        $('#Reg_Type_Payment').val(_USERS[0].GRP_CODE);
+        $('#Reg_Type_Payment').val(_USER[0].GRP_CODE);
         $('#Reg_Address').val(_USER[0].Address);
         $('#Reg_Mobile').val(_USER[0].Mobile);
         $('#Reg_Mail').val(_USER[0].Email);
@@ -74,10 +74,10 @@ var Seller_Control;
             Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
         }
         if (setVal(_USER[0].FrontID_Img).trim() != "") {
-            Display_image('Reg_FrontID_Img', 'Profile_User', _USER[0].FrontID_Img.trim());
+            Display_image('Reg_FrontID_Img', 'Profile_Seller', _USER[0].FrontID_Img.trim());
         }
         if (setVal(_USER[0].BackID_Img).trim() != "") {
-            Display_image('Reg_BackID_Img', 'Profile_User', _USER[0].BackID_Img.trim());
+            Display_image('Reg_BackID_Img', 'Profile_Seller', _USER[0].BackID_Img.trim());
         }
     }
     function SubmitUpdate() {

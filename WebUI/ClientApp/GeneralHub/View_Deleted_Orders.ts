@@ -80,7 +80,7 @@ namespace View_Deleted_Orders {
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
-                title: "View",
+                title: "Recover",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "button";

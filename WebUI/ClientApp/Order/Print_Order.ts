@@ -78,7 +78,8 @@ namespace Print_Order {
 
     function Create_Invoice_Print() {
         $('#Print_Name_Cust').html("<strong>Name:</strong> " + _Inv.CustomerName);
-        $('#Print_Name_Phone').html("<strong>Phone:</strong> " + _Inv.CustomerMobile1);
+        //$('#Print_Name_Phone').html("<strong>Phone:</strong> " + _Inv.CustomerMobile1);
+        $('#Print_Name_Phone').html("<strong>Mobile :&nbsp;</strong> " + _Inv.CustomerMobile1 + "<strong>  &nbsp;&nbsp;    </strong><strong>  /  </strong> <strong>   &nbsp;&nbsp;   </strong>   " + _Inv.CustomerMobile2);
         $('#Print_Name_Address').html("<strong>Address:</strong> " + _Inv.Address);
 
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + _Inv.InvoiceID + " <br/><strong>        RefNO :</strong> " + _Inv.RefNO);
@@ -93,6 +94,7 @@ namespace Print_Order {
                 let Row = `<tr>
                            <td class="Type_Note display_none">${_InvItems[i].ItemCode} </td>
                            <td>${_InvItems[i].ItemDescA} </td>
+                           <td class="Type_Note display_none">${_InvItems[i].Remark} </td>
                            <td Class="Type_Invoice">${_InvItems[i].SoldQty}</td>
                            <td Class="Type_Invoice">${_InvItems[i].Unitprice}</td>
                            <td Class="Type_Invoice">${(_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2)}</td>

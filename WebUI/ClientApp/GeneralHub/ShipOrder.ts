@@ -115,7 +115,23 @@ namespace ShipOrder {
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "button";
-                    txt.value = ("View Control ⚙️");
+                    txt.value = ("View");
+                    txt.style.backgroundColor = "chocolate";
+                    txt.id = "butView" + item.InvoiceID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+
+                    txt.onclick = (e) => {
+                        ViewInvoiceDetail(item.InvoiceID);
+                    };
+                    return txt;
+                }
+            },
+            {
+                title: "Control",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("Control ⚙️");
                     txt.id = "butView" + item.InvoiceID;
                     txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
 
@@ -238,6 +254,8 @@ namespace ShipOrder {
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
         $('#db_Zone').val('null')
+        $('#db_FamilyZone').val('null')
+        $('#db_TrType').val('-1')
         $('#btnDelete_Filter').addClass('display_none')
 
         _Grid.DataSource = New_Invoices;
@@ -252,6 +270,11 @@ namespace ShipOrder {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
         OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+    }
+    function ViewInvoiceDetail(InvoiceID) {
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        localStorage.setItem("InvoiceNote", "1")
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
 
 

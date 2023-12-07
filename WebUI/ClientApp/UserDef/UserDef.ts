@@ -19,6 +19,7 @@ namespace UserDef {
 
 	var Submit_Update_Profile: HTMLButtonElement;
 	var Usr_UserType: HTMLSelectElement;
+	var img_Profile: HTMLButtonElement;
 
 	export function InitalizeComponent() {
 
@@ -54,6 +55,7 @@ namespace UserDef {
 	}
 	function InitalizeControls() {
 		Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
+		img_Profile = document.getElementById("img_Profile") as HTMLButtonElement;
 		Usr_UserType = document.getElementById("Usr_UserType") as HTMLSelectElement;
 		Usr_Zone = document.getElementById('Usr_Zone') as HTMLSelectElement;
 		FamilyZone = document.getElementById('FamilyZone') as HTMLSelectElement;
@@ -64,6 +66,10 @@ namespace UserDef {
 		Submit_Update_Profile.onclick = SubmitUpdate;
 		Usr_UserType.onchange = UserType_Change;
 		FamilyZone.onchange = FltrZones;
+		img_Profile.onclick = img_Profile_onclick;
+	}
+	function img_Profile_onclick() {
+		Upload_image('img_Profile', 'Profile_User',"");
 	}
 	function Display_User() {
 		debugger
@@ -92,6 +98,9 @@ namespace UserDef {
 		$('#Usr_Password').val(_USER[0].USER_PASSWORD);
 		UserType_Change();
 
+		if (setVal(_USER[0].Profile_Img).trim() != "") {
+			Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+		} 
 	}
 	function Display_Data() {
 		debugger
@@ -175,6 +184,7 @@ namespace UserDef {
 		let ZoneID = Number($('#Usr_Zone').val());
 		let UserType = Number(Usr_UserType.value);
 		let SalesManID = Number(_USER[0].SalesManID);
+		let Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
 		let NameFun;
 		debugger
 
@@ -189,12 +199,17 @@ namespace UserDef {
 		else {
 			NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
 		}
+
+		if (NameFun == "InsertUser")
+		{
+			ZoneID = 0;
+        }
 		debugger
 
 		Ajax.CallsyncSave({
 			type: "Get",
 			url: sys.apiUrl("SalesMan", NameFun),
-			data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender },
+			data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender, Profile_Img: Profile_Img },
 			success: (d) => {
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {

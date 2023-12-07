@@ -91,7 +91,8 @@ namespace View_Order {
         $("._clearSta").removeClass("is-active");
         $("#View_Status" + _Inv.Status).addClass("is-active");
 
-        $("#Name_Cust_View_Or").html("Name: " + _Inv.CustomerName);
+        $("#Name_Campany_View_Or").html("Company: " + _Inv.Remark);
+        $("#Name_Cust_View_Or").html("Customer: " + _Inv.CustomerName);
         $("#Phone_View_Or").html("Phone: " + _Inv.CustomerMobile1 + " & " + _Inv.CustomerMobile2);
         $("#RefNo_TrNo_View_Or").html(" RefNo ( " + _Inv.RefNO + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TrNo ( " + _Inv.TrNo + " )");
         $("#Vat_Total_View_Or").html(" Vat ( " + _Inv.VatAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.TotalAmount + " ) ");
@@ -172,7 +173,7 @@ namespace View_Order {
     }
     function btn_Receiving_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
-        OpenPagePartial("Coding_Items", "Coding Items", null, () => { Display_Refrsh() });
+        OpenPagePartial("Coding_Items", "Download items", null, () => { Display_Refrsh() });
     } 
     function btn_Print_onclick() {
 

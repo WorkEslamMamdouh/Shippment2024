@@ -70,7 +70,7 @@ var View_Deleted_Orders;
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
             {
-                title: "View",
+                title: "Recover",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "button";

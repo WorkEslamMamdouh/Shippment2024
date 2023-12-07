@@ -409,10 +409,11 @@ namespace Edit_Order {
     }
 
     function Create_Invoice_Print() {
-        $('#Print_Name_Cust').html("<strong>Name:</strong> " + $('#Txt_Name_Cust').val());
-        $('#Print_Name_Phone').html("<strong>Phone:</strong> " + $('#Txt_Phone_Num1').val());
+        $('#Print_Name_Cust').html("<strong>Name:</strong> " + $('#Txt_Name_Cust').val()); 
+        $('#Print_Name_Phone').html("<strong>Mobile :&nbsp;</strong> " + $('#Txt_Phone_Num1').val() + "<strong>  &nbsp;&nbsp;    </strong><strong>  /  </strong> <strong>   &nbsp;&nbsp;   </strong>   " + $('#Txt_Phone_Num2').val());
         $('#Print_Name_Address').html("<strong>Address:</strong> " + $('#Txt_Address1').val());
-         
+        $('#Print_Remark_Inv').html("<strong>Remark:</strong> " + $('#Txt_Remarks').val());
+
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + $('#Txt_InvoiceID').val() + " <br/><strong>        RefNO :</strong> " + $('#Txt_Ref_No').val());
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + $('#Txt_Receive_TrData').val());
 

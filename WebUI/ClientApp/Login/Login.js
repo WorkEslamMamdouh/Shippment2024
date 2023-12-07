@@ -74,6 +74,7 @@ var Login;
         //**************************************************************************************************************
         USERS = GetDataTable('G_USERS');
         Control = GetDataTable('I_Control');
+        console.log(Control);
         SetGlopelDataUser(USERS);
     }
     function Reg_FrontID_Img_onclick() {

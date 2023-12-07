@@ -40,9 +40,22 @@ var VendorControl;
         _Grid.Inserting = false;
         _Grid.SelectedIndex = 1;
         _Grid.Columns = [
-            { title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
+            //{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },						  
+            { title: "Company", name: "Vnd_CompName", type: "text", width: "100px" },
             { title: "Name", name: "USER_NAME", type: "text", width: "100px" },
-            { title: "Job Title", name: "DescA", type: "text", width: "100px" },
+            {
+                title: "Type", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    if (item.GRP_CODE == "1") {
+                        txt.innerHTML = 'Credit';
+                    }
+                    else {
+                        txt.innerHTML = 'Cash';
+                    }
+                    return txt;
+                }
+            },
             {
                 title: "Active", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
                 itemTemplate: function (s, item) {
@@ -93,7 +106,7 @@ var VendorControl;
         $("#_Grid").jsGrid("option", "pageIndex", 1);
         if (txtSearch.value != "") {
             var search_1 = txtSearch.value.toLowerCase();
-            var SearchDetails = _UsersList.filter(function (x) { return x.USER_CODE.toLowerCase().search(search_1) >= 0 || x.USER_NAME.toLowerCase().search(search_1) >= 0 || x.DescA.toLowerCase().search(search_1) >= 0 || x.JobTitle.toLowerCase().search(search_1) >= 0 || x.Mobile.search(search_1) >= 0; });
+            var SearchDetails = _UsersList.filter(function (x) { return x.USER_CODE.toLowerCase().search(search_1) >= 0 || x.USER_NAME.toLowerCase().search(search_1) >= 0 || x.JobTitle.toLowerCase().search(search_1) >= 0 || x.Mobile.search(search_1) >= 0; });
             _Grid.DataSource = SearchDetails;
             _Grid.Bind();
         }
@@ -109,15 +122,18 @@ var VendorControl;
         if ($('#drpActive').val() != "Null") {
             Con = " and USER_ACTIVE =" + Number($('#drpActive').val());
         }
+        if ($('#drpType').val() != "Null") {
+            Con = Con + " and GRP_CODE ='" + Number($('#drpType').val()) + "'";
+        }
         var Table;
         Table =
             [
-                { NameTable: 'GQ_USERS', Condition: " USER_TYPE = 10  and [USER_NAME] != 'SellerMan' " + Con },
+                { NameTable: 'G_USERS', Condition: " USER_TYPE = 10  and [USER_NAME] != 'SellerMan' " + Con },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
-        _UsersList = GetDataTable('GQ_USERS');
+        _UsersList = GetDataTable('G_USERS');
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
@@ -129,6 +145,7 @@ var VendorControl;
     }
     function Clear() {
         $('#drpActive').val("Null");
+        $('#drpType').val("Null");
         $('#drpUserType').val("Null");
         $('#btnDelete_Filter').addClass('display_none');
         CleaningList_Table();

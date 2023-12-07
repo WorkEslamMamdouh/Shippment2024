@@ -55,7 +55,8 @@ var Print_Order;
     }
     function Create_Invoice_Print() {
         $('#Print_Name_Cust').html("<strong>Name:</strong> " + _Inv.CustomerName);
-        $('#Print_Name_Phone').html("<strong>Phone:</strong> " + _Inv.CustomerMobile1);
+        //$('#Print_Name_Phone').html("<strong>Phone:</strong> " + _Inv.CustomerMobile1);
+        $('#Print_Name_Phone').html("<strong>Mobile :&nbsp;</strong> " + _Inv.CustomerMobile1 + "<strong>  &nbsp;&nbsp;    </strong><strong>  /  </strong> <strong>   &nbsp;&nbsp;   </strong>   " + _Inv.CustomerMobile2);
         $('#Print_Name_Address').html("<strong>Address:</strong> " + _Inv.Address);
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + _Inv.InvoiceID + " <br/><strong>        RefNO :</strong> " + _Inv.RefNO);
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + DateFormat(_Inv.DeliveryDate));
@@ -64,7 +65,7 @@ var Print_Order;
         ItemCount = 0;
         for (var i = 0; i < _InvItems.length; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
-                var Row = "<tr>\n                           <td class=\"Type_Note display_none\">".concat(_InvItems[i].ItemCode, " </td>\n                           <td>").concat(_InvItems[i].ItemDescA, " </td>\n                           <td Class=\"Type_Invoice\">").concat(_InvItems[i].SoldQty, "</td>\n                           <td Class=\"Type_Invoice\">").concat(_InvItems[i].Unitprice, "</td>\n                           <td Class=\"Type_Invoice\">").concat((_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2), "</td>\n                        </tr>");
+                var Row = "<tr>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].ItemCode + " </td>\n                           <td>" + _InvItems[i].ItemDescA + " </td>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].Remark + " </td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].SoldQty + "</td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].Unitprice + "</td>\n                           <td Class=\"Type_Invoice\">" + (_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2) + "</td>\n                        </tr>";
                 ItemTotal = ItemTotal + _InvItems[i].ItemTotal;
                 ItemCount = ItemCount + _InvItems[i].SoldQty;
                 $('#Body_Inv_Print').append(Row);

@@ -80,12 +80,13 @@
                     <p id="Print_Name_Phone"><strong>Phone:</strong> (555) 555-5555</p>
                     <p id="Print_Name_Address"><strong>Address:</strong> 123 Main St, City, Country</p>
                 </div>
-                <div class="invoice"> 
+                <div class="invoice">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th class="Type_Note display_none">Code</th>
                                 <th>Item</th>
+                                <th class="Type_Note display_none">Remark</th>
                                 <th Class="Type_Invoice">Qty</th>
                                 <th class="Type_Invoice">Price</th>
                                 <th class="Type_Invoice">Total</th>
@@ -111,7 +112,7 @@
                     </div>
                     <br />
                     <table class="Type_Invoice User1 User2 table display_none">
-                        <thead> 
+                        <thead>
                             <tr>
                                 <th>Prc Vat :</th>
                                 <th><input type="number" disabled value="0" id="Txt_PrcVatAmount" class=" u-input u-input-rectangle"><input type="hidden" value="0" id="Txt_VatAmount" class=" u-input u-input-rectangle"></th>
@@ -128,10 +129,11 @@
                                 <th>Net :</th>
                                 <th><input disabled type="number" value="0" id="Txt_NetAmount" class=" u-input u-input-rectangle"></th>
                             </tr>
-                        </thead> 
+                        </thead>
 
                     </table>
-
+                    <p id="" class="Type_Invoice"></p>
+                    <p id="Print_Remark_Inv" class="Type_Invoice"><strong>Remark:</strong> </p>
                 </div>
                 <div class="receipt"> 
                     <p id="Tran_ID_Print"><strong>Transaction ID:</strong> 123456789</p>
