@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    View_Seller_Orders.InitalizeComponent();
+    Seller_Return.InitalizeComponent();
 });
-var View_Seller_Orders;
-(function (View_Seller_Orders) {
+var Seller_Return;
+(function (Seller_Return) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
     var _Invoices = new Array();
@@ -13,7 +13,7 @@ var View_Seller_Orders;
         GetData_InvoiceSeller();
         Close_Loder();
     }
-    View_Seller_Orders.InitalizeComponent = InitalizeComponent;
+    Seller_Return.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
     }
     function InitializeEvents() {
@@ -23,8 +23,8 @@ var View_Seller_Orders;
         var Table;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
+                { NameTable: 'Sls_Invoice', Condition: " TrType = 1 and Status =10 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 1 and Status =10 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -72,5 +72,5 @@ var View_Seller_Orders;
         }
         GetData_InvoiceSeller();
     }
-})(View_Seller_Orders || (View_Seller_Orders = {}));
-//# sourceMappingURL=View_Seller_Orders.js.map
+})(Seller_Return || (Seller_Return = {}));
+//# sourceMappingURL=Seller_Return.js.map

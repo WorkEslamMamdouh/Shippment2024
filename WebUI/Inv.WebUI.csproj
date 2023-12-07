@@ -1135,6 +1135,9 @@
     <Content Include="Views\GeneralHub\History_OrderIndex.cshtml" />
     <Content Include="Views\Zone\FamilyZonesIndex.cshtml" />
     <Content Include="Views\UserControl\Seller_ControlIndex.cshtml" />
+    <Content Include="Views\Saller\Seller_ReturnIndex.cshtml" />
+    <Content Include="Views\Saller\Seller_Coll_InvIndex.cshtml" />
+    <Content Include="Views\Saller\Seller_Wait_InvIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1179,6 +1182,9 @@
     <TypeScriptCompile Include="ClientApp\Home\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Order\Print_Order.ts" />
     <TypeScriptCompile Include="ClientApp\Order\Edit_Order.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\Seller_Wait_Inv.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\Seller_Coll_Inv.ts" />
+    <TypeScriptCompile Include="ClientApp\Saller\Seller_Return.ts" />
     <TypeScriptCompile Include="ClientApp\UserControl\Seller_Control.ts" />
     <TypeScriptCompile Include="ClientApp\Vouchers\VoucherPayment.ts" />
     <TypeScriptCompile Include="ClientApp\Vouchers\VoucherReceipt.ts" />

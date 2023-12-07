@@ -286,13 +286,30 @@ namespace CashCollect {
 
     }
     function Filter_Select_Delivery_onclick() {
-        if (db_Zone.value == 'null') {
-            Errorinput($('#db_Zone'), "Must Select Zone")
-            return;
+        let Con = "";
+        if ($('#db_FamilyZone').val() == 'null') {
+            Errorinput($('#db_FamilyZone'), "Must Select Family  Zone")
+            return
+        }
+
+        if ($('#db_Zone').val() != 'null') {
+            Con = " and ZoneID =" + Number($('#db_Zone').val());
+        } else {
+            let zoneValues = "";
+            for (var i = 1; i < db_Zone.childElementCount; i++) {
+                db_Zone.selectedIndex = i;
+                let valu = db_Zone.value;
+                zoneValues = zoneValues + valu
+                if (i != db_Zone.childElementCount - 1) {
+                    zoneValues = zoneValues + ","
+                }
+            }
+            db_Zone.selectedIndex = 0;
+            Con = " and ZoneID in (" + zoneValues + ")";
         }
 
         debugger
-        let Con = " and ZoneID = " + db_Zone.value + ""; 
+        
             sys.FindKey("Salesman", "btnSalesman", " Status = 5 " + Con + "", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr

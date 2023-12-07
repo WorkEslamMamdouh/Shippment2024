@@ -11,6 +11,8 @@ var Chase_Delivery;
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
     var _IQ_ItemCollect = new Array();
+    var _Zones = new Array();
+    var _ZonesFltr = new Array();
     var _Invs;
     var _Invs_Ret;
     var txtSearch;
@@ -21,6 +23,7 @@ var Chase_Delivery;
     var View_Invoices;
     var View_Return;
     var db_Zone;
+    var db_FamilyZone;
     var SalesmanId = 0;
     function InitalizeComponent() {
         $('.Txt_Ret_Tot').addClass('display_none');
@@ -44,6 +47,7 @@ var Chase_Delivery;
         btnDelete_Filter = document.getElementById('btnDelete_Filter');
         View_Invoices = document.getElementById('View_Invoices');
         View_Return = document.getElementById('View_Return');
+        db_FamilyZone = document.getElementById('db_FamilyZone');
         db_Zone = document.getElementById('db_Zone');
     }
     function InitializeEvents() {
@@ -52,6 +56,7 @@ var Chase_Delivery;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear;
+        db_FamilyZone.onchange = FltrZones;
         View_Invoices.onclick = function () { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none'); };
         View_Return.onclick = function () { $('.Txt_Ret_Tot').removeClass('display_none'); $('.Txt_Inv_Tot').addClass('display_none'); };
     }
@@ -194,12 +199,18 @@ var Chase_Delivery;
         Table =
             [
                 { NameTable: 'Zones', Condition: " Active = 1" },
+                { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        var _Zones = GetDataTable('Zones');
-        var db_Zone = document.getElementById("db_Zone");
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        _Zones = GetDataTable('Zones');
+        var _FamilyZones = GetDataTable('FamilyZone');
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(function (x) { return x.FamilyZoneID == Number(db_FamilyZone.value); });
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
     }
     function GetData_InvoiceCollect() {
         CleaningList_Table();
@@ -257,12 +268,29 @@ var Chase_Delivery;
         }
     }
     function Filter_Select_Delivery_onclick() {
-        if (db_Zone.value == 'null') {
-            Errorinput($('#db_Zone'), "Must Select Zone");
+        debugger;
+        var Con = "";
+        if ($('#db_FamilyZone').val() == 'null') {
+            Errorinput($('#db_FamilyZone'), "Must Select Family  Zone");
             return;
         }
         debugger;
-        var Con = " and ZoneID = " + db_Zone.value + "";
+        if ($('#db_Zone').val() != 'null') {
+            Con = " and ZoneID =" + Number($('#db_Zone').val());
+        }
+        else {
+            var zoneValues = "";
+            for (var i = 1; i < db_Zone.childElementCount; i++) {
+                db_Zone.selectedIndex = i;
+                var valu = db_Zone.value;
+                zoneValues = zoneValues + valu;
+                if (i != db_Zone.childElementCount - 1) {
+                    zoneValues = zoneValues + ",";
+                }
+            }
+            db_Zone.selectedIndex = 0;
+            Con = " and ZoneID in (" + zoneValues + ")";
+        }
         sys.FindKey("Follow_UP", "btnSalesman", "  Status = 4 " + Con + "", function () {
             debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;

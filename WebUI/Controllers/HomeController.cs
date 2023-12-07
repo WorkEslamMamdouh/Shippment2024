@@ -61,7 +61,10 @@ namespace Inv.WebUI.Controllers
          "~/Views/GeneralHub/Chase_DeliveryIndex.cshtml",
          "~/Views/GeneralHub/Items_In_StoresIndex.cshtml",
          "~/Views/GeneralHub/History_OrderIndex.cshtml",
-         "~/Views/GeneralHub/MoneyIndex.cshtml", 
+         "~/Views/GeneralHub/MoneyIndex.cshtml",
+         "~/Views/Saller/Seller_ReturnIndex.cshtml",
+         "~/Views/Saller/Seller_Coll_InvIndex.cshtml",
+         "~/Views/Saller/Seller_Wait_InvIndex.cshtml", 
 
                       };
 

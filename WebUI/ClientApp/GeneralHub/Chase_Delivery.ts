@@ -14,6 +14,10 @@ namespace Chase_Delivery {
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
     var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
+
+    var _Zones: Array<Zones> = new Array<Zones>();
+    var _ZonesFltr: Array<Zones> = new Array<Zones>();
+
     var _Invs;
     var _Invs_Ret;
     var txtSearch: HTMLInputElement;
@@ -24,6 +28,7 @@ namespace Chase_Delivery {
     var View_Invoices: HTMLButtonElement;
     var View_Return: HTMLButtonElement;
     var db_Zone: HTMLSelectElement;
+    var db_FamilyZone: HTMLSelectElement;
 
     var SalesmanId = 0;
     export function InitalizeComponent() {
@@ -49,8 +54,8 @@ namespace Chase_Delivery {
         btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement; 
         View_Invoices = document.getElementById('View_Invoices') as HTMLButtonElement;
         View_Return = document.getElementById('View_Return') as HTMLButtonElement;
+        db_FamilyZone = document.getElementById('db_FamilyZone') as HTMLSelectElement;
         db_Zone = document.getElementById('db_Zone') as HTMLSelectElement;
-
     }
     function InitializeEvents() {
 
@@ -60,6 +65,7 @@ namespace Chase_Delivery {
         Filter_View.onclick = GetData_InvoiceCollect;
         btnDelete_Filter.onclick = Clear; 
 
+        db_FamilyZone.onchange = FltrZones;
         View_Invoices.onclick = () => { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none') }
         View_Return.onclick = () => { $('.Txt_Ret_Tot').removeClass('display_none'); $('.Txt_Inv_Tot').addClass('display_none') }
     }
@@ -210,15 +216,22 @@ namespace Chase_Delivery {
         Table =
             [
                 { NameTable: 'Zones', Condition: " Active = 1" },
+                { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ]
 
         DataResult(Table);
         //**************************************************************************************************************
 
-        let _Zones = GetDataTable('Zones');
+        _Zones = GetDataTable('Zones');
+        let _FamilyZones = GetDataTable('FamilyZone');
 
-        let db_Zone = document.getElementById("db_Zone") as HTMLSelectElement;
-        DocumentActions.FillCombowithdefult(_Zones, db_Zone, "ZoneID", 'DescA', 'Select Zone');
+        DocumentActions.FillCombowithdefult(_FamilyZones, db_FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(x => x.FamilyZoneID == Number(db_FamilyZone.value));
+        DocumentActions.FillCombowithdefult(_ZonesFltr, db_Zone, "ZoneID", 'DescA', 'Select Zone');
 
     }
     function GetData_InvoiceCollect() {
@@ -289,13 +302,29 @@ namespace Chase_Delivery {
 
     }
     function Filter_Select_Delivery_onclick() {
-        if (db_Zone.value == 'null') {
-            Errorinput($('#db_Zone'), "Must Select Zone")
-            return;
-        } 
-
+         
         debugger
-        let Con = " and ZoneID = " + db_Zone.value + "";
+        let Con = "";
+        if ($('#db_FamilyZone').val() == 'null') {
+            Errorinput($('#db_FamilyZone'), "Must Select Family  Zone")
+            return
+        }
+        debugger
+        if ($('#db_Zone').val() != 'null') {
+            Con = " and ZoneID =" + Number($('#db_Zone').val());
+        } else {
+            let zoneValues = "";
+            for (var i = 1; i < db_Zone.childElementCount; i++) {
+                db_Zone.selectedIndex = i;
+                let valu = db_Zone.value;
+                zoneValues = zoneValues + valu
+                if (i != db_Zone.childElementCount - 1) {
+                    zoneValues = zoneValues + ","
+                }
+            }
+            db_Zone.selectedIndex = 0;
+            Con = " and ZoneID in (" + zoneValues + ")";
+        }
         sys.FindKey("Follow_UP", "btnSalesman", "  Status = 4 " + Con + "", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
