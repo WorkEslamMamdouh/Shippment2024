@@ -12,6 +12,7 @@ namespace View_Order {
     var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
     var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
 
+    var btn_RetrunSeller: HTMLButtonElement;
     var btn_Delete: HTMLButtonElement;
     var btn_freeze: HTMLButtonElement;
     var btn_Edit_Order: HTMLButtonElement;
@@ -20,6 +21,7 @@ namespace View_Order {
     var btn_Print: HTMLButtonElement;
     var btn_Delivery_Order: HTMLButtonElement;
     var btn_Deliver_shipment: HTMLButtonElement;
+    var btn_Order_shipment: HTMLButtonElement;
     var btn_Deliver_Customer: HTMLButtonElement;
     var btn_Receiving_Order: HTMLButtonElement;
     var btn_Active: HTMLButtonElement;
@@ -28,13 +30,13 @@ namespace View_Order {
 
 
     var InvoiceID = 0;
-     
+
 
     export function InitalizeComponent() {
 
         let _USERS = GetGlopelDataUser()
         _USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase())
-
+ 
         InitalizeControls();
         InitializeEvents();
 
@@ -43,13 +45,14 @@ namespace View_Order {
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
         Display_information_Inv();
-        Display_Role_User();
+        Display_Role_User(); 
+
         Close_Loder();
 
         SetRefresh(GetModuleCode())
     }
     function SetRefresh(moduleCode: string) {
-     
+
         $(document).on('click', '.Refresh_' + moduleCode, function () {
             Dis_Refrsh();
             // Shows an alert when a dynamically created button is clicked
@@ -57,6 +60,7 @@ namespace View_Order {
     }
     function InitalizeControls() {
 
+        btn_RetrunSeller = document.getElementById('btn_RetrunSeller') as HTMLButtonElement;
         btn_Delete = document.getElementById('btn_Delete') as HTMLButtonElement;
         btn_freeze = document.getElementById('btn_freeze') as HTMLButtonElement;
         btn_Edit_Order = document.getElementById('btn_Edit_Order') as HTMLButtonElement;
@@ -65,6 +69,7 @@ namespace View_Order {
         btn_Print = document.getElementById('btn_Print') as HTMLButtonElement;
         btn_Delivery_Order = document.getElementById('btn_Delivery_Order') as HTMLButtonElement;
         btn_Deliver_shipment = document.getElementById('btn_Deliver_shipment') as HTMLButtonElement;
+        btn_Order_shipment = document.getElementById('btn_Order_shipment') as HTMLButtonElement;
         btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer') as HTMLButtonElement;
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order') as HTMLButtonElement;
         btn_Active = document.getElementById('btn_Active') as HTMLButtonElement;
@@ -72,6 +77,7 @@ namespace View_Order {
         btn_Return_All_Order = document.getElementById('btn_Return_All_Order') as HTMLButtonElement;
     }
     function InitializeEvents() {
+        btn_RetrunSeller.onclick = btn_RetrunSeller_onclick
         btn_Delete.onclick = btn_Delete_onclick
         btn_freeze.onclick = btn_freeze_onclick
         btn_Edit_Order.onclick = btn_Edit_Order_onclick
@@ -80,6 +86,7 @@ namespace View_Order {
         btn_Print.onclick = btn_Print_onclick
         btn_Delivery_Order.onclick = btn_Delivery_Order_onclick
         btn_Deliver_shipment.onclick = btn_Deliver_shipment_onclick
+        btn_Order_shipment.onclick = btn_Order_shipment_onclick
         btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick
         btn_Active.onclick = btn_Active_onclick
@@ -87,7 +94,9 @@ namespace View_Order {
         btn_Return_All_Order.onclick = btn_Return_All_Order_onclick
     }
 
-    function Display_information_Inv() {
+    function Display_information_Inv() { 
+        $("#btn_Order_shipment").addClass('display_none');
+
         $("._clearSta").removeClass("is-active");
         $("#View_Status" + _Inv.Status).addClass("is-active");
 
@@ -99,9 +108,23 @@ namespace View_Order {
         $("#Comm_Total_View_Or").html(" Commition ( " + _Inv.CommitionAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Net Total ( " + _Inv.NetAfterVat + " ) ");
         $("#Coun_View").html("  &nbsp;&nbsp;&nbsp;    Counter Item ( " + _Inv.ItemCount + " ) ");
 
+        
+        if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) {
+            let htm =`      <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-5">
+                        <span class="u-align-center u-file-icon u-icon u-text-white u-icon-4"><img src="/NewStyle/images/2560416-11b1db70.png" alt=""></span>
+                        <h4 class="u-align-center u-custom-font u-text u-text-font u-text-6">
+                            Deliver ( ${_Inv.SlsMan_Name} )<br>
+                        </h4>
+                    </div>`
+            $("#btn_Deliver_shipment").html(htm);
+
+            $("#btn_Order_shipment").removeClass('display_none'); 
+        }
+
     }
 
     function Display_Role_User() {
+
         $(".USER" + _USER[0].USER_TYPE).removeClass('hidden_Control')
         $(".Status" + _Inv.Status).removeClass('display_none')
 
@@ -123,17 +146,27 @@ namespace View_Order {
                 $("#btn_Edit_Order").addClass("display_none")
             }
         }
+         
+        $("#btn_Order_shipment").addClass('display_none');
 
-
+        if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) { 
+            $("#btn_Order_shipment").removeClass('display_none');
+        }
     }
 
     //******************************************************* Events Buttons ************************************
 
+    function btn_RetrunSeller_onclick() {
+        UpdateInvStatus(InvoiceID, 0, 10, 'Retrun To Seller( ' + _Inv.InvoiceID + ' )', () => {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click(); 
+        })
+    }
     function btn_Delete_onclick() {
         UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.InvoiceID + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-           
+
         })
     }
     function btn_freeze_onclick() {
@@ -168,13 +201,13 @@ namespace View_Order {
         UpdateInvStatus(InvoiceID, 0, 2, 'Confirm Invoice ( ' + _Inv.InvoiceID + ' )', () => {
             $('#Back_Page').click();
             $("#Display_Back_Page").click();
-           
+
         })
     }
     function btn_Receiving_Order_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
         OpenPagePartial("Coding_Items", "Download items", null, () => { Display_Refrsh() });
-    } 
+    }
     function btn_Print_onclick() {
 
         localStorage.setItem("InvoiceID", InvoiceID.toString())
@@ -190,10 +223,10 @@ namespace View_Order {
     }
     function btn_Deliver_shipment_onclick() {
         sys.FindKey("Deliver", "btnDeliver", " Isactive = 1 and ZoneID =" + _Inv.ZoneID, () => {
-            debugger
+            
             let id = SearchGrid.SearchDataGrid.SelectedKey
 
-            UpdateInvStatus(InvoiceID, id, 4, 'Deliver Shipment ( ' + _Inv.InvoiceID + ' )', () => {
+            UpdateInvStatus(InvoiceID, id, 3, 'Deliver Shipment ( ' + _Inv.InvoiceID + ' )', () => {
                 $('#Back_Page').click();
                 $("#Display_Back_Page").click();
             })
@@ -201,9 +234,17 @@ namespace View_Order {
 
         });
     }
+    function btn_Order_shipment_onclick() {
+
+        UpdateInvStatus(InvoiceID, _Inv.SalesmanId, 4, 'Confirm Invoice ( ' + _Inv.InvoiceID + ' )', () => {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click();
+
+        })
+    }
     function btn_Open_Location_onclick() {
 
-    } 
+    }
     function btn_Deliver_Customer_onclick() {
         UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', () => {
             $('#Back_Page').click();
@@ -215,7 +256,7 @@ namespace View_Order {
         OpenPagePartial("Return_Items", "Return Items", null, () => { Display_Refrsh() });
     }
     function btn_Return_All_Order_onclick() {
-  
+
         let StatusDesc = 'Return All Order ( ' + _Inv.InvoiceID + ' )';
         Ajax.CallsyncSave({
             type: "Get",
@@ -225,7 +266,7 @@ namespace View_Order {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
 
-               
+
                     ShowMessage('Done ✅')
                     $('#Back_Page').click();
                     $("#Display_Back_Page").click();
@@ -242,13 +283,13 @@ namespace View_Order {
             Run_Fun = true;
             return
         }
-         
+
         Dis_Refrsh();
     }
     function Dis_Refrsh() {
-        debugger
+        $("#btn_Order_shipment").addClass('display_none');
         $("#Display_Back_Page").click();
-         
+
         _Inv = new Vnd_Inv_SlsMan();
         _Invoices = new Array<Vnd_Inv_SlsMan>();
 
@@ -257,12 +298,12 @@ namespace View_Order {
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
         if (_Inv == null) {
-            debugger
+            
             $('#Back_Page').click();
-           
+
             return;
         }
-        debugger
+        
         Display_information_Inv();
     }
 }

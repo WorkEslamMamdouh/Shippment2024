@@ -60,12 +60,20 @@ var Print_Order;
         $('#Print_Name_Address').html("<strong>Address:</strong> " + _Inv.Address);
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + _Inv.InvoiceID + " <br/><strong>        RefNO :</strong> " + _Inv.RefNO);
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + DateFormat(_Inv.DeliveryDate));
+        //$('#Tran_CreatedAt_Print').html("<strong>Created At :</strong> " + _Inv.CreatedAt + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp;    </strong>" + "<strong>Created By :</strong> " + _Inv.CreatedBy);
+        $('#Tran_CreatedBy_Print').html("<strong>Created By :</strong> " + _Inv.CreatedBy + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;    </strong>" + "<strong>Created At :</strong> " + _Inv.CreatedAt);
+        if (_Inv.SlsMan_Name != null) {
+            $('#Print_Deliver_Name').html("<strong>Deliver Man :</strong> " + _Inv.SlsMan_Name);
+        }
+        else {
+            $('#Print_Deliver_Name').html("");
+        }
         $('#Body_Inv_Print').html('');
         ItemTotal = 0;
         ItemCount = 0;
         for (var i = 0; i < _InvItems.length; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
-                var Row = "<tr>\n                           <td class=\"Type_Note display_none\">".concat(_InvItems[i].ItemCode, " </td>\n                           <td>").concat(_InvItems[i].ItemDescA, " </td>\n                           <td class=\"Type_Note display_none\">").concat(_InvItems[i].Remark, " </td>\n                           <td Class=\"Type_Invoice\">").concat(_InvItems[i].SoldQty, "</td>\n                           <td Class=\"Type_Invoice\">").concat(_InvItems[i].Unitprice, "</td>\n                           <td Class=\"Type_Invoice\">").concat((_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2), "</td>\n                        </tr>");
+                var Row = "<tr>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].ItemCode + " </td>\n                           <td>" + _InvItems[i].ItemDescA + " </td>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].Remark + " </td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].SoldQty + "</td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].Unitprice + "</td>\n                           <td Class=\"Type_Invoice\">" + (_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2) + "</td>\n                        </tr>";
                 ItemTotal = ItemTotal + _InvItems[i].ItemTotal;
                 ItemCount = ItemCount + _InvItems[i].SoldQty;
                 $('#Body_Inv_Print').append(Row);
@@ -87,6 +95,8 @@ var Print_Order;
         $('#Txt_VatAmount').val(VatAmount);
         var CommitionAmount = Number($('#Txt_CommitionAmount').val());
         $('#Txt_NetAmount').val((VatAmount + TotalAmount + CommitionAmount).toFixed(2));
+        var TafkeetArab = TafkeetArabValue(Number(_Inv.NetAfterVat.toFixed(2)));
+        $('#Txt_TotalAmountArab').val(TafkeetArab);
     }
     function _Print_Invoice_onclick() {
         printDiv('Body_Print_Inv');

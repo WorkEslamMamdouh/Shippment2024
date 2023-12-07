@@ -76,9 +76,11 @@
                 </div>
                 <div class="Type_Invoice customer-info">
                     <h2>Customer Information</h2>
-                    <p id="Print_Name_Cust"><strong>Name:</strong> John Doe</p>
-                    <p id="Print_Name_Phone"><strong>Phone:</strong> (555) 555-5555</p>
-                    <p id="Print_Name_Address"><strong>Address:</strong> 123 Main St, City, Country</p>
+                    <p class="Type_Invoice" id="Tran_Date_Print"><strong>Date :</strong> October 28, 2023</p> 
+                    <p id="Print_Name_Cust"><strong>Name :</strong> John Doe</p>
+                    <p id="Print_Name_Phone"><strong>Phone :</strong> (555) 555-5555</p>
+                    <p id="Print_Name_Address"><strong>Address :</strong> 123 Main St, City, Country</p>
+                    <p id="Print_Deliver_Name"><strong>Deliver Man :</strong> 123 Main St, City, Country</p>
                 </div>
                 <div class="invoice">
                     <table class="table">
@@ -132,12 +134,20 @@
                         </thead>
 
                     </table>
+                    <table class="Type_Invoice User1 User2 table display_none">
+                        <thead>
+                            <tr>
+                                <th> <input disabled type="text" value="0" id="Txt_TotalAmountArab" class=" u-input u-input-rectangle" style="text-align: center;font-size: 24px;"></th>
+                            </tr>
+                        </thead> 
+                    </table>
                     <p id="" class="Type_Invoice"></p>
                     <p id="Print_Remark_Inv" class="Type_Invoice"><strong>Remark:</strong> </p>
                 </div>
                 <div class="receipt"> 
                     <p id="Tran_ID_Print"><strong>Transaction ID:</strong> 123456789</p>
-                    <p class="Type_Invoice" id="Tran_Date_Print"><strong>Date:</strong> October 28, 2023</p>
+                    @*<p id="Tran_CreatedAt_Print"><strong>Created At :</strong> 123456789</p>*@
+                    <p id="Tran_CreatedBy_Print"><strong>Created By :</strong> 123456789</p>
                 </div>
             </div>
         </div>

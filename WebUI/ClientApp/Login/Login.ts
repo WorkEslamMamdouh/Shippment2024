@@ -205,7 +205,7 @@ namespace Login {
             Errorinput($('#Reg_Validation_Code'), "Please a Enter Valid Code 😡");
             return
         }
-
+         
         else if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
             Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
             return

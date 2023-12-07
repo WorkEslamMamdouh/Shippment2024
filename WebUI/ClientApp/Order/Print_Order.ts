@@ -85,6 +85,16 @@ namespace Print_Order {
         $('#Tran_ID_Print').html("<strong>Transaction ID:</strong> " + _Inv.InvoiceID + " <br/><strong>        RefNO :</strong> " + _Inv.RefNO);
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + DateFormat(_Inv.DeliveryDate));
 
+        //$('#Tran_CreatedAt_Print').html("<strong>Created At :</strong> " + _Inv.CreatedAt + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp;    </strong>" + "<strong>Created By :</strong> " + _Inv.CreatedBy);
+        $('#Tran_CreatedBy_Print').html("<strong>Created By :</strong> " + _Inv.CreatedBy + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;    </strong>"  + "<strong>Created At :</strong> " + _Inv.CreatedAt );
+
+        if (_Inv.SlsMan_Name != null) {
+            $('#Print_Deliver_Name').html("<strong>Deliver Man :</strong> " + _Inv.SlsMan_Name); 
+        }
+        else {
+            $('#Print_Deliver_Name').html(""); 
+        }
+
         $('#Body_Inv_Print').html('');
 
         ItemTotal = 0;
@@ -127,6 +137,10 @@ namespace Print_Order {
         $('#Txt_VatAmount').val(VatAmount)
         let CommitionAmount = Number($('#Txt_CommitionAmount').val())
         $('#Txt_NetAmount').val((VatAmount + TotalAmount + CommitionAmount).toFixed(2))
+
+        let TafkeetArab = TafkeetArabValue(Number(_Inv.NetAfterVat.toFixed(2)))
+        $('#Txt_TotalAmountArab').val(TafkeetArab)
+
     }
     function _Print_Invoice_onclick() {
         printDiv('Body_Print_Inv')

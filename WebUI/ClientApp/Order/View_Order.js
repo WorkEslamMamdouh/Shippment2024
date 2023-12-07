@@ -9,6 +9,7 @@ var View_Order;
     var _Inv = new Vnd_Inv_SlsMan();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
+    var btn_RetrunSeller;
     var btn_Delete;
     var btn_freeze;
     var btn_Edit_Order;
@@ -17,6 +18,7 @@ var View_Order;
     var btn_Print;
     var btn_Delivery_Order;
     var btn_Deliver_shipment;
+    var btn_Order_shipment;
     var btn_Deliver_Customer;
     var btn_Receiving_Order;
     var btn_Active;
@@ -45,6 +47,7 @@ var View_Order;
         });
     }
     function InitalizeControls() {
+        btn_RetrunSeller = document.getElementById('btn_RetrunSeller');
         btn_Delete = document.getElementById('btn_Delete');
         btn_freeze = document.getElementById('btn_freeze');
         btn_Edit_Order = document.getElementById('btn_Edit_Order');
@@ -53,6 +56,7 @@ var View_Order;
         btn_Print = document.getElementById('btn_Print');
         btn_Delivery_Order = document.getElementById('btn_Delivery_Order');
         btn_Deliver_shipment = document.getElementById('btn_Deliver_shipment');
+        btn_Order_shipment = document.getElementById('btn_Order_shipment');
         btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer');
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order');
         btn_Active = document.getElementById('btn_Active');
@@ -60,6 +64,7 @@ var View_Order;
         btn_Return_All_Order = document.getElementById('btn_Return_All_Order');
     }
     function InitializeEvents() {
+        btn_RetrunSeller.onclick = btn_RetrunSeller_onclick;
         btn_Delete.onclick = btn_Delete_onclick;
         btn_freeze.onclick = btn_freeze_onclick;
         btn_Edit_Order.onclick = btn_Edit_Order_onclick;
@@ -68,6 +73,7 @@ var View_Order;
         btn_Print.onclick = btn_Print_onclick;
         btn_Delivery_Order.onclick = btn_Delivery_Order_onclick;
         btn_Deliver_shipment.onclick = btn_Deliver_shipment_onclick;
+        btn_Order_shipment.onclick = btn_Order_shipment_onclick;
         btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick;
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick;
         btn_Active.onclick = btn_Active_onclick;
@@ -75,6 +81,7 @@ var View_Order;
         btn_Return_All_Order.onclick = btn_Return_All_Order_onclick;
     }
     function Display_information_Inv() {
+        $("#btn_Order_shipment").addClass('display_none');
         $("._clearSta").removeClass("is-active");
         $("#View_Status" + _Inv.Status).addClass("is-active");
         $("#Name_Campany_View_Or").html("Company: " + _Inv.Remark);
@@ -84,6 +91,11 @@ var View_Order;
         $("#Vat_Total_View_Or").html(" Vat ( " + _Inv.VatAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total ( " + _Inv.TotalAmount + " ) ");
         $("#Comm_Total_View_Or").html(" Commition ( " + _Inv.CommitionAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Net Total ( " + _Inv.NetAfterVat + " ) ");
         $("#Coun_View").html("  &nbsp;&nbsp;&nbsp;    Counter Item ( " + _Inv.ItemCount + " ) ");
+        if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) {
+            var htm = "      <div class=\"u-container-layout u-similar-container u-valign-middle u-container-layout-5\">\n                        <span class=\"u-align-center u-file-icon u-icon u-text-white u-icon-4\"><img src=\"/NewStyle/images/2560416-11b1db70.png\" alt=\"\"></span>\n                        <h4 class=\"u-align-center u-custom-font u-text u-text-font u-text-6\">\n                            Deliver ( " + _Inv.SlsMan_Name + " )<br>\n                        </h4>\n                    </div>";
+            $("#btn_Deliver_shipment").html(htm);
+            $("#btn_Order_shipment").removeClass('display_none');
+        }
     }
     function Display_Role_User() {
         $(".USER" + _USER[0].USER_TYPE).removeClass('hidden_Control');
@@ -105,8 +117,18 @@ var View_Order;
                 $("#btn_Edit_Order").addClass("display_none");
             }
         }
+        $("#btn_Order_shipment").addClass('display_none');
+        if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) {
+            $("#btn_Order_shipment").removeClass('display_none');
+        }
     }
     //******************************************************* Events Buttons ************************************
+    function btn_RetrunSeller_onclick() {
+        UpdateInvStatus(InvoiceID, 0, 10, 'Retrun To Seller( ' + _Inv.InvoiceID + ' )', function () {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click();
+        });
+    }
     function btn_Delete_onclick() {
         UpdateInvStatus(InvoiceID, 0, -1, 'Delete Invoice ( ' + _Inv.InvoiceID + ' )', function () {
             $('#Back_Page').click();
@@ -159,12 +181,17 @@ var View_Order;
     }
     function btn_Deliver_shipment_onclick() {
         sys.FindKey("Deliver", "btnDeliver", " Isactive = 1 and ZoneID =" + _Inv.ZoneID, function () {
-            debugger;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
-            UpdateInvStatus(InvoiceID, id, 4, 'Deliver Shipment ( ' + _Inv.InvoiceID + ' )', function () {
+            UpdateInvStatus(InvoiceID, id, 3, 'Deliver Shipment ( ' + _Inv.InvoiceID + ' )', function () {
                 $('#Back_Page').click();
                 $("#Display_Back_Page").click();
             });
+        });
+    }
+    function btn_Order_shipment_onclick() {
+        UpdateInvStatus(InvoiceID, _Inv.SalesmanId, 4, 'Confirm Invoice ( ' + _Inv.InvoiceID + ' )', function () {
+            $('#Back_Page').click();
+            $("#Display_Back_Page").click();
         });
     }
     function btn_Open_Location_onclick() {
@@ -208,7 +235,7 @@ var View_Order;
         Dis_Refrsh();
     }
     function Dis_Refrsh() {
-        debugger;
+        $("#btn_Order_shipment").addClass('display_none');
         $("#Display_Back_Page").click();
         _Inv = new Vnd_Inv_SlsMan();
         _Invoices = new Array();
@@ -217,11 +244,9 @@ var View_Order;
         InvoiceID = Number(localStorage.getItem("InvoiceID"));
         _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
         if (_Inv == null) {
-            debugger;
             $('#Back_Page').click();
             return;
         }
-        debugger;
         Display_information_Inv();
     }
 })(View_Order || (View_Order = {}));
