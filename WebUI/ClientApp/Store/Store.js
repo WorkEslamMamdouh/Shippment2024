@@ -85,6 +85,7 @@ var Store;
                 var result = d;
                 if (result.IsSuccess == true) {
                     Display_Data();
+                    ShowMessage("Done 🤞😉");
                     Close_Loder();
                 }
                 else {

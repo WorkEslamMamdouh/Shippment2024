@@ -96,6 +96,7 @@ namespace Store {
 				let result = d as BaseResponse;
 				if (result.IsSuccess == true) {		
 					Display_Data();
+					ShowMessage("Done 🤞😉")
 					Close_Loder();
 				} else {
 
