@@ -40,7 +40,7 @@ namespace ShipOrder {
 
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
-            if ($('#db_Zone').val() == 'null') {
+            if ($('#db_FamilyZone').val() == 'null') {
                 return;
             }
             GetData_InvoiceShip()

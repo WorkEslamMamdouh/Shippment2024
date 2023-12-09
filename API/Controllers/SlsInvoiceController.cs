@@ -143,6 +143,13 @@ namespace Inv.API.Controllers
             { 
                 Cond = Cond + ", SalesmanId = 0 , CommitionAmount = 0";
             }
+            if (Status == 4)
+            {
+                DateTime now = DateTime.Now;
+                string formattedTime = now.ToString("HH:mm:ss"); 
+                Cond = Cond + ", TrTime = N'" + formattedTime +"'";
+
+            }
             string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
             Status =" + Status + " " + Cond + " where InvoiceID = " + InvoiceID + "";
             db.Database.ExecuteSqlCommand(Qury);

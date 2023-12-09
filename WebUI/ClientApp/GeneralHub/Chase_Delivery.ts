@@ -83,21 +83,12 @@ namespace Chase_Delivery {
         _Grid.OnItemEditing = () => { };
         _Grid.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
-            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
-                    let txt: HTMLLabelElement = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" }, 
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            { title: "Time", name: "TrTime", type: "text", width: "100px" },
             {
                 title: "Status", css: "ColumPadding", name: "Status", width: "100px",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
@@ -147,18 +138,8 @@ namespace Chase_Delivery {
         _Grid_Ret.OnItemEditing = () => { };
         _Grid_Ret.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
-            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
-                    let txt: HTMLLabelElement = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
-            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" }, 
+            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" }, 
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
@@ -237,8 +218,8 @@ namespace Chase_Delivery {
     function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger
-        let StartDate = DateFormat($('#Txt_From_Date').val());
-        let EndDate = DateFormat($('#Txt_To_Date').val());
+        //let StartDate = DateFormat($('#Txt_From_Date').val());
+        //let EndDate = DateFormat($('#Txt_To_Date').val());
         let Con = "";
         if (Number($('#Txt_SalesmanId').val()) != 0) {
             Con = " and ( SalesmanId =" + Number($('#Txt_SalesmanId').val()) + " )";
@@ -250,8 +231,8 @@ namespace Chase_Delivery {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 1)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0)   AND (Status = 5)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 1)   AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND  (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 0) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 1)   AND (Status = 4)  " + Con + " OR (TrType = 0)   AND (Status = 5)  " + Con + " OR (TrType = 0) AND (Status = 4)  " + Con + "" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 1)   AND (Status = 4)  " + Con + " OR (TrType = 0) AND  (Status = 5) " + Con + " OR (TrType = 0) AND (Status = 4)  " + Con + ")" },
             ]
 
         DataResult(Table);

@@ -196,6 +196,13 @@ var View_Order;
         });
     }
     function btn_Open_Location_onclick() {
+        // Replace '1600 Amphitheatre Parkway, Mountain View, CA' with the desired address
+        //var address = '1600 Amphitheatre Parkway, Mountain View, CA';
+        var address = _Inv.Location;
+        // Create the Google Maps URL
+        var googleMapsUrl = 'https://www.google.com/maps?q=' + encodeURIComponent(address);
+        // Open the URL in a new tab/window
+        window.open(googleMapsUrl, '_blank');
     }
     function btn_Deliver_Customer_onclick() {
         UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', function () {
