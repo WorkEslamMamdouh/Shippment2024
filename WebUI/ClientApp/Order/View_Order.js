@@ -253,7 +253,7 @@ var View_Order;
         InvoiceID = Number(localStorage.getItem("InvoiceID"));
         _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
         if (_Inv == null) {
-            alert(Flage_Back);
+            //alert(Flage_Back)
             if (Flage_Back < 2) {
                 Flage_Back++;
                 $('#Back_Page').click();

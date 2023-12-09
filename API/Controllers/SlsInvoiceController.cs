@@ -235,6 +235,19 @@ namespace Inv.API.Controllers
         }
 
 
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult UpdateInvRet_Remark(int InvoiceID, string Remark, decimal CommitionAmount)
+        { // InvoiceID: _InvoiceID, Remark: Remark, CommitionAmount: CommitionAmount },
+
+            string Qury = @"UPDATE[dbo].[Sls_Invoice] SET
+            Remark =N'" + Remark + "' , CommitionAmount = "+ CommitionAmount + " , NetAfterVat = (TotalAmount +  "+ CommitionAmount + ")  where InvoiceID = " + InvoiceID + "";
+            db.Database.ExecuteSqlCommand(Qury);
+             
+            return Ok(new BaseResponse(true));
+        }
+
+
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Coding_Item([FromBody] List<CustomCoding> obj)
         {

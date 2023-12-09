@@ -77,6 +77,14 @@ namespace Print_Order {
     }
 
     function Create_Invoice_Print() {
+        if (_Inv.TrType == 0) {
+            $('#Type_Inv').html("Invoice");
+        }
+        else {
+            $('#Type_Inv').html("Return"); 
+        }
+
+        $('#Print_Remark_Inv').html("<strong>Remark :</strong> " + _Inv.Remark);
         $('#Print_Name_Cust').html("<strong>Name:</strong> " + _Inv.CustomerName);
         //$('#Print_Name_Phone').html("<strong>Phone:</strong> " + _Inv.CustomerMobile1);
         $('#Print_Name_Phone').html("<strong>Mobile :&nbsp;</strong> " + _Inv.CustomerMobile1 + "<strong>  &nbsp;&nbsp;    </strong><strong>  /  </strong> <strong>   &nbsp;&nbsp;   </strong>   " + _Inv.CustomerMobile2);
@@ -86,13 +94,13 @@ namespace Print_Order {
         $('#Tran_Date_Print').html("<strong>Date:</strong> " + DateFormat(_Inv.DeliveryDate));
 
         //$('#Tran_CreatedAt_Print').html("<strong>Created At :</strong> " + _Inv.CreatedAt + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp;    </strong>" + "<strong>Created By :</strong> " + _Inv.CreatedBy);
-        $('#Tran_CreatedBy_Print').html("<strong>Created By :</strong> " + _Inv.CreatedBy + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;    </strong>"  + "<strong>Created At :</strong> " + _Inv.CreatedAt );
+        $('#Tran_CreatedBy_Print').html("<strong>Created By :</strong> " + _Inv.CreatedBy + "<strong>  &nbsp;&nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;    </strong>" + "<strong>Created At :</strong> " + _Inv.CreatedAt);
 
         if (_Inv.SlsMan_Name != null) {
-            $('#Print_Deliver_Name').html("<strong>Deliver Man :</strong> " + _Inv.SlsMan_Name); 
+            $('#Print_Deliver_Name').html("<strong>Deliver Man :</strong> " + _Inv.SlsMan_Name);
         }
         else {
-            $('#Print_Deliver_Name').html(""); 
+            $('#Print_Deliver_Name').html("");
         }
 
         $('#Body_Inv_Print').html('');

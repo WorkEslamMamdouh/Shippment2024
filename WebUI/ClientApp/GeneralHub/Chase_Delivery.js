@@ -79,7 +79,27 @@ var Chase_Delivery;
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
-            { title: "Time", name: "TrTime", type: "text", width: "100px" },
+            {
+                title: "Time", css: "ColumPadding", name: "TrTime", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    txt.innerHTML = ConvertTo12HourFormat(item.TrTime);
+                    txt.style.color = '#00dd40';
+                    txt.style.fontWeight = 'bold';
+                    return txt;
+                }
+            },
+            {
+                title: "Delivery Time", css: "ColumPadding", name: "TrTime", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("label");
+                    var time = GetTimeDifference(item.TrTime);
+                    txt.innerHTML = (time);
+                    txt.style.color = '#00dd40';
+                    txt.style.fontWeight = 'bold';
+                    return txt;
+                }
+            },
             {
                 title: "Status", css: "ColumPadding", name: "Status", width: "100px",
                 itemTemplate: function (s, item) {

@@ -54,6 +54,13 @@ var Print_Order;
         }
     }
     function Create_Invoice_Print() {
+        if (_Inv.TrType == 0) {
+            $('#Type_Inv').html("Invoice");
+        }
+        else {
+            $('#Type_Inv').html("Return");
+        }
+        $('#Print_Remark_Inv').html("<strong>Remark :</strong> " + _Inv.Remark);
         $('#Print_Name_Cust').html("<strong>Name:</strong> " + _Inv.CustomerName);
         //$('#Print_Name_Phone').html("<strong>Phone:</strong> " + _Inv.CustomerMobile1);
         $('#Print_Name_Phone').html("<strong>Mobile :&nbsp;</strong> " + _Inv.CustomerMobile1 + "<strong>  &nbsp;&nbsp;    </strong><strong>  /  </strong> <strong>   &nbsp;&nbsp;   </strong>   " + _Inv.CustomerMobile2);

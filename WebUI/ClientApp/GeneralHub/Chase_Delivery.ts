@@ -24,7 +24,7 @@ namespace Chase_Delivery {
     var txtSearchRet: HTMLInputElement;
     var Filter_Select_Delivery: HTMLButtonElement;
     var Filter_View: HTMLButtonElement;
-    var btnDelete_Filter: HTMLButtonElement; 
+    var btnDelete_Filter: HTMLButtonElement;
     var View_Invoices: HTMLButtonElement;
     var View_Return: HTMLButtonElement;
     var db_Zone: HTMLSelectElement;
@@ -51,7 +51,7 @@ namespace Chase_Delivery {
         txtSearchRet = document.getElementById('txtSearchRet') as HTMLInputElement;
         Filter_Select_Delivery = document.getElementById('Filter_Select_Delivery') as HTMLButtonElement;
         Filter_View = document.getElementById('Filter_View') as HTMLButtonElement;
-        btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement; 
+        btnDelete_Filter = document.getElementById('btnDelete_Filter') as HTMLButtonElement;
         View_Invoices = document.getElementById('View_Invoices') as HTMLButtonElement;
         View_Return = document.getElementById('View_Return') as HTMLButtonElement;
         db_FamilyZone = document.getElementById('db_FamilyZone') as HTMLSelectElement;
@@ -63,7 +63,7 @@ namespace Chase_Delivery {
         txtSearchRet.onkeyup = _SearchBoxRet_Change;
         Filter_Select_Delivery.onclick = Filter_Select_Delivery_onclick;
         Filter_View.onclick = GetData_InvoiceCollect;
-        btnDelete_Filter.onclick = Clear; 
+        btnDelete_Filter.onclick = Clear;
 
         db_FamilyZone.onchange = FltrZones;
         View_Invoices.onclick = () => { $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none') }
@@ -83,12 +83,36 @@ namespace Chase_Delivery {
         _Grid.OnItemEditing = () => { };
         _Grid.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
-            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" }, 
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
-            { title: "Time", name: "TrTime", type: "text", width: "100px" },
+            {
+                title: "Time", css: "ColumPadding", name: "TrTime", width: "100px",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
+                    let txt: HTMLLabelElement = document.createElement("label");
+
+                    txt.innerHTML = ConvertTo12HourFormat(item.TrTime)
+                    txt.style.color = '#00dd40'
+                    txt.style.fontWeight = 'bold'
+
+                    return txt;
+                }
+            },
+            {
+                title: "Delivery Time", css: "ColumPadding", name: "TrTime", width: "100px",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
+                    let txt: HTMLLabelElement = document.createElement("label");
+
+                    let time = GetTimeDifference(item.TrTime);
+                    txt.innerHTML = (time);
+                    txt.style.color = '#00dd40'
+                    txt.style.fontWeight = 'bold'
+
+                    return txt;
+                }
+            },
             {
                 title: "Status", css: "ColumPadding", name: "Status", width: "100px",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
@@ -138,8 +162,8 @@ namespace Chase_Delivery {
         _Grid_Ret.OnItemEditing = () => { };
         _Grid_Ret.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
-            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" }, 
-            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" }, 
+            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
+            { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
@@ -231,8 +255,8 @@ namespace Chase_Delivery {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 1)   AND (Status = 4)  " + Con + " OR (TrType = 0)   AND (Status = 5)  " + Con + " OR (TrType = 0) AND (Status = 4)  " + Con + "" },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 1)   AND (Status = 4)  " + Con + " OR (TrType = 0) AND  (Status = 5) " + Con + " OR (TrType = 0) AND (Status = 4)  " + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 1)   AND (Status = 4)  " + Con + " OR (TrType = 0)   AND (Status = 5)  " + Con + " OR (TrType = 0) AND (Status = 4)  " + Con + "" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 1)   AND (Status = 4)  " + Con + " OR (TrType = 0) AND  (Status = 5) " + Con + " OR (TrType = 0) AND (Status = 4)  " + Con + ")" },
             ]
 
         DataResult(Table);
@@ -283,7 +307,7 @@ namespace Chase_Delivery {
 
     }
     function Filter_Select_Delivery_onclick() {
-         
+
         debugger
         let Con = "";
         if ($('#db_FamilyZone').val() == 'null') {
@@ -345,11 +369,11 @@ namespace Chase_Delivery {
 
     }
 
-    function ViewInvoice(InvoiceID) { 
+    function ViewInvoice(InvoiceID) {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
         localStorage.setItem("InvoiceNote", "0")
-        OpenPagePartial("Print_Order", "Print Order 🧺"); 
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
-     
+
 
 }

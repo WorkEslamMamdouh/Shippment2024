@@ -16,7 +16,7 @@ namespace CashCollect {
     var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
     var _Zones: Array<Zones> = new Array<Zones>();
     var _ZonesFltr: Array<Zones> = new Array<Zones>();
-        
+
     var _Invs;
     var _Invs_Ret;
     var txtSearch: HTMLInputElement;
@@ -37,8 +37,6 @@ namespace CashCollect {
         $('.Txt_Ret_Tot').addClass('display_none'); $('.Txt_Inv_Tot').removeClass('display_none')
         InitalizeControls();
         InitializeEvents();
-        $('#Txt_From_Date').val(DateStartYear())
-        $('#Txt_To_Date').val(GetDate())
         InitializeGrid();
         InitializeGrid_Ret();
         GetData_Zones();
@@ -75,7 +73,7 @@ namespace CashCollect {
         //_Grid.OnRowDoubleClicked = GridDoubleClick;
         _Grid.PrimaryKey = "TRID";
         _Grid.Paging = true;
-        _Grid.PageSize = 15;
+        _Grid.PageSize = 50;
         _Grid.Sorting = true;
         _Grid.InsertionMode = JsGridInsertionMode.Binding;
         _Grid.Editing = false;
@@ -85,17 +83,7 @@ namespace CashCollect {
         _Grid.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
             { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
-                    let txt: HTMLLabelElement = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
@@ -122,7 +110,7 @@ namespace CashCollect {
         _Grid_Ret.ElementName = "_Grid_Ret";
         _Grid_Ret.PrimaryKey = "TRID";
         _Grid_Ret.Paging = true;
-        _Grid_Ret.PageSize = 15;
+        _Grid_Ret.PageSize = 50;
         _Grid_Ret.Sorting = true;
         _Grid_Ret.InsertionMode = JsGridInsertionMode.Binding;
         _Grid_Ret.Editing = false;
@@ -132,20 +120,45 @@ namespace CashCollect {
         _Grid_Ret.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
             { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
-                    let txt: HTMLLabelElement = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            {
+                title: "Remark", css: "ColumPadding", name: "Remark", width: "300px",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLTextAreaElement => {
+                    let txt: HTMLTextAreaElement = document.createElement("textarea");
+                    txt.style.width = "400px";
+                    txt.className = "Clear_Header u-input u-input-rectangle";
+                    txt.style.textAlign = "center";
+                    txt.id = "txtRemark" + item.InvoiceID;
+                    txt.value =item.Remark;
+
+                    txt.onchange = (e) => { 
+                        Update_Remark_Ret(item.InvoiceID, $('#txtRemark' + item.InvoiceID).val(), Number($('#txtCommitionAmount' + item.InvoiceID).val()))
+                    };
+
+                    return txt;
+                }
+            },
+            {
+                title: "Commition", css: "ColumPadding", name: "CommitionAmount", width: "100px",
+                itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
+                    let txt: HTMLInputElement = document.createElement("input");
+                    txt.type = "text";
+                    txt.style.width = "100%";
+                    txt.className = "Clear_Header u-input u-input-rectangle";
+                    txt.style.textAlign = "center";
+                    txt.id = "txtCommitionAmount" + item.InvoiceID;
+                    txt.value = item.CommitionAmount.toString();
+
+                    txt.onchange = (e) => {
+                        Update_Remark_Ret(item.InvoiceID, $('#txtRemark' + item.InvoiceID).val(), Number($('#txtCommitionAmount' + item.InvoiceID).val()))
+                    };
+
+                    return txt;
+                }
+            },
             {
                 title: "View",
                 itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
@@ -199,8 +212,8 @@ namespace CashCollect {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'Zones', Condition: " Active = 1" },
-            { NameTable: 'FamilyZone', Condition: " Active = 1" },
+                { NameTable: 'Zones', Condition: " Active = 1" },
+                { NameTable: 'FamilyZone', Condition: " Active = 1" },
             ]
 
         DataResult(Table);
@@ -221,8 +234,6 @@ namespace CashCollect {
     function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger
-        let StartDate = DateFormat($('#Txt_From_Date').val());
-        let EndDate = DateFormat($('#Txt_To_Date').val());
         let Con = "";
         if (Number($('#Txt_SalesmanId').val()) != 0) {
             Con = " and ( SalesmanId =" + Number($('#Txt_SalesmanId').val()) + " )";
@@ -234,8 +245,8 @@ namespace CashCollect {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) " + Con + " OR (TrType = 1) AND (Status = 4)  " + Con + "" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) " + Con + " OR (TrType = 1) AND (Status = 4)  " + Con + ")" },
             ]
 
         DataResult(Table);
@@ -309,8 +320,8 @@ namespace CashCollect {
         }
 
         debugger
-        
-            sys.FindKey("Salesman", "btnSalesman", " Status = 5 " + Con + "", () => {
+
+        sys.FindKey("Salesman", "btnSalesman", " Status = 5 " + Con + "", () => {
             debugger
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             SalesmanId = SearchGrid.SearchDataGrid.SelectedKey
@@ -320,8 +331,6 @@ namespace CashCollect {
         });
     }
     function Clear() {
-        $('#Txt_From_Date').val(DateStartYear())
-        $('#Txt_To_Date').val(GetDate())
         $('#Txt_SalesmanId').val('')
         Filter_Select_Delivery.innerHTML = 'Select Delivery'
         $('#btnDelete_Filter').addClass('display_none')
@@ -363,10 +372,10 @@ namespace CashCollect {
 
 
 
-        let ListInvoiceID = ''; 
+        let ListInvoiceID = '';
         let Frist = true;
         for (var i = 0; i < _Invs.length; i++) {
-             
+
             if (Frist == true) {
                 ListInvoiceID = ListInvoiceID + _Invs[i].InvoiceID.toString();
                 Frist = false;
@@ -377,19 +386,20 @@ namespace CashCollect {
 
         }
 
-        if (ListInvoiceID.trim() != "") {
-            if ($('#Txt_Transfer_No').val().trim() == "") {
-                $('#Tap_View_Inv').click()
-                $('#Tap_View_Inv').addClass('active');
-                $('#Tap_View_Ret').removeClass('active');
-                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No , If you will Collect Cash ,Put ( 0 ) ")
-                return
-            } 
-        }           
+
 
         let ListInvoiceIDRet = "";
-          Frist = true;
+        Frist = true;
         for (var i = 0; i < _Invs_Ret.length; i++) {
+
+
+            if ($("#txtRemark" + _Invs_Ret[i].InvoiceID).val().trim() == '') {
+                $('#Tap_View_Ret').click()
+                $('#Tap_View_Ret').addClass('active');
+                $('#Tap_View_Inv').removeClass('active');
+                Errorinput($("#txtRemark" + _Invs_Ret[i].InvoiceID), "Must Enter Remark")
+                return false
+            }
 
             if (Frist == true) {
                 ListInvoiceIDRet = ListInvoiceIDRet + _Invs_Ret[i].InvoiceID.toString();
@@ -400,24 +410,35 @@ namespace CashCollect {
             }
 
         }
-
-
-
-        let StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ' ;
+         
+        if (ListInvoiceID.trim() != "") {
+            if ($('#Txt_Transfer_No').val().trim() == "") {
+                $('#Tap_View_Inv').click()
+                $('#Tap_View_Inv').addClass('active');
+                $('#Tap_View_Ret').removeClass('active');
+                Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No , If you will Collect Cash ,Put ( 0 ) ")
+                return
+            }
+        }
+         
+        let StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ';
         let TrnsNo = $('#Txt_Transfer_No').val();
         Ajax.CallsyncSave({
             type: "Post",
-            url: sys.apiUrl("SlsInvoice", "CashCollectFrom_Delivery"), 
+            url: sys.apiUrl("SlsInvoice", "CashCollectFrom_Delivery"),
             data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode), BranchCode: Number(SysSession.CurrentEnvironment.BranchCode), ListInvoiceID: ListInvoiceID, ListInvoiceIDRet: ListInvoiceIDRet, SlsManID: SalesmanId, UserCode: SysSession.CurrentEnvironment.UserCode, StatusDesc: StatusDesc, TrnsNo: TrnsNo },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     debugger
-                    ShowMessage("Done 😍")
-                    $("#Display_Back_Page2").click();
+                    ShowMessage("Done Confirm 😍")
+                    //$("#Display_Back_Page2").click();
 
-                    $('#Back_Page').click();
+                    //$('#Back_Page').click();
+                    GetData_InvoiceCollect();
+                    Clear();
+
                     Close_Loder();
                 } else {
                     Close_Loder();
@@ -428,4 +449,22 @@ namespace CashCollect {
     }
 
 
+    function Update_Remark_Ret(_InvoiceID: number ,  Remark: string, CommitionAmount: number) {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("SlsInvoice", "UpdateInvRet_Remark"),
+            data: { InvoiceID: _InvoiceID, Remark: Remark, CommitionAmount: CommitionAmount },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+
+                    ShowMessage('Updated ✅')
+
+                    GetData_InvoiceCollect();
+                } else { 
+                }
+            }
+        });
+
+    }
 }

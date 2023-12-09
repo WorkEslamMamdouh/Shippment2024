@@ -31,8 +31,6 @@ var CashCollect;
         $('.Txt_Inv_Tot').removeClass('display_none');
         InitalizeControls();
         InitializeEvents();
-        $('#Txt_From_Date').val(DateStartYear());
-        $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
         InitializeGrid_Ret();
         GetData_Zones();
@@ -68,7 +66,7 @@ var CashCollect;
         //_Grid.OnRowDoubleClicked = GridDoubleClick;
         _Grid.PrimaryKey = "TRID";
         _Grid.Paging = true;
-        _Grid.PageSize = 15;
+        _Grid.PageSize = 50;
         _Grid.Sorting = true;
         _Grid.InsertionMode = JsGridInsertionMode.Binding;
         _Grid.Editing = false;
@@ -78,17 +76,7 @@ var CashCollect;
         _Grid.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
             { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: function (s, item) {
-                    var txt = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
@@ -113,7 +101,7 @@ var CashCollect;
         _Grid_Ret.ElementName = "_Grid_Ret";
         _Grid_Ret.PrimaryKey = "TRID";
         _Grid_Ret.Paging = true;
-        _Grid_Ret.PageSize = 15;
+        _Grid_Ret.PageSize = 50;
         _Grid_Ret.Sorting = true;
         _Grid_Ret.InsertionMode = JsGridInsertionMode.Binding;
         _Grid_Ret.Editing = false;
@@ -123,20 +111,41 @@ var CashCollect;
         _Grid_Ret.Columns = [
             { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
             { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: function (s, item) {
-                    var txt = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
             { title: "Cust Name", name: "CustomerName", type: "text", width: "100px" },
-            { title: "Cust Mobile1", name: "CustomerMobile1", type: "text", width: "100px" },
             { title: "Address", name: "Address", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
+            {
+                title: "Remark", css: "ColumPadding", name: "Remark", width: "300px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("textarea");
+                    txt.style.width = "400px";
+                    txt.className = "Clear_Header u-input u-input-rectangle";
+                    txt.style.textAlign = "center";
+                    txt.id = "txtRemark" + item.InvoiceID;
+                    txt.value = item.Remark;
+                    txt.onchange = function (e) {
+                        Update_Remark_Ret(item.InvoiceID, $('#txtRemark' + item.InvoiceID).val(), Number($('#txtCommitionAmount' + item.InvoiceID).val()));
+                    };
+                    return txt;
+                }
+            },
+            {
+                title: "Commition", css: "ColumPadding", name: "CommitionAmount", width: "100px",
+                itemTemplate: function (s, item) {
+                    var txt = document.createElement("input");
+                    txt.type = "text";
+                    txt.style.width = "100%";
+                    txt.className = "Clear_Header u-input u-input-rectangle";
+                    txt.style.textAlign = "center";
+                    txt.id = "txtCommitionAmount" + item.InvoiceID;
+                    txt.value = item.CommitionAmount.toString();
+                    txt.onchange = function (e) {
+                        Update_Remark_Ret(item.InvoiceID, $('#txtRemark' + item.InvoiceID).val(), Number($('#txtCommitionAmount' + item.InvoiceID).val()));
+                    };
+                    return txt;
+                }
+            },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
@@ -201,8 +210,6 @@ var CashCollect;
     function GetData_InvoiceCollect() {
         CleaningList_Table();
         debugger;
-        var StartDate = DateFormat($('#Txt_From_Date').val());
-        var EndDate = DateFormat($('#Txt_To_Date').val());
         var Con = "";
         if (Number($('#Txt_SalesmanId').val()) != 0) {
             Con = " and ( SalesmanId =" + Number($('#Txt_SalesmanId').val()) + " )";
@@ -214,8 +221,8 @@ var CashCollect;
         var Table;
         Table =
             [
-                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + "" },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + " OR (TrType = 1) AND (Status = 4)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" + Con + ")" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: " (TrType = 0) AND (Status = 5) " + Con + " OR (TrType = 1) AND (Status = 4)  " + Con + "" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where (TrType = 0) AND (Status = 5) " + Con + " OR (TrType = 1) AND (Status = 4)  " + Con + ")" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
@@ -286,8 +293,6 @@ var CashCollect;
         });
     }
     function Clear() {
-        $('#Txt_From_Date').val(DateStartYear());
-        $('#Txt_To_Date').val(GetDate());
         $('#Txt_SalesmanId').val('');
         Filter_Select_Delivery.innerHTML = 'Select Delivery';
         $('#btnDelete_Filter').addClass('display_none');
@@ -326,6 +331,24 @@ var CashCollect;
                 ListInvoiceID = ListInvoiceID + ',' + _Invs[i].InvoiceID.toString();
             }
         }
+        var ListInvoiceIDRet = "";
+        Frist = true;
+        for (var i = 0; i < _Invs_Ret.length; i++) {
+            if ($("#txtRemark" + _Invs_Ret[i].InvoiceID).val().trim() == '') {
+                $('#Tap_View_Ret').click();
+                $('#Tap_View_Ret').addClass('active');
+                $('#Tap_View_Inv').removeClass('active');
+                Errorinput($("#txtRemark" + _Invs_Ret[i].InvoiceID), "Must Enter Remark");
+                return false;
+            }
+            if (Frist == true) {
+                ListInvoiceIDRet = ListInvoiceIDRet + _Invs_Ret[i].InvoiceID.toString();
+                Frist = false;
+            }
+            else {
+                ListInvoiceIDRet = ListInvoiceIDRet + ' , ' + _Invs_Ret[i].InvoiceID.toString();
+            }
+        }
         if (ListInvoiceID.trim() != "") {
             if ($('#Txt_Transfer_No').val().trim() == "") {
                 $('#Tap_View_Inv').click();
@@ -333,17 +356,6 @@ var CashCollect;
                 $('#Tap_View_Ret').removeClass('active');
                 Errorinput($('#Txt_Transfer_No'), "Must Enter Transfer No , If you will Collect Cash ,Put ( 0 ) ");
                 return;
-            }
-        }
-        var ListInvoiceIDRet = "";
-        Frist = true;
-        for (var i = 0; i < _Invs_Ret.length; i++) {
-            if (Frist == true) {
-                ListInvoiceIDRet = ListInvoiceIDRet + _Invs_Ret[i].InvoiceID.toString();
-                Frist = false;
-            }
-            else {
-                ListInvoiceIDRet = ListInvoiceIDRet + ' , ' + _Invs_Ret[i].InvoiceID.toString();
             }
         }
         var StatusDesc = 'Done Collect From Delivery Inv ( ' + ListInvoiceID + ' ) ' + '\n' + 'Done Return Inv From Delivery ( ' + ListInvoiceIDRet + ' ) ';
@@ -357,14 +369,32 @@ var CashCollect;
                 var result = d;
                 if (result.IsSuccess) {
                     debugger;
-                    ShowMessage("Done 😍");
-                    $("#Display_Back_Page2").click();
-                    $('#Back_Page').click();
+                    ShowMessage("Done Confirm 😍");
+                    //$("#Display_Back_Page2").click();
+                    //$('#Back_Page').click();
+                    GetData_InvoiceCollect();
+                    Clear();
                     Close_Loder();
                 }
                 else {
                     Close_Loder();
                     ShowMessage("Error 😒");
+                }
+            }
+        });
+    }
+    function Update_Remark_Ret(_InvoiceID, Remark, CommitionAmount) {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("SlsInvoice", "UpdateInvRet_Remark"),
+            data: { InvoiceID: _InvoiceID, Remark: Remark, CommitionAmount: CommitionAmount },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess == true) {
+                    ShowMessage('Updated ✅');
+                    GetData_InvoiceCollect();
+                }
+                else {
                 }
             }
         });

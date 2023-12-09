@@ -309,7 +309,7 @@ namespace View_Order {
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
         if (_Inv == null) {
 
-            alert(Flage_Back)
+            //alert(Flage_Back)
             if (Flage_Back < 2) {
                 Flage_Back ++ ;
                 $('#Back_Page').click();

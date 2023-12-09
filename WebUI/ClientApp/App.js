@@ -1124,6 +1124,19 @@ function DateFormatRep(dateForm) {
         return DateFormatRep((new Date()).toString());
     }
 }
+function GetTime_No_amORpm() {
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? 0 + minutes : minutes;
+    //var strTime = hours + ':' + minutes + ' ' + ampm;
+    var strTime = hours + ':' + minutes;
+    var TrTime = strTime;
+    return TrTime;
+}
 function GetTime() {
     var date = new Date();
     var hours = date.getHours();
@@ -2692,6 +2705,52 @@ function hideToast(toastElement) {
     toastElement.addEventListener('transitionend', function () {
         toastElement.remove();
     });
+}
+function ConvertTo12HourFormat(timeString) {
+    // Split the time string into hours, minutes, and seconds
+    var _a = timeString.split(':'), hours = _a[0], minutes = _a[1], seconds = _a[2];
+    // Convert the hours to a number
+    var hours12 = parseInt(hours, 10);
+    // Determine whether it's AM or PM
+    var meridiem = hours12 >= 12 ? 'PM' : 'AM';
+    // Convert to 12-hour format
+    hours12 = hours12 % 12 || 12;
+    // Pad single-digit hours with a leading zero
+    var formattedHours = hours12.toString();
+    var hoursNew = Number(formattedHours) < 10 ? "0" + formattedHours : formattedHours;
+    // Return the formatted time string in 12-hour format
+    return hoursNew + ":" + minutes + ":" + seconds + " " + meridiem;
+}
+function GetTimeDifference(targetTime) {
+    // Parse the target time string
+    debugger;
+    var _a = targetTime.split(':'), Convhours = _a[0], Convminutes = _a[1], Convseconds = _a[2];
+    // Convert the hours to a number
+    var hours12 = parseInt(Convhours, 10);
+    // Convert to 12-hour format
+    hours12 = hours12 % 12 || 12;
+    // Pad single-digit hours with a leading zero
+    var formattedHours = hours12.toString();
+    var currentDate = GetTime_No_amORpm();
+    var _b = currentDate.split(':'), hoursNow = _b[0], minutesNow = _b[1];
+    var hoursLast = Number(hoursNow) - Number(formattedHours);
+    var minutesLast = Number(minutesNow) - Number(Convminutes);
+    var hoursNew = hoursLast < 10 ? "0" + hoursLast : hoursLast;
+    return hoursNew + ":" + minutesLast;
+    //const targetDate: any = new Date();
+    //const [targetHours, targetMinutes, targetSeconds] = targetTime.split(':');
+    //targetDate.setHours(parseInt(targetHours, 10));
+    //targetDate.setMinutes(parseInt(targetMinutes, 10));
+    //targetDate.setSeconds(parseInt(targetSeconds, 10));
+    //// Get the current time
+    //const currentDate: any = new Date();
+    //// Calculate the time difference in milliseconds
+    //const timeDifference = targetDate - currentDate;
+    //// Convert the time difference to hours, minutes, and seconds
+    //const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    //const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    //const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    //return `${hours}:${minutes}:${seconds}`; 
 }
 function CheckDuplicateGrid(Cnt, CountGrid, inputName, StatusInput) {
     for (var i = 0; i < CountGrid; i++) {
