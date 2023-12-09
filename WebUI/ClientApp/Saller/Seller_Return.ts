@@ -48,6 +48,7 @@ namespace Seller_Return {
 
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
+        SetGlopelDataIQ_ItemCollect(_InvoiceItems);
         Display_Orders();
     }
 
@@ -94,6 +95,8 @@ namespace Seller_Return {
                             </div>
                         </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"go-to-page","content":"View"}--><!--/options_json-->
                         <a id="Btn_ViewOrder${cnt}" class="u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2" data-product-button-click-type="go-to-page"><!--product_button_content-->View<!--/product_button_content--></a><!--/product_button-->
+                        <br/>
+                        <a id="Btn_DeletOrder${cnt}" class="u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2" data-product-button-click-type="go-to-page"><!--product_button_content-->Delete<!--/product_button_content--></a><!--/product_button-->
                     </div>
                 </div>
 
@@ -102,27 +105,36 @@ namespace Seller_Return {
         $('#Div_View_Orders').append(html)
 
 
+        $("#Btn_DeletOrder" + cnt).on('click', function () {
+
+            UpdateInvStatus(_Invoices[cnt].InvoiceID, 0, -2, 'Delete Invoice ( ' + _Invoices[cnt].InvoiceID + ' )', () => {
+                GetData_InvoiceSeller();
+
+            })
+
+        });
         $("#Btn_ViewOrder" + cnt).on('click', function () {
 
+            //localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
+            //OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+
             localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
-            OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+            localStorage.setItem("InvoiceNote", "0")
+            OpenPagePartial("Print_Order", "Print Order 🧺");
+
         });
         $("#BoxClick" + cnt).on('dblclick', function () {
 
+            //localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
+            //OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+
             localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString())
-            OpenPagePartial("View_Order", "Order 🧺", () => { Display_Refrsh() });
+            localStorage.setItem("InvoiceNote", "0")
+            OpenPagePartial("Print_Order", "Print Order 🧺");
         });
     }
 
 
-
-    var Run_Fun = false;
-    function Display_Refrsh() {
-        if (!Run_Fun) {
-            Run_Fun = true;
-            return
-        }
-        GetData_InvoiceSeller();
-    }
+ 
 
 }

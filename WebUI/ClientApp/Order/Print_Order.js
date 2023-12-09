@@ -81,11 +81,12 @@ var Print_Order;
         for (var i = 0; i < _InvItems.length; i++) {
             if ($('#StatusFlag' + i).val() != 'd' && $('#StatusFlag' + i).val() != 'm') {
                 var Row = "<tr>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].ItemCode + " </td>\n                           <td>" + _InvItems[i].ItemDescA + " </td>\n                           <td class=\"Type_Note display_none\">" + _InvItems[i].Remark + " </td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].SoldQty + "</td>\n                           <td Class=\"Type_Invoice\">" + _InvItems[i].Unitprice + "</td>\n                           <td Class=\"Type_Invoice\">" + (_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2) + "</td>\n                        </tr>";
-                ItemTotal = ItemTotal + _InvItems[i].ItemTotal;
+                ItemTotal = ItemTotal + (_InvItems[i].Unitprice * _InvItems[i].SoldQty);
                 ItemCount = ItemCount + _InvItems[i].SoldQty;
                 $('#Body_Inv_Print').append(Row);
             }
         }
+        debugger;
         $('#Txt_TotalAmount').val(ItemTotal.toFixed(2));
         $('#Txt_NetAmount').val(ItemTotal.toFixed(2));
         $('#Total_inv_Print').html(ItemTotal.toFixed(2));

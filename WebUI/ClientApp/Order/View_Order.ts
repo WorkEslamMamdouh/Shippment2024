@@ -100,7 +100,14 @@ namespace View_Order {
         $("._clearSta").removeClass("is-active");
         $("#View_Status" + _Inv.Status).addClass("is-active");
 
-        $("#Name_Campany_View_Or").html("Company: " + _Inv.Remark);
+        //$("#Name_Campany_View_Or").html("Company: " + _Inv.REMARKS);
+        if (_Inv.TrType == 1) {
+            $("#Name_Campany_View_Or").html("Return");
+        }
+        else {
+            $("#Name_Campany_View_Or").html("Invoice");
+        }
+
         $("#Name_Cust_View_Or").html("Customer: " + _Inv.CustomerName);
         $("#Phone_View_Or").html("Phone: " + _Inv.CustomerMobile1 + " & " + _Inv.CustomerMobile2);
         $("#RefNo_TrNo_View_Or").html(" RefNo ( " + _Inv.RefNO + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TrNo ( " + _Inv.TrNo + " )");
@@ -311,7 +318,7 @@ namespace View_Order {
 
             //alert(Flage_Back)
             if (Flage_Back < 2) {
-                Flage_Back ++ ;
+                Flage_Back++;
                 $('#Back_Page').click();
             }
 

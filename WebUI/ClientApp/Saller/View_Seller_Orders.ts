@@ -36,8 +36,8 @@ namespace View_Seller_Orders {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: " TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
-            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where TrType = 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
+            { NameTable: 'Sls_Invoice', Condition: " Status >= 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
+            { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where Status >= 0 and Status < 6 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
             ]
 
         DataResult(Table);
@@ -73,6 +73,11 @@ namespace View_Seller_Orders {
         if (_Invoices[cnt].Status == 0) {
             style = 'style="background-color:#1476cc99;"';
         }
+        
+        if (_Invoices[cnt].TrType == 1) {
+            style = 'style="background-color:#9d9d9d;"';
+        } 
+
 
         let html = `
 

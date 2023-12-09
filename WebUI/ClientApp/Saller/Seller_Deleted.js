@@ -5,145 +5,71 @@ var Seller_Deleted;
 (function (Seller_Deleted) {
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
-    var _Grid = new JsGrid();
-    var New_Invoices = new Array();
     var _Invoices = new Array();
     var _InvoiceItems = new Array();
-    var txtSearch;
-    var Filter_View;
-    var btnDelete_Filter;
     function InitalizeComponent() {
         InitalizeControls();
         InitializeEvents();
-        $('#Txt_From_Date').val(DateStartYear());
-        $('#Txt_To_Date').val(GetDate());
-        InitializeGrid();
-        GetData_InvoiceDeleted();
+        GetData_InvoiceSeller();
         Close_Loder();
-        SetRefresh(GetModuleCode());
     }
     Seller_Deleted.InitalizeComponent = InitalizeComponent;
-    function SetRefresh(moduleCode) {
-        // Event listener for dynamically generated buttons
-        $(document).on('click', '.Refresh_' + moduleCode, function () {
-            GetData_InvoiceDeleted();
-            // Shows an alert when a dynamically created button is clicked
-        });
-    }
     function InitalizeControls() {
-        txtSearch = document.getElementById('txtSearch');
-        Filter_View = document.getElementById('Filter_View');
-        btnDelete_Filter = document.getElementById('btnDelete_Filter');
     }
     function InitializeEvents() {
-        txtSearch.onkeyup = _SearchBox_Change;
-        Filter_View.onclick = GetData_InvoiceDeleted;
-        btnDelete_Filter.onclick = Clear;
     }
-    function InitializeGrid() {
-        _Grid.ElementName = "_Grid";
-        //_Grid.OnRowDoubleClicked = GridDoubleClick;
-        _Grid.PrimaryKey = "TRID";
-        _Grid.Paging = true;
-        _Grid.PageSize = 15;
-        _Grid.Sorting = true;
-        _Grid.InsertionMode = JsGridInsertionMode.Binding;
-        _Grid.Editing = false;
-        _Grid.Inserting = false;
-        _Grid.SelectedIndex = 1;
-        _Grid.OnItemEditing = function () { };
-        _Grid.Columns = [
-            { title: "InvoiceID", name: "InvoiceID", type: "text", width: "5%", visible: false },
-            { title: "TrNo", name: "InvoiceID", type: "number", width: "100px" },
-            { title: "RefNO", name: "RefNO", type: "number", width: "100px" },
-            {
-                title: "TrDate", css: "ColumPadding", name: "TrDate", width: "100px",
-                itemTemplate: function (s, item) {
-                    var txt = document.createElement("label");
-                    txt.innerHTML = DateFormat(item.TrDate);
-                    return txt;
-                }
-            },
-            { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
-            { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
-            { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
-            { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
-            { title: "Total", name: "NetAfterVat", type: "text", width: "100px" },
-            {
-                title: "Recover",
-                itemTemplate: function (s, item) {
-                    var txt = document.createElement("input");
-                    txt.type = "button";
-                    txt.value = ("Recover 🔁");
-                    txt.id = "butView" + item.InvoiceID;
-                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
-                    txt.onclick = function (e) {
-                        ViewInvoice(item.InvoiceID, item.RefNO);
-                    };
-                    return txt;
-                }
-            },
-        ];
-        _Grid.Bind();
-    }
-    function _SearchBox_Change() {
-        $("#_Grid").jsGrid("option", "pageIndex", 1);
-        if (txtSearch.value != "") {
-            var search_1 = txtSearch.value.toLowerCase();
-            var SearchDetails = _Invoices.filter(function (x) { return x.InvoiceID.toString().search(search_1) >= 0 || x.CustomerName.toLowerCase().search(search_1) >= 0 || x.RefNO.toLowerCase().search(search_1) >= 0 || x.CustomerMobile1.toLowerCase().search(search_1) >= 0 || x.NetAfterVat.toString().search(search_1) >= 0; });
-            _Grid.DataSource = SearchDetails;
-            _Grid.Bind();
-        }
-        else {
-            _Grid.DataSource = _Invoices;
-            _Grid.Bind();
-        }
-    }
-    function GetData_InvoiceDeleted() {
-        CleaningList_Table();
+    function GetData_InvoiceSeller() {
         debugger;
-        var StartDate = DateFormat($('#Txt_From_Date').val());
-        var EndDate = DateFormat($('#Txt_To_Date').val());
         var Table;
         Table =
             [
-                {
-                    NameTable: 'Vnd_Inv_SlsMan', Condition: "   Status = -2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ""
-                },
-                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where   Status = -2 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' and and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ")" },
+                { NameTable: 'Sls_Invoice', Condition: "   Status =-2 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + "" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where  Status =-2 and ISNULL(VendorID,0) = " + SysSession.CurrentEnvironment.VendorID + ") " },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
-        _Invoices = GetDataTable('Vnd_Inv_SlsMan');
+        _Invoices = GetDataTable('Sls_Invoice');
         _InvoiceItems = GetDataTable('IQ_ItemCollect');
-        _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
+        SetGlopelDataIQ_ItemCollect(_InvoiceItems);
         Display_Orders();
-        $('#btnDelete_Filter').removeClass('display_none');
     }
     function Display_Orders() {
-        var _Invs = _Invoices;
-        _Grid.DataSource = _Invs;
-        _Grid.Bind();
-        $('#Txt_Total_LineCount').val(_Invoices.length);
-        $('#Txt_Total_ItemsCount').val(SumValue(_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(_Invoices, "NetAfterVat", 1));
+        $('#Div_View_Orders').html("");
+        if (_Invoices.length == 0) {
+            $('#_Nothing').removeClass("display_none");
+            return;
+        }
+        for (var i = 0; i < _Invoices.length; i++) {
+            Build_Orders(i);
+        }
     }
-    function Clear() {
-        $('#Txt_From_Date').val(DateStartYear());
-        $('#Txt_To_Date').val(GetDate());
-        $('#btnDelete_Filter').addClass('display_none');
-        _Grid.DataSource = New_Invoices;
-        _Grid.Bind();
-        $('#Txt_Total_LineCount').val(New_Invoices.length);
-        $('#Txt_Total_ItemsCount').val(SumValue(New_Invoices, "ItemCount"));
-        $('#Txt_Total_Amount').val(SumValue(New_Invoices, "NetAfterVat", 1));
-    }
-    function ViewInvoice(InvoiceID, RefNO) {
-        UpdateInvStatus(InvoiceID, 0, -2, 'Recover Invoice ( ' + InvoiceID + ' )', function () {
-            GetData_InvoiceDeleted();
+    function Build_Orders(cnt) {
+        var style = '';
+        if (_Invoices[cnt].Status == 2) {
+            style = 'style="background-color:#85f585;"';
+        }
+        if (_Invoices[cnt].Status == 0) {
+            style = 'style="background-color:#1476cc99;"';
+        }
+        var html = "\n\n             <div " + style + " class=\"u-align-center u-container-align-center-xs u-container-style u-products-item u-repeater-item u-white u-repeater-item-2 animate__animated animate__zoomIn\" data-product-id=\"3\">\n                    <div id=\"BoxClick" + cnt + "\" class=\"u-container-layout u-similar-container u-valign-top-xs u-container-layout-2\">\n                        <!--product_image-->\n                        <a class=\"u-product-title-link\"><img alt=\"\" class=\"u-expanded-width u-image u-image-default u-product-control u-image-2\" src=\"/NewStyle/images/istockphoto-853561716-1024x1024.jpg\" style=\"height: 180px;\" ></a><!--/product_image--><!--product_title-->\n                        <h6 class=\"u-align-center-xs u-product-control u-text u-text-2\">\n                            <a class=\"u-product-title-link\">" + _Invoices[cnt].CustomerName + "</a>\n                        </h6>\n                        <h6 class=\"u-align-center-xs u-product-control u-text u-text-2\">\n                            <a class=\"u-product-title-link\">( " + _Invoices[cnt].RefNO + " )</a>\n                        </h6>\n                        <div class=\"u-align-center-xs u-product-control u-product-price u-product-price-2\">\n                            <div class=\"u-price-wrapper u-spacing-10\">\n                                <!--product_old_price-->\n                                <div class=\"u-hide-price u-old-price\"><!--product_old_price_content-->$25<!--/product_old_price_content--></div><!--/product_old_price--><!--product_regular_price-->\n                                <div class=\"u-price u-text-palette-2-base\" style=\"font-size: 1.25rem; font-weight: 700;\">( " + _Invoices[cnt].NetAfterVat + "\uD83D\uDCB5 )</div><!--/product_regular_price-->\n                            </div>\n                        </div><!--/product_price--><!--product_button--><!--options_json--><!--{\"clickType\":\"go-to-page\",\"content\":\"View\"}--><!--/options_json-->\n                        <a id=\"Btn_ViewOrder" + cnt + "\" class=\"u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2\" data-product-button-click-type=\"go-to-page\"><!--product_button_content-->View<!--/product_button_content--></a><!--/product_button-->\n                        <br/>\n                        <a id=\"Btn_DeletOrder" + cnt + "\" class=\"u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2\" data-product-button-click-type=\"go-to-page\"><!--product_button_content-->Recover<!--/product_button_content--></a><!--/product_button-->\n                    </div>\n                </div>\n\n";
+        $('#Div_View_Orders').append(html);
+        $("#Btn_DeletOrder" + cnt).on('click', function () {
+            UpdateInvStatus(_Invoices[cnt].InvoiceID, 0, 0, 'Delete Invoice ( ' + _Invoices[cnt].InvoiceID + ' )', function () {
+                GetData_InvoiceSeller();
+            });
+        });
+        $("#Btn_ViewOrder" + cnt).on('click', function () {
+            localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString());
+            localStorage.setItem("InvoiceNote", "0");
+            OpenPagePartial("Print_Order", "Print Order 🧺");
+        });
+        $("#BoxClick" + cnt).on('dblclick', function () {
+            localStorage.setItem("InvoiceID", _Invoices[cnt].InvoiceID.toString());
+            localStorage.setItem("InvoiceNote", "0");
+            OpenPagePartial("Print_Order", "Print Order 🧺");
         });
     }
 })(Seller_Deleted || (Seller_Deleted = {}));

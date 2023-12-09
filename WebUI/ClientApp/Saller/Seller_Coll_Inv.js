@@ -9,6 +9,8 @@ var Seller_Coll_Inv;
     var _USER = new Array();
     var New_Invoices = new Array();
     var _Invoices = new Array();
+    var _InvoiceItems = new Array();
+    var _IQ_ItemCollect = new Array();
     var txtSearch;
     var Filter_Select_Delivery;
     var Filter_View;
@@ -61,28 +63,29 @@ var Seller_Coll_Inv;
             },
             { title: "Cust Name", css: "ColumPadding", name: "CustomerName", type: "text", width: "300px" },
             { title: "Cust Mobile1", css: "ColumPadding", name: "CustomerMobile1", type: "text", width: "100px" },
-            { title: "Address", css: "ColumPadding", name: "Address", type: "text", width: "300px" },
             { title: "ItemCount", css: "ColumPadding", name: "ItemCount", type: "text", width: "100px" },
             { title: "Total", css: "ColumPadding", name: "NetAfterVat", type: "text", width: "100px" },
             {
-                title: "Status", css: "ColumPadding", name: "Status", width: "100px",
+                title: "View",
                 itemTemplate: function (s, item) {
-                    var txt = document.createElement("label");
-                    if (item.Status == 4) {
-                        txt.innerHTML = 'Not Deliver';
-                        txt.style.color = 'red';
-                        txt.style.fontWeight = 'bold';
-                    }
-                    else {
-                        txt.innerHTML = 'Done Deliver';
-                        txt.style.color = '#00dd40';
-                        txt.style.fontWeight = 'bold';
-                    }
+                    var txt = document.createElement("input");
+                    txt.type = "button";
+                    txt.value = ("Review");
+                    txt.id = "butView" + item.InvoiceID;
+                    txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+                    txt.onclick = function (e) {
+                        ViewInvoice(item.InvoiceID);
+                    };
                     return txt;
                 }
             },
         ];
         _Grid.Bind();
+    }
+    function ViewInvoice(InvoiceID) {
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        localStorage.setItem("InvoiceNote", "0");
+        OpenPagePartial("Print_Order", "Print Order 🧺");
     }
     function _SearchBox_Change() {
         $("#_Grid").jsGrid("option", "pageIndex", 1);
@@ -104,13 +107,19 @@ var Seller_Coll_Inv;
         var Table;
         Table =
             [
-                { NameTable: 'Sls_Invoice', Condition: "(TrType = 0) and (VendorID = " + _USER[0].VendorID + ")   AND (Status = 7)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" },
+                { NameTable: 'Vnd_Inv_SlsMan', Condition: "   Status = 7 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'" },
+                { NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where   (Status = 7)  and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' )" },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
-        _Invoices = GetDataTable('Sls_Invoice');
-        _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+        _Invoices = GetDataTable('Vnd_Inv_SlsMan');
+        _InvoiceItems = GetDataTable('IQ_ItemCollect');
+        _IQ_ItemCollect = GetDataTable('IQ_ItemCollect');
+        _Invoices = _Invoices.sort(dynamicSortNew("InvoiceID"));
+        SetGlopelDataInvoice(_Invoices);
+        SetGlopelDataInvoiceItems(_InvoiceItems);
+        SetGlopelDataIQ_ItemCollect(_IQ_ItemCollect);
         var _Invs = _Invoices.filter(function (x) { return x.TrType == 0; });
         _Grid.DataSource = _Invs;
         _Grid.Bind();

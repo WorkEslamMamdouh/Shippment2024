@@ -59,23 +59,7 @@ namespace Seller_Wait_Inv {
 			{ title: "Address", css: "ColumPadding", name: "Address", type: "text", width: "300px" },
 			{ title: "ItemCount", css: "ColumPadding", name: "ItemCount", type: "text", width: "100px" },
 			{ title: "Total", css: "ColumPadding", name: "NetAfterVat", type: "text", width: "100px" },
-			{
-				title: "Status", css: "ColumPadding", name: "Status", width: "100px",
-				itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
-					let txt: HTMLLabelElement = document.createElement("label");
-					if (item.Status == 4) {
-						txt.innerHTML = 'Not Deliver'
-						txt.style.color = 'red'
-						txt.style.fontWeight = 'bold'
-					}
-					else {
-						txt.innerHTML = 'Done Deliver'
-						txt.style.color = '#00dd40'
-						txt.style.fontWeight = 'bold'
-					}
-					return txt;
-				}
-			},
+			 
 
 		];
 		_Grid.Bind();
@@ -107,7 +91,7 @@ namespace Seller_Wait_Inv {
 		//**************************************************************************************************************
 		debugger
 		_Invoices = GetDataTable('Sls_Invoice');
-		_Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+		_Invoices = _Invoices.sort(dynamicSortNew("InvoiceID"));
 
 		let _Invs = _Invoices.filter(x => x.TrType == 0)
 		_Grid.DataSource = _Invs;

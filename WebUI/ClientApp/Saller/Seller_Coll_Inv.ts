@@ -10,8 +10,10 @@ namespace Seller_Coll_Inv {
 	var _Grid: JsGrid = new JsGrid();
 	var _USER: Array<G_USERS> = new Array<G_USERS>();
 
-	var New_Invoices: Array<Sls_Invoice> = new Array<Sls_Invoice>();
-	var _Invoices: Array<Sls_Invoice> = new Array<Sls_Invoice>();
+	var New_Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
+	var _Invoices: Array<Vnd_Inv_SlsMan> = new Array<Vnd_Inv_SlsMan>();
+	var _InvoiceItems: Array<Sls_InvoiceItem> = new Array<Sls_InvoiceItem>();
+	var _IQ_ItemCollect: Array<IQ_ItemCollect> = new Array<IQ_ItemCollect>();
 					  
 	var txtSearch: HTMLInputElement;
 	var Filter_Select_Delivery: HTMLButtonElement;
@@ -64,24 +66,21 @@ namespace Seller_Coll_Inv {
 				}
 			},
 			{ title: "Cust Name", css: "ColumPadding", name: "CustomerName", type: "text", width: "300px" },
-			{ title: "Cust Mobile1", css: "ColumPadding", name: "CustomerMobile1", type: "text", width: "100px" },
-			{ title: "Address", css: "ColumPadding", name: "Address", type: "text", width: "300px" },
+			{ title: "Cust Mobile1", css: "ColumPadding", name: "CustomerMobile1", type: "text", width: "100px" }, 
 			{ title: "ItemCount", css: "ColumPadding", name: "ItemCount", type: "text", width: "100px" },
-			{ title: "Total", css: "ColumPadding", name: "NetAfterVat", type: "text", width: "100px" },
+			{ title: "Total", css: "ColumPadding", name: "NetAfterVat", type: "text", width: "100px" }, 
 			{
-				title: "Status", css: "ColumPadding", name: "Status", width: "100px",
-				itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLLabelElement => {
-					let txt: HTMLLabelElement = document.createElement("label");
-					if (item.Status == 4) {
-						txt.innerHTML = 'Not Deliver'
-						txt.style.color = 'red'
-						txt.style.fontWeight = 'bold'
-					}
-					else {
-						txt.innerHTML = 'Done Deliver'
-						txt.style.color = '#00dd40'
-						txt.style.fontWeight = 'bold'
-					}
+				title: "View",
+				itemTemplate: (s: string, item: Vnd_Inv_SlsMan): HTMLInputElement => {
+					let txt: HTMLInputElement = document.createElement("input");
+					txt.type = "button";
+					txt.value = ("Review");
+					txt.id = "butView" + item.InvoiceID;
+					txt.className = "Style_Add_Item u-btn u-btn-submit u-input u-input-rectangle";
+
+					txt.onclick = (e) => {
+						ViewInvoice(item.InvoiceID);
+					};
 					return txt;
 				}
 			},
@@ -90,6 +89,11 @@ namespace Seller_Coll_Inv {
 		_Grid.Bind();
 
 	}
+	function ViewInvoice(InvoiceID: number) {
+		localStorage.setItem("InvoiceID", InvoiceID.toString())
+		localStorage.setItem("InvoiceNote", "0")
+		OpenPagePartial("Print_Order", "Print Order 🧺");
+    }
 	function _SearchBox_Change() {
 		$("#_Grid").jsGrid("option", "pageIndex", 1);
 
@@ -106,20 +110,30 @@ namespace Seller_Coll_Inv {
 	}
 	function GetData_InvoiceCollect() {
 		CleaningList_Table();
-		let StartDate = DateFormat($('#Txt_From_Date').val());
-		let EndDate = DateFormat($('#Txt_To_Date').val());
 
+		let StartDate = DateFormat($('#Txt_From_Date').val());
+		let EndDate = DateFormat($('#Txt_To_Date').val()); 
+		 
 		var Table: Array<Table>;
-		Table =		    
+		Table =
 			[
-				{ NameTable: 'Sls_Invoice', Condition: "(TrType = 0) and (VendorID = " + _USER[0].VendorID + ")   AND (Status = 7)  and (TrDate >=N'" + StartDate + "') and (TrDate <= N'" + EndDate + "')" },
+				{ NameTable: 'Vnd_Inv_SlsMan', Condition: "   Status = 7 and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "'"  },
+			{ NameTable: 'IQ_ItemCollect', Condition: " InvoiceID in (Select InvoiceID from [dbo].[Sls_Invoice] where   (Status = 7)  and TrDate >=N'" + StartDate + "' and TrDate <= N'" + EndDate + "' )"  },
 			]
 
 		DataResult(Table);
 		//**************************************************************************************************************
 		debugger
-		_Invoices = GetDataTable('Sls_Invoice');
-		_Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
+		_Invoices = GetDataTable('Vnd_Inv_SlsMan');
+		_InvoiceItems = GetDataTable('IQ_ItemCollect');
+		_IQ_ItemCollect = GetDataTable('IQ_ItemCollect');
+
+		_Invoices = _Invoices.sort(dynamicSortNew("InvoiceID"));
+
+		SetGlopelDataInvoice(_Invoices);
+		SetGlopelDataInvoiceItems(_InvoiceItems);
+		SetGlopelDataIQ_ItemCollect(_IQ_ItemCollect);
+		 
 
 		let _Invs = _Invoices.filter(x => x.TrType == 0)
 		_Grid.DataSource = _Invs;

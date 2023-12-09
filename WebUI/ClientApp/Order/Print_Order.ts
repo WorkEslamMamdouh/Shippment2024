@@ -118,13 +118,13 @@ namespace Print_Order {
                            <td Class="Type_Invoice">${(_InvItems[i].SoldQty * _InvItems[i].Unitprice).toFixed(2)}</td>
                         </tr>`
 
-                ItemTotal = ItemTotal + _InvItems[i].ItemTotal;
+                ItemTotal = ItemTotal + (_InvItems[i].Unitprice * _InvItems[i].SoldQty );
                 ItemCount = ItemCount + _InvItems[i].SoldQty;
 
                 $('#Body_Inv_Print').append(Row);
             }
         }
-
+        debugger
         $('#Txt_TotalAmount').val(ItemTotal.toFixed(2));
 
         $('#Txt_NetAmount').val(ItemTotal.toFixed(2));

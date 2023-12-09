@@ -136,7 +136,7 @@ namespace Inv.API.Controllers
             }
             if (Status == -2)
             {
-                Status = 0;
+                Status = -2;
                 Cond = Cond + ", TrType = 0";
             }
             if (Status == 10)

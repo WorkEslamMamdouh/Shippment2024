@@ -60,11 +60,13 @@ var Merchant_Payment;
                     return txt;
                 }
             },
-            { title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
-            { title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
-            { title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
+            //{ title: "Comp Name", name: "REMARKS", type: "text", width: "100px" },
+            //{ title: "Vnd Name", name: "Vnd_Name", type: "text", width: "100px" },
+            //{ title: "Mobile", name: "Vnd_Mobile", type: "text", width: "100px" },
             { title: "ItemCount", name: "ItemCount", type: "number", width: "100px" },
             { title: "Total", name: "TotalAmount", type: "text", width: "100px" },
+            { title: "Vat", name: "VatAmount", type: "text", width: "100px" },
+            { title: "Commition", name: "CommitionAmount", type: "text", width: "100px" },
             {
                 title: "View",
                 itemTemplate: function (s, item) {
