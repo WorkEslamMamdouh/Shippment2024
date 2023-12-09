@@ -19,7 +19,9 @@ namespace Valid_Code {
 	export function InitalizeComponent() {
 
 		GetCode()
+	
 		Close_Loder();
+
 	}
   
 	function GetCode() {
@@ -37,6 +39,9 @@ namespace Valid_Code {
 		let list = GetDataTable('I_Control');
 
 		$("#IDVaild_Code").html(list[0].InvoiceTransCode)
+
+		CopyToValue(list[0].InvoiceTransCode);
+		ShowMessage('Copy Code ( ' + list[0].InvoiceTransCode + ' ) ✅');
 		
 	}
  

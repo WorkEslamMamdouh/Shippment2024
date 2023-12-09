@@ -28,6 +28,8 @@ var Valid_Code;
         debugger;
         var list = GetDataTable('I_Control');
         $("#IDVaild_Code").html(list[0].InvoiceTransCode);
+        CopyToValue(list[0].InvoiceTransCode);
+        ShowMessage('Copy Code ( ' + list[0].InvoiceTransCode + ' ) ✅');
     }
 })(Valid_Code || (Valid_Code = {}));
 //# sourceMappingURL=Valid_Code.js.map
