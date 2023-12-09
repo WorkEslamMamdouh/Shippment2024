@@ -98,7 +98,7 @@ namespace View_Seller_Orders {
                                 <div class="u-price u-text-palette-2-base" style="font-size: 1.25rem; font-weight: 700;">( ${_Invoices[cnt].NetAfterVat}💵 )</div><!--/product_regular_price-->
                             </div>
                         </div><!--/product_price--><!--product_button--><!--options_json--><!--{"clickType":"go-to-page","content":"View"}--><!--/options_json-->
-                        <a id="Btn_ViewOrder${cnt}" class="u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2" data-product-button-click-type="go-to-page"><!--product_button_content-->View<!--/product_button_content--></a><!--/product_button-->
+                        <a id="Btn_ViewOrder${cnt}" class="u-align-center-xs u-border-2 u-border-grey-25 u-border-hover-palette-2-base u-btn u-btn-rectangle u-button-style u-none u-product-control u-text-body-color u-btn-2" data-product-button-click-type="go-to-page"><!--product_button_content-->View<!--/product_button_content--></a><!--/product_button-->                        
                     </div>
                 </div>
 

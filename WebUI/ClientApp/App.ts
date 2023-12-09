@@ -3379,6 +3379,38 @@ function Event_key(key: string, Nameinput: string, NameBtnEvent: string) {
     });
 }
 
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($('#' + element).val()).select();
+    document.execCommand("copy");
+    $temp.remove();
+    $('#' + element).focus();
+}
+function CopyToValue(value) {
+    // Create a temporary input element
+    const $tempInput = $("<input>");
+
+    // Append the input element to the body
+    $("body").append($tempInput);
+
+    // Set the value of the input element
+    $tempInput.val(value).select();
+
+    try {
+        // Execute the 'copy' command
+        document.execCommand("copy");
+
+        // Inform the user (you may replace this with your own notification logic)
+        console.log("Copied to clipboard: " + value);
+    } catch (err) {
+        // Handle the exception, if any
+        console.error("Unable to copy to clipboard", err);
+    } finally {
+        // Remove the temporary input element
+        $tempInput.remove();
+    }
+}
 
 function CopyRowGrid(DataList: Array<any>, Key: string, value: any): Array<any> {
 

@@ -38,7 +38,12 @@ namespace Inv.API.Controllers
             {
                 try
                 {
+                    Random random = new Random();
+                    int randomNumber = random.Next(1000, 100000);
+                    obj.Sls_Invoice.QRCode = randomNumber.ToString();
+
                     var sls = SlsInvoiceService.InsertInvoice(obj.Sls_Invoice);
+
                     List<Sls_InvoiceItem> InsertedItems = obj.Sls_InvoiceItem.Where(x => x.StatusFlag == 'i').ToList();
                     foreach (var item in InsertedItems)
                     {

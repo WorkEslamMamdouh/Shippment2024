@@ -56,7 +56,8 @@ var Return_Items;
                     return txt;
                 }
             },
-            { title: "Price", css: "ColumPadding", name: "Unitprice", width: "100px",
+            {
+                title: "Price", css: "ColumPadding", name: "Unitprice", width: "100px",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("label");
                     txt.innerHTML = item.Unitprice.toString();
@@ -132,6 +133,8 @@ var Return_Items;
         _GridItems.DataSource = _InvItems;
         _GridItems.Bind();
         CompletTotalGrid();
+        Event_key('Enter', 'Txt_Delivery_Code', 'Coding_Confirm');
+        $('#Txt_Delivery_Code').focus();
     }
     function CompletTotalGrid() {
         var Txt_Item_Total = 0;
@@ -185,35 +188,49 @@ var Return_Items;
             ShowMessage("At least one Item must be selected 🤨");
             return;
         }
-        if (Valid_Ret == 0) {
-            ShowMessage("At least one Item must be cancelled 🤨");
+        if (Number($('#Txt_Delivery_Code').val()) == 0) {
+            Errorinput($('#Txt_Delivery_Code'), 'Please a Enter Delivery Code 😡');
             return;
         }
-        try {
-            Ajax.CallsyncSave({
-                type: "Post",
-                url: sys.apiUrl("SlsInvoice", "ReturnInvoice"),
-                data: JSON.stringify(_Model),
-                success: function (d) {
-                    debugger;
-                    var result = d;
-                    if (result.IsSuccess) {
-                        debugger;
-                        ShowMessage("Done 😍");
-                        $("#Display_Back_Page2").click();
-                        $('#Back_Page').click();
-                        Close_Loder();
-                    }
-                    else {
-                        Close_Loder();
-                        ShowMessage("Error 😒");
-                    }
-                }
+        if (Number($('#Txt_Delivery_Code').val()) != _Inv.QRCode) {
+            Errorinput($('#Txt_Delivery_Code'), 'Worning Delivery Code 😡');
+            return;
+        }
+        if (Valid_Ret == 0) {
+            UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', function () {
+                ShowMessage("Done 😍");
+                $("#Display_Back_Page2").click();
+                $('#Back_Page').click();
+                Close_Loder();
             });
         }
-        catch (e) {
-            Close_Loder();
-            ShowMessage("Error 😒");
+        else {
+            try {
+                Ajax.CallsyncSave({
+                    type: "Post",
+                    url: sys.apiUrl("SlsInvoice", "ReturnInvoice"),
+                    data: JSON.stringify(_Model),
+                    success: function (d) {
+                        debugger;
+                        var result = d;
+                        if (result.IsSuccess) {
+                            debugger;
+                            ShowMessage("Done 😍");
+                            $("#Display_Back_Page2").click();
+                            $('#Back_Page').click();
+                            Close_Loder();
+                        }
+                        else {
+                            Close_Loder();
+                            ShowMessage("Error 😒");
+                        }
+                    }
+                });
+            }
+            catch (e) {
+                Close_Loder();
+                ShowMessage("Error 😒");
+            }
         }
     }
 })(Return_Items || (Return_Items = {}));

@@ -25,8 +25,9 @@ namespace View_Order {
     var btn_Deliver_Customer: HTMLButtonElement;
     var btn_Receiving_Order: HTMLButtonElement;
     var btn_Active: HTMLButtonElement;
-    var btn_Return: HTMLButtonElement;
+    //var btn_Return: HTMLButtonElement;
     var btn_Return_All_Order: HTMLButtonElement;
+    var btn_Delivery_code: HTMLButtonElement;
 
 
     var InvoiceID = 0;
@@ -73,8 +74,9 @@ namespace View_Order {
         btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer') as HTMLButtonElement;
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order') as HTMLButtonElement;
         btn_Active = document.getElementById('btn_Active') as HTMLButtonElement;
-        btn_Return = document.getElementById('btn_Return') as HTMLButtonElement;
+        //btn_Return = document.getElementById('btn_Return') as HTMLButtonElement;
         btn_Return_All_Order = document.getElementById('btn_Return_All_Order') as HTMLButtonElement;
+        btn_Delivery_code = document.getElementById('btn_Delivery_code') as HTMLButtonElement;
     }
     function InitializeEvents() {
         btn_RetrunSeller.onclick = btn_RetrunSeller_onclick
@@ -90,8 +92,9 @@ namespace View_Order {
         btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick
         btn_Active.onclick = btn_Active_onclick
-        btn_Return.onclick = btn_Return_onclick
+        //btn_Return.onclick = btn_Return_onclick
         btn_Return_All_Order.onclick = btn_Return_All_Order_onclick
+        btn_Delivery_code.onclick = btn_Delivery_code_onclick
     }
 
     function Display_information_Inv() {
@@ -261,10 +264,12 @@ namespace View_Order {
         window.open(googleMapsUrl, '_blank');
     }
     function btn_Deliver_Customer_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', () => {
-            $('#Back_Page').click();
-            $("#Display_Back_Page").click();
-        })
+        //UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', () => {
+        //    $('#Back_Page').click();
+        //    $("#Display_Back_Page").click();
+        //})
+        localStorage.setItem("InvoiceID", InvoiceID.toString())
+        OpenPagePartial("Return_Items", "Deliver Customer", null, () => { Display_Refrsh() });
     }
     function btn_Return_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString())
@@ -291,6 +296,10 @@ namespace View_Order {
                 }
             }
         });
+    }
+    function btn_Delivery_code_onclick() {
+        CopyToValue(_Inv.QRCode);
+        ShowMessage('Copy Code ( ' + _Inv.QRCode + ' ) ✅'); 
     }
     var Run_Fun = false;
     function Display_Refrsh() {

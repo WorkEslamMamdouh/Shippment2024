@@ -22,8 +22,9 @@ var View_Order;
     var btn_Deliver_Customer;
     var btn_Receiving_Order;
     var btn_Active;
-    var btn_Return;
+    //var btn_Return: HTMLButtonElement;
     var btn_Return_All_Order;
+    var btn_Delivery_code;
     var InvoiceID = 0;
     var Flage_Back = 0;
     function InitalizeComponent() {
@@ -61,8 +62,9 @@ var View_Order;
         btn_Deliver_Customer = document.getElementById('btn_Deliver_Customer');
         btn_Receiving_Order = document.getElementById('btn_Receiving_Order');
         btn_Active = document.getElementById('btn_Active');
-        btn_Return = document.getElementById('btn_Return');
+        //btn_Return = document.getElementById('btn_Return') as HTMLButtonElement;
         btn_Return_All_Order = document.getElementById('btn_Return_All_Order');
+        btn_Delivery_code = document.getElementById('btn_Delivery_code');
     }
     function InitializeEvents() {
         btn_RetrunSeller.onclick = btn_RetrunSeller_onclick;
@@ -78,8 +80,9 @@ var View_Order;
         btn_Deliver_Customer.onclick = btn_Deliver_Customer_onclick;
         btn_Receiving_Order.onclick = btn_Receiving_Order_onclick;
         btn_Active.onclick = btn_Active_onclick;
-        btn_Return.onclick = btn_Return_onclick;
+        //btn_Return.onclick = btn_Return_onclick
         btn_Return_All_Order.onclick = btn_Return_All_Order_onclick;
+        btn_Delivery_code.onclick = btn_Delivery_code_onclick;
     }
     function Display_information_Inv() {
         $("#btn_Order_shipment").addClass('display_none');
@@ -211,10 +214,12 @@ var View_Order;
         window.open(googleMapsUrl, '_blank');
     }
     function btn_Deliver_Customer_onclick() {
-        UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', function () {
-            $('#Back_Page').click();
-            $("#Display_Back_Page").click();
-        });
+        //UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', () => {
+        //    $('#Back_Page').click();
+        //    $("#Display_Back_Page").click();
+        //})
+        localStorage.setItem("InvoiceID", InvoiceID.toString());
+        OpenPagePartial("Return_Items", "Deliver Customer", null, function () { Display_Refrsh(); });
     }
     function btn_Return_onclick() {
         localStorage.setItem("InvoiceID", InvoiceID.toString());
@@ -239,6 +244,10 @@ var View_Order;
                 }
             }
         });
+    }
+    function btn_Delivery_code_onclick() {
+        CopyToValue(_Inv.QRCode);
+        ShowMessage('Copy Code ( ' + _Inv.QRCode + ' ) ✅');
     }
     var Run_Fun = false;
     function Display_Refrsh() {

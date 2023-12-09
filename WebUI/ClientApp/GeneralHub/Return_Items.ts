@@ -63,7 +63,8 @@ namespace Return_Items {
                     return txt;
                 }
             },
-            {   title: "Price", css: "ColumPadding", name: "Unitprice", width: "100px",
+            {
+                title: "Price", css: "ColumPadding", name: "Unitprice", width: "100px",
                 itemTemplate: (s: string, item: Sls_InvoiceItem): HTMLLabelElement => {
                     let txt: HTMLLabelElement = document.createElement("label");
                     txt.innerHTML = item.Unitprice.toString();
@@ -152,6 +153,10 @@ namespace Return_Items {
         _GridItems.Bind();
 
         CompletTotalGrid();
+
+
+        Event_key('Enter', 'Txt_Delivery_Code', 'Coding_Confirm');
+        $('#Txt_Delivery_Code').focus();
     }
 
     function CompletTotalGrid() {
@@ -178,11 +183,11 @@ namespace Return_Items {
         $('#Txt_Net_Total').val(Digits(Number((Txt_Item_Total + _Inv.CommitionAmount + _Inv.VatAmount).toFixed(2)), 1));
 
     }
-     
+
     function Assign() {
         debugger
         _Model = new ItemsCodes;
-        _Model.InvoiceID = _Inv.InvoiceID 
+        _Model.InvoiceID = _Inv.InvoiceID
         _Model.UserCode = SysSession.CurrentEnvironment.UserCode;
         _Model.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
         _Model.BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
@@ -199,50 +204,74 @@ namespace Return_Items {
                     Frist = false;
                 }
                 else {
-                    IDItems = IDItems +','+ _InvItems[i].InvoiceItemID.toString();
+                    IDItems = IDItems + ',' + _InvItems[i].InvoiceItemID.toString();
                 }
                 Valid_Ret++;
             }
-        } 
-        _Model.ItemCode = IDItems; 
+        }
+        _Model.ItemCode = IDItems;
     }
-    function  Confirm_onclick() { 
+    function Confirm_onclick() {
         Assign();
         if (Valid_Ret == _InvItems.length) {
             ShowMessage("At least one Item must be selected 🤨");
             return
         }
-        if (Valid_Ret == 0) {
-            ShowMessage("At least one Item must be cancelled 🤨");
+
+
+
+        if (Number($('#Txt_Delivery_Code').val()) == 0) {
+            Errorinput($('#Txt_Delivery_Code'), 'Please a Enter Delivery Code 😡')
             return
         }
 
-        try {
-            Ajax.CallsyncSave({
-                type: "Post",
-                url: sys.apiUrl("SlsInvoice", "ReturnInvoice"),
-                data: JSON.stringify(_Model),
-                success: (d) => {
-                    debugger
-                    let result = d as BaseResponse;
-                    if (result.IsSuccess) {
-                        debugger
-                        ShowMessage("Done 😍")
-                        $("#Display_Back_Page2").click();
 
-                        $('#Back_Page').click();
-                        Close_Loder();
-                    } else {
-                        Close_Loder();
-                        ShowMessage("Error 😒")
-                    }
-                }
-            });
-
-        } catch (e) {
-            Close_Loder();
-            ShowMessage("Error 😒")
+        if (Number($('#Txt_Delivery_Code').val()) != _Inv.QRCode) {
+            Errorinput($('#Txt_Delivery_Code'), 'Worning Delivery Code 😡')
+            return
         }
+
+
+
+        if (Valid_Ret == 0) {
+            UpdateInvStatus(InvoiceID, 0, 5, 'Deliver Customer ( ' + _Inv.InvoiceID + ' )', () => {
+                ShowMessage("Done 😍")
+                $("#Display_Back_Page2").click();
+
+                $('#Back_Page').click();
+                Close_Loder();
+            })
+        }
+        else {
+            try {
+                Ajax.CallsyncSave({
+                    type: "Post",
+                    url: sys.apiUrl("SlsInvoice", "ReturnInvoice"),
+                    data: JSON.stringify(_Model),
+                    success: (d) => {
+                        debugger
+                        let result = d as BaseResponse;
+                        if (result.IsSuccess) {
+                            debugger
+                            ShowMessage("Done 😍")
+                            $("#Display_Back_Page2").click();
+
+                            $('#Back_Page').click();
+                            Close_Loder();
+                        } else {
+                            Close_Loder();
+                            ShowMessage("Error 😒")
+                        }
+                    }
+                });
+
+            } catch (e) {
+                Close_Loder();
+                ShowMessage("Error 😒")
+            }
+
+        }
+
 
 
     }
