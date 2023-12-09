@@ -25,15 +25,14 @@ namespace RecieptOrders {
         InitializeEvents();
         $('#Txt_From_Date').val(DateStartYear())
         $('#Txt_To_Date').val(GetDate())
-        InitializeGrid();
-        //GetData_Invoice();
+        InitializeGrid(); 
         Close_Loder();
 
 
         SetRefresh(GetModuleCode())
     }
     function SetRefresh(moduleCode: string) {
-        debugger
+        
     
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
@@ -121,7 +120,7 @@ namespace RecieptOrders {
     }
     function GetData_Invoice() {
         CleaningList_Table();
-        debugger
+        
         let StartDate = DateFormat($('#Txt_From_Date').val());
         let EndDate = DateFormat($('#Txt_To_Date').val());
         let Con = "";
@@ -141,13 +140,13 @@ namespace RecieptOrders {
 
         DataResult(Table);
         //**************************************************************************************************************
-        debugger
+        
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
         _InvoiceItems = GetDataTable('Sls_InvoiceItem');
 
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
 
-        debugger
+        
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
 
@@ -168,7 +167,7 @@ namespace RecieptOrders {
     }
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 2", () => {
-            debugger
+            
             let dataScr = SearchGrid.SearchDataGrid.dataScr
             let id = SearchGrid.SearchDataGrid.SelectedKey
             dataScr = dataScr.filter(x => x.VendorID == id);

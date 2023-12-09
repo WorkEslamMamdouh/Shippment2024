@@ -30,13 +30,13 @@ namespace View_Order {
 
 
     var InvoiceID = 0;
-
+    var Flage_Back = 0;
 
     export function InitalizeComponent() {
 
         let _USERS = GetGlopelDataUser()
         _USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase())
- 
+
         InitalizeControls();
         InitializeEvents();
 
@@ -45,7 +45,7 @@ namespace View_Order {
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
         Display_information_Inv();
-        Display_Role_User(); 
+        Display_Role_User();
 
         Close_Loder();
 
@@ -94,7 +94,7 @@ namespace View_Order {
         btn_Return_All_Order.onclick = btn_Return_All_Order_onclick
     }
 
-    function Display_information_Inv() { 
+    function Display_information_Inv() {
         $("#btn_Order_shipment").addClass('display_none');
 
         $("._clearSta").removeClass("is-active");
@@ -108,9 +108,9 @@ namespace View_Order {
         $("#Comm_Total_View_Or").html(" Commition ( " + _Inv.CommitionAmount + " ) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Net Total ( " + _Inv.NetAfterVat + " ) ");
         $("#Coun_View").html("  &nbsp;&nbsp;&nbsp;    Counter Item ( " + _Inv.ItemCount + " ) ");
 
-        
+
         if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) {
-            let htm =`      <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-5">
+            let htm = `      <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-5">
                         <span class="u-align-center u-file-icon u-icon u-text-white u-icon-4"><img src="/NewStyle/images/2560416-11b1db70.png" alt=""></span>
                         <h4 class="u-align-center u-custom-font u-text u-text-font u-text-6">
                             Deliver ( ${_Inv.SlsMan_Name} )<br>
@@ -118,7 +118,7 @@ namespace View_Order {
                     </div>`
             $("#btn_Deliver_shipment").html(htm);
 
-            $("#btn_Order_shipment").removeClass('display_none'); 
+            $("#btn_Order_shipment").removeClass('display_none');
         }
 
     }
@@ -146,10 +146,10 @@ namespace View_Order {
                 $("#btn_Edit_Order").addClass("display_none")
             }
         }
-         
+
         $("#btn_Order_shipment").addClass('display_none');
 
-        if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) { 
+        if (_Inv.SalesmanId != 0 && _Inv.SalesmanId != null) {
             $("#btn_Order_shipment").removeClass('display_none');
         }
     }
@@ -159,7 +159,7 @@ namespace View_Order {
     function btn_RetrunSeller_onclick() {
         UpdateInvStatus(InvoiceID, 0, 10, 'Retrun To Seller( ' + _Inv.InvoiceID + ' )', () => {
             $('#Back_Page').click();
-            $("#Display_Back_Page").click(); 
+            $("#Display_Back_Page").click();
         })
     }
     function btn_Delete_onclick() {
@@ -223,7 +223,7 @@ namespace View_Order {
     }
     function btn_Deliver_shipment_onclick() {
         sys.FindKey("Deliver", "btnDeliver", " Isactive = 1 and ZoneID =" + _Inv.ZoneID, () => {
-            
+
             let id = SearchGrid.SearchDataGrid.SelectedKey
 
             UpdateInvStatus(InvoiceID, id, 3, 'Deliver Shipment ( ' + _Inv.InvoiceID + ' )', () => {
@@ -284,9 +284,11 @@ namespace View_Order {
             return
         }
 
+
         Dis_Refrsh();
     }
     function Dis_Refrsh() {
+        debugger
         $("#btn_Order_shipment").addClass('display_none');
         $("#Display_Back_Page").click();
 
@@ -298,12 +300,16 @@ namespace View_Order {
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
         _Inv = _Invoices.filter(x => x.InvoiceID == InvoiceID)[0]
         if (_Inv == null) {
-            
-            $('#Back_Page').click();
+
+            alert(Flage_Back)
+            if (Flage_Back < 2) {
+                Flage_Back ++ ;
+                $('#Back_Page').click();
+            }
 
             return;
         }
-        
+
         Display_information_Inv();
     }
 }

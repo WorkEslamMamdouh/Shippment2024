@@ -25,6 +25,7 @@ var View_Order;
     var btn_Return;
     var btn_Return_All_Order;
     var InvoiceID = 0;
+    var Flage_Back = 0;
     function InitalizeComponent() {
         var _USERS = GetGlopelDataUser();
         _USER = _USERS.filter(function (x) { return x.USER_CODE.toLowerCase() == SysSession.CurrentEnvironment.UserCode.toLowerCase(); });
@@ -235,6 +236,7 @@ var View_Order;
         Dis_Refrsh();
     }
     function Dis_Refrsh() {
+        debugger;
         $("#btn_Order_shipment").addClass('display_none');
         $("#Display_Back_Page").click();
         _Inv = new Vnd_Inv_SlsMan();
@@ -244,7 +246,11 @@ var View_Order;
         InvoiceID = Number(localStorage.getItem("InvoiceID"));
         _Inv = _Invoices.filter(function (x) { return x.InvoiceID == InvoiceID; })[0];
         if (_Inv == null) {
-            $('#Back_Page').click();
+            alert(Flage_Back);
+            if (Flage_Back < 2) {
+                Flage_Back++;
+                $('#Back_Page').click();
+            }
             return;
         }
         Display_information_Inv();

@@ -42,9 +42,10 @@ var EmpControl;
         _Grid.SelectedIndex = 1;
         _Grid.OnItemEditing = function () { };
         _Grid.Columns = [
-            { title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
+            //{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
             { title: "User Name", name: "USER_NAME", type: "text", width: "100px" },
-            { title: "Job Title", name: "DescA", type: "text", width: "100px" },
+            { title: "Mobile", name: "Mobile", type: "text", width: "100px" },
+            { title: "Job Title", name: "JobTitle", type: "text", width: "100px" },
             {
                 title: "Active", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
                 itemTemplate: function (s, item) {
@@ -95,7 +96,7 @@ var EmpControl;
         $("#_Grid").jsGrid("option", "pageIndex", 1);
         if (txtSearch.value != "") {
             var search_1 = txtSearch.value.toLowerCase();
-            var SearchDetails = _UsersList.filter(function (x) { return x.USER_CODE.toLowerCase().search(search_1) >= 0 || x.USER_NAME.toLowerCase().search(search_1) >= 0 || x.DescA.toLowerCase().search(search_1) >= 0 || x.JobTitle.toLowerCase().search(search_1) >= 0 || x.Mobile.search(search_1) >= 0; });
+            var SearchDetails = _UsersList.filter(function (x) { return x.USER_CODE.toLowerCase().search(search_1) >= 0 || x.USER_NAME.toLowerCase().search(search_1) >= 0 || x.JobTitle.toLowerCase().search(search_1) >= 0 || x.Mobile.search(search_1) >= 0; });
             _Grid.DataSource = SearchDetails;
             _Grid.Bind();
         }
@@ -117,16 +118,17 @@ var EmpControl;
         var Table;
         Table =
             [
-                { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and USER_CODE !='" + SysSession.CurrentEnvironment.UserCode + "' and [USER_NAME] not in ('StockKeeper','SalesMan','StockMan','UserAccount','UserAdministrator') " + Con },
+                { NameTable: 'G_USERS', Condition: " USER_TYPE not in (1,10) and USER_CODE !='" + SysSession.CurrentEnvironment.UserCode + "' and [USER_NAME] not in ('StockKeeper','SalesMan','StockMan','UserAccount','UserAdministrator') " + Con },
             ];
         DataResult(Table);
         //**************************************************************************************************************
         debugger;
-        _UsersList = GetDataTable('GQ_USERS');
+        _UsersList = GetDataTable('G_USERS');
         _UsersList = _UsersList.sort(dynamicSort("USER_NAME"));
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
+        SetGlopelDataUser(_UsersList);
     }
     function ViewUser(item) {
         debugger;

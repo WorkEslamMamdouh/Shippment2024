@@ -96,10 +96,10 @@ namespace Login {
 
 
     function Reg_FrontID_Img_onclick() {
-        Upload_image('Reg_FrontID_Img', 'Profile_Seller', '');
+        Upload_image('Reg_FrontID_Img', 'ID_Seller', '');
     }
     function Reg_BackID_Img_onclick() {
-        Upload_image('Reg_BackID_Img', 'Profile_Seller', '');
+        Upload_image('Reg_BackID_Img', 'ID_Seller', '');
 
     }
 
@@ -148,7 +148,7 @@ namespace Login {
 
     function SubmitRegister() {
 
-        debugger 
+        debugger
         if ($('#Reg_Comp_Name').val().trim() == "") {
             Errorinput($('#Reg_Comp_Name'), "Please a Enter Company Name 🤨");
             return
@@ -174,7 +174,7 @@ namespace Login {
             Errorinput($('#Reg_FrontID_Img'), "Please a Enter FrontID Img 😡");
             return
         }
-        else if (setVal($("#Reg_BackID_Img").attr("Name_Img"))== "") {
+        else if (setVal($("#Reg_BackID_Img").attr("Name_Img")) == "") {
             Errorinput($('#Reg_BackID_Img'), "Please a Enter BackID Img 😡");
             return
         }
@@ -205,11 +205,19 @@ namespace Login {
             Errorinput($('#Reg_Validation_Code'), "Please a Enter Valid Code 😡");
             return
         }
-         
-        else if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
-            Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
-            return
+
+        if (Control.length == 0) {
+            Control = GetDataTable('I_Control');
         }
+
+
+        if (Control.length > 0) {
+            if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
+                Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
+                return
+            }
+        }
+    
 
 
         let Name = $('#Reg_Full_Name').val().trim();
@@ -225,13 +233,13 @@ namespace Login {
         let BackID_Img = $("#Reg_BackID_Img").attr("Name_Img").trim();
 
 
-        
-        
+
+
 
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("Seller", "SignUp"),
-            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName, Type_Payment: Type_Payment, FrontID_Img: FrontID_Img, BackID_Img: BackID_Img},
+            data: { CompCode: SystemEnv.CompCode, BranchCode: SystemEnv.BranchCode, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, CompName: CompName, Type_Payment: Type_Payment, FrontID_Img: FrontID_Img, BackID_Img: BackID_Img },
             success: (d) => {//(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, string CompName, int Type_Payment, string FrontID_Img, string BackID_Img)
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
@@ -250,8 +258,8 @@ namespace Login {
         var Table: Array<Table>;
         Table =
             [
-            { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
-            { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val() + "" },
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+                { NameTable: 'I_Control', Condition: " CompCode = " + $('#CompCode').val() + "" },
             ]
 
         DataResult(Table);

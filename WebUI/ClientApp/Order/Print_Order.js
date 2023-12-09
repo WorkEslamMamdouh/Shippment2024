@@ -95,7 +95,7 @@ var Print_Order;
         $('#Txt_VatAmount').val(VatAmount);
         var CommitionAmount = Number($('#Txt_CommitionAmount').val());
         $('#Txt_NetAmount').val((VatAmount + TotalAmount + CommitionAmount).toFixed(2));
-        var TafkeetArab = TafkeetArabValue(Number(_Inv.NetAfterVat.toFixed(2)));
+        var TafkeetArab = TafkeetArabValue(Number($('#Txt_NetAmount').val()));
         $('#Txt_TotalAmountArab').val(TafkeetArab);
     }
     function _Print_Invoice_onclick() {

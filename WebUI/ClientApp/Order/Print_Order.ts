@@ -138,7 +138,7 @@ namespace Print_Order {
         let CommitionAmount = Number($('#Txt_CommitionAmount').val())
         $('#Txt_NetAmount').val((VatAmount + TotalAmount + CommitionAmount).toFixed(2))
 
-        let TafkeetArab = TafkeetArabValue(Number(_Inv.NetAfterVat.toFixed(2)))
+        let TafkeetArab = TafkeetArabValue(Number($('#Txt_NetAmount').val()))
         $('#Txt_TotalAmountArab').val(TafkeetArab)
 
     }

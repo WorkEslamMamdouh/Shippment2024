@@ -137,6 +137,7 @@ var VendorControl;
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
+        SetGlopelDataUser(_UsersList);
     }
     function ViewUser(item) {
         localStorage.setItem("TypePage", "UserControl");

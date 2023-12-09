@@ -1,247 +1,333 @@
 ﻿
 $(document).ready(() => {
-	UserDef.InitalizeComponent();
+    UserDef.InitalizeComponent();
 
 });
 
 namespace UserDef {
-	var sys: SystemTools = new SystemTools();
-	var SysSession: SystemSession = GetSystemSession();
+    var sys: SystemTools = new SystemTools();
+    var SysSession: SystemSession = GetSystemSession();
 
-	var _USERS: Array<G_USERS> = new Array<G_USERS>();
-	var _USER: Array<G_USERS> = new Array<G_USERS>();
-	var _G_Code: Array<G_Codes> = new Array<G_Codes>();
-	var _Zones: Array<Zones> = new Array<Zones>();
-	var _ZonesFltr: Array<Zones> = new Array<Zones>();
+    var _USERS: Array<G_USERS> = new Array<G_USERS>();
+    var _USER: Array<G_USERS> = new Array<G_USERS>();
+    var _G_Code: Array<G_Codes> = new Array<G_Codes>();
+    var _Zones: Array<Zones> = new Array<Zones>();
+    var _ZonesFltr: Array<Zones> = new Array<Zones>();
 
-	var Usr_Zone: HTMLSelectElement;
-	var FamilyZone: HTMLSelectElement;
+    var Usr_Zone: HTMLSelectElement;
+    var FamilyZone: HTMLSelectElement;
 
-	var Submit_Update_Profile: HTMLButtonElement;
-	var Usr_UserType: HTMLSelectElement;
-	var img_Profile: HTMLButtonElement;
+    var Submit_Update_Profile: HTMLButtonElement;
+    var Usr_UserType: HTMLSelectElement;
+    var img_Profile: HTMLButtonElement;
 
-	export function InitalizeComponent() {
+    var Reg_FrontID_Img: HTMLButtonElement;
+    var Reg_BackID_Img: HTMLButtonElement;
 
-		$('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
-		$('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
+    export function InitalizeComponent() {
 
-		InitalizeControls();
-		InitializeEvents();
+        $('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
+        $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
 
-		let User = SysSession.CurrentEnvironment.UserCode;
-		$('#Submit_Update_Profile').val('Add')
-		$('#Usr_UserCode').removeAttr('disabled')
+        InitalizeControls();
+        InitializeEvents();
 
-		Display_Data();
+        let User = SysSession.CurrentEnvironment.UserCode;
+        $('#Submit_Update_Profile').val('Add')
+        $('#Usr_UserCode').removeAttr('disabled')
 
-		if (localStorage.getItem("TypePage") == "UserControl") {
-			User = localStorage.getItem("UserControl");
-			$('#Submit_Update_Profile').val('Update')
-			$('#Usr_UserCode').attr('disabled', 'disabled')
-		}
-		_USERS = GetGlopelDataUser()
-		_USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == User.toLowerCase())
+        Display_Data();
 
-		if (localStorage.getItem("TypePage") == "UserControl") {
-			Display_User();
-
-			if (Number(_USER[0].SalesManID) != 0) {
-				$('#Usr_UserType').attr('disabled', 'disabled')
-			}
-		}
-
-		Close_Loder();
-	}
-	function InitalizeControls() {
-		Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
-		img_Profile = document.getElementById("img_Profile") as HTMLButtonElement;
-		Usr_UserType = document.getElementById("Usr_UserType") as HTMLSelectElement;
-		Usr_Zone = document.getElementById('Usr_Zone') as HTMLSelectElement;
-		FamilyZone = document.getElementById('FamilyZone') as HTMLSelectElement;
-
-	}
-	function InitializeEvents() {
-
-		Submit_Update_Profile.onclick = SubmitUpdate;
-		Usr_UserType.onchange = UserType_Change;
-		FamilyZone.onchange = FltrZones;
-		img_Profile.onclick = img_Profile_onclick;
-	}
-	function img_Profile_onclick() {
-		Upload_image('img_Profile', 'Profile_User',"");
-	}
-	function Display_User() {
-		debugger
-
-		$('#Usr_Full_Name').val(_USER[0].USER_NAME);
-		$('#Usr_Address').val(_USER[0].Address);
-		$('#Usr_Mobile').val(_USER[0].Mobile);
-		$('#Usr_ID_Num').val(_USER[0].Fax);
-		$('#Usr_Mail').val(_USER[0].Email);
-		$('#Usr_Gender').val(_USER[0].REGION_CODE);
-		$('#Usr_UserCode').val(_USER[0].USER_CODE);
-		$('#Usr_UserType').val(_USER[0].USER_TYPE);
-		debugger
-		if (Number(_USER[0].CashBoxID) != 0) {
-			$('#drp_Zone').val(_USER[0].CashBoxID)
-			let FamilyzoneID = $('option:selected', $('#drp_Zone')).attr("data-FamilyZoneID");
-
-			$('#FamilyZone').val(FamilyzoneID);
-			FltrZones();
-
-			$('#Usr_Zone').val(_USER[0].CashBoxID);
-		}
-		else {
-			$('#Usr_Zone').prop('selectedIndex', 0);
-		}
-		$('#Usr_Password').val(_USER[0].USER_PASSWORD);
-		UserType_Change();
-
-		if (setVal(_USER[0].Profile_Img).trim() != "") {
-			Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
-		} 
-	}
-	function Display_Data() {
-		debugger
-		$('#DivContainer :input').val("");
-		$('#Usr_Gender').val("1");
-		$('#Submit_Update_Profile').val("Add");
-
-		var Table: Array<Table>;
-		Table =
-			[
-				{ NameTable: 'G_Codes', Condition: "CodeType= 'UserType' and CodeValue not in (1,10)" },
-				{ NameTable: 'Zones', Condition: "Active =1" },
-				{ NameTable: 'FamilyZone', Condition: "Active =1" },
-			]
-
-		DataResult(Table);
-		//**************************************************************************************************************
-		debugger
-		_G_Code = GetDataTable('G_Codes');
-		_Zones = GetDataTable('Zones');
-		let _FamilyZones = GetDataTable('FamilyZone');
-
-		FillDropwithAttr(_G_Code, "Usr_UserType", "CodeValue", "DescA", "No", "", "");
-
-		DocumentActions.FillCombowithdefult(_FamilyZones, FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
-		FltrZones();
-	}
-	function FltrZones() {
-		_ZonesFltr = _Zones.filter(x => x.FamilyZoneID == Number(FamilyZone.value));    
-		FillDropwithAttr(_Zones, "drp_Zone", "ZoneID", 'DescA', "No", "FamilyZoneID", "FamilyZoneID");  
-		DocumentActions.FillCombowithdefult(_ZonesFltr, Usr_Zone, "ZoneID", 'DescA', 'Select Zone');
-
-	}
-	function UserType_Change() {
-		if (Usr_UserType.value == "11") {
-			$('.div_zone').removeClass('display_none');
-		} else {
-			$('.div_zone').addClass('display_none');
-		}
-	}
-	function SubmitUpdate() {
-		debugger
-		if ($('#Usr_Full_Name').val().trim() == "") {
-			Errorinput($('#Usr_Full_Name'), "Please a Enter Name 🤨");
-			return
-		}
-		if ($('#Usr_Address').val().trim() == "") {
-			Errorinput($('#Usr_Address'), "Please a Enter Address 🤨");
-			return
-		}
-		if ($('#Usr_Mobile').val().trim() == "") {
-			Errorinput($('#Usr_Mobile'), "Please a Enter Mobile 🤨");
-			return
-		}
-		if ($('#Usr_ID_Num').val().trim() == "") {
-			Errorinput($('#Usr_ID_Num'), "Please a Enter Identity No 🤨");
-			return
-		}
-		if ($('#Usr_Mail').val().trim() == "") {
-			Errorinput($('#Usr_Mail'), "Please a Enter Mail 🤨");
-			return
-		}
-		if ($('#Usr_UserCode').val().trim() == "") {
-			Errorinput($('#Usr_UserCode'), "Please a Enter User Name 🤨");
-			return
-		}
-		if ($('#Usr_Password').val().trim() == "") {
-			Errorinput($('#Usr_Password'), "Please a Enter User Password 🤨");
-			return
-		}
-		debugger
-
-		let Name = $('#Usr_Full_Name').val();
-		let address = $('#Usr_Address').val();
-		let Mobile = $('#Usr_Mobile').val();
-		let IDNO = $('#Usr_ID_Num').val();
-		let Email = $('#Usr_Mail').val();
-		let Gender = $('#Usr_Gender').val();
-		let UserName = $('#Usr_UserCode').val();
-		let Password = $('#Usr_Password').val();
-		let ZoneID = Number($('#Usr_Zone').val());
-		let UserType = Number(Usr_UserType.value);
-		let SalesManID = Number(_USER[0].SalesManID);
-		let Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
-		let NameFun;
-		debugger
-
-		if (localStorage.getItem("TypePage") == "UserControl") {
-			if (SalesManID == 0) {
-				NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
-			}
-			else {
-				NameFun = Usr_UserType.value == "11" ? "UpdateSalesMan" : "InsertUser";
-			}
-		}
-		else {
-			NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
-		}
-
-		if (NameFun == "InsertUser")
-		{
-			ZoneID = 0;
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            User = localStorage.getItem("UserControl");
+            $('#Submit_Update_Profile').val('Update')
+            $('#Usr_UserCode').attr('disabled', 'disabled')
         }
-		debugger
+        _USERS = GetGlopelDataUser()
+        _USER = _USERS.filter(x => x.USER_CODE.toLowerCase() == User.toLowerCase())
 
-		Ajax.CallsyncSave({
-			type: "Get",
-			url: sys.apiUrl("SalesMan", NameFun),
-			data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender, Profile_Img: Profile_Img },
-			success: (d) => {
-				let result = d as BaseResponse;
-				if (result.IsSuccess == true) {
-					GetUSERSByCodeUser(UserName);
-					Display_Data();
-					UserType_Change();
-					$('#Back_Page').click();
-					$("#Display_Back_Page").click();
-					Close_Loder();
-				} else {
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            Display_User();
 
-				}
-			}
-		});
-	}
-	function GetUSERSByCodeUser(User_Code: string) {
-		var Table: Array<Table>;
-		Table =
-			[
-				{ NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
-			]
+            if (Number(_USER[0].SalesManID) != 0) {
+                $('#Usr_UserType').attr('disabled', 'disabled')
+            }
+        }
 
-		DataResult(Table);
-		//**************************************************************************************************************
+        Close_Loder();
+    }
+    function InitalizeControls() {
+        Submit_Update_Profile = document.getElementById("Submit_Update_Profile") as HTMLButtonElement;
+        img_Profile = document.getElementById("img_Profile") as HTMLButtonElement;
+        Usr_UserType = document.getElementById("Usr_UserType") as HTMLSelectElement;
+        Usr_Zone = document.getElementById('Usr_Zone') as HTMLSelectElement;
+        FamilyZone = document.getElementById('FamilyZone') as HTMLSelectElement;
+        Reg_FrontID_Img = document.getElementById("Reg_FrontID_Img") as HTMLButtonElement;
+        Reg_BackID_Img = document.getElementById("Reg_BackID_Img") as HTMLButtonElement;
+    }
+    function InitializeEvents() {
 
-		let _USER = GetDataTable('G_USERS');
-		_USERS = _USERS.filter(x => x.USER_CODE != User_Code)
-		_USERS.push(_USER[0]);
-
-		SetGlopelDataUser(_USERS);
-		ShowMessage("Done 🤞😉")
-	}
+        Submit_Update_Profile.onclick = SubmitUpdate;
+        Usr_UserType.onchange = UserType_Change;
+        FamilyZone.onchange = FltrZones;
+        img_Profile.onclick = img_Profile_onclick;
 
 
+        Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
+        Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
+    }
+
+    function Reg_FrontID_Img_onclick() {
+        debugger
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            if (_USER[0].FrontID_Img == null) {
+                Upload_image('Reg_FrontID_Img', 'ID_User', "");
+            }
+            else {
+
+                if (_USER[0].FrontID_Img.trim() == "") {
+                    Upload_image('Reg_FrontID_Img', 'ID_User', "");
+                }
+                else {
+                    let UrlImg = GetUrlImg('ID_User', setVal(_USER[0].FrontID_Img))
+                    OpenImg(UrlImg);
+                }
+
+            }
+
+        }
+        else {
+            Upload_image('Reg_FrontID_Img', 'ID_User', "");
+        }
+
+    }
+    function Reg_BackID_Img_onclick() {
+
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            if (_USER[0].BackID_Img == null) {
+                Upload_image('Reg_BackID_Img', 'ID_User', "");
+            }
+            else {
+                if (_USER[0].BackID_Img.trim() == "") {
+                    Upload_image('Reg_BackID_Img', 'ID_User', "");
+                }
+                else {
+                    let UrlImg = GetUrlImg('ID_User', setVal(_USER[0].BackID_Img))
+                    OpenImg(UrlImg);
+                }
+            }
+
+        }
+        else {
+            Upload_image('Reg_BackID_Img', 'ID_User', "");
+        }
+    }
+
+    function img_Profile_onclick() {
+        Upload_image('img_Profile', 'Profile_User', "");
+    }
+    function Display_User() {
+        debugger
+
+        $('#Usr_Full_Name').val(_USER[0].USER_NAME);
+        $('#Usr_Address').val(_USER[0].Address);
+        $('#Usr_Mobile').val(_USER[0].Mobile);
+        $('#Usr_ID_Num').val(_USER[0].Fax);
+        $('#Usr_Mail').val(_USER[0].Email);
+        $('#Usr_Gender').val(_USER[0].REGION_CODE);
+        $('#Usr_UserCode').val(_USER[0].USER_CODE);
+        $('#Usr_UserType').val(_USER[0].USER_TYPE);
+        debugger
+        if (Number(_USER[0].CashBoxID) != 0) {
+            $('#drp_Zone').val(_USER[0].CashBoxID)
+            let FamilyzoneID = $('option:selected', $('#drp_Zone')).attr("data-FamilyZoneID");
+
+            $('#FamilyZone').val(FamilyzoneID);
+            FltrZones();
+
+            $('#Usr_Zone').val(_USER[0].CashBoxID);
+        }
+        else {
+            $('#Usr_Zone').prop('selectedIndex', 0);
+        }
+        $('#Usr_Password').val(_USER[0].USER_PASSWORD);
+        UserType_Change();
+
+        debugger
+        if (setVal(_USER[0].Profile_Img).trim() != "") {
+            Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+        }
+        if (setVal(_USER[0].BackID_Img).trim() != "") {
+            Display_image('Reg_BackID_Img', 'ID_User', _USER[0].BackID_Img.trim());
+        }
+        if (setVal(_USER[0].FrontID_Img).trim() != "") {
+            Display_image('Reg_FrontID_Img', 'ID_User', _USER[0].FrontID_Img.trim());
+        }
+
+    }
+    function Display_Data() {
+        debugger
+        $('#DivContainer :input').val("");
+        $('#Usr_Gender').val("1");
+        $('#Submit_Update_Profile').val("Add");
+
+        var Table: Array<Table>;
+        Table =
+            [
+                { NameTable: 'G_Codes', Condition: "CodeType= 'UserType' and CodeValue not in (1,10)" },
+                { NameTable: 'Zones', Condition: "Active =1" },
+                { NameTable: 'FamilyZone', Condition: "Active =1" },
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+        debugger
+        _G_Code = GetDataTable('G_Codes');
+        _Zones = GetDataTable('Zones');
+        let _FamilyZones = GetDataTable('FamilyZone');
+
+        FillDropwithAttr(_G_Code, "Usr_UserType", "CodeValue", "DescA", "No", "", "");
+
+        DocumentActions.FillCombowithdefult(_FamilyZones, FamilyZone, "FamilyZoneID", 'DescA', 'Select Family Zone');
+        FltrZones();
+    }
+    function FltrZones() {
+        _ZonesFltr = _Zones.filter(x => x.FamilyZoneID == Number(FamilyZone.value));
+        FillDropwithAttr(_Zones, "drp_Zone", "ZoneID", 'DescA', "No", "FamilyZoneID", "FamilyZoneID");
+        DocumentActions.FillCombowithdefult(_ZonesFltr, Usr_Zone, "ZoneID", 'DescA', 'Select Zone');
+
+    }
+    function UserType_Change() {
+        if (Usr_UserType.value == "11") {
+            $('.div_zone').removeClass('display_none');
+        } else {
+            $('.div_zone').addClass('display_none');
+        }
+    }
+    function SubmitUpdate() {
+        debugger
+        if ($('#Usr_Full_Name').val().trim() == "") {
+            Errorinput($('#Usr_Full_Name'), "Please a Enter Name 🤨");
+            return
+        }
+        if ($('#Usr_Address').val().trim() == "") {
+            Errorinput($('#Usr_Address'), "Please a Enter Address 🤨");
+            return
+        }
+        if ($('#Usr_Mobile').val().trim() == "") {
+            Errorinput($('#Usr_Mobile'), "Please a Enter Mobile 🤨");
+            return
+        }
+        if ($('#Usr_ID_Num').val().trim() == "") {
+            Errorinput($('#Usr_ID_Num'), "Please a Enter Identity No 🤨");
+            return
+        }
+        if ($('#Usr_Mail').val().trim() == "") {
+            Errorinput($('#Usr_Mail'), "Please a Enter Mail 🤨");
+            return
+        }
+        if ($('#Usr_UserType').val() == '11') {
+            if ($('#FamilyZone').val().trim() == "null") {
+                Errorinput($('#FamilyZone'), "Please a Select Family Zone 🤨");
+                return
+            }
+            if ($('#Usr_Zone').val().trim() == "null") {
+                Errorinput($('#Usr_Zone'), "Please a Select  Zone 🤨");
+                return
+            }
+        }
+        if ($('#Usr_UserCode').val().trim() == "") {
+            Errorinput($('#Usr_UserCode'), "Please a Enter User Name 🤨");
+            return
+        }
+        if ($('#Usr_Password').val().trim() == "") {
+            Errorinput($('#Usr_Password'), "Please a Enter User Password 🤨");
+            return
+        }
+        debugger
+
+        let Name = $('#Usr_Full_Name').val();
+        let address = $('#Usr_Address').val();
+        let Mobile = $('#Usr_Mobile').val();
+        let IDNO = $('#Usr_ID_Num').val();
+        let Email = $('#Usr_Mail').val();
+        let Gender = $('#Usr_Gender').val();
+        let UserName = $('#Usr_UserCode').val();
+        let Password = $('#Usr_Password').val();
+        let ZoneID = Number($('#Usr_Zone').val());
+        let UserType = Number(Usr_UserType.value);
+        let SalesManID = Number(_USER[0].SalesManID);
+        let Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
+        let BackID_Img = setVal($("#Reg_BackID_Img").attr("Name_Img"));
+        let FrontID_Img = setVal($("#Reg_FrontID_Img").attr("Name_Img"));
+        let NameFun;
+        debugger
+
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            if (SalesManID == 0) {
+                NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
+            }
+            else {
+                NameFun = Usr_UserType.value == "11" ? "UpdateSalesMan" : "InsertUser";
+            }
+        }
+        else {
+            NameFun = Usr_UserType.value == "11" ? "InsertSalesMan" : "InsertUser";
+        }
+
+        if (NameFun == "InsertUser") {
+            ZoneID = 0;
+        }
+        debugger
+
+        if (FrontID_Img.trim() == "") {
+            alert("Error")
+        }
+
+        Ajax.CallsyncSave({
+            type: "Get",
+            url: sys.apiUrl("SalesMan", NameFun),
+            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender, Profile_Img: Profile_Img, FrontID_Img: FrontID_Img, BackID_Img: BackID_Img },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    GetUSERSByCodeUser(UserName);
+                    Display_Data();
+                    UserType_Change();
+                    $('#Back_Page').click();
+                    $("#Display_Back_Page").click();
+                    Close_Loder();
+                } else {
+
+                }
+            }
+        });
+    }
+    function GetUSERSByCodeUser(User_Code: string) {
+        var Table: Array<Table>;
+        Table =
+            [
+                { NameTable: 'G_USERS', Condition: " USER_CODE = N'" + User_Code + "'" },
+            ]
+
+        DataResult(Table);
+        //**************************************************************************************************************
+
+        let _USER = GetDataTable('G_USERS');
+        _USERS = _USERS.filter(x => x.USER_CODE != User_Code)
+        _USERS.push(_USER[0]);
+
+        SetGlopelDataUser(_USERS);
+        Clean();
+        ShowMessage("Done 🤞😉")
+    }
+
+    function Clean() {
+
+        $('._Clear_Reg').val("");
+        $('#Usr_Gender').val('1')
+        $('#Usr_UserType').val('2')
+        $('#FamilyZone').val('null')
+        $('#Usr_Zone').val('null')
+    }
 }

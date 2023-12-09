@@ -19,13 +19,11 @@ var RecieptOrders;
         $('#Txt_From_Date').val(DateStartYear());
         $('#Txt_To_Date').val(GetDate());
         InitializeGrid();
-        //GetData_Invoice();
         Close_Loder();
         SetRefresh(GetModuleCode());
     }
     RecieptOrders.InitalizeComponent = InitalizeComponent;
     function SetRefresh(moduleCode) {
-        debugger;
         // Event listener for dynamically generated buttons
         $(document).on('click', '.Refresh_' + moduleCode, function () {
             if (Number($('#Txt_VendorID').val()) == 0) {
@@ -108,7 +106,6 @@ var RecieptOrders;
     }
     function GetData_Invoice() {
         CleaningList_Table();
-        debugger;
         var StartDate = DateFormat($('#Txt_From_Date').val());
         var EndDate = DateFormat($('#Txt_To_Date').val());
         var Con = "";
@@ -127,11 +124,9 @@ var RecieptOrders;
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        debugger;
         _Invoices = GetDataTable('Vnd_Inv_SlsMan');
         _InvoiceItems = GetDataTable('Sls_InvoiceItem');
         _Invoices = _Invoices.sort(dynamicSort("InvoiceID"));
-        debugger;
         SetGlopelDataInvoice(_Invoices);
         SetGlopelDataInvoiceItems(_InvoiceItems);
         Display_Orders();
@@ -147,7 +142,6 @@ var RecieptOrders;
     }
     function Filter_Select_Seller_onclick() {
         sys.FindKey("Select_Seller", "btnSelect_Seller", " Status = 2", function () {
-            debugger;
             var dataScr = SearchGrid.SearchDataGrid.dataScr;
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             dataScr = dataScr.filter(function (x) { return x.VendorID == id; });

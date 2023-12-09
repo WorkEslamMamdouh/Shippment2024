@@ -225,54 +225,56 @@
 				}
 			</style>
 
-			<div class="container">
-				<div class="header">
-					<h1>Invoice</h1>
-				</div>
-				<div class="customer-info">
-					<h2>Customer Information</h2>
-					<p id="Print_Name_Cust"><strong>Name:</strong> John Doe</p>
-					<p id="Print_Name_Phone"><strong>Phone:</strong> (555) 555-5555</p>
-					<p id="Print_Name_Address"><strong>Address:</strong> 123 Main St, City, Country</p>
-				</div>
-				<div class="invoice">
+            <div class="container">
+                <div class="header">
+                    <h1>Invoice</h1>
+                </div>
+                <div class="customer-info">
+                    <h2>Customer Information</h2>
+                    <p id="Print_Name_Cust"><strong>Name:</strong> John Doe</p>
+                    <p id="Print_Name_Phone"><strong>Phone:</strong> (555) 555-5555</p>
+                    <p id="Print_Name_Address"><strong>Address:</strong> 123 Main St, City, Country</p>
+                </div>
+                <div class="invoice">
                     <h2>Items</h2>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Quantity</th>
-								<th>Unit Price</th>
-								<th>Total</th>
-							</tr>
-						</thead>
-						<tbody id="Body_Inv_Print">
-							<tr>
-								<td>Product 1</td>
-								<td>2</td>
-								<td>$10.00</td>
-								<td>$20.00</td>
-							</tr>
-							<tr>
-								<td>Product 2</td>
-								<td>1</td>
-								<td>$15.00</td>
-								<td>$15.00</td>
-							</tr>
-						</tbody>
-					</table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Body_Inv_Print">
+                            <tr>
+                                <td>Product 1</td>
+                                <td>2</td>
+                                <td>$10.00</td>
+                                <td>$20.00</td>
+                            </tr>
+                            <tr>
+                                <td>Product 2</td>
+                                <td>1</td>
+                                <td>$15.00</td>
+                                <td>$15.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="total">
                         <p><span class="total-label">Total:</span> <span id="Total_inv_Print" class="total-amount">$35.00</span></p>
                         <p id=""></p>
-                        <p id="Print_Remark_Inv"><strong>Remark:</strong> </p>
                     </div>
-				</div>
-				<div class="receipt">
-					@*<h2>Receipt</h2>*@
-					<p id="Tran_ID_Print"><strong>Transaction ID:</strong> 123456789</p>
-					<p id="Tran_Date_Print"><strong>Date:</strong> October 28, 2023</p>
-				</div>
-			</div>
+                </div>
+                <div class="customer-info">
+                    <p id="Print_Remark_Inv"><strong>Remark:</strong> </p> 
+                </div>
+                <div class="receipt">
+                    @*<h2>Receipt</h2>*@
+                    <p id="Tran_ID_Print"><strong>Transaction ID:</strong> 123456789</p>
+                    <p id="Tran_Date_Print"><strong>Date:</strong> October 28, 2023</p>
+                </div>
+            </div>
 		</div>
 		@************************************************Buttons****************************************************************@
 		<div class="u-form u-form-2">

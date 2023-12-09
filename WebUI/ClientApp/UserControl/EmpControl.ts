@@ -9,8 +9,8 @@ namespace EmpControl {
     var SysSession: SystemSession = GetSystemSession();
     var _Grid: JsGrid = new JsGrid();
 
-    var _UsersList: Array<GQ_USERS> = new Array<GQ_USERS>();  
-    var _Usersnone: Array<GQ_USERS> = new Array<GQ_USERS>();  
+    var _UsersList: Array<G_USERS> = new Array<G_USERS>();  
+    var _Usersnone: Array<G_USERS> = new Array<G_USERS>();  
 
     var txtSearch: HTMLInputElement;              
     var drpActive: HTMLSelectElement;              
@@ -49,12 +49,13 @@ namespace EmpControl {
         _Grid.SelectedIndex = 1;   
         _Grid.OnItemEditing = () => { };
         _Grid.Columns = [
-            { title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
+            //{ title: "User Code", name: "USER_CODE", type: "text", width: "100px" },
             { title: "User Name", name: "USER_NAME", type: "text", width: "100px" },   
-            { title: "Job Title", name: "DescA", type: "text", width: "100px" },
+            { title: "Mobile", name: "Mobile", type: "text", width: "100px" },
+            { title: "Job Title", name: "JobTitle", type: "text", width: "100px" },
             {
                 title: "Active", css: "ColumPadding", name: "USER_ACTIVE", width: "100px",
-                itemTemplate: (s: string, item: GQ_USERS): HTMLLabelElement => {
+                itemTemplate: (s: string, item: G_USERS): HTMLLabelElement => {
                     let txt: HTMLLabelElement = document.createElement("label");
                     if (item.USER_ACTIVE == true) {
                         txt.innerHTML = 'Active ✅'
@@ -66,7 +67,7 @@ namespace EmpControl {
             },
             {
                 title: "Block",
-                itemTemplate: (s: string, item: GQ_USERS): HTMLInputElement => {
+                itemTemplate: (s: string, item: G_USERS): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "checkbox";
                     txt.id = "ChkView" + item.USER_CODE;
@@ -82,7 +83,7 @@ namespace EmpControl {
             },
             {
                 title: "View",
-                itemTemplate: (s: string, item: GQ_USERS): HTMLInputElement => {
+                itemTemplate: (s: string, item: G_USERS): HTMLInputElement => {
                     let txt: HTMLInputElement = document.createElement("input");
                     txt.type = "button";
                     txt.value = ("Edit ⚙️");
@@ -104,7 +105,7 @@ namespace EmpControl {
 
         if (txtSearch.value != "") {
             let search: string = txtSearch.value.toLowerCase();
-            let SearchDetails = _UsersList.filter(x => x.USER_CODE.toLowerCase().search(search) >= 0 || x.USER_NAME.toLowerCase().search(search) >= 0 || x.DescA.toLowerCase().search(search) >= 0 || x.JobTitle.toLowerCase().search(search) >= 0 || x.Mobile.search(search) >= 0);
+            let SearchDetails = _UsersList.filter(x => x.USER_CODE.toLowerCase().search(search) >= 0 || x.USER_NAME.toLowerCase().search(search) >= 0 || x.JobTitle.toLowerCase().search(search) >= 0 || x.Mobile.search(search) >= 0);
 
             _Grid.DataSource = SearchDetails;
             _Grid.Bind();
@@ -126,19 +127,21 @@ namespace EmpControl {
         var Table: Array<Table>;
         Table =
             [
-                { NameTable: 'GQ_USERS', Condition: " USER_TYPE not in (1,10) and USER_CODE !='" + SysSession.CurrentEnvironment.UserCode + "' and [USER_NAME] not in ('StockKeeper','SalesMan','StockMan','UserAccount','UserAdministrator') " + Con },
+                { NameTable: 'G_USERS', Condition: " USER_TYPE not in (1,10) and USER_CODE !='" + SysSession.CurrentEnvironment.UserCode + "' and [USER_NAME] not in ('StockKeeper','SalesMan','StockMan','UserAccount','UserAdministrator') " + Con },
 
             ]       
         DataResult(Table);
         //**************************************************************************************************************
         debugger
-        _UsersList = GetDataTable('GQ_USERS');    
+        _UsersList = GetDataTable('G_USERS');    
         _UsersList = _UsersList.sort(dynamicSort("USER_NAME"));           
         $('#btnDelete_Filter').removeClass('display_none');
         _Grid.DataSource = _UsersList;
         _Grid.Bind();
+
+        SetGlopelDataUser(_UsersList)
     }          
-    function ViewUser(item: GQ_USERS) {
+    function ViewUser(item: G_USERS) {
         debugger
         $("#Open").focus();
         localStorage.setItem("TypePage", "UserControl");

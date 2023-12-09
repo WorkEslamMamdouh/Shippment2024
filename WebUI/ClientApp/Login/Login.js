@@ -78,10 +78,10 @@ var Login;
         SetGlopelDataUser(USERS);
     }
     function Reg_FrontID_Img_onclick() {
-        Upload_image('Reg_FrontID_Img', 'Profile_Seller', '');
+        Upload_image('Reg_FrontID_Img', 'ID_Seller', '');
     }
     function Reg_BackID_Img_onclick() {
-        Upload_image('Reg_BackID_Img', 'Profile_Seller', '');
+        Upload_image('Reg_BackID_Img', 'ID_Seller', '');
     }
     function SubmitLogin() {
         debugger;
@@ -172,9 +172,14 @@ var Login;
             Errorinput($('#Reg_Validation_Code'), "Please a Enter Valid Code 😡");
             return;
         }
-        else if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
-            Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
-            return;
+        if (Control.length == 0) {
+            Control = GetDataTable('I_Control');
+        }
+        if (Control.length > 0) {
+            if ($('#Reg_Validation_Code').val().trim() != Control[0].InvoiceTransCode.toString()) {
+                Errorinput($('#Reg_Validation_Code'), "Error Valid Code 😡");
+                return;
+            }
         }
         var Name = $('#Reg_Full_Name').val().trim();
         var address = $('#Reg_Address').val().trim();

@@ -3040,6 +3040,7 @@ function Display_image(IdName_View_Img, Name_Folder, Name_Img) {
     if (Name_Img.trim() == "") {
         return;
     }
+    $("#" + IdName_View_Img + "").attr('Name_Img', Name_Img);
     var UrlImg = GetUrlImg(Name_Folder, Name_Img);
     $("#" + IdName_View_Img + "").attr('src', UrlImg);
     debugger;

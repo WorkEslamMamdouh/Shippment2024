@@ -95,7 +95,6 @@ var Coding_Items;
         _GridItems.Bind();
     }
     function _SearchBox_Change() {
-        debugger;
         $("#_GridItems").jsGrid("option", "pageIndex", 1);
         if (txtSearch.value != "") {
             var search_1 = txtSearch.value.toLowerCase();
@@ -109,7 +108,6 @@ var Coding_Items;
         }
     }
     function GetData_ItemsAndStore() {
-        debugger;
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
         InvoiceID = Number(localStorage.getItem("InvoiceID"));
@@ -122,7 +120,6 @@ var Coding_Items;
             ];
         DataResult(Table);
         //**************************************************************************************************************
-        debugger;
         var _G_STORE = GetDataTable('G_STORE');
         var db_Store = document.getElementById("db_Store");
         DocumentActions.FillCombowithdefult(_G_STORE, db_Store, "StoreId", 'DescA', 'Select Store');
@@ -130,7 +127,6 @@ var Coding_Items;
         Display_Items();
     }
     function Display_Items() {
-        debugger;
         _GridItems.DataSource = _InvItems;
         _GridItems.Bind();
         $('#Txt_Total_LineCountCoding').val(_InvItems.length);
@@ -138,9 +134,7 @@ var Coding_Items;
     }
     //**************************************************Valid*******************************************
     function Valid_Item() {
-        debugger;
         for (var i = 0; i < _GridItems.DataSource.length; i++) {
-            debugger;
             if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val().trim() == '') {
                 Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID), 'Please a Enter Item Code 😡');
                 return false;
@@ -181,7 +175,6 @@ var Coding_Items;
         return true;
     }
     function Assign() {
-        debugger;
         _ItemsCodes = new Array();
         for (var i = 0; i < _GridItems.DataSource.length; i++) {
             var _Model = new ItemsCodes;
@@ -206,13 +199,11 @@ var Coding_Items;
                 url: sys.apiUrl("SlsInvoice", "Coding_Item"),
                 data: JSON.stringify(_ItemsCodes),
                 success: function (d) {
-                    debugger;
                     var result = d;
                     if (result.IsSuccess) {
-                        debugger;
                         ShowMessage("Updated 😍");
-                        $("#Display_Back_Page2").click();
                         //$('#Back_Page').click();
+                        $("#Display_Back_Page2").click();
                         Close_Loder();
                     }
                     else {

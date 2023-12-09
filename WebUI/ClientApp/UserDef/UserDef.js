@@ -15,6 +15,8 @@ var UserDef;
     var Submit_Update_Profile;
     var Usr_UserType;
     var img_Profile;
+    var Reg_FrontID_Img;
+    var Reg_BackID_Img;
     function InitalizeComponent() {
         $('#Profile_UserName').html(SysSession.CurrentEnvironment.UserCode);
         $('#Profile_JobTitle').html(SysSession.CurrentEnvironment.JobTitle);
@@ -46,12 +48,55 @@ var UserDef;
         Usr_UserType = document.getElementById("Usr_UserType");
         Usr_Zone = document.getElementById('Usr_Zone');
         FamilyZone = document.getElementById('FamilyZone');
+        Reg_FrontID_Img = document.getElementById("Reg_FrontID_Img");
+        Reg_BackID_Img = document.getElementById("Reg_BackID_Img");
     }
     function InitializeEvents() {
         Submit_Update_Profile.onclick = SubmitUpdate;
         Usr_UserType.onchange = UserType_Change;
         FamilyZone.onchange = FltrZones;
         img_Profile.onclick = img_Profile_onclick;
+        Reg_FrontID_Img.onclick = Reg_FrontID_Img_onclick;
+        Reg_BackID_Img.onclick = Reg_BackID_Img_onclick;
+    }
+    function Reg_FrontID_Img_onclick() {
+        debugger;
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            if (_USER[0].FrontID_Img == null) {
+                Upload_image('Reg_FrontID_Img', 'ID_User', "");
+            }
+            else {
+                if (_USER[0].FrontID_Img.trim() == "") {
+                    Upload_image('Reg_FrontID_Img', 'ID_User', "");
+                }
+                else {
+                    var UrlImg = GetUrlImg('ID_User', setVal(_USER[0].FrontID_Img));
+                    OpenImg(UrlImg);
+                }
+            }
+        }
+        else {
+            Upload_image('Reg_FrontID_Img', 'ID_User', "");
+        }
+    }
+    function Reg_BackID_Img_onclick() {
+        if (localStorage.getItem("TypePage") == "UserControl") {
+            if (_USER[0].BackID_Img == null) {
+                Upload_image('Reg_BackID_Img', 'ID_User', "");
+            }
+            else {
+                if (_USER[0].BackID_Img.trim() == "") {
+                    Upload_image('Reg_BackID_Img', 'ID_User', "");
+                }
+                else {
+                    var UrlImg = GetUrlImg('ID_User', setVal(_USER[0].BackID_Img));
+                    OpenImg(UrlImg);
+                }
+            }
+        }
+        else {
+            Upload_image('Reg_BackID_Img', 'ID_User', "");
+        }
     }
     function img_Profile_onclick() {
         Upload_image('img_Profile', 'Profile_User', "");
@@ -79,8 +124,15 @@ var UserDef;
         }
         $('#Usr_Password').val(_USER[0].USER_PASSWORD);
         UserType_Change();
+        debugger;
         if (setVal(_USER[0].Profile_Img).trim() != "") {
             Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
+        }
+        if (setVal(_USER[0].BackID_Img).trim() != "") {
+            Display_image('Reg_BackID_Img', 'ID_User', _USER[0].BackID_Img.trim());
+        }
+        if (setVal(_USER[0].FrontID_Img).trim() != "") {
+            Display_image('Reg_FrontID_Img', 'ID_User', _USER[0].FrontID_Img.trim());
         }
     }
     function Display_Data() {
@@ -140,6 +192,16 @@ var UserDef;
             Errorinput($('#Usr_Mail'), "Please a Enter Mail 🤨");
             return;
         }
+        if ($('#Usr_UserType').val() == '11') {
+            if ($('#FamilyZone').val().trim() == "null") {
+                Errorinput($('#FamilyZone'), "Please a Select Family Zone 🤨");
+                return;
+            }
+            if ($('#Usr_Zone').val().trim() == "null") {
+                Errorinput($('#Usr_Zone'), "Please a Select  Zone 🤨");
+                return;
+            }
+        }
         if ($('#Usr_UserCode').val().trim() == "") {
             Errorinput($('#Usr_UserCode'), "Please a Enter User Name 🤨");
             return;
@@ -161,6 +223,8 @@ var UserDef;
         var UserType = Number(Usr_UserType.value);
         var SalesManID = Number(_USER[0].SalesManID);
         var Profile_Img = setVal($("#img_Profile").attr("Name_Img"));
+        var BackID_Img = setVal($("#Reg_BackID_Img").attr("Name_Img"));
+        var FrontID_Img = setVal($("#Reg_FrontID_Img").attr("Name_Img"));
         var NameFun;
         debugger;
         if (localStorage.getItem("TypePage") == "UserControl") {
@@ -178,10 +242,13 @@ var UserDef;
             ZoneID = 0;
         }
         debugger;
+        if (FrontID_Img.trim() == "") {
+            alert("Error");
+        }
         Ajax.CallsyncSave({
             type: "Get",
             url: sys.apiUrl("SalesMan", NameFun),
-            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender, Profile_Img: Profile_Img },
+            data: { CompCode: 1, BranchCode: 1, Name: Name, address: address, Mobile: Mobile, IDNO: IDNO, Email: Email, UserName: UserName, Password: Password, SalesManID: SalesManID, ZoneID: ZoneID, UserType: UserType, Gender: Gender, Profile_Img: Profile_Img, FrontID_Img: FrontID_Img, BackID_Img: BackID_Img },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess == true) {
@@ -209,7 +276,15 @@ var UserDef;
         _USERS = _USERS.filter(function (x) { return x.USER_CODE != User_Code; });
         _USERS.push(_USER[0]);
         SetGlopelDataUser(_USERS);
+        Clean();
         ShowMessage("Done 🤞😉");
+    }
+    function Clean() {
+        $('._Clear_Reg').val("");
+        $('#Usr_Gender').val('1');
+        $('#Usr_UserType').val('2');
+        $('#FamilyZone').val('null');
+        $('#Usr_Zone').val('null');
     }
 })(UserDef || (UserDef = {}));
 //# sourceMappingURL=UserDef.js.map

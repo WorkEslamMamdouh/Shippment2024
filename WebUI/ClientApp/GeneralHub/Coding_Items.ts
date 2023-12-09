@@ -107,7 +107,7 @@ namespace Coding_Items {
 
     }
     function _SearchBox_Change() {
-        debugger
+        
         $("#_GridItems").jsGrid("option", "pageIndex", 1);
 
         if (txtSearch.value != "") {
@@ -122,7 +122,7 @@ namespace Coding_Items {
         }
     }
     function GetData_ItemsAndStore() {
-        debugger
+        
         _Invoices = GetGlopelDataInvoice();
         _InvoiceItems = GetGlopelDataInvoiceItems();
         InvoiceID = Number(localStorage.getItem("InvoiceID"))
@@ -139,7 +139,7 @@ namespace Coding_Items {
             ]
         DataResult(Table);
         //**************************************************************************************************************
-        debugger
+        
         let _G_STORE = GetDataTable('G_STORE');
 
         let db_Store = document.getElementById("db_Store") as HTMLSelectElement;
@@ -152,7 +152,7 @@ namespace Coding_Items {
     }
     function Display_Items() {
 
-        debugger
+        
         _GridItems.DataSource = _InvItems;
         _GridItems.Bind();
 
@@ -162,9 +162,9 @@ namespace Coding_Items {
     }
     //**************************************************Valid*******************************************
     function Valid_Item(): boolean {
-        debugger
+        
         for (var i = 0; i < _GridItems.DataSource.length; i++) {
-            debugger
+            
             if ($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID).val().trim() == '') {
                 Errorinput($('#txtItemCode' + _GridItems.DataSource[i].InvoiceItemID), 'Please a Enter Item Code 😡')
                 return false
@@ -219,7 +219,7 @@ namespace Coding_Items {
 
 
     function Assign() {
-        debugger
+        
         _ItemsCodes = new Array<ItemsCodes>();
 
         for (var i = 0; i < _GridItems.DataSource.length; i++) {
@@ -248,14 +248,15 @@ namespace Coding_Items {
                 url: sys.apiUrl("SlsInvoice", "Coding_Item"),
                 data: JSON.stringify(_ItemsCodes),
                 success: (d) => {
-                    debugger
+                    
                     let result = d as BaseResponse;
                     if (result.IsSuccess) {
-                        debugger 
+                         
                         ShowMessage("Updated 😍")
-                        $("#Display_Back_Page2").click();
-
                         //$('#Back_Page').click();
+                         
+                            $("#Display_Back_Page2").click();  
+
                         Close_Loder();
                     } else {
                         Close_Loder();

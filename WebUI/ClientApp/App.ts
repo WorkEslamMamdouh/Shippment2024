@@ -4031,6 +4031,8 @@ function Display_image(IdName_View_Img: string, Name_Folder: string, Name_Img: s
         return 
     } 
 
+    $("#" + IdName_View_Img + "").attr('Name_Img', Name_Img);
+
     let UrlImg = GetUrlImg(Name_Folder, Name_Img)
 
     $("#" + IdName_View_Img + "").attr('src', UrlImg);

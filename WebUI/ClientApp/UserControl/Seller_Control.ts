@@ -59,14 +59,14 @@ namespace Seller_Control {
 	}
 	function Reg_FrontID_Img_onclick() {
 		debugger
-		//Upload_image('Reg_FrontID_Img', 'Profile_Seller', setVal(_USER[0].FrontID_Img));
+		//Upload_image('Reg_FrontID_Img', 'ID_Seller', setVal(_USER[0].FrontID_Img));
 
-		let UrlImg = GetUrlImg('Profile_Seller', setVal(_USER[0].FrontID_Img))
+		let UrlImg = GetUrlImg('ID_Seller', setVal(_USER[0].FrontID_Img))
 		OpenImg(UrlImg);
 	}
 	function Reg_BackID_Img_onclick() {
-		//Upload_image('Reg_BackID_Img', 'Profile_Seller', setVal(_USER[0].BackID_Img));
-		let UrlImg = GetUrlImg('Profile_Seller', setVal(_USER[0].BackID_Img))
+		//Upload_image('Reg_BackID_Img', 'ID_Seller', setVal(_USER[0].BackID_Img));
+		let UrlImg = GetUrlImg('ID_Seller', setVal(_USER[0].BackID_Img))
 		OpenImg(UrlImg);
 
 	}
@@ -98,10 +98,10 @@ namespace Seller_Control {
 			Display_image('img_Profile', 'Profile_User', _USER[0].Profile_Img.trim());
 		}
 		if (setVal(_USER[0].FrontID_Img).trim() != "") {
-			Display_image('Reg_FrontID_Img', 'Profile_Seller', _USER[0].FrontID_Img.trim());
+			Display_image('Reg_FrontID_Img', 'ID_Seller', _USER[0].FrontID_Img.trim());
 		}
 		if (setVal(_USER[0].BackID_Img).trim() != "") {
-			Display_image('Reg_BackID_Img', 'Profile_Seller', _USER[0].BackID_Img.trim());
+			Display_image('Reg_BackID_Img', 'ID_Seller', _USER[0].BackID_Img.trim());
         }
 	} 
 	function SubmitUpdate() {

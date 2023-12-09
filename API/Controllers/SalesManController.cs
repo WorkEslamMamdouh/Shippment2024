@@ -30,7 +30,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult InsertSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender,string Profile_Img)
+        public IHttpActionResult InsertSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender,string Profile_Img,string FrontID_Img, string BackID_Img)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -58,7 +58,7 @@ namespace Inv.API.Controllers
                     {
                         dbTransaction.Commit();
 
-                        db.Database.ExecuteSqlCommand("update [dbo].[G_USERS] set Profile_Img =N'"+ Profile_Img + "' where USER_CODE = N'" + UserName + "'");
+                        db.Database.ExecuteSqlCommand("update [dbo].[G_USERS] set Profile_Img =N'"+ Profile_Img + "' , FrontID_Img =N'" + FrontID_Img + "', BackID_Img =N'" + BackID_Img + "' where USER_CODE = N'" + UserName + "'");
                         //LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "SignUp", true, null, null, null);
                         return Ok(new BaseResponse(true));
                     }
@@ -83,7 +83,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender ,string Profile_Img)
+        public IHttpActionResult UpdateSalesMan(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender ,string Profile_Img, string FrontID_Img, string BackID_Img)
         {
 
             using (var dbTransaction = db.Database.BeginTransaction())
@@ -101,7 +101,7 @@ namespace Inv.API.Controllers
                     if (res.ResponseState == true)
                     {
                         dbTransaction.Commit();
-                        db.Database.ExecuteSqlCommand("update [dbo].[G_USERS] set Profile_Img =N'" + Profile_Img + "' where USER_CODE = N'" + UserName + "'");
+                        db.Database.ExecuteSqlCommand("update [dbo].[G_USERS] set Profile_Img =N'" + Profile_Img + "' , FrontID_Img =N'" + FrontID_Img + "', BackID_Img =N'" + BackID_Img + "' where USER_CODE = N'" + UserName + "'");
                         //LogUser.InsertPrint(db, CompCode.ToString(), BranchCode.ToString(), DateTime.Now.Year.ToString(), "", SalesManID, "", LogUser.UserLog.Insert, "Update", true, null, null, null);
                         return Ok(new BaseResponse(true));
                     }
@@ -215,7 +215,7 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender ,string Profile_Img)
+        public IHttpActionResult InsertUser(int CompCode, int BranchCode, string Name, string address, string Mobile, string IDNO, string Email, string UserName, string Password, int SalesManID, int ZoneID, int UserType, string Gender ,string Profile_Img, string FrontID_Img, string BackID_Img)
         {
             using (var dbTransaction = db.Database.BeginTransaction())
             {
@@ -230,8 +230,8 @@ namespace Inv.API.Controllers
 
                     string Qury = @"INSERT INTO [dbo].[G_USERS]
                     ([CompCode],[USER_NAME],[Fax],[MOBILE],[EMAIL],[USER_ACTIVE],[CreatedAt],[USER_CODE],[USER_PASSWORD]
-                    ,[ADDRESS],CashBoxID,USER_TYPE,REGION_CODE,Profile_Img)VALUES(N'" + CompCode + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + "," + UserType + ",'" + Gender + "',N'" + Profile_Img + "')";
-
+                    ,[ADDRESS],CashBoxID,USER_TYPE,REGION_CODE,Profile_Img,FrontID_Img,BackID_Img)VALUES(N'" + CompCode + "',N'" + Name + "',N'" + IDNO + "',N'" + Mobile + "',N'" + Email + "',1,N'" + DateTime.Now + "',N'" + UserName + "',N'" + Password + "',N'" + address + "'," + ZoneID + "," + UserType + ",'" + Gender + "',N'" + Profile_Img + "',N'" + FrontID_Img + "',N'" + BackID_Img + "')";
+                    
                     db.Database.ExecuteSqlCommand(Qury);
                     var User = "UserAdministrator";
                     if (UserType == 5)
