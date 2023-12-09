@@ -68,6 +68,7 @@ namespace Inv.WebUI.Controllers
          "~/Views/Saller/Seller_Coll_InvIndex.cshtml",
          "~/Views/Saller/Seller_Wait_InvIndex.cshtml",
          "~/Views/Saller/Seller_DeletedIndex.cshtml",
+         "~/Views/UserControl/Valid_CodeIndex.cshtml",
         
                       };
 
